@@ -23,7 +23,6 @@ var settingJs = (function () {
 				product: '/files/product_image/',
 				certificate: '/files/certificate_image/',
 				blog: '/files/blog_image/',
-				banner: '/files/banner_image/',
 				thumb: '/files/thumb_image/',
 				thumb_product: '/files/thumb_image/product_image/',
 				tmp: '/files/tmp/',

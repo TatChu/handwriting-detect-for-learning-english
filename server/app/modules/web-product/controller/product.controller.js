@@ -17,7 +17,6 @@ const productHelper = require('../util/product');
 const Category = mongoose.model('Category');
 const Tag = mongoose.model('Tag');
 const Order = mongoose.model('Order');
-const Banner = mongoose.model('Banner');
 
 // Cate = Category
 module.exports = {
@@ -72,15 +71,6 @@ function category(request, reply) {
         },
         categories: function (cb) {
             getAndCountCategory(parrentCategory).then(function (resp) {
-                cb(null, resp);
-            })
-        },
-        banner_top_item: function (cb) {
-            let promise = Banner.find(productHelper.createOptBanner('category', 'top', 'item', parrentCategory.slug)).sort({
-                order: 1
-            }).limit(1).lean();
-
-            promise.then(function (resp) {
                 cb(null, resp);
             })
         }
@@ -245,21 +235,11 @@ function search(request, reply) {
                 getData().then(function (resp) {
                     cb(null, resp);
                 })
-            },
-            banner_top_item: function (cb) {
-                let promise = Banner.find(productHelper.createOptBanner('category', 'top', 'item')).sort({
-                    order: 1
-                }).limit(1);
-
-                promise.then(function (resp) {
-                    cb(null, resp);
-                })
             }
         }, function (err, result) {
             // return reply({ category: result.data.categories });
 
             return reply.view('web-product/view/client/search-result/view', {
-                banner_top_item: result.banner_top_item,
                 data: result.data,
                 search_txt: search,
                 meta,

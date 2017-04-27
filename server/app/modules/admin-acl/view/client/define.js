@@ -9,7 +9,7 @@
         .constant('listResource', [
             'dashboard', 'blog', 'product', 'user', 'promotion', 'order', 'unit', 'supplier',
             'category', 'shipping', 'tag', 'coupon', 'config', 'certificate', 'import_product',
-            'search', 'banner', 'acl', 'log'
+            'search', 'acl', 'log'
         ])
         .constant('listAction', [
             { name: 'Xem', value: 'view' },

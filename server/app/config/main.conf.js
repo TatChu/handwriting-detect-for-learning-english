@@ -86,12 +86,10 @@ config.web = {
     },
     upload: {
         path: process.cwd() + '/public/files',
-        bannerPath: process.cwd() + '/public/files/banner/',
         postPath: process.cwd() + '/public/files/post/',
         productPath: process.cwd() + '/public/files/product/',
         productContentPath: process.cwd() + '/public/files/product_image_content/',
         productImgPath: '/files/product_image/',
-        bannerImgPath: process.cwd() + '/files/banner_image/',
 
         thumbImgPath: '/public/files/thumb_image/',
         thumbImgContentPath: process.cwd() + '/public/files/thumb_image/',

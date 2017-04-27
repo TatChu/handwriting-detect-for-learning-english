@@ -7,6 +7,6 @@
 			{ name: 'Super Admin', value: 'super-admin' },
 			{ name: 'Admin', value: 'admin' },
 			{ name: 'User', value: 'user' },
-			{ name: 'Customer', value: 'customer' }
+			{ name: 'Học viên', value: 'student' }
 		]);
 })();

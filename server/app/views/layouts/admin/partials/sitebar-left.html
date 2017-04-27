@@ -6,21 +6,21 @@
 
     <div class="sidebar-shortcuts" id="sidebar-shortcuts">
         <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-            <button class="btn btn-success">
-							<i class="ace-icon fa fa-signal"></i>
-						</button>
+            <button ui-sref="dashboard({page:1})" class="btn btn-success">
+                <i class="ace-icon fa fa-signal"></i>
+            </button>
 
-            <button class="btn btn-info">
-							<i class="ace-icon fa fa-pencil"></i>
-						</button>
+            <button ui-sref="units({page:1})" class="btn btn-info">
+                <i class="ace-icon fa fa-pencil"></i>
+            </button>
 
-            <button class="btn btn-warning">
-							<i class="ace-icon fa fa-users"></i>
-						</button>
+            <button ui-sref="users({page:1})" class="btn btn-warning">
+                <i class="ace-icon fa fa-users"></i>
+            </button>
 
-            <button class="btn btn-danger">
-							<i class="ace-icon fa fa-cogs"></i>
-						</button>
+            <button ui-sref="configs({page:1})" class="btn btn-danger">
+                <i class="ace-icon fa fa-cogs"></i>
+            </button>
         </div>
 
         <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
@@ -36,7 +36,7 @@
     <!-- /.sidebar-shortcuts -->
 
     <ul class="nav nav-list">
-        <li ng-if="pageMethods.authSvc.isSuperAdmin()" class="">
+        <li ng-if="pageMethods.authSvc.isSuperAdmin()" ng-class="{'active':pageData.menuType === 'dashboard'}">
             <a ui-sref="dashboard({module: 'dashboard'})">
                 <i class="menu-icon fa fa-tachometer"></i>
                 <span class="menu-text"> Dashboard </span>
@@ -45,7 +45,7 @@
             <b class="arrow"></b>
         </li>
 
-        <li class="">
+        <li ng-class="{'active':pageData.menuType === 'unit'}">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-list"></i>
                 <span class="menu-text"> Bài học </span>
@@ -56,7 +56,7 @@
             <b class="arrow"></b>
 
             <ul class="submenu">
-                <li class="">
+                <li ng-class="{'active':pageData.menuType === 'unit'}">
                     <a ui-sref="units({module: 'unit'})">
                         <i class="menu-icon fa fa-caret-right"></i> Danh sách bài hoc
                     </a>
@@ -64,8 +64,8 @@
                     <b class="arrow"></b>
                 </li>
 
-                <li class="">
-                    <a href="jqgrid.html">
+                <li ng-class="{'active':pageData.menuType === 'add-unit'}">
+                    <a ui-sref="createUnit({module: 'unit'})">
                         <i class="menu-icon fa fa-caret-right"></i> Thêm mới
                     </a>
                     <b class="arrow"></b>
@@ -85,16 +85,16 @@
             <b class="arrow"></b>
 
             <ul class="submenu">
-                <li class="">
-                    <a href="form-elements.html">
-                        <i class="menu-icon fa fa-caret-right"></i> Danh sách
+                <li >
+                    <a ui-sref="users({module: 'user', role: 'student'})">
+                        <i class="menu-icon fa fa-caret-right"></i> Danh sách học viên
                     </a>
 
                     <b class="arrow"></b>
                 </li>
 
                 <li class="">
-                    <a href="dropzone.html">
+                    <a ui-sref="user-edit({module: 'user'})" ng-class="{'active':pageData.menuType === 'add-user'}">
                         <i class="menu-icon fa fa-caret-right"></i> Thêm học viên
                     </a>
 
@@ -104,43 +104,9 @@
         </li>
 
         <li class="">
-            <a href="widgets.html">
-                <i class="menu-icon fa fa-list-alt"></i>
-                <span class="menu-text"> Lớp học </span>
-            </a>
-
-            <b class="arrow"></b>
-        </li>
-
-        <li class="">
-            <a href="calendar.html">
-                <i class="menu-icon fa fa-calendar"></i>
-
-                <span class="menu-text">
-								Calendar
-
-								<span class="badge badge-transparent tooltip-error" title="2 Important Events">
-									<i class="ace-icon fa fa-exclamation-triangle red bigger-130"></i>
-								</span>
-                </span>
-            </a>
-
-            <b class="arrow"></b>
-        </li>
-
-        <li class="">
-            <a href="gallery.html">
-                <i class="menu-icon fa fa-picture-o"></i>
-                <span class="menu-text"> Gallery </span>
-            </a>
-
-            <b class="arrow"></b>
-        </li>
-
-        <li class="">
             <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-tag"></i>
-                <span class="menu-text"> Quản lý hệ thống </span>
+                <i class="menu-icon fa fa-search"></i>
+                <span class="menu-text"> Hệ thống nhận dạng </span>
 
                 <b class="arrow fa fa-angle-down"></b>
             </a>
@@ -149,6 +115,48 @@
 
             <ul class="submenu">
                 <li class="">
+                    <a href="form-elements.html">
+                        <i class="menu-icon fa fa-caret-right"></i> Cập nhật mạng bằng file JSON
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+
+                <li class="">
+                    <a href="dropzone.html">
+                        <i class="menu-icon fa fa-caret-right"></i> Training lại mạng
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+
+                <li class="">
+                    <a href="dropzone.html">
+                        <i class="menu-icon fa fa-caret-right"></i> Dữ liệu nhận dạng
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+
+                <li class="">
+                    <a href="dropzone.html">
+                        <i class="menu-icon fa fa-caret-right"></i> Đánh giá hiệu quả
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+
+
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-cogs"></i>
+                <span class="menu-text"> Quản lý hệ thống </span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+                <li  ng-class="{'active':pageData.menuType === 'user'}">
                     <a ui-sref="users({module: 'user'})">
                         <i class="menu-icon fa fa-caret-right"></i> Danh sách tài khoản
                     </a>
@@ -156,24 +164,24 @@
                     <b class="arrow"></b>
                 </li>
 
-                <li class="">
-                    <a href="inbox.html">
+                <li  ng-class="{'active':pageData.menuType === 'permission'}">
+                    <a ui-sref="permission({module: 'permission'})">
                         <i class="menu-icon fa fa-caret-right"></i> Phân quyền
                     </a>
 
                     <b class="arrow"></b>
                 </li>
 
-                <li class="">
-                    <a href="pricing.html">
+                <li  ng-class="{'active':pageData.menuType === 'config'}">
+                    <a  ui-sref="configs({page:1})">
                         <i class="menu-icon fa fa-caret-right"></i> Cấu hình
                     </a>
 
                     <b class="arrow"></b>
                 </li>
 
-                <li class="">
-                    <a href="invoice.html">
+                <li ng-class="{'active':pageData.menuType === 'log'}">
+                    <a ui-sref="logs()">
                         <i class="menu-icon fa fa-caret-right"></i> Nhật ký
                     </a>
 
@@ -188,7 +196,7 @@
 
                 <span class="menu-text">
 					Khác
-					<span class="badge badge-primary">5</span>
+					<span class="badge badge-primary">3</span>
                 </span>
 
                 <b class="arrow fa fa-angle-down"></b>
@@ -207,7 +215,7 @@
 
                 <li class="">
                     <a href="error-404.html">
-                        <i class="menu-icon fa fa-caret-right"></i> Trang 404
+                        <i class="menu-icon fa fa-caret-right"></i> Phản hồi
                     </a>
 
                     <b class="arrow"></b>
@@ -215,7 +223,7 @@
 
                 <li class="">
                     <a href="error-500.html">
-                        <i class="menu-icon fa fa-caret-right"></i> Hình ảnh
+                        <i class="menu-icon fa fa-caret-right"></i> Sửa lỗi hệ thống
                     </a>
 
                     <b class="arrow"></b>

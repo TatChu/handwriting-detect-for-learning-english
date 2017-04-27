@@ -7,7 +7,7 @@
 			url: '/units/add',
 			data: {
 				title: 'Create new Unit',
-				menuType: 'unit'
+				menuType: 'add-unit'
 			},
 			params: {
 				// page: '1',

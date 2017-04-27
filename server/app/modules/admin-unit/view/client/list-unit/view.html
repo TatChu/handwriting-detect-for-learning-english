@@ -65,19 +65,19 @@
 						<div ng-show="vmUnits.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
 						<table ng-show="!vmUnits.loading" ng-table="vmUnits.table" class="table table-condensed table-bordered table-striped">
 							<tr ng-repeat="item in $data">
-								<td data-title="'STT'">
+								<td class="center" data-title="'STT'">
 									<div class="col col-num" ng-bind="((vmUnits.queryParams.page - 1) * vmUnits.queryParams.limit) + $index + 1"></div>
 								</td>
 								<td data-title="'Tên'">[[item.name]]</td>
 								<td data-title="'Mô tả ngắn'">[[item.short_description]]</td>
-								<td data-title="'Trạng thái'">
+								<td class="center" data-title="'Trạng thái'">
 									<span class="[[item.status === true ? 'label label-success': 'label label-default']]">[[item.status === true ? 'Active': 'Inactive']]</span>
 								</td>
 								<!--<td data-title="'Ngày tạo'">
 									<span ng-bind="item.created | bzFormatDate:'h:m:s DD/MM/YYYY'"></span>
 								</td>-->
 								</td>
-								<td data-title="'Action'">
+								<td data-title="'Action'" class="center">
 									&nbsp
 
 									<button ui-sref="editUnit({module: 'unit', id:item._id})" ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('unit', ['edit']))"

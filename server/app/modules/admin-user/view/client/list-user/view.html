@@ -69,7 +69,7 @@
 						<div ng-show="vmUsers.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
 						<table ng-show="!vmUsers.loading" ng-table="vmUsers.table" class="table table-condensed table-bordered table-striped">
 							<tr ng-repeat="item in $data">
-								<td data-title="'STT'">
+								<td data-title="'STT'" class="center">
 									<div class="col col-num" ng-bind="((vmUsers.queryParams.page - 1) * vmUsers.queryParams.limit) + $index + 1"></div>
 								</td>
 								<td data-title="'Tài khoản'">[[item.name]] <br><span ng-if="item.dob" ng-bind="' Ngày sinh: ' +( item.dob | bzFormatDate:'DD/MM/YYYY' )"></span>
@@ -77,32 +77,31 @@
 								<td data-title="'Thông tin liên hệ'">[[item.phone]]
 									<br> [[item.email]]
 								</td>
-								<td data-title="'Vai Trò'">
+								<td data-title="'Thành viên'">
 									<span ng-repeat="(key, value) in item.roles">
 								[[$last ? value : value+', ']] 
 								</span>
 								</td>
-								<td data-title="'Ngày đăng ký'">
+								<td class="center" data-title="'Ngày đăng ký'">
 									<span ng-bind="item.createdAt | bzFormatDate:'DD/MM/YYYY'"></span>
 								</td>
 								<td data-title="'Trạng thái'">
 									<span class="[[item.status === true ? 'label label-success': 'label label-default']]">[[item.status === true ? 'Active': 'Inactive']]</span>
 								</td>
-								<td data-title="'Action'">
-									&nbsp
-									<a class="btn btn-default btn-flat btn-edit"  ui-sref="user-edit({module: 'user', id:item._id})">
-										Sửa
-									</a>
-									&nbsp
-									<a class="btn btn-default btn-flat btn-delete" ng-click="vmUsers.remove(item._id)">
-										Xoá
-									</a>
-									<br>
-									<a  class="btn btn-default btn-flat"  ui-sref="user-shipping({module: 'user', id:item._id})">
-										<span>Địa chỉ giao hàng</span>
-									</a>
-									<br>
-									<a class="btn btn-default btn-flat"  ui-sref="order-list({user:1, user_id: item._id})">Lịch sử đặt hàng</a>
+								<td data-title="'Action'" class="center">
+									<div class="hidden-sm hidden-xs btn-group">
+										<button ui-sref="user-edit({module: 'user', id:item._id})" class="btn btn-xs btn-info">
+											<i class="ace-icon fa fa-pencil bigger-120"></i>
+										</button>
+
+										<button ng-click="vmUsers.remove(item._id)" class="btn btn-xs btn-danger">
+											<i class="ace-icon fa fa-trash-o bigger-120"></i>
+										</button>
+
+										<button class="btn btn-xs btn-warning">
+											<i class="ace-icon fa fa-eye-slash bigger-120"></i>
+										</button>
+									</div>
 								</td>
 							</tr>
 						</table>

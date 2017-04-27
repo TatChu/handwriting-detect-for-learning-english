@@ -1,10 +1,6 @@
 node_modules
-
 public/lib
 public/files
-app/config/development.conf.js
-app/config/staging.conf.js
-app/config/production.conf.js
 var/*.log
 *.log
 .vscode

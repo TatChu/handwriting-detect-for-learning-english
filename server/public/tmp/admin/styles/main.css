@@ -432,26 +432,6 @@ Modules Load Auto
   margin-right: 10px;
 }
 
-#mod-report-a-day td {
-  vertical-align: middle;
-}
-
-#mod-report-a-day .img-product {
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
-}
-
-#mod-report-product-list td {
-  vertical-align: middle;
-}
-
-#mod-report-product-list .img-product {
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
-}
-
 #mod-supplier-add .input-w-icon {
   display: table;
 }

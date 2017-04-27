@@ -6,7 +6,7 @@ var unitsCtrl = (function () {
         .controller('unitEditCtrl', unitAddCtrl);
 
     function unitAddCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-        userRoles, authSvc, NgTableParams, ngTableEventsChannel, bzResourceSvc, unitSvc) {
+        userRoles, authSvc, NgTableParams, ngTableEventsChannel, bzResourceSvc, unitSvc, listClasses) {
         var vmEditUnits = this;
 
         /*XÉT QUYỀN TRUY CẬP ROUTER*/
@@ -20,6 +20,7 @@ var unitsCtrl = (function () {
         vmEditUnits.save = update;
         vmEditUnits.vmEditUnits = getUnit;
         vmEditUnits.submitted = false;
+        vmEditUnits.listClasses = listClasses;
 
         //Init
         getUnit();
@@ -47,7 +48,7 @@ var unitsCtrl = (function () {
                     $bzPopup.toastr({
                         type: 'success',
                         data: {
-                            title: 'Đơn vị',
+                            title: 'Bài học',
                             message: resp.message
                         }
                     });
@@ -57,7 +58,7 @@ var unitsCtrl = (function () {
                     $bzPopup.toastr({
                         type: 'error',
                         data: {
-                            title: 'Cập nhật đơn vị',
+                            title: 'Cập nhật bài học',
                             message: error.data.message
                         }
                     });

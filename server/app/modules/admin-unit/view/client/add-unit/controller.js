@@ -6,7 +6,7 @@ var unitsCtrl = (function () {
         .controller('unitAddCtrl', unitAddCtrl);
 
     function unitAddCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-        userRoles, authSvc, NgTableParams, ngTableEventsChannel, bzResourceSvc, unitSvc) {
+        userRoles, authSvc, NgTableParams, ngTableEventsChannel, bzResourceSvc, unitSvc, listClasses) {
         /* jshint validthis: true */
         var vmAddUnits = this;
 
@@ -17,11 +17,15 @@ var unitsCtrl = (function () {
         /*END XÉT QUYỀN TRUY CẬP ROUTER*/
 
         // Vars
-        vmAddUnits.formData = {};
+        vmAddUnits.formData = {
+            index_unit: 1,
+            classes: '4',
+            status: true
+        };
         vmAddUnits.lockFOrm = false;
         vmAddUnits.save = create;
         vmAddUnits.submitted = false;
-
+        vmAddUnits.listClasses = listClasses;
         //Init
       
         function create(isValid) {
@@ -32,7 +36,7 @@ var unitsCtrl = (function () {
                     $bzPopup.toastr({
                         type: 'success',
                         data: {
-                            title: 'Đơn vị',
+                            title: 'Bài học',
                             message: 'Thêm thành công'
                         }
                     });
@@ -41,7 +45,7 @@ var unitsCtrl = (function () {
                     $bzPopup.toastr({
                         type: 'error',
                         data: {
-                            title: 'Thêm đơn vị',
+                            title: 'Thêm bài học',
                             message: error.data
                         }
                     });

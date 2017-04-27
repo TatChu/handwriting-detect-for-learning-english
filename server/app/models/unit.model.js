@@ -5,13 +5,21 @@ const Schema = mongoose.Schema;
 
 
 var UnitSchema = new Schema({
+    index_unit: {
+        type: Number,
+        require: true
+    },
     name: {
         type: String,
         trim: true,
         unique: 'Unit already exists',
         require: true
     },
-    description: {
+    short_description: {
+        type: String,
+        trim: true,
+    },
+    long_description: {
         type: String,
         trim: true,
     },
@@ -19,32 +27,15 @@ var UnitSchema = new Schema({
         type: Boolean,
         default: true
     },
-    modified: {
-        type: Date
-    },
-    created: {
-        type: Date
+    classes: {
+        type: String,
+        trim: true,
+        require: true,
+        default: '4'
     }
 }, {
-    collection: prefixCollection + 'unit',
-    timestamps: true
-});
-
-/******************************************************************
-Pre Action
-*******************************************************************/
-// UnitSchema.pre('update', function(next) {
-    
-//     this.modified = Date.now();
-//     next();
-// });
-// UnitSchema.pre('save', function(next) {
-    
-//     if(this.isNew){ 
-//         this.created = Date.now();
-//     }
-//     this.modified = Date.now();
-//     next();
-// });
+        collection: prefixCollection + 'unit',
+        timestamps: true
+    });
 
 module.exports = mongoose.model('Unit', UnitSchema);

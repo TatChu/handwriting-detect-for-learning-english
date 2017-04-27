@@ -23,11 +23,14 @@ function getAll(request, reply) {
     let options = {};
     if (request.query.keyword && request.query.keyword.length > 0) {
         let message = new RegExp(request.query.keyword, 'i');
-        options.message = message;
+        options.name = message;
     }
     if (typeof request.query.id !== "undefined")
         options.id = request.query.id;
-    Unit.find(options).sort('id').paginate(page, itemsPerPage, function (err, items, total) {
+    if (typeof request.query.class !== "undefined")
+        options.classes = request.query.class;
+
+    Unit.find(options).sort('index_unit').paginate(page, itemsPerPage, function (err, items, total) {
         if (err) {
             request.log(['error', 'list', 'page'], err);
             reply(Boom.badRequest(ErrorHandler.getErrorMessage(err)));

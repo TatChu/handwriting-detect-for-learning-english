@@ -464,6 +464,11 @@ Modules Load Auto
   text-align: center;
 }
 
+#mod-user-edit-profile .for-saleman label[role='switcher'] {
+  vertical-align: middle;
+  margin: 0 0 10px;
+}
+
 #mod-user-edit .for-saleman label[role='switcher'] {
   vertical-align: middle;
   margin: 0 0 10px;
@@ -471,11 +476,6 @@ Modules Load Auto
 
 #mod-user-edit .select2-container {
   display: block;
-}
-
-#mod-user-edit-profile .for-saleman label[role='switcher'] {
-  vertical-align: middle;
-  margin: 0 0 10px;
 }
 
 #mod-user-shipping .address {

@@ -3,12 +3,12 @@
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>
-			Đơn vị
-			<small>Danh sách đơn vị</small>
+			Bài học
+			<small>Danh sách bài học</small>
 		</h1>
 		<ol class="breadcrumb">
 			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li><a class="active">Đơn vị</a></li>
+			<li><a class="active">Bài học</a></li>
 		</ol>
 	</section>
 	<!-- Main content -->
@@ -17,11 +17,12 @@
 			<div class="col-xs-12">
 				<div class="box">
 					<div class="box-header">
-						<h3 class="box-title">Danh sách đơn vị</h3>
+						<h3 class="box-title">Danh sách bài học</h3>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
-						<div  ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('unit', ['add']))" class="form-inline pull-right">
+						<div ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('unit', ['add']))"
+						 class="form-inline pull-right">
 							<div class="form-group form-group-item">
 								<a class="btn btn-primary btn-sm btn-flat" ui-sref="createUnit({module: 'unit'})">
 									<i class="glyphicon glyphicon-plus"></i>
@@ -29,6 +30,37 @@
 								</a>
 							</div>
 						</div>
+
+						<div class="row">
+							<form ng-submit="vmUnits.filter(vmUnits.queryParams.keyword)">
+								<div class="col-xs-3">
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Tên bài học" ng-model="vmUnits.queryParams.keyword">
+									</div>
+								</div>
+						
+								<div class="col-xs-3">
+									<div class="form-group">
+										<select name="ddClass" id="ddClass" class="form-control" ng-model="vmUnits.queryParams.class">
+										<option value="">Lớp</option>
+										<option ng-repeat="item in vmUnits.listClasses" value="[[item.value]]">[[item.name]]</option>
+                                    </select>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<a type="button" name="search" class="btn btn-success btn-flat" ng-click="vmUnits.filter(vmUnits.keyword)">
+										<i class="fa fa-search"></i>
+										<span>Tìm</span>
+									</a>
+									<a type="button" name="reset" class="btn btn-default btn-flat" ng-click="vmUnits.filterReset()">
+										<i class="fa fa-undo"></i>
+										<span>Reset</span>
+									</a>
+								</div>
+							</form>
+						</div>
+
+
 						<div class="clearfix"></div>
 						<div ng-show="vmUnits.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
 						<table ng-show="!vmUnits.loading" ng-table="vmUnits.table" class="table table-condensed table-bordered table-striped">
@@ -37,7 +69,7 @@
 									<div class="col col-num" ng-bind="((vmUnits.queryParams.page - 1) * vmUnits.queryParams.limit) + $index + 1"></div>
 								</td>
 								<td data-title="'Tên'">[[item.name]]</td>
-								<td data-title="'Mô tả'">[[item.description]]</td>
+								<td data-title="'Mô tả ngắn'">[[item.short_description]]</td>
 								<td data-title="'Trạng thái'">
 									<span class="[[item.status === true ? 'label label-success': 'label label-default']]">[[item.status === true ? 'Active': 'Inactive']]</span>
 								</td>
@@ -47,17 +79,20 @@
 								</td>
 								<td data-title="'Action'">
 									&nbsp
-									<a ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('unit', ['edit']))"  class="btn btn-default btn-flat btn-edit" ui-sref="editUnit({module: 'unit', id:item._id})">
-										Sửa
-									</a>
-									&nbsp
-									<a ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('unit', ['delete']))" class="btn btn-default btn-flat btn-delete"  ng-click="vmUnits.remove(item._id)">
-										Xoá
-									</a>
+
+									<button ui-sref="editUnit({module: 'unit', id:item._id})" ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('unit', ['edit']))"
+									 class="btn btn-xs btn-info">
+										<i class="ace-icon fa fa-pencil bigger-120"></i>
+									</button>
+
+									<button class="btn btn-xs btn-danger" ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('unit', ['delete']))"
+									 ng-click="vmUnits.remove(item._id)">
+										<i class="ace-icon fa fa-trash-o bigger-120"></i>
+									</button>
 								</td>
 							</tr>
 						</table>
-						<div  ng-show="vmUnits.listUnit.length == 0" class="no-data">
+						<div ng-show="vmUnits.listUnit.length == 0" class="no-data">
 							Chưa có dữ liệu
 						</div>
 					</div>

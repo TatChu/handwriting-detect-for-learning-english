@@ -13,9 +13,11 @@ UnitValidate.prototype = (function () {
         },
         save: {
             payload: {
-                id: Joi.string().description('Id'),
+                index_unit: Joi.number().required().description('Name'),
                 name: Joi.string().required().description('Name'),
-                description: Joi.string().allow('').description('Description'),
+                short_description: Joi.string().allow('').description('Short Description'),
+                classes: Joi.string().allow('').description('Class'),
+                long_description: Joi.string().allow('').description('Long Description'),
                 status: Joi.boolean().description('Status'),
                 updatedAt: Joi.date().allow('').description('Updated'),
                 createdAt: Joi.date().allow('').description('Created'),
@@ -23,13 +25,14 @@ UnitValidate.prototype = (function () {
         },
         update: {
             payload: {
+                index_unit: Joi.number().required().description('Name'),
                 name: Joi.string().required().description('Name'),
-                description: Joi.string().allow('').description('Description'),
+                short_description: Joi.string().allow('').description('Short Description'),
+                classes: Joi.string().allow('').description('Class'),
+                long_description: Joi.string().allow('').description('Long Description'),
                 status: Joi.boolean().description('Status'),
                 updatedAt: Joi.date().allow('').description('Updated'),
                 createdAt: Joi.date().allow('').description('Created'),
-                modified: Joi.date().allow('').description('Modified'),
-
                 __v: Joi.any().optional().description('Version Key'),
                 _id: Joi.string().description('MongoID')
             }

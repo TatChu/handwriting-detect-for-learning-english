@@ -2,76 +2,71 @@
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>
-			Thêm đơn vị tính
+			Chỉnh sửa bài học
 		</h1>
 
 		<ol class="breadcrumb">
 			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li><a href="#">Đơn vị tính</a></li>
-            <li class="active">Thêm mới</li>
+			<li><a href="#">Bài học</a></li>
+			<li class="active">Cập nhật thông tin</li>
 		</ol>
 	</section>
 
 	<!-- Main content -->
 	<section class="content">
-
 		<!-- SELECT2 EXAMPLE -->
 		<div class="box box-default">
-			<div class="box-header with-border">
-				<h3 class="box-title">Thêm mới</h3>
-
-				<div class="box-tools pull-right">
-					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-					<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-				</div>
-			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
-				<form  id="frmUnit" name="frmUnit" ng-submit="vmEditUnits.save(frmUnit.$valid)">
+				<form id="frmUnit" name="frmUnit" ng-submit="vmEditUnits.save(frmUnit.$valid)">
 					<div class="box-body">
-						<!-- Toolbar -->
-						<div class="toolbar">
-							<div class="form-inline pull-right">
-								<div class="form-group form-action">
-									
-									<a ui-sref="users" class="btn btn-primary btn-flat">
-										<i class="glyphicon glyphicon-remove"></i>
-										<span>Hủy bỏ</span>
-									</a>
-									<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': userEdit.lockForm}"
-										ng-disabled="lockForm">
-										<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmEditUnits.lockForm"></i>
-										<span>Lưu</span>
-									</button>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						</div>
 						<!-- End: Toolbar -->
 						<div class="row">
-							<div class="col-sm-6">
-								<!-- Tên đơn vị -->
+							<div class="col-sm-12">
 								<div class="form-group">
-									<label for="txtName">Tên đơn vị<span class="required">*</span></label>
-									<input id="txtName" name="txtName" class="form-control" type="text" ng-model="vmEditUnits.formData.name" ng-pattern="/[a-zA-Z0-9]/"
-										required />
-									<div class="messages-error" ng-messages="frmUnit.txtName.$error" ng-if="vmEditUnits.submitted">
-										<div ng-message="required">Bạn chưa nhập tên</div>
+									<label for="txtName">Số thứ tự bài học:<span class="required">*</span></label>
+									<input id="txtName" name="index_unit" class="form-control" type="number" min="1" max="100" ng-model="vmEditUnits.formData.index_unit"
+									 ng-pattern="/[0-9]/" required />
+									<div class="messages-error" ng-messages="frmUnit.index_unit.$error" ng-if="vmEditUnits.submitted">
+										<div ng-message="required">Bạn chưa số</div>
+										<div ng-message="min">Nhỏ nhất là 1</div>
+										<div ng-message="max">Lớn nhất là 100</div>
+										<div ng-message="pattern">Bạn phải nhập số</div>
 									</div>
 								</div>
-                                <!-- Mô tả đơn vị -->
-                                <div class="form-group">
-									<label for="txtDes">Mô tả</label>
-									<input id="txtDes" name="txtDes" class="form-control" type="text" ng-model="vmEditUnits.formData.description"  />
+
+
+								<div class="form-group">
+									<label for="txtName">Tên bài học:<span class="required">*</span></label>
+									<input id="txtName" name="txtName" class="form-control" type="text" ng-model="vmEditUnits.formData.name" ng-pattern="/[a-zA-Z0-9]/"
+									 required />
+									<div class="messages-error" ng-messages="frmUnit.txtName.$error" ng-if="vmEditUnits.submitted">
+										<div ng-message="required">Bạn chưa nhập tên</div>
+										<div ng-message="pattern">Tên không hợp lệ</div>
+									</div>
+								</div>
+								<!-- Mô tả bài học -->
+								<div class="form-group">
+									<label for="txtDes">Mô tả ngắn</label>
+									<input id="txtDes" name="txtDes" class="form-control" type="text" ng-model="vmEditUnits.formData.short_description" />
+								</div>
+
+								<div class="form-group">
+									<label for="slClass">Lớp: </label>
+									<select name="classes" id="classes" ng-model="vmEditUnits.formData.classes" class="form-control" ui-select2 ng-options="class.value as class.name for class in vmEditUnits.listClasses " required>
+                                    </select>
+									<div class="messages-error" ng-messages="frmUnit.classes.$error" ng-if="vmEditUnits.submitted">
+										<div ng-message="required">Bạn chưa chọn lớp</div>
+									</div>
 								</div>
 
 								<!-- Active -->
-								<div class="form-group" >
+								<div class="form-group">
 									<label>Active</label>
 									<br/>
-									<input i-check id="chkPublish" type="checkbox" ng-model="vmEditUnits.formData.status" ng-true-value="true" ng-false-value="false">
-                                    Kích hoạt
+									<input i-check id="chkPublish" type="checkbox" ng-model="vmEditUnits.formData.status" ng-true-value="true" ng-false-value="false">									Kích hoạt
 								</div>
+
 							</div>
 						</div>
 					</div>
@@ -80,8 +75,7 @@
 							<i class="glyphicon glyphicon-remove"></i>
 							<span>Hủy bỏ</span>
 						</a>
-						<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': lockForm}"
-							ng-disabled="lockForm">
+						<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': lockForm}" ng-disabled="lockForm">
 							<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmEditUnits.lockForm"></i>
 							<span>Lưu</span>
 						</button>

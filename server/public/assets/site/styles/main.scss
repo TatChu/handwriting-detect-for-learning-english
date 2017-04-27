@@ -1,0 +1,12 @@
+/******************************************************************
+Component
+*******************************************************************/
+@import "../styles/tools/settings";
+@import "../styles/component/message";
+@import "../../global/cropper/_style_site.scss";
+/******************************************************************
+Modules Load Auto
+*******************************************************************/
+/*inject-module:scss*/
+@import "../../../../app/modules/web-auth/view/client/login/_style.scss";
+/*endinject*/

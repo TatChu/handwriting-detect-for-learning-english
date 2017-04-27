@@ -1,0 +1,7 @@
+<!-- =========================Users========================= -->
+<li ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('supplier', ['view']))" ng-class="{'active':pageData.menuType === 'supplier'}" class="treeview">
+    <a ui-sref="suppliers({page:1})">
+        <i class="fa fa-users text-aqua"></i> <span> Nhà cung cấp</span>
+    </a>
+</li>
+<!-- =========================END Users========================= -->

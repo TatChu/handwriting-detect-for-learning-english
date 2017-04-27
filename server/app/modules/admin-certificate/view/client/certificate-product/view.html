@@ -1,0 +1,88 @@
+<!--Content Wrapper. Contains page content -->
+<div id="mod-certificate-product" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Chứng chỉ
+			<small>Danh sách</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a ui-sref="certificate-list()">Chứng chỉ</a></li>
+			<li><a class="active">Sản phẩm</a></li>
+		</ol>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Danh sách sản phẩm có chứng chỉ <strong>[[vmCertificateProduct.certificate.name]]</strong></h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="form-inline pull-right">
+							<div class="form-group form-group-item">
+								<a class="btn btn-primary btn-sm btn-flat" ui-sref="certificate-list()">
+									<span>Quay lại</span>
+								</a>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<br>
+
+						<div class="row" >
+							<div class="col-xs-1"></div>
+							<form novalidate class="frmCertificate" name="frmCertificate" ng-submit="vmCertificateProduct.addCertificateProduct(frmCertificate.$valid)">
+								<div class="col-xs-8">
+										<div class="form-group">
+											<select name="product" class="form-control" ui-select2 multiple ng-model="vmCertificateProduct.productID" placeholder="Chọn sản phẩm" required >
+												<option ng-repeat="product in vmCertificateProduct.listProduct" value="[[product._id]]">[[product.name]]</option>
+											</select>
+											<div class="messages-error" ng-messages="frmCertificate.product.$error" ng-if="vmCertificateProduct.submitted" >
+												<div ng-message="required">Bạn chưa chọn sản phẩm</div>
+											</div>
+										</div>
+								</div>
+								<div class="col-xs-2">
+									<button type="submit" class="btn btn-success btn-flat btn-submit" bz-submit >
+										<i ng-if="!vmCertificateProduct.lockForm"></i>
+										<span>Thêm</span>
+									</button>
+								</div>
+							</form>	
+							
+						</div>
+
+						<div ng-show="vmCertificateProduct.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
+						<table ng-show="!vmCertificateProduct.loading" ng-table="vmCertificateProduct.table" class="table table-condensed table-bordered table-striped text-center">
+							<tr ng-repeat="item in $data">
+								<td data-title="'STT'">
+									<div class="col col-num" ng-bind=" ((vmCertificateProduct.queryParams.page - 1) * vmCertificateProduct.queryParams.limit) + $index + 1"></div>
+								</td>
+								<td data-title="'Tên'">[[item.name]]</td>
+								<td data-title="'Hình ảnh'">
+									<img class="img-product" ng-show="item.images[0]" ng-src="[[vmCertificateProduct.imagesDerectory + item.images[0].url]]" >
+									<span class="text-center" ng-if="!item.images[0]">Sản phẩm chưa có ảnh</span>
+								</td>
+								<td  data-title="'Hành động'">
+									<a class="btn btn-default" ng-click="vmCertificateProduct.delCertificateProduct(item._id)">
+										<span>Xóa</span>
+									</a>
+								</td>
+							</tr>
+						</table>
+
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper-->

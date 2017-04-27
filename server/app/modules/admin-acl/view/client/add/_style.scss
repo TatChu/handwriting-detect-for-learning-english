@@ -1,0 +1,17 @@
+#mod-permission-add{
+    .space{
+        display: inherit;
+        margin: 5px 0 5px 5px;
+    }
+    .role-name{
+        color: red;
+        text-transform: uppercase;
+    }
+    .select2-container{
+        height: initial;
+    }
+    .resource{
+        color: blue;
+        text-transform: uppercase;
+    }
+}

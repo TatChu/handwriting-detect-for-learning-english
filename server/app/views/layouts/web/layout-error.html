@@ -1,0 +1,17 @@
+<head>
+	<title>{{meta.title}}</title>
+	{{> web/partials/header}}
+</head>
+
+<body class="{{class.body_class}}">
+	<div id="fb-root"></div>
+	<div class="view-container">
+		{{> web/partials/header_navbar}} 
+		{{{ content }}} 
+		{{> web/partials/footer_sidebar}}
+	</div>
+	<!-- /container -->
+	{{> web/partials/footer}}
+</body>
+
+</html>

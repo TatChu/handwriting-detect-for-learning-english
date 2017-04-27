@@ -1,0 +1,29 @@
+.select2-container.form-control{
+    padding: 0;
+    height: auto;
+    .select2-choices,.select2-choice{
+        border: none;
+    }
+    // Select2 not multiple
+    .select2-choice{
+        background-image: none;
+        height: 32px;
+        padding-top: 2px;
+        .select2-arrow{
+            border: none;
+            background: none;
+            background-image: none;
+            b{
+                background-position-y: 3px;
+            }
+        }
+    }
+    // Select2 multiple
+    .select2-choices{
+        .select2-search-choice{
+            margin: 5px 0 5px 5px;
+            line-height: 14px;
+            background-image: none;
+        }
+    }
+}

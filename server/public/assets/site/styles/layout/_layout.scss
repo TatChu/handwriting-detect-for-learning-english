@@ -1,0 +1,171 @@
+#lay-wrapper{
+	min-height:100%;
+	position: relative;
+}
+#lay-sidebar{
+	left: 0;
+	min-height: 100vh;
+	height:100%;
+	position: absolute;
+	width: 200px;
+	background-color: darken($brand-primary,14%);
+	#mod-sidebar{
+		height:100%;
+		#logo{
+			@include font(null,2rem,#fff,bold);
+			text-align: center;
+			background-color: darken($brand-primary, 8%);
+			padding:9px 10px 10px;
+			.name1{
+				color: darken($brand-primary,27%);
+			}
+			.name2{
+				color:#fff;
+			}
+		}
+		#user-info{
+			padding:20px 10px;
+			display: table;
+			width:100%;
+			.pic{
+				width:50px;
+				border-radius:50%;
+				padding:1px;
+				background: #fff;
+				margin-right:5px;
+				img{
+					border-radius:50%;
+				}
+			}
+			.info{
+				@include font(null,1.5rem,#fff,null);
+				display: table-cell;
+				vertical-align: middle;
+				width:140px;
+				ul{
+					margin:0;
+				}
+				li{
+					a{
+						@include font(null,1.8rem,#fff,null);
+						cursor: pointer;
+					}
+				}
+			}
+		}
+		#menu{
+			.header{
+				@include font(null,1.1rem,#f4f4f4,null);
+				padding: 10px 15px;
+				text-transform: uppercase;
+				background-color: darken($brand-primary, 21%);
+			}
+			li{
+				>ul{
+					// display: none;
+					margin:0;
+					padding:0;
+					background-color: darken($brand-primary, 25%);
+				}
+			}
+			li.active,li:hover{
+				> a{
+					background-color: darken($brand-primary, 19%);
+				}
+			}
+			a{
+				@include font(null,1.3rem,lighten($text-color,35%),300);
+				display: block;
+				padding:10px;
+				text-decoration: none;
+				i{
+					display: inline-block;
+					min-width:22px;
+					font-size:1.6rem;
+				}
+			}
+		}
+	}
+}
+#lay-header{
+	background-color: $brand-primary;
+	font-weight: 600;
+	.pull-icon{
+		padding:16px;
+		width:52px;
+		cursor: pointer;
+		float:left;
+		&:after{
+			display: block;
+			font-size: 0;
+			content: "";
+			clear: both;
+			height: 0;
+		}
+		span{
+			float:left;
+			display: block;
+			height:3px;
+			width:100%;
+			background: #fff;
+			margin:1px 0;
+		}
+	}
+	.userinfo{
+		float:right;
+		padding-right:15px;
+		.dropdown{
+			float:left;
+			>a{
+				@include font(null,null,#fff,null);
+				padding:14px 17px;
+				position: relative;
+				display: inline-block;
+				cursor: pointer;
+				&:hover{
+					background-color: darken($brand-primary,6%);
+				}
+			}
+			.num{
+				@include position(absolute,6px,3px,null,null);
+				@include font(null,0.8rem,null,null);
+				background: maroon;
+				padding:1px 3px;
+				border-radius:2px;
+			}
+		}
+		.dropdown-menu{
+			margin:0;
+			padding:0;
+			border-radius: 0;
+		}
+	}
+}
+#lay-content{
+	margin-left:200px;
+	background: #f7f7f7;
+	min-height: 100%;
+	.content{
+		margin-left: auto;
+		margin-right: auto;
+		min-height: 250px;
+		padding: 15px;
+	}
+	.content-header {
+		padding: 15px 15px 0;
+		position: relative;
+		> h1 {
+			font-size: 2.4rem;
+			margin: 0;
+		}
+		small {
+			display: inline-block;
+			font-size: 1.5rem;
+			font-weight: 300;
+			padding-left: 4px;
+		}
+	}
+	.content-footer{
+
+	}
+}

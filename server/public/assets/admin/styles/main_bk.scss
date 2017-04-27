@@ -1,0 +1,96 @@
+/****************************************************************************************
+Description: Combine multiple CSS into one
+*****************************************************************************************/
+@import "tools/settings";
+@import "tools/mixins";
+// bower:scss
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_mixins.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_normalize.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_print.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_glyphicons.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_scaffolding.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_type.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_code.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_grid.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_tables.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_forms.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_buttons.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_component-animations.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_dropdowns.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_button-groups.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_input-groups.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_navs.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_navbar.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_labels.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_badges.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_alerts.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_progress-bars.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_media.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_list-group.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_panels.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_responsive-embed.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_utilities.scss";
+@import "public/bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_responsive-utilities.scss";
+@import "public/bower_components/bz-popup/styles/style.scss";
+@import "public/bower_components/font-awesome/scss/font-awesome.scss";
+// endbower
+/******************************************************************
+Base
+*******************************************************************/
+@import "tools/font";
+@import "base/base";
+@import "base/form";
+@import "tools/helpers";
+@import "tools/responsive";
+/******************************************************************
+Component
+*******************************************************************/
+@import "component/accordion";
+@import "component/box";
+@import "component/breadcrumb";
+@import "component/editor";
+@import "component/grid";
+@import "component/loader";
+@import "component/message";
+@import "component/pagination";
+@import "component/tag";
+@import "component/toolbar";
+@import "component/reskin";
+/******************************************************************
+Modules
+*******************************************************************/
+// Common
+@import "../modules/global-popup/message/style";
+@import "../modules/global-popup/cropper/style";
+// Dashboard
+@import "../modules/admin-dashboard/view/client/style";
+// User
+@import "../modules/admin-user/view/client/login/style";
+@import "../modules/admin-user/view/client/list/style";
+@import "../modules/admin-user/view/client/edit/style";
+@import "../modules/admin-user/view/client/style";
+// Statistic
+@import "../modules/admin-statistic/view/client/style";
+@import "../modules/admin-statistic/view/client/list/style";
+// Post
+@import "../modules/admin-post/view/client/style";
+@import "../modules/admin-post/view/client/list/style";
+@import "../modules/admin-post/view/client/edit/style";
+// Sale Contact
+@import "../modules/admin-salecontact/view/client/popup/assign-contact/style";
+@import "../modules/admin-salecontact/view/client/popup/assign-cc/style";
+@import "../modules/admin-salecontact/view/client/popup/assign-saleman/style";
+@import "../modules/admin-salecontact/view/client/popup/registration-history/style";
+@import "../modules/admin-salecontact/view/client/style";
+@import "../modules/admin-salecontact/view/client/list/style";
+@import "../modules/admin-salecontact/view/client/edit/style";
+@import "../modules/admin-salecontact/view/client/process/style";
+/******************************************************************
+Layout
+*******************************************************************/
+@import "layout/layout";
+/******************************************************************
+Print
+*******************************************************************/
+@import "print/all";

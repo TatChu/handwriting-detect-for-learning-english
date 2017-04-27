@@ -1,0 +1,327 @@
+<div id="mod-product-edit" class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Sửa sản phẩm
+            <small>Sửa sản phẩm</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>Trang chủ</a></li>
+            <li><a class="active" ui-sref="product()">Sản phẩm</a></li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Sửa sản phẩm</h3>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <form novalidate name="editForm" id="editForm" ng-submit="vmPrE.submitForm(editForm)" ng-if="!vmPrE.loading">
+                            <!-- Toolbar -->
+                            <div class="form-group text-right">
+                                <a class="btn btn-primary btn-flat" ui-sref="product()">
+                                    <i class="glyphicon glyphicon-remove"></i> Hủy
+                                </a>
+                                <button type="submit" ng-disabled="editForm.$submitted" class="btn btn-success btn-flat">
+                                    <i class="glyphicon glyphicon-floppy-disk"></i>
+                                    Sửa
+                                </button>
+                                <div class="clearfix"></div>
+                            </div>
+                            <!-- End: Toolbar -->
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!--Start: Name product-->
+                                    <div class="form-group">
+                                        <label>Tên sản phẩm: <span class="text-red">(*)</span></label>
+                                        <input type="text" class="form-control" name="name" id="name" ng-model="vmPrE.product.name" ng-change="vmPrE.checkSlug(vmPrE.product.name)"
+                                            required>
+                                        <div class="messages-error" ng-messages="addProductForm.name.$error" ng-if="addProductForm.$submitted">
+                                            <div ng-message="required">Bạn chưa nhập tên sản phẩm.</div>
+                                        </div>
+                                    </div>
+                                    <!--End: name product-->
+                                </div>
+                                <div class="col-md-6">
+                                    <!--Start: slug product-->
+                                    <div class="form-group">
+                                        <label>Slug/Đường dẫn liên kết: <span class="text-red">(*)</span></label>
+                                        <input type="text" class="form-control" name="slug" id="slug" ng-model="vmPrE.product.slug" ng-change="vmPrE.checkSlug(vmPrE.product.slug)"
+                                            required>
+                                        <div class="messages-error" ng-messages="addProductForm.slug.$error" ng-if="addProductForm.$submitted">
+                                            <div ng-message="required">Bạn chưa nhập slug.</div>
+                                        </div>
+                                    </div>
+                                    <!--End: SLUG product-->
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!--Start: Category-->
+                                    <div class="form-group">
+                                        <label>Danh mục <span class="text-red">(*)</span></label>
+                                        <select ui-select2 class="form-control" multiple ng-model="vmPrE.product.category" name="category" id="category" ng-change="vmPrE.removeDisabledSubmit(addProductForm)"
+                                            required>
+                                    <!--<option value="[[value._id]]" ng-repeat="(key, value) in vmPrE.optionsCate">
+                                        [[value.name]]
+                                    </option>-->
+                                    <optgroup label="[[option.name]]" ng-repeat="(key, option) in vmPrE.optionsCate" ng-if="option.sub_cate.length > 0">
+                                        <option value="[[value._id]]" ng-repeat="(key, value) in option.sub_cate">
+                                            [[value.name]]
+                                        </option>
+                                    </optgroup>
+                                </select>
+                                        <div class="messages-error" ng-messages="addProductForm.category.$error" ng-if="addProductForm.$submitted">
+                                            <div ng-message="required">Bạn chưa chọn danh mục.</div>
+                                        </div>
+                                    </div>
+                                    <!--End: Category-->
+                                </div>
+                                <div class="col-md-6">
+                                    <!--Start: Due date-->
+                                    <div class="form-group">
+                                        <label>Thời gian có hiệu lực</label>
+                                        <input type="text" class="form-control" placeholder="Ngày" ng-model="vmPrE.productTmp.due_date" id="datetime-picker" atr-date-time-picker
+                                            atr-options="vmPrE.dateTimePickerOpt">
+                                    </div>
+                                    <!--End: Due date-->
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!--Start: Certificate-->
+                                    <div class="form-group">
+                                        <label>Chứng nhận</label>
+                                        <select ui-select2 class="form-control" multiple ng-model="vmPrE.product.certificates" name="certificates" id="certificates">
+                                    <option value="[[value._id]]" ng-repeat="(key, value) in vmPrE.certificateList track by key">[[value.name]]</option>
+                                </select>
+                                    </div>
+                                    <!--End: Certificate-->
+                                </div>
+                                <div class="col-md-6">
+                                    <!--Start: Tag proccessing-->
+                                    <div class="form-group">
+                                        <label>Tag cách nấu</label>
+                                        <select ui-select2 class="form-control" multiple ng-model="vmPrE.tmp_tag_proccessing" name="tag_proccessing" id="tag_proccessing"
+                                            ng-change="vmPrE.addTagProccess(vmPrE.tmp_tag_proccessing)">
+                                    <option value="[[value._id]]" ng-repeat="(key, value) in vmPrE.tags_proccess">
+                                        [[value.name]]
+                                    </option>
+                                </select>
+                                    </div>
+                                    <!--End: Tag proccessing-->
+                                </div>
+                            </div>
+
+
+                            <!--Start: Order product-->
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <label>Đơn vị <span class="text-red">(*)</span></label>
+                                        <select class="form-control" name="id_unit" id="id_unit" ui-select2 ng-model="vmPrE.product.id_unit" ng-change="vmPrE.removeDisabled(editForm); vmPrE.getNameTag();"
+                                            required>
+                                            <option value="[[value._id]]" ng-repeat="(key, value) in vmPrE.unitList">[[value.name]]</option>
+                                        </select>
+                                        <div class="messages-error" ng-messages="editForm.id_unit.$error" ng-if="editForm.$submitted">
+                                            <div ng-message="required">Bạn chưa chọn đơn vị.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <label>Đơn vị hiển thị</label>
+                                        <input type="text" class="form-control" name="view_unit" id="view_unit" ng-model="vmPrE.product.view_unit">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <label role="switcher">
+                                            <input i-check type="checkbox" name="type" ng-model="vmPrE.product.other_is" ng-true-value="true" ng-false-value="false">
+                                            <label>Giá trường hợp chênh lệch</label>
+                                        </label>
+                                        <input type="text" class="form-control" name="other_price" ng-model="vmPrE.product.other_price" ng-disabled="!vmPrE.product.other_is"
+                                            ng-required="vmPrE.product.other_is" ng-change="vmPrE.removeDisabled(editForm)">
+                                        <div class="messages-error" ng-messages="editForm.other_price.$error" ng-if="editForm.$submitted">
+                                            <div ng-message="required">Bạn chưa nhập giá trường hợp chênh lệch.</div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <!--End: Order product-->
+
+                            <!--Start: Price, quanlity-->
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label>Đơn giá <span class="text-red">(*)</span></label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" name="price" id="price" ng-model="vmPrE.product.price" bz-input-number min="0"
+                                                ng-change="vmPrE.removeDisabled(editForm);" required>
+                                            <div class="input-group-addon">
+                                                <label>Đ</label>
+                                            </div>
+                                        </div>
+                                        <div class="messages-error" ng-messages="editForm.price.$error" ng-if="editForm.$submitted">
+                                            <div ng-message="required">Bạn chưa nhập đơn giá.</div>
+                                            <div ng-message="min">Giá tối thiểu là 0.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <!--Start: On sale-->
+                                        <div class="form-group">
+                                            <label>On sale</label>
+                                            <select ui-select2 class="form-control" ng-model="vmPrE.product.id_promotion">
+                                                <option value="">Chọn on sale</option>
+                                                <option value="[[value._id]]" ng-repeat="(key, value) in vmPrE.promotionList">
+                                                    [[vmPrE.checkActiveOnsale(value)]]
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <!--End: On sale-->
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <!--End: Price, quanlity-->
+
+                            <!--Start: Active-->
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label>Publish</label>
+                                        <select class="form-control" ng-model="vmPrE.active_tmp">
+                                            <option value="1">Có</option>
+                                            <option value="0">Không</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label>Trạng thái</label>
+                                        <select class="form-control" ng-model="vmPrE.product.status" disabled>
+                                            <option value="[[status.value]]" ng-repeat="status in vmPrE.statusProduct" ng-bind="status.name"></option>
+                                        </select>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <!--End: Active-->
+
+                            <!--Start: Quantity in stock-->
+                            <div class="form-group">
+                                <label>Số lượng</label>
+                                <input type="text" class="form-control" name="qty_in_stock" id="qty_in_stock" ng-value="vmPrE.product.qty_in_stock" disabled>
+                            </div>
+                            <!--End: Quantity in stock-->
+
+                            <!--Start: Made in-->
+                            <div class="form-group">
+                                <label>Xuất xứ</label>
+                                <input type="text" class="form-control" name="made_in" id="name" ng-model="vmPrE.product.made_in">
+                            </div>
+                            <!--End: Made in-->
+
+                            <!--Start: Upload Image Section-->
+                            <div class="form-group">
+                                <label>Hình ảnh</label>
+                                <div class="col-xs-12">
+                                    <div class="row image-upload-section">
+                                        <span ng-repeat="(key, value) in vmPrE.product.images" class="image-item" >
+                                            <img ng-src="[[vmPrE.checkImgOld(vmPrE.urlImg,value.url)]]" alt="" ng-click="vmPrE.cropImage(key,value)">
+                                            <a href="" ng-click="vmPrE.removeImage(key,vmPrE.urlImg,value.url)" class="btn-remove-image text-red">
+                                                <i class="fa fa-fw fa-remove"></i>
+                                            </a>
+                                            <div class="form-group text-center" style="margin-top: 10px;">
+                                                <input i-check type="radio" id="thumb-[[key]]" name="thumb" ng-model="vmPrE.productTmp.thumb" value="[[value.url]]" ng-change="vmPrE.selectThumb(key)">
+                                                <label for="thumb-[[key]]">Chọn làm thumb </label>
+                                            </div>
+                                        </span>
+                                        <a class="" href="" ngf-select ngf-multiple="false" ngf-change="vmPrE.uploadImage($files)">
+                                            Thêm
+                                        </a>
+                                    </div>
+                                    <uib-progressbar ng-if="progressPercentage" style="max-width: 500px; height: 50px;" animate="true" value="progressPercentage"
+                                        type="success"><b>[[progressPercentage]]%</b></uib-progressbar>
+                                </div>
+                            </div>
+                            <!--End: Upload Image Section-->
+
+                            <!--Start: Video -->
+                            <div class="form-group">
+                                <label>Video: </label>
+                                <input type="text" class="form-control" name="video" id="video" ng-model="vmPrE.product.video" ng-change="vmPrE.removeDisabledSubmit(addProductForm)">
+
+                            </div>
+                            <!--End: Video -->
+
+                            <!--Start: Short description-->
+                            <div class="form-group">
+                                <label>Mô tả ngắn</label>
+                                <div ckeditor="vmPrE.ckeOpt" ng-model="vmPrE.product.short_description"></div>
+                            </div>
+                            <!--End: Short description-->
+
+                            <!--Start: Detail infor-->
+                            <div class="form-group">
+                                <label>Thông tin chi tiết</label>
+                                <div ckeditor="vmPrE.ckeOpt" ng-model="vmPrE.product.detail_infor"></div>
+                            </div>
+                            <!--End: Detail infor-->
+
+                            <!--Start: Meta information-->
+                            <div class="form-group">
+                                <label>Meta title</label>
+                                <input class="form-control" name="meta_title" ng-model="vmPrE.product.meta_title">
+                            </div>
+                            <div class="form-group">
+                                <label>Meta keywords</label>
+                                <textarea class="form-control" rows="5" name="meta_keywords" ng-model="vmPrE.product.meta_keywords"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Meta description<span>(maximum 255 chars)</span></label>
+                                <textarea class="form-control" rows="5" maxlength="255" name="meta_description" ng-model="vmPrE.product.meta_description"></textarea>
+                            </div>
+                            <!--End: Meta information-->
+
+                            <div class="form-group">
+                                <label>Sản phẩm liên quan</label>
+                                <select ui-select2 class="form-control" multiple ng-model="vmPrE.product.relative_product" ng-change="vmPrE.getProductDetail()">
+                                    <option value="[[value._id]]" ng-repeat="(key, value) in vmPrE.productList">[[value.name]]</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group related-image-section" ng-repeat="value in vmPrE.productList" ng-if="vmPrE.product.relative_product.indexOf(value._id) > -1">
+                                <img ng-src="[[vmPrE.checkImgOld(vmPrE.urlImg,value.images[0].url)]]" alt="">
+                                <span ng-bind="value.name"></span>
+                                <a href="" ng-click="vmPrE.removeRelated(value)" class="btn-remove-related-product text-red">
+                                    <i class="fa fa-fw fa-remove"></i>
+                                </a>
+                            </div>
+
+                            <div class="form-group text-right">
+                                <a class="btn btn-primary btn-flat" ui-sref="product()">
+                                    <i class="glyphicon glyphicon-remove"></i> Hủy
+                                </a>
+                                <button type="submit" ng-disabled="editForm.$submitted" class="btn btn-success btn-flat">
+                                    <i class="glyphicon glyphicon-floppy-disk"></i>
+                                    Sửa
+                                </button>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                        <div ng-show="vmPrL.loading" class="text-center"><img src="/assets/loading.svg" alt=""></div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>

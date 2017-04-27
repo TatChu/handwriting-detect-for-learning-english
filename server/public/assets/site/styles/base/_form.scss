@@ -1,0 +1,23 @@
+/****************************************************************************************
+Description: Base/Form
+*****************************************************************************************/
+input::-moz-focus-inner,a:focus{
+    outline:none;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"],
+input[type="number"]:hover,
+input[type="number"]:focus {
+    -moz-appearance: textfield;
+}
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+select::-ms-expand {
+    display: none;
+}

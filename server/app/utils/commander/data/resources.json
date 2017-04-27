@@ -1,0 +1,21 @@
+[
+    "dashboard",
+    "blog",
+    "product",
+    "user",
+    "promotion",
+    "order",
+    "unit",
+    "supplier",
+    "category",
+    "shipping",
+    "tag",
+    "coupon",
+    "config",
+    "certificate",
+    "import_product",
+    "search",
+    "banner",
+    "acl",
+    "log"
+]

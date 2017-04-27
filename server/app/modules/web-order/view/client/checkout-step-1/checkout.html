@@ -1,0 +1,401 @@
+{{> web/partials/header_navbar2}}
+<div id="mod-checkout" data-module="checkout" ng-controller="orderWebCtrl as vmWebOrder" ng-init="vmWebOrder.getShippingFee()"
+  class="module hidden">
+  <div class="container">
+    <div class="content">
+      <div class="row">
+
+        <!--col-1: thong tin thanh toan va mua hang-->
+        <div class="col-xs-8 col-left">
+          <div class="exhibition-info">
+            <h5>Thông tin giao hàng</h5>
+            <div ng-if="vmWebOrder.data.isLogined" class="choose-address item">
+              <div class="form-group" ng-repeat="(index, info) in vmWebOrder.data.list_shipping_address">
+                <label for="[[info._id]]" ng-click="vmWebOrder.showFormAddressDetails(false)" role="radio">
+                                    <input type="radio" value="[[info._id]]" id="[[info._id]]" ng-model="vmWebOrder.data.shipping_address.id" ng-change="vmWebOrder.onSelectShippingAddress(index)"  value="[[info._id]]" checked name="address"><i></i>
+                                    <span class="name" ng-bind="info.name"></span>
+                                    <br><span ng-bind="info.phone"></span>
+                                    <br><span ng-bind="info.address_detail + ', ' + info.id_shipping_fee.district"></span>
+                                </label>
+              </div>
+              <div ng-if="vmWebOrder.data.list_shipping_address.length > 0" class="form-group">
+                <label for="888" ng-click="vmWebOrder.showFormAddressDetails(true)" role="radio"><input type="radio"  value="3" id="888" name="address"><i></i>Đến địa chỉ giao hàng khác</label>
+              </div>
+            </div>
+            <div class="add-address item">
+              <a href="" ng-if="!vmWebOrder.data.isLogined" ng-click="vmWebOrder.login()" class="login">Đăng nhập nếu đã có tài khoản</a>
+              <p ng-if="!vmWebOrder.data.isLogined">Hoặc nhập thông tin giao hàng nhanh</p>
+              <form name="formInfoOrder" ng-if="vmWebOrder.data.showFormAddressDetails || !vmWebOrder.data.isLogined || vmWebOrder.data.list_shipping_address.length == 0">
+                <div class="row">
+                  <div class="form-group col-xs-8">
+                    <label for="">Danh Xưng</label>
+                    <div class="msg-input">
+                      <select ng-model="vmWebOrder.data.shipping_address.vocative" name="slVocative" class="selectbox" id="name">
+                                                <option value="Anh">Anh</option>
+                                                <option value="Chị">Chị</option>
+                                                <option value="Cô">Cô</option>
+                                                <option value="Chú">Chú</option>
+                                                <option value="Ông">Ông</option>
+                                                <option value="Bà">Bà</option>
+                                            </select>
+                    </div>
+                  </div>
+
+                  <div ng-class="{error: (((formInfoOrder.txtName.$error |  bzObjectKeysLength) > 0 && vmWebOrder.data.submitted))}" class="form-group col-xs-16">
+                    <label>Họ và tên</label>
+                    <div class="msg-input ">
+                      <input type="text" name="txtName" ng-model="vmWebOrder.data.shipping_address.name" placeholder="Họ tên" class="form-control"
+                        ng-pattern="/[a-zA-Z]/" required>
+                    </div>
+
+                    <div ng-messages="formInfoOrder.txtName.$error" ng-if="vmWebOrder.data.submitted">
+                      <span ng-message="required" class="message-error">
+                                            Vui lòng nhập tên để tiếp tục
+                                            </span>
+                      <span ng-message="pattern" class="message-error">Tên không được chứa các ký tự đặc biệt</span>
+                    </div>
+                  </div>
+                </div>
+                <div ng-class="{error: ((formInfoOrder.txtPhone.$error |  bzObjectKeysLength) > 0 && vmWebOrder.data.submitted)}" class="form-group">
+
+                  <label>Số điện thoại</label>
+                  <div class="msg-input ">
+                    <input type="tel" name="txtPhone" ng-model="vmWebOrder.data.shipping_address.phone" ng-pattern="/^0[\d]{9,10}/" bz-input-only-digits
+                      ng-minlength="10" ng-maxlength="11" class="form-control" placeholder="Số điện thoại của bạn" required>
+                  </div>
+
+                  <div ng-messages="formInfoOrder.txtPhone.$error" ng-if="vmWebOrder.data.submitted">
+                    <span ng-message="required" class="message-error">
+                                            Vui lòng nhập số điện thoại người nhận
+                                            </span>
+                    <span ng-message="minlength" class="message-error">Bạn cần nhập ít nhất 10 số</span>
+                    <span ng-message="maxlength" class="message-error">Số điện thoại quá dài</span>
+                    <span ng-message="pattern" class="message-error">Vui lòng nhập số '0' đầu tiên</span>
+
+                  </div>
+
+                </div>
+
+                <div ng-class="{error: (((formInfoOrder.slDistrict.$error |  bzObjectKeysLength) > 0 && vmWebOrder.data.submitted))}" class="form-group">
+                  <label>Quận/huyện (TP.Hồ Chí Minh)</label>
+                  <div class="msg-input">
+                    <select name="slDistrict" name="" ng-model="vmWebOrder.data.shipping_address.id_shipping_fee" ng-change="vmWebOrder.getShippingFee()"
+                      class="selectbox" id="slDistrict" required>
+                                            <option value="">Chọn quận/huyện</option>
+                                            <option ng-repeat=" val in vmWebOrder.data.list_shipping_fee" ng-value="val._id" >[[val.district]]</option>
+                                        </select>
+                  </div>
+                  <div ng-messages="formInfoOrder.slDistrict.$error" ng-if="vmWebOrder.data.submitted">
+                    <span ng-message="required" class="message-error">
+                                            Vui lòng chọn quận/huyện
+                                            </span>
+                  </div>
+
+                </div>
+
+                <div class="form-group " ng-class="{error: (((formInfoOrder.txtDetailAddress.$error |  bzObjectKeysLength) > 0 && vmWebOrder.data.submitted))}">
+                  <label>Địa chỉ chi tiết</label>
+                  <div class="msg-input ">
+                    <input type="text" name="txtDetailAddress" ng-model="vmWebOrder.data.shipping_address.address_detail" class="form-control"
+                      placeholder="Số nhà, ngõ, ngách, hẻm" required>
+                  </div>
+                  <div ng-messages="formInfoOrder.txtDetailAddress.$error" ng-if="vmWebOrder.data.submitted">
+                    <span ng-message="required" class="message-error">
+                                            Vui lòng nhập địa chỉ chi tiết của bạn
+                                            </span>
+                  </div>
+
+                </div>
+
+              </form>
+            </div>
+          </div>
+          <hr>
+          <div class="exhibition-time item">
+            <h5>THỜI GIAN GIAO HÀNG</h5>
+            <form>
+              <div class="form-group">
+                <label for="rdSang" role="radio"><input type="radio" ng-model="vmWebOrder.data.delivery_time"  value="SANG" id="rdSang" ng-change="vmWebOrder.setShippingFee()" checked name="time"><i></i><span>Sáng 10:30 - 12:00</label>
+              </div>
+              <div class="form-group">
+                <label for="rdChieu" role="radio"><input type="radio"ng-model="vmWebOrder.data.delivery_time"  value="CHIEU" id="rdChieu" ng-change="vmWebOrder.setShippingFee()" name="time"><i></i><span>Chiều 14:00 - 17:00</label>
+              </div>
+            </form>
+          </div>
+          <hr>
+          <div class="exhibition-style item">
+            <h5>HÌNH THỨC THANH TOÁN</h5>
+            <form>
+              <div class="form-group">
+                <label for="444" role="radio"><input type="radio" ng-model="vmWebOrder.data.payment_method" value="COD" id="444" checked name="style"><i></i><span>COD  ( Thanh toán khi nhận hàng )</label>
+              </div>
+              <div class="form-group">
+                <label for="555" role="radio"><input type="radio" ng-model="vmWebOrder.data.payment_method" value="CK" id="555" name="style"><i></i><span>Chuyển khoản</label>
+              </div>
+            </form>
+            <div ng-class="{'info-account hide':  vmWebOrder.data.payment_method != 'CK', 'info-account':  vmWebOrder.data.payment_method == 'CK'}">
+              <p>Quý khách có thể chuyển khoản đến một trong các tài khoản sau với nội dung chuyển khoản: </p>
+              <p>Thanh toán cho đơn hàng xxx</p>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <th>Họ và tên</th>
+                    <th>Ngân Hàng</th>
+                    <th>Số tài khoản</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>NGUYỄN PHƯƠNG LINH</td>
+                      <td>VIETCOMBANK Chi Nhánh Tân Định</td>
+                      <td>0371 000 459776</td>
+                    </tr>
+                    <tr>
+                      <td>NGUYỄN PHƯƠNG LINH</td>
+                      <td>SACOMBANK Chi Nhánh Phạm Ngọc Thạch</td>
+                      <td>0601 4645 4138</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--col-2: thong tin don hang-->
+        <div class="col-xs-16 col-right">
+          <div class="exhibition">
+            <h5>ĐƠN HÀNG <span ng-bind=" '(' + Cart.items.length + ' sản phẩm)'"></span></h5>
+            <p class="regulations">Số lượng thực giao có thể chênh lệch so với Số lượng đặt hàng, dao động từ 100 gr - 300 gr. Giá thành được tính
+              dựa trên Số lượng thực giao.</p>
+
+            <div ng-cloak class="list-items">
+
+              <!--Repeat Product in Cart-->
+              <div ng-repeat="(index, item) in Cart.items" class="proc">
+                <div class="line"></div>
+                <div class="sub-item">
+                  <div class="row">
+                    <div class="col-xs-8">
+                      <div ng-click="vmWebOrder.showDetailProduct(item.product.slug, item.product._id)" class="img" style="background: url('[[vmWebOrder.checkImgOld(vmWebOrder.imgThumbProductDir,item.product.thumb)]]') center center no-repeat; background-size: cover;">
+
+                        <img src="{{ linkAssets 'frontend/images/img80.png'}}" class="img-reponsive" alt="">
+
+                      </div>
+                      <div class="cont">
+                        <p class="name" ng-click="vmWebOrder.showDetailProduct(item.product.slug, item.product._id)" ng-bind="item.product.name"></p>
+                        <p class="weight" ng-cloak>[[item.product.view_unit]]</p>
+                        <p class="regulations" ng-if="( item.quantity >=  item.product.qty_in_stock) && (item.product.qty_in_stock > 0) " ng-bind="'Chỉ còn ' + item.product.qty_in_stock + ' đơn vị trong kho'"></p>
+
+                        <p class="regulations" ng-if="item.product.qty_in_stock == 0" ng-bind="'Sản 
+                        phẩm này đã hết hàng'"></p>
+                        <p class="regulations" ng-if="vmWebOrder.checkDueDateProduct(item.product.due_date)" ng-bind="'Sản phẩm chưa nhập kho'"></p>
+
+                        <div class="prices show-mb">
+
+                          <p ng-if="item.product.id_promotion" class="price" ng-cloak>[[(item.product.id_promotion.type == 'PC' ? (item.product.price - (item.product.price * (item.product.id_promotion.value/100)))
+                            : (item.product.price - item.product.id_promotion.value)) | currency:"":0]] ₫</p>
+
+                          <p ng-if="item.product.id_promotion == null" class="price" ng-cloak>[[item.product.price | currency:"":0]] ₫</p>
+
+                          <p ng-if="item.product.id_promotion" class="price-old" ng-cloak>[[item.product.price | currency:"":0]] ₫</p>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="col-xs-16">
+                      <div class="button active">
+                        <div class="take-cart active">
+                          <div class="soluong">
+                            <img ng-class="{disabled: (item.quantity == 0)}" src="{{ linkAssets 'frontend/images/icon-giam.svg'}}" class="img-reponsive"
+                              onclick="helperJsCustom.GA('send', 'event', 'Checkout', 'ClickDecreaseQuantityItem','');" ng-click="vmWebOrder.setQuantity([[item.id_product]], [[item.quantity - 1]])">
+
+                            <span>[[item.quantity]]</span>
+
+                            <img ng-class="{disabled: (item.quantity >=  item.product.qty_in_stock)}" src="{{ linkAssets 'frontend/images/icon-tang.png'}}"
+                              alt="" onclick="helperJsCustom.GA('send', 'event', 'Checkout', 'ClickIncreaseQuantityItem','');" ng-click="vmWebOrder.setQuantity([[item.id_product]], [[item.quantity + 1]])"
+                              class="img-responsive">
+                          </div>
+                        </div>
+                        <span class="dauX show-desktop" ng-click="vmWebOrder.deleteProductInCart([[item.id_product]], [[index]])">x</span>
+                        <div class="prices show-desktop">
+                          <p ng-if="item.product.id_promotion" class="price-old">[[item.product.price | currency:"":0]] ₫</p>
+                          <p ng-if="item.product.id_promotion" class="price" ng-cloak> [[(item.product.id_promotion.type == 'PC' ? (item.product.price - (item.product.price * (item.product.id_promotion.value/100)))
+                            : (item.product.price - item.product.id_promotion.value)) | currency:"":0]] ₫</p>
+                          <p ng-if="item.product.id_promotion == null" class="price">[[item.product.price | currency:"":0]] ₫</p>
+                        </div>
+                        <div class="price-total show-desktop">
+                          <p class="price" ng-cloak>
+                            [[(item.product.id_promotion == null ? item.product.price : (item.product.id_promotion.type == 'PC' ? (item.product.price
+                            - (item.product.price * (item.product.id_promotion.value/100))) : (item.product.price - item.product.id_promotion.value)))
+                            * item.quantity | currency:"":0]]
+                            <span>₫</span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--End Repeat Product in Cart-->
+
+            </div>
+          </div>
+          <div class="sale-code">
+            <h5>Nhập mã giảm giá <span ng-if="!vmWebOrder.data.coupon.hasCounpon">(nếu có)</span></h5>
+            <!--<a style="display: -webkit-box;" ng-if="vmWebOrder.data.delivery_time === 'CHIEU' && promotionForOrderDeleveryOnAffternoon.status"
+              ng-bind="promotionForOrderDeleveryOnAffternoon.description"></a>-->
+            <!--<a style="display: -webkit-box;" ng-if="vmWebOrder.data.freeShip == 1" ng-bind="freeShipUrban.description"></a>
+            <a style="display: -webkit-box;" ng-if="vmWebOrder.data.freeShip == 2" ng-bind="freeShipSuburb.description"></a>-->
+
+            <p style="display: -webkit-box;" ng-if="vmWebOrder.data.coupon.hasCounpon" class="note" ng-bind="vmWebOrder.data.coupon.name"></p>
+
+            <form ng-submit="vmWebOrder.checkCoupon()">
+              <div class="form-group">
+                <div class="msg-input">
+                  <input type="text" ng-disabled="vmWebOrder.data.coupon.hasCounpon" ng-model="vmWebOrder.data.coupon.code" ng-change="vmWebOrder.onEnterCoupon()"
+                    class="form-control">
+                  <div ng-if="vmWebOrder.data.coupon.onLoadingCoupon" class="loading-code"></div>
+                </div>
+                <div class="button">
+                  <button ng-click="vmWebOrder.checkCoupon()" onclick="helperJsCustom.GA('send', 'event', 'Checkout', 'ClickButtonApplyCoupon','');" ng-disabled="vmWebOrder.data.coupon.code == ''"
+                    type="button" class="btn">Áp Dụng</button>
+                </div>
+              </div>
+            </form>
+            <!--show err-->
+            <a ng-if="vmWebOrder.data.coupon.error" style="color: red;" ng-bind="vmWebOrder.data.coupon.message +'.   '">
+              <a ng-if="vmWebOrder.data.coupon.message === 'Vui lòng đăng nhập để sử dụng mã giảm giá này'" class="must-login" ng-click="vmWebOrder.login()"> Đăng nhập</a>
+            </a>
+
+
+            <a ng-click="vmWebOrder.applyCoupon(vmWebOrder.data.coupon.coupon)" ng-if="vmWebOrder.data.coupon.coupon && !vmWebOrder.data.coupon.hasCounpon ">
+              <img src="{{ linkAssets 'frontend/images/tip.gif'}}" alt="">Bấm áp dụng để được giảm giá cho đơn hàng</a>
+
+            <a ng-click="vmWebOrder.cancelCoupon()" ng-if="vmWebOrder.data.coupon.hasCounpon" href="">
+              <img src="{{ linkAssets 'frontend/images/drop-code.png'}}" alt=""> Hủy áp dụng giảm giá</a>
+          </div>
+          <div class="note-exhibition">
+            <h5>Ghi chú giao hàng <span>(nếu có)</span></h5>
+            <form ng-submit="vmWebOrder.sendOrder()">
+              <div class="form-group">
+                <div class="msg-input msg-textarea">
+                  <textarea ng-model="vmWebOrder.data.note" class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="calcualator">
+
+                <!--Tổng tiền-->
+                <div class="money-row">
+                  <div class="title">
+                    <p>Tổng tiền</p>
+                  </div>
+                  <div class="detail-cal">
+                    <p class="detail" ng-cloak>[[Cart.total | currency:"":0]] ₫</p>
+                  </div>
+                </div>
+
+                <!--Khuyên mãi-->
+                <div class="money-row">
+                  <div class="title">
+                    <p>Khuyến mãi</p>
+                  </div>
+                  <div class="detail-cal">
+                    <p class="detail" ng-cloak>
+                      <span ng-if="vmWebOrder.data.coupon.money> 0">-</span>[[ vmWebOrder.data.coupon.money | currency:"":0]]
+                      ₫
+                    </p>
+                  </div>
+                </div>
+
+                <!--Giao hàng buổi chiều-->
+                <div class="money-row" ng-if="vmWebOrder.data.delivery_time === 'CHIEU' && promotionForOrderDeleveryOnAffternoon.status">
+                  <div class="title">
+                    <p ng-bind="promotionForOrderDeleveryOnAffternoon.description"></p>
+                  </div>
+                  <div class="detail-cal">
+                    <p ng-if="vmWebOrder.data.delivery_time == 'CHIEU' && promotionForOrderDeleveryOnAffternoon.status">
+                      - [[ (promotionForOrderDeleveryOnAffternoon.type == "PC" ? ((promotionForOrderDeleveryOnAffternoon.value/100) * Cart.total)
+                      :promotionForOrderDeleveryOnAffternoon.value) | currency:"":0]] ₫
+                    </p>
+                  </div>
+                </div>
+
+                <!--Đơn hàng đầu tiên-->
+                <div class="money-row" ng-if="vmWebOrder.data.firstOrder && promotionForFirstOrder.status ">
+                  <div class="title">
+                    <p ng-bind="promotionForFirstOrder.description"></p>
+                  </div>
+                  <div class="detail-cal">
+                    <p ng-if="vmWebOrder.data.firstOrder && promotionForFirstOrder.status">
+                      - [[promotionForFirstOrder.type == "MN"? promotionForFirstOrder.value : ( (promotionForFirstOrder.value/100) * Cart.total)
+                      | currency:"":0]] ₫
+                    </p>
+                  </div>
+                </div>
+
+                <!--shipping-->
+                <div class="money-row">
+                  <div class="title">
+                    <p>Phí vận chuyển</p>
+                  </div>
+                  <div class="detail-cal">
+                    <p class="detail" ng-cloak> <span ng-if="vmWebOrder.data.freeShip != 0">(Miễn phí) </span>[[vmWebOrder.data.obj_shipping_fee.fee
+                      | currency:"":0]] ₫</p>
+                  </div>
+                </div>
+
+                <div class="tip-shipping-fee">
+                  <!--Khuyến mãi giao hàng nội thành-->
+                  <span style="color: red;" ng-if="vmWebOrder.data.freeShip == 0 && vmWebOrder.data.obj_shipping_fee.type =='1' && freeShipUrban.status">Quý khách còn [[ freeShipUrban.value - (Cart.total - vmWebOrder.data.coupon.money - ((vmWebOrder.data.delivery_time == 'CHIEU')? (promotionForOrderDeleveryOnAffternoon.type
+                    == "PC" ? ((promotionForOrderDeleveryOnAffternoon.value/100) * Cart.total) : promotionForOrderDeleveryOnAffternoon.value
+                    ) : 0 ) - (vmWebOrder.data.firstOrder? ( promotionForFirstOrder.type == "MN"? promotionForFirstOrder.value
+                    :( (promotionForFirstOrder.value/100) * Cart.total) ): 0) ) | currency:"":0]] ₫ để được miễn phí giao hàng nội thành</span>
+                  <!--Khuyến mãi giao hàng ngoại thành-->
+                  <span style="color: red;" ng-if="vmWebOrder.data.freeShip == 0 && vmWebOrder.data.obj_shipping_fee.type =='2' && freeShipSuburb.status">Quý khách còn [[ freeShipSuburb.value - (Cart.total - vmWebOrder.data.coupon.money - ((vmWebOrder.data.delivery_time == 'CHIEU')? (promotionForOrderDeleveryOnAffternoon.type
+                    == "PC" ? ((promotionForOrderDeleveryOnAffternoon.value/100) * Cart.total) : promotionForOrderDeleveryOnAffternoon.value
+                    ) : 0 ) - (vmWebOrder.data.firstOrder? ( promotionForFirstOrder.type == "MN"? promotionForFirstOrder.value
+                    :( (promotionForFirstOrder.value/100) * Cart.total) ): 0) ) | currency:"":0]] ₫ để được miễn phí giao hàng ngoại thành</span>
+
+                  <style>
+                    .tip-shipping-fee {
+                      margin-bottom: 1%;
+                    }
+                  </style>
+                </div>
+
+              </div>
+              <div class="complete">
+                <div class="title">
+                  <p>Số tiền cần thanh toán</p>
+                </div>
+                <div class="detail-cal">
+                  <p>
+                    [[((Cart.total + vmWebOrder.data.shipping_fee) - vmWebOrder.data.coupon.money - ((vmWebOrder.data.delivery_time == 'CHIEU')?
+                    (promotionForOrderDeleveryOnAffternoon.type == "PC" ? ((promotionForOrderDeleveryOnAffternoon.value/100)
+                    * Cart.total) : promotionForOrderDeleveryOnAffternoon.value ) : 0 ) - (vmWebOrder.data.firstOrder? (
+                    promotionForFirstOrder.type == "MN"? promotionForFirstOrder.value :( (promotionForFirstOrder.value/100)
+                    * Cart.total) ): 0) ) | currency:"":0]] ₫
+                  </p>
+
+                </div>
+
+                <div class="button">
+                  <button class="btn" type="button" ng-disabled="vmWebOrder.sendingOrder" ng-click="vmWebOrder.sendOrder(formInfoOrder.$invalid)">
+                                    <span>Hoàn tất đặt hàng</span>
+                                    <span class="sum-price show-mb" style="float: right;">
+                                      [[((Cart.total + vmWebOrder.data.shipping_fee) - vmWebOrder.data.coupon.money - ((vmWebOrder.data.delivery_time == 'CHIEU')? (promotionForOrderDeleveryOnAffternoon.type
+                    == "PC" ? ((promotionForOrderDeleveryOnAffternoon.value/100) * Cart.total) : promotionForOrderDeleveryOnAffternoon.value
+                    ) : 0 ) - (vmWebOrder.data.firstOrder? ( promotionForFirstOrder.type == "MN"? promotionForFirstOrder.value
+                    :( (promotionForFirstOrder.value/100) * Cart.total) ): 0) )| currency:"":0]]
+                    ₫
+                                    </span>
+                                   </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

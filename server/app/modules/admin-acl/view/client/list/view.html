@@ -1,0 +1,82 @@
+<div id="mod-permission-list" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Phân quyền hệ thống
+			<small>Danh sách phân quyền</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+			<li><a class="active" ui-sref="product">Permission</a></li>
+		</ol>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title pull-left">Danh sách phân quyền</h3>
+						<div class="form-inline pull-right">
+							<div class="form-group form-group-item">
+								<a class="btn btn-success btn-flat" ui-sref="add-permission()">
+									<i class="glyphicon glyphicon-plus"></i>
+									<span>Thêm vai trò</span>
+								</a>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div ng-show="vmPermission.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
+						<table class="table table-hover table-condensed">
+							<tbody ng-repeat="item in vmPermission.data">
+								<tr>
+									<td colspan="2" align="center" class="danger"><strong>Nhóm quyền: </strong>
+										<b><em> [[item.role.toUpperCase()]] </em></b> &nbsp
+										<a class="btn btn-default btn-flat btn-add" ui-sref="editPermission({module: 'permission', mod: 'add-resource', role: item.role})">
+											Thêm tài nguyên
+										</a>
+
+										<a  class="btn btn-default btn-flat btn-delete"  ng-click="vmPermission.removeRole(item.role)">
+											Xoá vai trò
+										</a>
+
+									</td>
+								</tr>
+								<tr ng-if="item.resources.length > 0">
+									<td><strong style="margin-left: 10%;">Module</strong></td>
+									<td><strong style="margin-left: 10%;">Khả năng</strong></td>
+								</tr>
+								<tr ng-if="item.resources.length == 0">
+									<td align="center" colspan="2">Chưa phân quyền</td>
+								</tr>
+								<tr ng-repeat="resource in item.resources">
+									<td width="30%">[[resource.resource.toUpperCase()]]
+									</td>
+									<td>
+										<span ng-repeat="permission in resource.permissions"> [[permission == '*' ? 'Tất cả quyền' : permission]][[$last? '' : ', ']]</span>										&nbsp
+										<a class="btn btn-default btn-flat btn-edit"  ui-sref="editPermission({module: 'permission' , mod: 'edit-permission', role:item.role, resource: resource.resource})">
+											Sửa quyền
+										</a>
+										&nbsp
+										<a  class="btn btn-default btn-flat btn-delete"  ng-click="vmPermission.removeResource(item.role, resource.resource)">
+											Xoá tài nguyên
+										</a>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
+</div>

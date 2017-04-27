@@ -1,0 +1,93 @@
+<div id="mod-unit-add" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Thêm đơn vị tính
+		</h1>
+
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a href="#">Đơn vị tính</a></li>
+            <li class="active">Thêm mới</li>
+		</ol>
+	</section>
+
+	<!-- Main content -->
+	<section class="content">
+
+		<!-- SELECT2 EXAMPLE -->
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<h3 class="box-title">Thêm mới</h3>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<form  id="frmUnit" name="frmUnit" ng-submit="vmAddUnits.save(frmUnit.$valid)">
+					<div class="box-body">
+						<!-- Toolbar -->
+						<div class="toolbar">
+							<div class="form-inline pull-right">
+								<div class="form-group form-action">
+									
+									<a ui-sref="units" class="btn btn-primary btn-flat">
+										<i class="glyphicon glyphicon-remove"></i>
+										<span>Hủy bỏ</span>
+									</a>
+									<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': userEdit.lockForm}"
+										ng-disabled="lockForm">
+										<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmAddUnits.lockForm"></i>
+										<span>Lưu</span>
+									</button>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<!-- End: Toolbar -->
+						<div class="row">
+							<div class="col-sm-6">
+								<!-- Tên đơn vị -->
+								<div class="form-group">
+									<label for="txtName">Tên đơn vị<span class="required">*</span></label>
+									<input id="txtName" name="txtName" class="form-control" type="text" ng-model="vmAddUnits.formData.name" ng-pattern="/[a-zA-Z0-9]/"
+										required />
+									<div class="messages-error" ng-messages="frmUnit.txtName.$error" ng-if="vmAddUnits.submitted">
+										<div ng-message="required">Bạn chưa nhập tên</div>
+									</div>
+								</div>
+                                <!-- Mô tả đơn vị -->
+                                <div class="form-group">
+									<label for="txtDes">Mô tả</label>
+									<input id="txtDes" name="txtDes" class="form-control" type="text" ng-model="vmAddUnits.formData.description"  />
+								</div>
+
+								<!-- Active -->
+								<div class="form-group" >
+									<label>Active</label>
+									<br/>
+									<input i-check id="chkPublish" type="checkbox" ng-model="vmAddUnits.formData.status" ng-true-value="true" ng-false-value="false">
+                                    Kích hoạt
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="box-footer">
+						<a ui-sref="units" class="btn btn-primary btn-flat">
+							<i class="glyphicon glyphicon-remove"></i>
+							<span>Hủy bỏ</span>
+						</a>
+						<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': lockForm}"
+							ng-disabled="lockForm">
+							<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmAddUnits.lockForm"></i>
+							<span>Lưu</span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+</div>

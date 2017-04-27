@@ -1,0 +1,43 @@
+<div class="login-box" ng-controller="authCtrl as auth">
+	<div class="login-logo">
+		<a href="{{settings.services.admin}}">English Study System</a>
+	</div>
+	<!-- /.login-logo -->
+	<div class="login-box-body">
+		<p class="login-box-msg">Sign in to start your session</p>
+
+		<form novalidate name="frmLogin" ng-submit="auth.siteLogin(frmLogin.$valid)">
+			<div class="form-group has-feedback">
+				<input type="phone"  id="phone" name="phone" class="form-control" ng-model="auth.formData.phone" placeholder="Phone or Email">
+				<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+			</div>
+			<div class="form-group has-feedback">
+				<input type="password" autocomplete="off" id="password" name="password" class="form-control" ng-model="auth.formData.password" placeholder="Password">
+				<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+			</div>
+			<div class="row">
+				<div class="col-xs-8">
+					<div class="checkbox icheck">
+						<label>
+							<input type="checkbox" checked> Remember Me
+						</label>
+					</div>
+				</div>
+				<!-- /.col -->
+				<div class="col-xs-4" style="padding-left: 0px">
+					<button style="padding-right: 8px;" bz-submit type="submit" class="btn btn-primary btn-flat btn-submit" ng-class="{'loading-btn': auth.lockForm}" ng-disabled="auth.lockForm">
+						<i class="glyphicon glyphicon-lock" ng-if="!auth.lockForm"></i>
+						<span>Log In</span>
+					</button>
+				</div>
+				<!-- /.col -->
+			</div>
+		</form>
+		<div class="social-auth-links text-center">
+			<p>- OR -</p>
+			<a class="btn btn-block btn-social btn-facebook btn-flat" ng-click="auth.loginFacebook()"><i class="fa fa-facebook"></i> Sign in using Facebook</a>
+			<!-- <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a> -->
+		</div>
+	</div>
+</div>
+<!-- /.login-box -->

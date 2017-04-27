@@ -1,0 +1,7 @@
+<!-- =========================Users========================= -->
+<li ng-if="pageMethods.authSvc.isSuperAdmin()" ng-class="{'active':pageData.menuType === 'dashboard'}" class="treeview">
+    <a ui-sref="dashboard({module: 'dashboard'})">
+        <i class="fa fa-tachometer  text-aqua"></i> <span> Dashboard</span>
+    </a>
+</li>
+<!-- =========================END Users========================= -->

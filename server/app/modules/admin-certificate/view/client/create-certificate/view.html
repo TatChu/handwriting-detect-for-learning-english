@@ -1,0 +1,105 @@
+<div id="mod-certificate-add" class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Thêm mới chứng chỉ
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Chứng chỉ</a></li>
+            <li class="active">Thêm mới</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- SELECT2 EXAMPLE -->
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Thêm mới</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form novalidate id="frmCertificate" name="frmCertificate" ng-submit="vmAddCertificates.save(frmCertificate.$valid)">
+                    <div class="box-body">
+                        <!-- Toolbar -->
+                        <div class="toolbar">
+                            <div class="form-inline pull-right">
+                                <div class="form-group form-action">
+                                    <a ui-sref="certificate-list" class="btn btn-primary btn-flat">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                        <span>Hủy bỏ</span>
+                                    </a>
+                                    <button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': userEdit.lockForm}"
+                                        ng-disabled="lockForm">
+										<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmAddCertificates.lockForm"></i>
+										<span>Lưu</span>
+									</button>
+                                    
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <!-- End: Toolbar -->
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <!-- Tên chứng chỉ -->
+                                <div class="form-group">
+                                    <label for="name">Tên chứng chỉ <span class="required">(*)</span></label>
+                                    <input id="name" name="name" class="form-control" type="text" ng-model="vmAddCertificates.formData.name"
+                                        ng-pattern="/[a-zA-Z0-9]/" required />
+                                    <div class="messages-error" ng-messages="frmCertificate.name.$error" ng-if="vmAddCertificates.submitted">
+                                        <div ng-message="required">Bạn chưa nhập tên chứng chỉ</div>
+                                    </div>
+                                </div>
+                                <!-- Miêu tả -->
+                                <div class="form-group">
+                                    <label for="description">Mô tả</label>
+                                    <textarea id="description" name="description" class="form-control" row="4" ng-model="vmAddCertificates.formData.description"></textarea>
+                                </div>
+                                <!--Start: Upload Image Section-->
+                                <div class="form-group">
+									<label>Hình ảnh</label>
+									<div class="image-upload-section">
+										<a class="form-control" href="" ngf-select ngf-multiple="false" ngf-change="vmAddCertificates.uploadImage($files)">
+												Thêm ảnh ...
+										</a>
+                                        <div>
+                                            <strong class="img-count" ng-show="vmAddCertificates.formData.images.length > 0">Đã tải lên [[vmAddCertificates.formData.images.length]] ảnh</strong>
+                                        </div>
+										<div class="image-upload" ng-repeat="(key, value) in vmAddCertificates.formData.images">
+											<img  ng-src="[[vmAddCertificates.imagesDirectory + value.url]]" alt="">
+											<a class="btn-remove-img" ng-click="vmAddCertificates.removeImage(key);" href="">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </a>
+										</div>
+									</div>
+									<uib-progressbar ng-if="progressPercentage" style="max-width: 500px; height: 50px;" animate="true" value="progressPercentage"
+										type="success"><b>[[progressPercentage]]%</b></uib-progressbar>
+								</div>
+                                <!--End: Upload Image Section-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <a ui-sref="certificate-list" class="btn btn-primary btn-flat">
+                            <i class="glyphicon glyphicon-remove"></i>
+                            <span>Hủy bỏ</span>
+                        </a>
+                        <button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': lockForm}" ng-disabled="lockForm">
+							<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmAddCertificates.lockForm"></i>
+							<span>Lưu</span>
+						</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

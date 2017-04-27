@@ -1,0 +1,568 @@
+/******************************************************************
+Component
+*******************************************************************/
+/****************************************************************************************
+Description: CSS configs
+*****************************************************************************************/
+/* Fonts */
+/****************************************************************************************
+Description: Bootstrap variables
+*****************************************************************************************/
+.messages-error {
+  font-size: 13px;
+}
+
+.messages-error > div {
+  padding: 2px 6px;
+  color: #dd4b39 !important;
+}
+
+.messages-error, .messages-error-summary {
+  color: #fff;
+}
+
+.select2-container.form-control {
+  padding: 0;
+  height: auto;
+}
+
+.select2-container.form-control .select2-choices, .select2-container.form-control .select2-choice {
+  border: none;
+}
+
+.select2-container.form-control .select2-choice {
+  background-image: none;
+  height: 32px;
+  padding-top: 2px;
+}
+
+.select2-container.form-control .select2-choice .select2-arrow {
+  border: none;
+  background: none;
+  background-image: none;
+}
+
+.select2-container.form-control .select2-choice .select2-arrow b {
+  background-position-y: 3px;
+}
+
+.select2-container.form-control .select2-choices .select2-search-choice {
+  margin: 5px 0 5px 5px;
+  line-height: 14px;
+  background-image: none;
+}
+
+#pop-avatar .cropper-browser {
+  width: 100%;
+  height: 200px;
+  margin: 0 auto;
+  background: #E6E6E6;
+  text-align: center;
+  display: table;
+  border-radius: 2px;
+}
+
+#pop-avatar .cropper-browser a {
+  color: #808080;
+  display: table-cell;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+#pop-avatar .cropper-browser a span {
+  position: relative;
+  top: 2px;
+  font-size: 20px;
+  color: #808080;
+  font-weight: bold;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+#pop-avatar .pop-content {
+  position: relative;
+}
+
+#pop-avatar .pop-content:hover .croper-zoom {
+  display: block;
+}
+
+#pop-avatar .loading-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#pop-avatar .croper-zoom {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  z-index: 1;
+  display: none;
+  background: #444;
+  border-radius: 28px;
+  text-align: center;
+  width: 154px;
+  margin-left: -77px;
+  padding: 5px;
+}
+
+#pop-avatar .croper-zoom input, #pop-avatar .croper-zoom span {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+#pop-avatar .croper-zoom img {
+  width: 32px;
+}
+
+#pop-avatar .btnSelectPic {
+  margin-left: 0;
+}
+
+#pop-avatar .pop-top-controls {
+  margin-bottom: 15px;
+}
+
+/******************************************************************
+Modules Load Auto
+*******************************************************************/
+/*inject-module:scss*/
+#mod-permission-add .space {
+  display: inherit;
+  margin: 5px 0 5px 5px;
+}
+
+#mod-permission-add .role-name {
+  color: red;
+  text-transform: uppercase;
+}
+
+#mod-permission-add .select2-container {
+  height: initial;
+}
+
+#mod-permission-add .resource {
+  color: blue;
+  text-transform: uppercase;
+}
+
+#mod-permission-list .btn-del {
+  margin-left: 10px;
+  color: red;
+}
+
+#mod-permission-list .btn-delete {
+  margin-left: 5px;
+  color: red;
+}
+
+#mod-permission-list .btn-add {
+  margin-left: 10px;
+  color: blue;
+}
+
+#mod-permission-list .btn-edit {
+  margin-left: 5px;
+}
+
+#mod-blog-add .image-upload-section img {
+  width: 150px;
+  height: 150px;
+}
+
+#mod-blog-add .image-upload-section .image-item {
+  display: inline-block;
+  margin-right: 20px;
+  position: relative;
+  font-size: 25px;
+}
+
+#mod-blog-add .image-upload-section .image-item:hover .btn-remove-image {
+  display: block;
+}
+
+#mod-blog-add .image-upload-section .btn-remove-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+
+#mod-blog-list .no-data {
+  text-align: center;
+}
+
+#mod-blog-list .img-blog {
+  width: 100px;
+  height: 100px;
+}
+
+#mod-certificate-product .select2-container {
+  display: block;
+}
+
+#mod-certificate-product .img-product {
+  width: 100px;
+  height: 100px;
+}
+
+#mod-certificate-add .image-upload {
+  float: left;
+  margin-right: 20px;
+}
+
+#mod-certificate-add .image-upload img {
+  width: 100px;
+  height: 100px;
+  border: 1px solid green;
+  margin-top: 10px;
+}
+
+#mod-certificate-add .btn-remove-img {
+  color: red;
+  background: white;
+  margin-bottom: -15px;
+}
+
+#mod-certificate-add .img-count {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+#mod-certificate-list .img-product {
+  width: 30px;
+  height: 30px;
+}
+
+#mod-certificate-list .list-image {
+  float: left;
+  margin-right: 10px;
+}
+
+#mod-category-add .tip-err {
+  color: darkgreen;
+}
+
+#mod-category-add .image-upload {
+  max-width: 100%;
+  border: 1px solid green;
+  margin-top: 10px;
+}
+
+#mod-category-add .btn-remove-img {
+  float: right;
+  color: red;
+  background: white;
+}
+
+#mod-category-add .img-count {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+#mod-category-add .select2-container {
+  display: block;
+}
+
+#mod-category-add .select2-container .select2-choice {
+  height: 34px;
+  border-radius: 0;
+  border: 1px solid #ccc;
+  background-color: white;
+  background-image: none;
+}
+
+#mod-category-add .select2-container .select2-choice .select2-arrow {
+  background: none;
+  background-image: none;
+  border: none;
+}
+
+#mod-category-list .no-data {
+  text-align: center;
+}
+
+#mod-category-list .img-product {
+  width: 100px;
+  height: 100px;
+}
+
+#mod-coupon-add .select2-container {
+  display: block;
+}
+
+#mod-coupon-add .many-coupon {
+  margin-top: 1%;
+  cursor: pointer;
+}
+
+#mod-coupon-edit .select2-container {
+  display: block;
+}
+
+#mod-list-log .pointer {
+  cursor: pointer;
+}
+
+#mod-order-add img.img-product {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+#mod-order-add .input-number {
+  width: 200px;
+  display: inline-block;
+}
+
+#mod-order-edit img.img-product {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+#mod-order-edit .input-number {
+  width: 200px;
+  display: inline-block;
+}
+
+#mod-product-add .image-upload-section img {
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+}
+
+#mod-product-add .image-upload-section .image-item {
+  display: inline-block;
+  margin-right: 20px;
+  position: relative;
+  vertical-align: middle;
+}
+
+#mod-product-add .image-upload-section .btn-remove-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  font-size: 25px;
+}
+
+#mod-product-add .image-upload-section .image-item:hover .btn-remove-image {
+  display: block;
+}
+
+#mod-product-add .related-image-section img {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+#mod-product-add .related-image-section .no-img {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  background: #eeeeee;
+  margin-right: 20px;
+}
+
+#mod-product-add .btn-remove-related-product {
+  position: relative;
+  top: 5px;
+  margin-left: 10px;
+  font-size: 25px;
+}
+
+#mod-product-edit .image-upload-section img {
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+}
+
+#mod-product-edit .image-upload-section .image-item {
+  display: inline-block;
+  margin-right: 20px;
+  position: relative;
+  vertical-align: middle;
+}
+
+#mod-product-edit .image-upload-section .btn-remove-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  font-size: 25px;
+}
+
+#mod-product-edit .image-upload-section .image-item:hover .btn-remove-image {
+  display: block;
+}
+
+#mod-product-edit .related-image-section img {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+#mod-product-edit .related-image-section .no-img {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  background: #eeeeee;
+  margin-right: 20px;
+}
+
+#mod-product-edit .btn-remove-related-product {
+  position: relative;
+  top: 5px;
+  margin-left: 10px;
+  font-size: 25px;
+}
+
+#mod-product-list td {
+  vertical-align: middle;
+}
+
+#mod-product-list .img-product {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+}
+
+#mod-report-a-day td {
+  vertical-align: middle;
+}
+
+#mod-report-a-day .img-product {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+}
+
+#mod-report-product-list td {
+  vertical-align: middle;
+}
+
+#mod-report-product-list .img-product {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+}
+
+#mod-supplier-add .input-w-icon {
+  display: table;
+}
+
+#mod-supplier-add .deputy-label {
+  font-style: italic;
+}
+
+#mod-supplier-list .detail-deputy {
+  text-align: center;
+}
+
+#mod-supplier-list .no-data {
+  text-align: center;
+}
+
+#mod-supplier-list .margin-left {
+  margin-left: 15px;
+}
+
+#mod-supplier-list .required {
+  color: red;
+}
+
+#mod-tag-product .select2-container {
+  display: block;
+}
+
+#mod-unit-list .no-data {
+  text-align: center;
+}
+
+#mod-user-edit .for-saleman label[role='switcher'] {
+  vertical-align: middle;
+  margin: 0 0 10px;
+}
+
+#mod-user-edit .select2-container {
+  display: block;
+}
+
+#mod-user-edit-profile .for-saleman label[role='switcher'] {
+  vertical-align: middle;
+  margin: 0 0 10px;
+}
+
+#mod-user-shipping .address {
+  margin-top: 10px;
+}
+
+#mod-user-shipping .feild {
+  margin-bottom: 10px;
+}
+
+#mod-user-shipping .feild .editable-controls .form-control {
+  height: 30px;
+}
+
+#mod-user-shipping .btn-delete {
+  color: red;
+}
+
+#mod-user-shipping .btn-cancel {
+  color: "#fb8300";
+}
+
+#mod-user-shipping .btn-submit {
+  border: none;
+}
+
+#mod-user-shipping .editable-error {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+#mod-popup-add-coupon .error-require, #mod-popup-add-coupon .ng-scope, #mod-popup-add-coupon .messages-error, #mod-popup-add-coupon .ng-scope, #mod-popup-add-coupon .ng-active {
+  color: red;
+  margin-top: 1%;
+}
+
+#mod-popup-log p {
+  margin: 1px;
+}
+
+#mod-popup-log pre {
+  margin: 10px 0;
+  padding: 5px 3px 0;
+}
+
+#mod-popup-log .edited {
+  color: red;
+}
+
+#mod-popup-log .null {
+  color: blue;
+}
+
+#mod-popup-order .info-order {
+  margin-top: 20px;
+}
+
+#mod-popup-order .list-product img {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+}
+
+#mod-popup-order .update-user-shipping-address {
+  cursor: pointer;
+  float: right;
+}
+
+/*endinject*/

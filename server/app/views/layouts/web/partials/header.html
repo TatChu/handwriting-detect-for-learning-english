@@ -1,0 +1,94 @@
+<meta name="title" content="{{{meta.title}}}">
+<meta name="description" content="{{{meta.desc}}}">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="fragment" content="!">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="robots" {{#if error404 }} content="noindex, nofollow" {{else}} content="index, follow" {{/if}}/>
+
+<meta name="keywords" content="">
+<!-- <link rel="shortcut icon" href="{{linkAssets 'favicon/site.ico/favicon.png'}}"> -->
+
+<!-- FAVICON -->
+<link rel="apple-touch-icon" sizes="57x57" href="{{linkAssets 'favicon/site.ico/apple-icon-57x57.png'}}">
+<link rel="apple-touch-icon" sizes="60x60" href="{{linkAssets 'favicon/site.ico/apple-icon-60x60.png'}}">
+<link rel="apple-touch-icon" sizes="72x72" href="{{linkAssets 'favicon/site.ico/apple-icon-72x72.png'}}">
+<link rel="apple-touch-icon" sizes="76x76" href="{{linkAssets 'favicon/site.ico/apple-icon-76x76.png'}}">
+<link rel="apple-touch-icon" sizes="114x114" href="{{linkAssets 'favicon/site.ico/apple-icon-114x114.png'}}">
+<link rel="apple-touch-icon" sizes="120x120" href="{{linkAssets 'favicon/site.ico/apple-icon-120x120.png'}}">
+<link rel="apple-touch-icon" sizes="144x144" href="{{linkAssets 'favicon/site.ico/apple-icon-144x144.png'}}">
+<link rel="apple-touch-icon" sizes="152x152" href="{{linkAssets 'favicon/site.ico/apple-icon-152x152.png'}}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{linkAssets 'favicon/site.ico/apple-icon-180x180.png'}}">
+<link rel="icon" type="image/png" sizes="192x192" href="{{linkAssets 'favicon/site.ico/android-icon-192x192.png'}}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{linkAssets 'favicon/site.ico/favicon-32x32.png'}}">
+<link rel="icon" type="image/png" sizes="96x96" href="{{linkAssets 'favicon/site.ico/favicon-96x96.png'}}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{linkAssets 'favicon/site.ico/favicon-16x16.png'}}">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="{{linkAssets 'favicon/site.ico/ms-icon-144x144.png'}}">
+<meta name="theme-color" content="#ffffff">
+<!-- END FAVICON -->
+
+<!-- Social: Facebook / Open Graph -->
+<!-- <meta property="og:type" content="{{{meta.og_type}}}"> -->
+<meta property="og:title" content="{{{meta.og_title}}}">
+<meta property="og:url" content="{{{meta.og_url}}}">
+<meta property="og:image" content="{{meta.og_image}}">
+<meta property="og:description" content="{{{meta.og_description}}}">
+<!-- Social: Twitter -->
+<meta name="twitter:title" content="{{{meta.og_title}}}">
+<meta name="twitter:description" content="{{{meta.og_description}}}">
+<meta name="twitter:image:src" content="{{meta.og_image}}">
+<!-- Social: Google+ / Schema.org  -->
+<meta itemprop="name" content="{{{meta.og_title}}}">
+<meta itemprop="description" content="{{{meta.og_description}}}">
+<meta itemprop="image" content="{{meta.og_image}}"> {{#if_eq settings.env "production"}}
+<style>
+	.view-container {
+		visibility: hidden;
+	}
+</style>
+<script type="text/javascript">
+	!function (e) {
+		"use strict"
+		var n = function (n, t, o) {
+			function i(e) { return f.body ? e() : void setTimeout(function () { i(e) }) } var d, r, a, l, f = e.document, s = f.createElement("link"), u = o || "all"
+			return t ? d = t : (r = (f.body || f.getElementsByTagName("head")[0]).childNodes, d = r[r.length - 1]), a = f.styleSheets, s.rel = "stylesheet", s.href = n, s.media = "only x", i(function () { d.parentNode.insertBefore(s, t ? d : d.nextSibling) }), l = function (e) {
+				for (var n = s.href, t = a.length; t--;)if (a[t].href === n) return e()
+				setTimeout(function () { l(e) })
+			}, s.addEventListener && s.addEventListener("load", function () { this.media = u }), s.onloadcssdefined = l, l(function () { s.media !== u && (s.media = u) }), s
+		}
+		"undefined" != typeof exports ? exports.loadCSS = n : e.loadCSS = n
+	}("undefined" != typeof global ? global : this)
+
+	loadCSS('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic')
+	loadCSS('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css')
+	loadCSS('https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css')
+	loadCSS("{{ linkAssets 'frontend/stylesheets/app.css'}}?v={{settings.versionJs}}")
+	loadCSS("{{linkPublic 'dist/site/styles/full.min.css'}}?v={{settings.versionJs}}")
+
+</script>
+{{/if_eq}} {{#if_eq settings.env "development"}} {{> web/partials/link/style}}
+<!-- ===============================FRONTEND BUILD=============================== -->
+<link rel="stylesheet" href="{{ linkAssets 'frontend/stylesheets/app.css'}}?v={{settings.versionJs}}">
+<!-- ===============================END FRONTEND BUILD=============================== -->
+
+<link rel="stylesheet" href="{{linkPublic 'tmp/site/styles/main.css'}}"> {{/if_eq}}
+
+<style>
+	.modal-dialog {
+		max-width: 400px;
+	}
+</style>
+
+<script>
+	var permissions = {{{json permissions}}};
+	var user = {{{json credentials}}};
+	var settings = {{{json settings}}};
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">

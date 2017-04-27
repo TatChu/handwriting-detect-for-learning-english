@@ -1,0 +1,154 @@
+<div id="mod-import-product-add" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Nhập hàng
+			<small>Nhập hàng</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>Trang chủ</a></li>
+		</ol>
+	</section>
+	<!-- Main content -->
+    <section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Nhập hàng</h3>
+						<div class="clearfix"></div>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+                        <form novalidate name="importProductForm" ng-submit="vmIPrE.submitForm(importProductForm)">
+
+                            <!--<div class="form-group">
+                                <select ui-select2 class="form-control" name="product" id="product" ng-model="vmIPrE.importProduct.id_product" ng-change="vmIPrE.getDetailProduct(); vmIPrE.enableForm(importProductForm); vmIPrE.calcuteTotalMoney(vmIPrE.importProduct.qty_after);" placeholder="Tìm sản phẩm" required>
+                                    <option value=""></option>
+                                    <option value="[[value._id]]" ng-repeat="value in vmIPrE.productList">[[value.name]]</option>
+                                </select>
+                                <div class="messages-error" ng-messages="importProductForm.product.$error" ng-if="importProductForm.$submitted">
+                                    <div ng-message="required">Bạn chưa chọn sản phẩm.</div>
+                                </div>
+                            </div>-->
+
+                            <div class="form-group" ng-if="vmIPrE.importProduct.id_product">
+                                <p>
+                                    <u>Information:</u>
+                                </p>
+                                <p>
+                                    <strong>Product: </strong> <span ng-bind="vmIPrE.productDetail.name"></span>
+                                </p>
+                                <!--<p>
+                                    <strong>Category: </strong>
+                                </p>-->
+                                <p>
+                                    <strong>Còn trong kho: </strong> 
+                                    <span ng-bind="vmIPrE.productDetail.qty_in_stock"></span>
+                                    <span ng-bind="vmIPrE.productDetail.unit_stock.name"></span>
+                                </p>
+                                <p>
+                                    <strong>Giá: </strong>
+                                    <input type="number" ng-model="vmIPrE.importProduct.price_new" name="price_new" id="price_new" ng-if="vmIPrE.showEditPrice" ng-change="vmIPrE.enableForm(importProductForm); vmIPrE.calcuteTotalMoney(vmIPrE.importProduct.qty_after);" bz-input-number min="0" required>
+                                    <span ng-bind="vmIPrE.importProduct.price_new" ng-if="!vmIPrE.showEditPrice"></span> đ 
+                                    <!--<a href="" ng-click="vmIPrE.editPrice(vmIPrE.productDetail.price)" class="btn btn-default">Sửa giá</a>-->
+                                </p>
+                                <div class="messages-error" ng-messages="importProductForm.price_new.$error" ng-if="importProductForm.$submitted">
+                                    <div ng-message="required">Bạn chưa nhập đơn giá.</div>
+                                    <div ng-message="min">Đơn giá phải lớn hơn 0. </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Số lượng lúc nhập hàng (theo đơn vị tính) <span class="text-red">(*)</span></label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="qty_before" id="qty_before" ng-model="vmIPrE.importProduct.qty_before" allow-dot="1" step="0.01" ng-change="vmIPrE.calcuteLost(); vmIPrE.enableForm(importProductForm);" bz-input-number min="[[vmIPrE.minQty]]" required>
+                                    <div class="input-group-addon">
+                                        <span ng-bind="vmIPrE.productDetail.unit_stock.name"></span>
+                                    </div>
+                                </div>
+                                <div class="messages-error" ng-messages="importProductForm.qty_before.$error" ng-if="importProductForm.$submitted">
+                                    <div ng-message="required">Bạn chưa nhập số lượng nhập hàng.</div>
+                                    <div ng-message="min">Số lượng phải lớn hơn [[vmIPrE.minQty]]. </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Số lượng sau sơ chế <span class="text-red">(*)</span></label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="qty_after" id="qty_after" ng-model="vmIPrE.importProduct.qty_after" allow-dot="1" step="0.01" ng-change="vmIPrE.calcuteLost(); vmIPrE.enableForm(importProductForm); vmIPrE.calcuteTotalMoney(vmIPrE.importProduct.qty_after);" bz-input-number min="0" required>
+                                    <div class="input-group-addon">
+                                        <span ng-bind="vmIPrE.productDetail.unit_stock.name"></span>
+                                    </div>
+                                </div>
+                                <div class="messages-error" ng-messages="importProductForm.qty_after.$error" ng-if="importProductForm.$submitted">
+                                    <div ng-message="required">Bạn chưa nhập số lượng sau sơ chế.</div>
+                                    <div ng-message="min">Số lượng phải lớn hơn 0. </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Số lượng hao hụt sơ chế</label>
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" name="qty_number_after" id="qty_number_after" ng-model="vmIPrE.tmpQty.qty_number_after" ng-change="vmIPrE.enableForm(importProductForm)" step="0.01" min="0" disabled>
+                                            <div class="input-group-addon">
+                                                <span ng-bind="vmIPrE.productDetail.unit_stock.name"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2 text-right" ng-if="vmIPrE.tmpQty.qty_percent_after">
+                                        <span ng-bind="vmIPrE.tmpQty.qty_percent_after"></span>% hao hụt
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="messages-error" ng-messages="importProductForm.qty_number_after.$error" ng-if="importProductForm.$submitted">
+                                    <div ng-message="min">Số lượng lúc nhập hàng phải lớn hơn số lượng sau sơ chế.</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Tổng tiền nhập hàng sau sơ chế</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="total_money_after" id="total_money_after" ng-model="vmIPrE.importProduct.total_money_after" ng-change="vmIPrE.enableForm(importProductForm)" bz-input-number min="0" required>
+                                    <div class="input-group-addon">
+                                        Đ
+                                    </div>
+                                </div>
+                                <div class="messages-error" ng-messages="importProductForm.total_money_after.$error" ng-if="importProductForm.$submitted">
+                                    <div ng-message="required">Bạn chưa nhập tổng tiền.</div>
+                                    <div ng-message="min">Tổng tiền phải lớn hơn 0. </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Nhà cung cấp</label>
+                                <select ui-select2 class="form-control" ng-model="vmIPrE.importProduct.id_supplier">
+                                    <option value="[[value._id]]" ng-repeat="value in vmIPrE.supplierList">[[value.name]]</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group text-right">
+                                <a class="btn btn-primary btn-flat" ui-sref="import-product()">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                    Hủy bỏ
+                                </a>
+                                <button class="btn btn-success btn-flat" type="submit" ng-disabled="importProductForm.$submitted">
+									<i class="glyphicon glyphicon-plus"></i>
+									<span>Sửa</span>
+								</button>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
+</div>

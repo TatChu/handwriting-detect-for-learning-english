@@ -1,0 +1,26 @@
+<div id="pop-submit" class="bzPopup pop-restore">
+	<h6 class="heading6">KHÔI PHỤC LẠI MẬT KHẨU</h6>
+	<p class="or">Vui lòng nhập email đã dùng để đăng ký, hệ thống sẽ gửi đường dẫn tạo mật khẩu mới đến email của bạn.</p>
+	<form novalidate name="frmForgotPass" ng-submit="vmForgotPass.forgotPass(frmForgotPass.$valid)">
+
+		<div class="form-group" ng-class="{'error': ( frmForgotPass.txtEmail.$error.required || frmForgotPass.txtEmail.$error.pattern || vmForgotPass.err == 'email' ) && vmForgotPass.submitted }">
+
+			<div class="msg-input email">
+				<input type="text" autocomplete="off" class="form-control" name="txtEmail" ng-change="vmForgotPass.checkInput()" ng-model="vmForgotPass.formData.email" placeholder="Email" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/"  required >
+			</div>
+			<span class="message-error"></span>
+			<div ng-messages="frmForgotPass.txtEmail.$error" ng-if="vmForgotPass.submitted">
+				<span class="message-error" ng-message="required">Bạn chưa nhập email.</span>
+				<span class="message-error" ng-message="pattern">Email không hợp lệ.</span>
+			</div>
+			<span class="message-error" ng-if="vmForgotPass.err == 'email' && vmForgotPass.submitted">Email không tồn tại</span>
+		</div>
+
+
+		<button class="btn btn-primary" type="submit" ng-disabled="vmForgotPass.lockForm">gửi email</button>
+
+	</form>
+</div>
+
+
+

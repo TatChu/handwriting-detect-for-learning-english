@@ -1,0 +1,146 @@
+<div id="mod-category-add" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Danh mục sản phẩm
+		</h1>
+
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a ui-sref="categories">Danh mục sản phẩm</a></li>
+			<li class="active">Cập nhật</li>
+		</ol>
+	</section>
+
+	<!-- Main content -->
+	<section class="content">
+
+		<!-- SELECT2 EXAMPLE -->
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<h3 class="box-title">Cập nhật danh mục sản phẩm</h3>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<form novalidate id="formCategory" name="formCategory" ng-submit="vmcategoryEdit.save(formCategory.$valid)">
+					<div class="box-body">
+						<!-- Toolbar -->
+						<div class="toolbar">
+							<div class="form-inline pull-right">
+								<div class="form-group form-action">
+									
+									<a  ui-sref="categories({module: 'category', parrentSlug:vmcategoryEdit.parrentCate.slug})"  class="btn btn-primary btn-flat">
+										<i class="glyphicon glyphicon-remove"></i>
+										<span>Hủy bỏ</span>
+									</a>
+									<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': userEdit.lockForm}"
+									 ng-disabled="lockForm">
+										<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmcategoryEdit.lockForm"></i>
+										<span>Lưu</span>
+									</button>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<!-- End: Toolbar -->
+						<div class="row">
+							<div class="col-sm-6">
+								<!-- Tên -->
+								<div class="form-group ">
+									<label for="txtName">Tên danh mục<span class="required">*</span></label>
+									<input id="txtName" name="txtName" class="form-control" placeholder="Tên danh mục sản phẩm" type="text" ng-model="vmcategoryEdit.formData.name"
+									 ng-pattern="/[a-zA-Z0-9]/" required ng-change="vmcategoryEdit.generatorSlug(vmcategoryEdit.formData.name)" //>
+									<div class="messages-error" ng-messages="formCategory.txtName.$error" ng-if="vmcategoryEdit.submitted">
+										<div ng-message="required">Bạn chưa nhập tên</div>
+									</div>
+								</div>
+								<!-- Slug -->
+								<div class="form-group ">
+									<label for="txtSlug">Slug / Đường dẫn liên kết<span class="required">*</span></label>
+									<input id="txtSlug" name="txtSlug" class="form-control" placeholder="Slug cho danh mục sản phẩm" type="text" ng-model="vmcategoryEdit.formData.slug"
+									 ng-pattern="/[-a-zA-Z0-9]/" required ng-change="vmcategoryEdit.generatorSlug(vmcategoryEdit.formData.slug)" />
+									<div class="messages-error" ng-messages="formCategory.txtSlug.$error" ng-if="vmcategoryEdit.submitted">
+										<div ng-message="required">Slug không được để trống</div>
+										<div ng-message="pattern">Slug không được có dấu hoặc chứa dấu cách</div>
+									</div>
+								</div>
+								<!-- Des -->
+								<div class="form-group ">
+									<label for="txtDesc">Mô tả</label>
+									<textarea id="txtDesc" name="txtDesc" class="form-control" placeholder="Mô tả danh mục này" type="text" ng-model="vmcategoryEdit.formData.description"
+									/>
+								</div>
+								<!-- Active -->
+								<div class="form-group">
+									<label>Active</label>
+									<br/>
+									<input i-check id="chkPublish" type="checkbox" ng-model="vmcategoryEdit.formData.status" ng-true-value="true" ng-false-value="false">									Kích hoạt
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<!--Danh mục cha-->
+								<div class="form-group hidden">
+									<div class="form-group ">
+										<label>Danh mục cha</label>
+										<select disabled name="txtParrent" ui-select2 ng-model="vmcategoryEdit.formData.parrent_id">
+											<option value="" ng-selected="">Danh mục gốc</option>
+											<option ng-repeat="option in vmcategoryEdit.listCategory" value="[[option._id]]">[[option.name]]</option>
+										</select>
+									</div>
+								</div>
+
+								<!--Top category show-->
+
+								<div class="form-group">
+									<div class="form-group ">
+										<label>Danh mục con hiển thị</label>
+
+										<select name="txtParrent" multiple ui-select2 ng-model="vmcategoryEdit.formData.top">
+											<option ng-repeat="option in vmcategoryEdit.listChildCategory" value="[[option._id]]">[[option.name]]</option>
+										</select>
+									</div>
+								</div>
+
+								<!--Start: Upload Image Section-->
+								<div class="form-group">
+									<label>Hình ảnh (32x32 px)</label>
+									<!--<div class="col-xs-12">-->
+									<div class="image-upload-section">
+										<a class="form-control" href="" ngf-select ngf-multiple="false" ngf-change="vmcategoryEdit.uploadImage($files)">
+												Thêm ảnh ...
+											</a>
+										<strong class="img-count" ng-show="vmcategoryEdit.formData.images.length == 0">Danh mục chưa có hình ảnh</strong>
+										<strong class="img-count" ng-show="vmcategoryEdit.formData.images.length > 0">Đã tải lên [[vmcategoryEdit.formData.images.length]] ảnh</strong>
+										<div ng-repeat="(key, value) in vmcategoryEdit.formData.images">
+											<img class="image-upload" ng-src="[[vmcategoryEdit.imagesDirectory + value.url]]" alt="">
+											<a class="btn-remove-img" ng-click="vmcategoryEdit.removeImage(key);" href="">Hủy ảnh này</a>
+										</div>
+									</div>
+									<uib-progressbar ng-if="progressPercentage" style="max-width: 500px; height: 50px;" animate="true" value="progressPercentage"
+									 type="success"><b>[[progressPercentage]]%</b></uib-progressbar>
+									<!--</div>-->
+								</div>
+								<!--End: Upload Image Section-->
+							</div>
+						</div>
+					</div>
+					<div class="box-footer pull-right">
+						<a  ui-sref="categories({module: 'category', parrentSlug:vmcategoryEdit.parrentCate.slug})"  class="btn btn-primary btn-flat">
+							<i class="glyphicon glyphicon-remove"></i>
+							<span>Hủy bỏ</span>
+						</a>
+						<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': lockForm}" ng-disabled="lockForm">
+							<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmcategoryEdit.lockForm"></i>
+							<span>Lưu</span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+</div>

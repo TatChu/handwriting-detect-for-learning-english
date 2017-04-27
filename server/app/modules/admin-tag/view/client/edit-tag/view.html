@@ -1,0 +1,95 @@
+<div id="mod-tag-add" class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Sửa nhãn
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Nhãn</a></li>
+            <li class="active">Sửa</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- SELECT2 EXAMPLE -->
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Sửa</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form novalidate id="frmTag" name="frmTag" ng-submit="vmEditTags.save(frmTag.$valid)">
+                    <div class="box-body">
+                        <!-- Toolbar -->
+                        <div class="toolbar">
+                            <div class="form-inline pull-right">
+                                <div class="form-group form-action">
+                                    <a ui-sref="tag-list" class="btn btn-primary btn-flat">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                        <span>Hủy bỏ</span>
+                                    </a>
+                                    <button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': userEdit.lockForm}"
+                                        ng-disabled="lockForm">
+										<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmEditTags.lockForm"></i>
+										<span>Lưu</span>
+									</button>
+                                    
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <!-- End: Toolbar -->
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <!-- Tên nhãn -->
+                                <div class="form-group">
+                                    <label for="name">Tên nhãn <span class="required">(*)</span></label>
+                                    <input id="name" name="name" class="form-control" type="text" ng-model="vmEditTags.formData.name" ng-pattern="/[a-zA-Z0-9]/"
+                                        required />
+                                    <div class="messages-error" ng-messages="frmTag.name.$error" ng-if="vmEditTags.submitted">
+                                        <div ng-message="required">Bạn chưa nhập tên nhãn</div>
+                                    </div>
+                                </div>
+                                <!-- Loại -->
+                                <div class="form-group">
+                                    <label for="type">Loại<span class="required">(*)</span></label>
+                                    <select class="form-control" name="type" id="type" ng-model="vmEditTags.formData.type">
+                                        <option value="SP">Sản Phẩm</option>
+                                        <option value="CN">Cách nấu</option>
+                                        <option value="BL">Bài viết</option>
+
+                                    </select>
+                                </div>
+
+                                <!-- Miêu tả -->
+                                <div class="form-group">
+                                    <label for="description">Miêu tả</label>
+                                    <textarea id="description" name="description" class="form-control" row="4" ng-model="vmEditTags.formData.description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <a ui-sref="tag-list" class="btn btn-primary btn-flat">
+                            <i class="glyphicon glyphicon-remove"></i>
+                            <span>Hủy bỏ</span>
+                        </a>
+                        <button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': lockForm}" ng-disabled="lockForm">
+							<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmEditTags.lockForm"></i>
+							<span>Lưu</span>
+						</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

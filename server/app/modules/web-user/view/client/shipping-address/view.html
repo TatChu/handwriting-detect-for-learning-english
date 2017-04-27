@@ -1,0 +1,44 @@
+<div id="mod-user-shippingaddress" class="module" ng-controller="shippingAddressCtrl as vmShippingAddress">
+    <div class="container">
+        <div class="row">
+            <div class="col-left col-xs-6">
+                {{> web/partials/user/menu_left}}
+            </div>
+            <div class="col-right col-xs-18">
+                <div class="right">
+                    <h6 class="title-heading6">địa chỉ giao hàng</h6>
+                    <div class="list-items hidden" id="hide1">
+                        <div class="item" ng-repeat="item in vmShippingAddress.user.customer.shipping_address">
+                            <div class="text">
+                                <p class="username">[[item.name]]</p>
+                                <p>Số điện thoại: <span>[[item.phone]]</span></p>
+                                <p>[[item.address_detail]], [[item.id_shipping_fee.district]], TP. Hồ Chí Minh</p>
+                            </div>
+                            <div class="group-edit">
+                                <a href="" title="" ng-click="vmShippingAddress.popEditShippingAddress(item)" onclick="helperJsCustom.GA('send', 'event', 'ShippingAddress', 'ClickButtonEditShippingAddress', '');">
+                                    <img src="{{ linkAssets 'frontend/images/icon-edit.png'}}" class="" alt="">
+                                    <span>Sửa</span>
+                                </a>
+                                <a href="" title="" ng-click="vmShippingAddress.deleteUserShipping(item._id)" onclick="helperJsCustom.GA('send', 'event', 'ShippingAddress', 'ClickButtonDeleteShippingAddress', '');">
+                                    <img src="{{ linkAssets 'frontend/images/icon-delete.png'}}" class="" alt="">
+                                    <span>Xóa</span>
+                                </a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="add-address">
+                        <a href="" title="" ng-click="vmShippingAddress.popAddShippingAddress()" onclick="helperJsCustom.GA('send', 'event', 'ShippingAddress', 'ClickButtonAddNewShippingAddress', '');">
+                            <img src="{{ linkAssets 'frontend/images/icon-add.svg'}}" class="" alt="">
+                            <span>Thêm địa chỉ mới</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var data = {{{json data}}}
+</script>

@@ -1,0 +1,29 @@
+#mod-blog-add{
+    .image-upload-section{
+        img{
+            width: 150px;
+            height: 150px;
+        }
+        .image-item{
+            display: inline-block;
+            margin-right: 20px;
+            position: relative;
+            font-size: 25px;
+        }
+        .image-item:hover{
+            .btn-remove-image{
+                display: block;
+            }
+        }
+        .btn-remove-image{
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: none;
+        }
+        // .img-display{
+        //     height: 25px;
+        //     width: 25px;
+        // }
+    }
+}

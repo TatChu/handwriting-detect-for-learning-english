@@ -1,0 +1,179 @@
+<div id="mod-blog-add" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Bài viết - Blog
+		</h1>
+
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a href="categories">Bài viết</a></li>
+			<li class="active">Thêm mới</li>
+		</ol>
+	</section>
+
+	<!-- Main content -->
+	<section class="content">
+
+		<!-- SELECT2 EXAMPLE -->
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<h3 class="box-title">Thêm mới bài viết</h3>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<form novalidate id="formCategory" name="formCategory" ng-submit="vmBlogAdd.save(formCategory.$valid)">
+					<div class="box-body">
+						<!-- Toolbar -->
+						<div class="toolbar">
+							<div class="form-inline pull-right">
+								<div class="form-group form-action">
+									<a ng-click="vmBlogAdd.cancel()" class="btn btn-primary btn-flat">
+										<i class="glyphicon glyphicon-remove"></i>
+										<span>Hủy bỏ</span>
+									</a>
+									<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': userEdit.lockForm}"
+									 ng-disabled="lockForm">
+										<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmBlogAdd.lockForm"></i>
+										<span>Lưu</span>
+									</button>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<!-- End: Toolbar -->
+						<div class="row">
+							<div class="col-sm-6">
+								<!-- Tên -->
+								<div class="form-group ">
+									<label for="txtName">Tên bài viết<span class="required">*</span></label>
+									<input id="txtName" name="txtName" class="form-control" placeholder="Tiêu đề  bài viết" type="text" ng-model="vmBlogAdd.formData.name"
+									 ng-change="vmBlogAdd.generatorSlug(vmBlogAdd.formData.name)" required />
+									<div class="messages-error" ng-messages="formCategory.txtName.$error" ng-if="vmBlogAdd.submitted">
+										<div ng-message="required">Bạn chưa nhập tên</div>
+									</div>
+								</div>
+								<!-- Slug -->
+								<div class="form-group ">
+									<label for="txtSlug">Slug / Đường dẫn liên kết<span class="required">*</span></label>
+									<input id="txtSlug" name="txtSlug" class="form-control" placeholder="Slug cho bài viết" type="text" ng-model="vmBlogAdd.formData.slug"
+									 required ng-change="vmBlogAdd.generatorSlug(vmBlogAdd.formData.slug)" />
+									<div class="messages-error" ng-messages="formCategory.txtSlug.$error" ng-if="vmBlogAdd.submitted">
+										<div ng-message="required">Slug không được để trống</div>
+									</div>
+								</div>
+								<!-- Des -->
+								<div class="form-group ">
+									<label for="txtDesc">Mô tả ngắn</label>
+									<textarea id="txtDesc" name="txtDesc" class="form-control" placeholder="Mô tả ngắn bài viết" type="text" ng-model="vmBlogAdd.formData.short_description"
+									/>
+								</div>
+								<!-- Active -->
+								<div class="form-group">
+									<label>Active</label>
+									<br/>
+									<input i-check id="chkPublish" type="checkbox" ng-model="vmBlogAdd.formData.status" ng-true-value="true" ng-false-value="false">									Publish Post
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<!--Meta title -->
+								<div class="form-group ">
+									<label for="txtMetaTitle">Tiêu đề SEO</label>
+									<input type="text" id="txtMetaTitle" name="txtMetaTitle" class="form-control" placeholder="SEO tiêu đề" ng-model="vmBlogAdd.formData.meta_title"
+									/>
+								</div>
+								<!--Meta keyword -->
+								<div class="form-group ">
+									<label for="txtMetaKeyword">Từ khóa SEO</label>
+									<input type="text" id="txtMetaKeyword" name="txtMetaKeyword" class="form-control" placeholder="Từ khoá SEO" ng-model="vmBlogAdd.formData.meta_keywords"
+									/>
+								</div>
+								<!--Meta description -->
+								<div class="form-group ">
+									<label for="txtMetaDescription">Mô tả SEO</label>
+									<textarea type="text" id="txtMetaDescription" name="txtMetaDescription" class="form-control" placeholder="Mô tả SEO" ng-model="vmBlogAdd.formData.meta_description"
+									/>
+								</div>
+
+								<!--Type-->
+								<!--<div class="form-group">
+									<label>Loại bài viết</label>
+									<div>
+										<label role="switcher">
+                                        <input i-check type="radio" name="type" ng-model="vmBlogAdd.formData.type" value="GB">
+                                        <label>Góc bếp</label>
+										</label>
+										<label role="switcher">
+                                        <input i-check type="radio" name="type" ng-model="vmBlogAdd.formData.type" value="CS">
+                                        <label>Chính sách</label>
+										</label>
+									</div>
+								</div>-->
+							</div>
+							<div class="col-sm-12">
+
+								<!--Start: Upload Image Section-->
+								<div class="form-group" ng-if="vmBlogAdd.formData.type == 'GB' || vmBlogAdd.formData.type == 'MV'">
+									<label>Hình ảnh - <strong class="img-count" ng-show="vmBlogAdd.formData.featured_image.length > 0">Hiện có [[vmBlogAdd.formData.featured_image.length]] ảnh</strong></label>
+									<div class="col-xs-12">
+										<div class="row image-upload-section">
+											<span ng-repeat="(key, value) in vmBlogAdd.formData.featured_image" class="image-item" ng-click="vmBlogAdd.cropImage(key, value.url)">
+                                            <img class="img-display" src="[[vmBlogAdd.imagesDirectory + value.url]]" alt="">
+                                            <a href="" ng-click="vmBlogAdd.removeImage(key,value.url)" class="btn-remove-image text-red">
+                                                <i class="fa fa-fw fa-remove"></i>
+                                            </a>
+                                        </span>
+											<a class="" href="" ngf-select ngf-multiple="false" ngf-change="vmBlogAdd.uploadImage($files)">
+                                            Thêm ảnh
+                                        </a>
+										</div>
+										<uib-progressbar ng-if="progressPercentage" style="max-width: 500px; height: 50px;" animate="true" value="progressPercentage"
+										 type="success"><b>[[progressPercentage]]%</b></uib-progressbar>
+									</div>
+								</div>
+
+								<!-- Tags-->
+								<div class="form-group" ng-if="vmBlogAdd.formData.type == 'GB' || vmBlogAdd.formData.type == 'MV'">
+									<label for="slTags">Tags</label>
+									<select ui-select2 class="form-control" multiple ng-model="vmBlogAdd.formData.tags" name="slTags" id="slTags">
+                                        <option value="[[value._id]]" ng-repeat="(key, value) in vmBlogAdd.listTag">[[value.name]]</option>
+                                        </select>
+								</div>
+
+								<!--End: Upload Image Section-->
+
+								<!--COntent -->
+								<div class="form-group">
+									<label>Nội dung bài viết</label>
+									<input id="txtContent" ckeditor="vmBlogAdd.ckeOpt" name="txtContent" class="form-control" ng-model="vmBlogAdd.formData.content"
+									 required />
+									<div class="messages-error" ng-messages="formCategory.txtContent.$error" ng-if="vmBlogAdd.submitted">
+										<div ng-message="required">Bạn chưa nhập nội dung</div>
+									</div>
+								</div>
+
+
+							</div>
+
+						</div>
+					</div>
+					<div class="box-footer pull-right">
+						<a ng-click="vmBlogAdd.cancel()" class="btn btn-primary btn-flat">
+							<i class="glyphicon glyphicon-remove"></i>
+							<span>Hủy bỏ</span>
+						</a>
+						<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': lockForm}" ng-disabled="lockForm">
+							<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmBlogAdd.lockForm"></i>
+							<span>Lưu</span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+</div>

@@ -1,0 +1,9 @@
+<!-- Đặc biệt plugin -->
+<script src="{{settings.services.admin}}/libs/ckeditor_4.6.2/ckeditor.js"></script>
+<!-- END Đặc biệt plugin -->
+
+{{#if_eq settings.env "production"}}
+<script src="{{linkPublic 'dist/admin/scripts/full.min.js'}}?v={{settings.versionJs}}"></script>
+{{else}} 
+    {{> admin/partials/link/script}} 
+{{/if_eq}}

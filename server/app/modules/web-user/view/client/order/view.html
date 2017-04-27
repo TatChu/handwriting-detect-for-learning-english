@@ -1,0 +1,82 @@
+<style>
+    .ng-table-pager{
+        text-align: center;
+    }
+</style>
+<div id="mod-user-myorder" class="module" ng-controller="orderCtrl as vmOrder">
+    <div class="container">
+        <div class="row">
+            <div class="col-left col-xs-6">
+                {{> web/partials/user/menu_left}}
+            </div>
+            <div class="col-right col-xs-18 hidden" id="table">
+                <div class="right">
+                    <h6 class="title-heading6">đơn hàng của tôi</h6>
+
+                    <div class="no-product-saved" ng-show="vmOrder.data.length == 0">
+                        <p class="no-save"> Bạn chưa có đơn hàng nào. </p>
+                    </div>
+
+                    <div class="table-responsive" ng-show="vmOrder.data.length > 0">
+                        <table  class="table table-bordered " ng-table="vmOrder.tableParams" >
+                            <thead>
+                                <tr>
+                                    <th>Mã đơn hàng</th>
+                                    <th>Sản phẩm</th>
+                                    <th>Giá đặt hàng</th>
+                                    <th>Ngày mua</th>
+                                    <th>Trạng thái giao hàng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in $data">
+                                    <td>[[item.id_order]]</td>
+                                    <td ng-if="!item.showAll">
+                                            <a ng-repeat="order_detail in item.order_detail" ng-if="$index <=1" href="" title="" ng-click="vmOrder.popupDetail(order_detail.product.slug,order_detail.product._id)">[[order_detail.product.name]]</a>
+                                            <a ng-if="item.order_detail.length > 2" href="" title="" class="viewmore" ng-click="vmOrder.showAll(item)">Xem thêm  
+                                                <img src="{{ linkAssets 'frontend/images/icon-down2.png'}}" class="" alt="">
+                                            </a>
+                                        
+                                    </td>
+                                    <td ng-if="item.showAll">
+                                        <a ng-repeat="order_detail in item.order_detail"  href="" title="" ng-click="vmOrder.popupDetail(order_detail.product.slug,order_detail.product._id)">[[order_detail.product.name]]</a>
+                                            <a  href="" title="" class="viewmore" ng-click="vmOrder.showAll(item)">Rút gọn 
+                                                <img src="{{ linkAssets 'frontend/images/IconUp.png'}}" class="" alt="">
+                                            </a>
+                                    </td>
+                                    <td class="text-right">[[item.total_pay | currency : '':0]] <span>đ</span></td>
+                                    <td class="text-right">[[item.createdAt | date: "dd/MM/yyyy h:mm a"]]</td>
+                                    <td>[[vmOrder.checkStatus(item.status)]]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--<div id="mod-paging">
+                        <ul>
+                            <li>
+                                <a href="" title="">
+                                <img src="{{ linkAssets 'frontend/images/prev.png'}}" class="" alt="">
+                                </a>
+                            </li>
+                            <li><a href="" title="">...</a></li>
+                            <li><a href="" title="">2</a></li>
+                            <li><a href="" title="">3</a></li>
+                            <li><a href="" title="">4</a></li>
+                            <li><a href="" title="">...</a></li>
+                            <li><a href="" title="">20</a></li>
+                            <li>
+                                <a href="" title="">
+                                <img src="{{ linkAssets 'frontend/images/next.png'}}" class="" alt="">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var data = {{{json data}}}
+</script>

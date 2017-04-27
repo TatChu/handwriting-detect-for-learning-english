@@ -1,0 +1,99 @@
+<div id="mod-list-log" class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Nhật ký hệ thống
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>Trang chủ</a></li>
+            <li class="active">Nhật ký</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title pull-left">Lịch sử hoạt động</h3>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <form name='filterForm' ng-submit='vmLog.filterForm()'>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="vmLog.filter.action" placeholder="Action">
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <select name="" ng-model="vmLog.filter.label" id="" class="form-control">
+                                            <option value="">Label</option>
+                                            <option ng-repeat="item in vmLog.listResource" value="[[item]]" ng-bind="item" ></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <input type="text" id="datetime-picker" class="form-control" ng-model="vmLog.filter.date" atr-date-time-picker atr-options="vmLog.dateTimePickerOpt"
+                                            placeholder="Từ ngày _/_/_ đến _/_/_">
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <button type="submit" class="btn btn-success btn-flat">
+										<i class="fa fa-search"></i>
+										<span>Filter</span>
+									</button>
+                                    <a href="" ng-click="vmLog.clearFilter()" class="btn btn-default btn-flat">
+                                        <i class="fa fa-undo"></i>
+                                        <span>Reset</span>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                        <div ng-show="mvProductList.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
+
+                        <table class="table table-condensed table-bordered table-striped" ng-table="vmLog.table" ng-show="!mvProductList.loading">
+                            <tr ng-repeat="item in $data">
+                                <td data-title="'STT'">
+                                    <div class="col col-num" ng-bind="((vmLog.queryParams.page - 1) * vmLog.queryParams.limit) + $index + 1"></div>
+                                </td>
+                                <td data-title="'Actor'">
+                                    [[item.actor == 'guest'? 'guest': item.actor.email != '' ? item.actor.email: item.actor.name]]
+                                </td>
+
+                                <td data-title="'Action'">
+                                    [[item.action]]
+                                </td>
+                                <td data-title="'Label'">
+                                    <span ng-bind="item.label"></span>
+                                </td>
+                                <td data-title="'Origin'">
+                                    [[item.origin]]
+                                </td>
+                                <td data-title="'Description'">
+                                    <span ng-bind="item.description"></span>
+                                </td>
+                                <td data-title="'Date'">
+                                    <span ng-bind="item.date | date: 'dd/MM lúc  h:mma'"></span>
+                                </td>
+                                <td class="pointer" data-title="'Action'">
+                                    <a class="btn  btn-flat btn-default" ng-click="vmLog.showPopupDetailLog(item)">Xem chi tiết</a>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>

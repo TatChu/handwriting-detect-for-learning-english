@@ -1,0 +1,118 @@
+<!-- Content Wrapper. Contains page content -->
+<div id="mod-user-edit-profile" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Profile
+			<small>Cập nhật</small>
+		</h1>
+
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a href="#">Profile</a></li>
+			<li class="active">Cập nhật</li>
+		</ol>
+	</section>
+
+	<!-- Main content -->
+	<section class="content">
+
+		<!-- SELECT2 EXAMPLE -->
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<h3 class="box-title">Cập nhật Profile</h3>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<form novalidate id="frmUser" name="frmUser" ng-submit="mvUEP.save(frmUser.$valid)">
+					<div class="box-body">
+						<!-- Toolbar -->
+						<div class="toolbar">
+							<div class="form-inline pull-right">
+								<div class="form-group form-action">
+									<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': mvUEP.lockForm}" ng-disabled="mvUEP.lockForm">
+										<i class="glyphicon glyphicon-floppy-disk" ng-if="!mvUEP.lockForm"></i>
+										<span>Lưu</span>
+									</button>
+									<a ui-sref="user-sale" class="btn btn-primary btn-flat">
+										<i class="glyphicon glyphicon-remove"></i>
+										<span>Hủy bỏ</span>
+									</a>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<!-- End: Toolbar -->
+						<div class="row">
+							<div class="col-sm-4">
+								<!-- Tên đăng nhập -->
+								<div class="form-group">
+									<label for="txtName">Họ và Tên <span class="required">*</span></label>
+									<input id="txtName" name="txtName" class="form-control" type="text" ng-model="mvUEP.formData.name" ng-pattern="/[a-zA-Z0-9]/" required />
+									<div class="messages-error" ng-messages="frmUser.txtName.$error" ng-if="mvUEP.submitted">
+										<div ng-message="required">Bạn chưa nhập tên.</div>
+										<div ng-message="pattern">Tên không được chứa các ký tự đặc biệt.</div>
+									</div>
+								</div>
+								
+								<!-- Email -->
+								<div class="form-group">
+									<label for="txtEmail">Email đăng nhập<span class="required">*</span></label>
+									<input class="form-control" id="txtEmail" name="txtEmail" type="text"  ng-model="mvUEP.formData.email" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/" required />
+									<div class="messages-error" ng-messages="frmUser.txtEmail.$error" ng-if="mvUEP.submitted">
+										<div ng-message="required">Bạn chưa nhập email.</div>
+										<div ng-message="pattern">Email không hợp lệ.</div>
+									</div>
+								</div>
+
+								<!-- Mật khẩu -->
+								<div class="form-group">
+									<label for="txtPassword">Nhập mật khẩu <span class="required">*</span></label>
+									<input class="form-control" id="txtPas nhập mật khẩusword" name="txtPassword" type="password" ng-if="!mvUEP.isEditMode" ng-model="mvUEP.formData.password" ng-minlength="8" ng-maxlength="30" required />
+									<input class="form-control" id="txtPassword" name="txtPassword" type="password" ng-if="mvUEP.isEditMode" ng-model="mvUEP.tmppassword" ng-minlength="8" ng-maxlength="30" />
+									<div class="messages-error" ng-messages="frmUser.txtPassword.$error" ng-if="mvUEP.submitted">
+										<div ng-message="required">Bạn chưa nhập mật khẩu.</div>
+										<div ng-message="minlength">Mật khẩu quá ngắn.</div>
+										<div ng-message="maxlength">Mật khẩu quá dài.</div>
+										<div ng-message="passwordcharacters">Mật khẩu phải có ký tự in hoa, thường, số và ký tự đặc biệt.</div>
+									</div>
+								</div>
+								<!-- Nhập lại mật khẩu -->
+								<!-- <div class="form-group">
+									<label for="txtRePassword">Nhập lại mật khẩu <span class="required">*</span></label>
+									<input class="form-control" id="txtRePassword" name="txtRePassword" type="text" ng-if="!mvUEP.isEditMode" ng-model="mvUEP.formData.cfpassword" bz-valid-password-match="#txtPassword" required>
+									<input class="form-control" id="txtRePassword" name="txtRePassword" type="password" ng-if="mvUEP.isEditMode" ng-model="mvUEP.tmpcfpassword" bz-valid-password-match="#txtPassword">
+									<div class="messages-error" ng-messages="frmUser.txtRePassword.$error" ng-if="mvUEP.submitted">
+										<div ng-message="required">Bạn chưa nhập mật khẩu xác nhận.</div>
+										<div ng-message="match">Mật khẩu không trùng khớp.</div>
+									</div>
+								</div> -->
+							</div>
+						</div>
+					</div>
+					<div class="box-footer">
+						<a ui-sref="user-sale" class="btn btn-primary btn-flat">
+							<i class="glyphicon glyphicon-remove"></i>
+							<span>Hủy bỏ</span>
+						</a>
+						<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': mvUEP.lockForm}" ng-disabled="mvUEP.lockForm">
+							<i class="glyphicon glyphicon-floppy-disk" ng-if="!mvUEP.lockForm"></i>
+							<span>Lưu</span>
+						</button>
+					</div>
+					<!-- <pre>[[mvUEP.formData | json]]</pre> -->
+				</form>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper

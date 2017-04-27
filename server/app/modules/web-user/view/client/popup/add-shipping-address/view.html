@@ -1,0 +1,58 @@
+<div id="pop-them-moi-dia-chi" class="bzPopup">
+	<div class="pop-head">
+		<h6 class="heading6">THÊM MỚI ĐỊA CHỈ GIAO HÀNG</h6>
+	</div>
+	<div class="pop-content">
+		<form novalidate name="frmShippingAddress" ng-submit="vmAddShippingAddress.addShippingAddress(frmShippingAddress.$valid)">
+			<div class="form-group " ng-class="{'error': (frmShippingAddress.txtName.$error.required) && vmAddShippingAddress.submitted }">
+				<label for="txtName">Họ và Tên</label>
+				<div class="msg-input ">
+					<input type="text" class="form-control" id="txtName"  name="txtName"  ng-model="vmAddShippingAddress.formData.name" required  />
+				</div>
+				<div ng-messages="frmShippingAddress.txtName.$error" ng-if="vmAddShippingAddress.submitted">
+					<span class="message-error" ng-message="required">Bạn chưa nhập họ tên</span>
+				</div>
+			</div>
+			<div class="form-group" ng-class="{'error': (frmShippingAddress.txtPhone.$error.required || frmShippingAddress.txtPhone.$error.pattern || frmShippingAddress.txtPhone.$error.minlength || frmShippingAddress.txtPhone.$error.maxlength ) && vmAddShippingAddress.submitted }">
+				<label for="txtPhone">Số điện thoại</label>
+				<div class="msg-input ">
+					<input type="tel"  class="form-control" id="txtPhone" name="txtPhone" ng-model="vmAddShippingAddress.formData.phone" ng-pattern="/^0[\d]{9,10}/" bz-input-only-digits  ng-minlength="10" ng-maxlength="11"  required>
+				</div>
+				<div ng-messages="frmShippingAddress.txtPhone.$error" ng-if="vmAddShippingAddress.submitted">
+					<span class="message-error" ng-message="required">Vui lòng nhập số điện thoại người nhận.</span>
+					<span class="message-error" ng-message="minlength">Bạn phải nhập ít nhất 10 số.</span>
+					<span class="message-error" ng-message="maxlength">Số điện thoại quá dài</span>
+					<span class="message-error" ng-message="pattern">Điện thoại phải có số '0' đầu tiên</span>
+				</div>
+			</div>
+			<div class="form-group" ng-class="{'error': (frmShippingAddress.district.$error.required) && vmAddShippingAddress.submitted }">
+				<label for="district">Quận/huyện (TP.Hồ Chí Minh) </label>
+				<div class="msg-input">
+					<select class="selectbox" id="district" name="district" ng-model="vmAddShippingAddress.formData.district" required>
+						<option value="">--Chọn quận/huyện--</option>
+						<option ng-repeat="district in vmAddShippingAddress.districts" value="[[district._id]]">[[district.district]]</option>
+					</select>
+				</div>
+				<div ng-messages="frmShippingAddress.district.$error" ng-if="vmAddShippingAddress.submitted">
+					<span class="message-error" ng-message="required">Vui lòng chọn quận/huyện</span>
+				</div>
+			</div>
+			<div class="form-group last-child" ng-class="{'error': (frmShippingAddress.address.$error.required) && vmAddShippingAddress.submitted }">
+				<label for="address">Địa chỉ chi tiết</label>
+				<div class="msg-input ">
+					<input type="text" class="form-control" id="address" name="address" ng-model="vmAddShippingAddress.formData.address" required>
+				</div>
+				<div ng-messages="frmShippingAddress.address.$error" ng-if="vmAddShippingAddress.submitted">
+					<span class="message-error" ng-message="required">Bạn chưa nhập địa chỉ.</span>
+				</div>
+			</div>
+			<div class="text-right">
+				<button type="submit" class="btn btn-primary" ng-disabled="vmAddShippingAddress.lockForm">THÊM MỚI</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+

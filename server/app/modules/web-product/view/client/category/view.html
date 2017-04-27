@@ -1,0 +1,89 @@
+<div id="mod-category" class="module" data-module="category" data-ng-controller="categoryCtrl as vmCategory">
+    <div class="container">
+        {{#each data.banner_top_item}}
+        <div class="banner">
+            <a href="{{this.link}}">
+                <img src="/files/banner_image/{{this.image}}" class="img-responsive" alt="">
+            </a>
+        </div>
+        {{/each}}
+        <div class="row">
+            {{> web/partials/category/sidebar_left}}
+
+            <!--Start: Right content-->
+            <div class="col-xs-20 col-right">
+                <!--Start : Tree link-->
+                <div class="tree-link">
+                    <a href="/">Trang chủ</a>
+                    <span>
+                        <img src="{{ linkAssets 'frontend/images/icon-navigation.png' }}" class='img-responsive' alt="">
+                    </span>
+                    <a href="/danh-muc/{{data.parrentCategory.slug}}">
+                        {{data.parrentCategory.name}}
+                    </a>
+                    {{#if_neq data.parrentCategory._id data.category._id}}
+                    <span>
+                        <img src="{{ linkAssets 'frontend/images/icon-navigation.png' }}" class='img-responsive' alt="">
+                    </span>
+                    <a href="/danh-muc/{{data.parrentCategory.slug}}/{{data.category.slug}}">
+                        {{data.category.name}}
+                    </a>
+                    {{/if_neq}}
+                </div>
+                <!--End: Tree link-->
+
+                <!--Start: List Category-->
+                {{#if data.same_category}}
+                <div class="filter-proc row show-desktop">
+                    {{#each data.same_category}}
+                    <div class="choose-filter col-xs-4">
+                        <a href="/danh-muc/{{../data.parrentCategory.slug}}/{{this.category.slug}}" class="btn" onclick="helperJsCustom.GA('send', 'event', '{{../ga_category}}', 'ClickPromoteCategory{{capitalize this.category.slug}}', '');">
+                            {{#if this.category.images}}
+                            <img src="/files/category_image/{{this.category.images.[0].url}}" alt="{{this.category.name}}">
+                            {{/if}}
+                            <span class="name-cate">
+                                {{this.category.name}} <span class="sl">({{this.product_count}})</span>
+                            </span>
+                        </a>
+                    </div>
+                    {{/each}}
+                    <div class="clearfix"></div>
+                </div>
+                {{/if}}
+                <!--End: List Category-->
+
+                <!--Start: Content-->
+                <div class="search-result">
+                    <!--Start: Top menu-->
+                    <div class="form-group">
+                        <div class="filter">
+                            <select data-ng-model="sort_tag" class="selectbox" data-ng-change="sortTag(); reloadPage();">
+                                {{#each data.tag_product}}
+								<option value="{{@index}}">{{this.name}}</option>
+                                {{/each}}
+							</select>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <h1>
+                        {{data.category.name}} 
+                        <span class="many-proc">
+                            ( {{data.products.length}} sản phẩm)
+                        </span>
+                    </h1>
+                    <!--End: Top menu-->
+
+                    {{> web/partials/category/products_list}}
+                </div>
+                <!--End: Content-->
+            </div>
+            <!--End: Right content-->
+        </div>
+        <div class="button"></div>
+    </div>
+</div>
+
+<script>
+    var data = {{{json data}}};
+    var ga_category = {{{json ga_category}}};
+</script>

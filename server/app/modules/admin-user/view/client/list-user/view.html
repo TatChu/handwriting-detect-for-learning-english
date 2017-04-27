@@ -1,0 +1,121 @@
+<!--Content Wrapper. Contains page content -->
+<div id="mod-unit-list" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Thành viên
+			<small>Danh sách thành viên</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a class="active">Thành viên</a></li>
+		</ol>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Danh sách thành viên</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="form-inline pull-right">
+							<div class="form-group form-group-item">
+								<a class="btn btn-primary btn-sm btn-flat" ui-sref="user-edit({module: 'user',id:null})">
+									<i class="glyphicon glyphicon-plus"></i>
+									<span>Thêm</span>
+								</a>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="row">
+							<form ng-submit="vmUsers.filter(vmUsers.keyword)">
+								<div class="col-xs-3">
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Tên, số điện thoại, email" ng-model="vmUsers.keyword">
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="form-group">
+										<select name="ddlRoles" id="ddlRoles" class="form-control" ng-model="vmUsers.role" ng-options="item.value as item.name for item in vmUsers.userRoles">
+										<option value="">Vai trò</option>
+                                    </select>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="form-group">
+										<select name="ddStatus" id="ddStatus" class="form-control" ng-model="vmUsers.status">
+										<option value="">Trạng thái</option>
+										<option value="true">Active</option>
+										<option value="false">Inactive</option>
+                                    </select>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<a type="button" name="search" class="btn btn-success btn-flat" ng-click="vmUsers.filter(vmUsers.keyword)">
+										<i class="fa fa-search"></i>
+										<span>Filter</span>
+									</a>
+									<a type="button" name="reset" class="btn btn-default btn-flat" ng-click="vmUsers.filterReset()">
+										<i class="fa fa-undo"></i>
+										<span>Reset</span>
+									</a>
+								</div>
+							</form>
+
+						</div>
+						<div ng-show="vmUsers.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
+						<table ng-show="!vmUsers.loading" ng-table="vmUsers.table" class="table table-condensed table-bordered table-striped">
+							<tr ng-repeat="item in $data">
+								<td data-title="'STT'">
+									<div class="col col-num" ng-bind="((vmUsers.queryParams.page - 1) * vmUsers.queryParams.limit) + $index + 1"></div>
+								</td>
+								<td data-title="'Tài khoản'">[[item.name]] <br><span ng-if="item.dob" ng-bind="' Ngày sinh: ' +( item.dob | bzFormatDate:'DD/MM/YYYY' )"></span>
+								</td>
+								<td data-title="'Thông tin liên hệ'">[[item.phone]]
+									<br> [[item.email]]
+								</td>
+								<td data-title="'Vai Trò'">
+									<span ng-repeat="(key, value) in item.roles">
+								[[$last ? value : value+', ']] 
+								</span>
+								</td>
+								<td data-title="'Ngày đăng ký'">
+									<span ng-bind="item.createdAt | bzFormatDate:'DD/MM/YYYY'"></span>
+								</td>
+								<td data-title="'Trạng thái'">
+									<span class="[[item.status === true ? 'label label-success': 'label label-default']]">[[item.status === true ? 'Active': 'Inactive']]</span>
+								</td>
+								<td data-title="'Action'">
+									&nbsp
+									<a class="btn btn-default btn-flat btn-edit"  ui-sref="user-edit({module: 'user', id:item._id})">
+										Sửa
+									</a>
+									&nbsp
+									<a class="btn btn-default btn-flat btn-delete" ng-click="vmUsers.remove(item._id)">
+										Xoá
+									</a>
+									<br>
+									<a  class="btn btn-default btn-flat"  ui-sref="user-shipping({module: 'user', id:item._id})">
+										<span>Địa chỉ giao hàng</span>
+									</a>
+									<br>
+									<a class="btn btn-default btn-flat"  ui-sref="order-list({user:1, user_id: item._id})">Lịch sử đặt hàng</a>
+								</td>
+							</tr>
+						</table>
+
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper-->

@@ -1,0 +1,28 @@
+<div id="mod-popup-log" class="popup-log">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Chi tiết dữ liệu thay đổi
+        </h1>
+    </section>
+    <hr class="space">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <strong>Dữ liệu cũ</strong>
+                <pre>
+                    <p class="null" ng-if="log.object.old == null">Dữ liệu trống</p>
+                    <p ng-repeat="(key, value) in log.object.old" ng-bind="key + ': ' + log.object.old[key]"></p>
+                </pre>
+            </div>
+            <div class="col-md-6">
+                <strong>Dữ liệu mới</strong>
+                <pre>
+                    <p class="null" ng-if="log.object.new == null">Dữ liệu trống</p>
+                    <p ng-repeat="(key, value) in log.object.new" ng-class="{edited: (log.object.new[key] != log.object.old[key])}" ng-bind="key + ': ' + log.object.new[key]"></p>
+                </pre>
+            </div>
+        </div>
+    </section>
+</div>

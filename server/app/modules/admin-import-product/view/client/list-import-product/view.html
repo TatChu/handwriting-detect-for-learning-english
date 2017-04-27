@@ -1,0 +1,107 @@
+<div id="mod-import-product-list" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Lịch sử nhập hàng
+			<small>Lịch sử nhập hàng</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>Trang chủ</a></li>
+		</ol>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title pull-left">Lịch sử nhập hàng</h3>
+                        <div class="form-inline pull-right">
+							<div class="form-group form-group-item">
+                                <a class="btn btn-primary btn-flat" ng-show="vmIPr.showBtnAdd" ui-sref="import-product-add()">
+									<i class="glyphicon glyphicon-plus"></i>
+									<span>Nhập hàng</span>
+								</a>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+                        <div class="row">
+                            <form name='filterForm' ng-submit='vmIPr.filterForm(filterForm)'>
+								<div class="col-xs-3">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="vmIPr.filter.product" placeholder="Tên sản phẩm">
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <input type="text" id="datetime-picker" class="form-control" ng-model="vmIPr.filter.date" atr-date-time-picker atr-options="vmIPr.dateTimePickerOpt" placeholder="Từ ngày _/_/_ đến _/_/_">
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <button type="submit" class="btn btn-success btn-flat">
+										<i class="fa fa-search"></i>
+										<span>Filter</span>
+									</button>
+                                    <a href="" ng-click="vmIPr.clearFilter()" class="btn btn-default btn-flat">
+										<i class="fa fa-undo"></i>
+										<span>Reset</span>
+									</a>
+								</div>
+							</form>
+						</div>
+						<div ng-show="mvProductList.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
+
+                        <table class="table table-condensed table-bordered table-striped" ng-table="vmIPr.table" ng-show="!mvProductList.loading">
+                            <tr ng-repeat="item in $data">
+                                <td data-title="'STT'">
+                                    <div class="col col-num" ng-bind="((vmIPr.queryParams.page - 1) * vmIPr.queryParams.limit) + $index + 1"></div>
+                                </td>
+                                <td data-title="'Sản phẩm'">
+                                    [[item.product.name]]
+                                </td>
+                                <td data-title="'Thời gian nhập kho'">
+                                    <span ng-bind="item.createdAt | bzFormatDate:'DD/MM/YYYY hh:mm:ss A'"></span>
+                                </td>
+                                <td data-title="'Số lượng lúc nhập hàng'">
+                                    <span ng-bind="item.qty_before"></span>
+                                </td>
+                                <td data-title="'Số lượng hao hụt sơ chế'">
+                                    <span ng-bind="item.qty_before - item.qty_after"></span>
+                                </td>
+                                <td data-title="'Số lượng sau sơ chế'">
+                                    <span ng-bind="item.qty_after"></span>
+                                </td>
+                                <td data-title="'Giá'" class="text-right">
+                                    [[item.price_new| currency : '':0]]đ
+                                </td>
+                                <td data-title="'Tổng tiền nhập hàng sau sơ chế'" class="text-right">
+                                    <span ng-bind="item.total_money_after | currency : '':0"></span>đ
+                                </td>
+                                <td data-title="'Giá đổi (nếu có)'" class="text-right">
+                                    <span ng-if="item.price_new != item.price_old">
+                                        [[item.price_new | currency : '':0]]đ
+                                    </span>
+                                </td>
+                                <td data-title="'Người nhập hàng'">
+                                    <span ng-bind="item.user.name"></span>
+                                </td>
+                                <td data-title="'Hành động'">
+									<a ng-show="vmIPr.showBtnDelete" ng-click="vmIPr.remove(item)" class="btn btn-default btn-flat" href="">Xóa</a>
+								</td>
+                            </tr>
+                        </table>
+
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
+</div>

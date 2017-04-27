@@ -1,0 +1,94 @@
+<div id="mod-user-wishlist" class="module" ng-controller="favoriteProductCtrl as vmFavoriteProduct">
+    <div class="container">
+        <div class="row">
+            <div class="col-left col-xs-6">
+                {{> web/partials/user/menu_left}}
+            </div>
+            <div class="col-right col-xs-18 hide"  id="hide1">
+                <div class="right" >
+                    <h6 class="title-heading6">CÁC SẢN PHẨM ĐÃ ĐƯỢC LƯU LẠI</h6>
+
+                    <div class="no-product-saved" ng-show="vmFavoriteProduct.data.length ==0">
+                        <p class="no-save">Bạn chưa lưu sản phẩm nào vào sổ tay nội trợ. </p>
+                    </div>
+
+                    <div class="list-items"  ng-show="vmFavoriteProduct.data.length >0">
+                        <div class="item" ng-repeat="product in vmFavoriteProduct.data"  >
+                            <div class="content-left">
+                                <a href="" ng-click="vmFavoriteProduct.popupDetail(product.slug, product._id)">
+                                    <img class="img" ng-src="[[vmFavoriteProduct.checkImgOld(vmFavoriteProduct.imagesDirectory ,product.thumb )]]" class="img-reponsive" alt="">
+                                </a>
+                                <div class="cont">
+                                    <a href=""  ng-click="vmFavoriteProduct.popupDetail(product.slug, product._id)">
+                                        <p class="name">[[product.name]]</p>
+                                    </a>
+                                    <p class="weight">[[product.view_unit]]</p>
+
+                                    <div class="prize" ng-show="product.id_promotion">
+                                        <p class="name" ng-switch="product.id_promotion.type">
+                                            <span ng-switch-when='PC' >[[product.price * (100 - product.id_promotion.value) / 100 | currency : '':0]] ₫</span>
+                                            <span ng-switch-when='MN' >[[product.price - product.id_promotion.value | currency : '':0]] ₫</span>
+                                        </p>
+                                        <p class="weight">[[product.price | currency : '':0]] ₫</p>
+                                    </div>
+                                    <div class="prize" ng-show="!product.id_promotion">
+                                        <p class="name">[[product.price | currency : '':0]] ₫</p>
+                                        <!-- <p class="weight">[[product.price]] ₫</p> -->
+                                    </div>
+
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <span ng-if="vmFavoriteProduct.checkDateProduct(product.due_date.end_date)">
+                                <span ng-if="product.qty_in_stock > 0">
+
+                                    <div class="take-cart"  ng-if="!vmFavoriteProduct.getCart(product) || product.cart.quantity == 0">
+                                        <button class="btn btn-primary"  ng-click="vmFavoriteProduct.addToCart(product._id); vmFavoriteProduct.addToCartGA(product);" onclick="helperJsCustom.GA('send', 'event', 'Wishlist', 'ClickButtonAddToCart', '');">
+                                            Bỏ vào giỏ
+                                        </button>
+                                    </div>
+
+                                    <div class="take-cart active" ng-if="vmFavoriteProduct.getCart(product) && product.cart.quantity > 0">
+                                        <div class="soluong">
+                                            <img src="{{ linkAssets 'frontend/images/icon-giam.svg'}}" class="img-reponsive" ng-click="vmFavoriteProduct.decreaseCart(product._id,product.cart.quantity);"
+                                                onclick="helperJsCustom.GA('send', 'event', 'Wishlist', 'ClickDecreaseQuantityItem', '');">
+                                            <span ng-bind="product.cart.quantity"></span>
+                                            <img  src="{{ linkAssets 'frontend/images/icon-tang.png'}}" alt="" class="img-responsive"
+                                            ng-click="vmFavoriteProduct.addToCart(product._id)" ng-class="{disabled: (product.cart.quantity == product.qty_in_stock)}"
+                                            onclick="helperJsCustom.GA('send', 'event', 'Wishlist', 'ClickIncreaseQuantityItem ', '');">
+                                        </div>
+                                    </div>
+
+
+                                </span>
+                                <div class="take-cart"  ng-if="product.qty_in_stock == 0 ">
+                                    <button class="btn btn-primary"  disabled >
+                                        <!--<img ng-src="[[settings.services.webUrl]]/assets/frontend/images/card-button.svg" class="img-reponsive">-->
+                                        Sắp có hàng
+                                    </button>
+                                </div>
+                            </span>
+                            
+
+                            
+                            <div class="take-cart"  ng-if="!vmFavoriteProduct.checkDateProduct(product.due_date.end_date)">
+                                <button class="btn btn-primary"  disabled >
+                                    Đã hết hàng 
+                                </button>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    var data = {{{json data}}}
+</script>

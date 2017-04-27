@@ -1,0 +1,21 @@
+{
+    "web": {
+        "db": {
+            "uri": "mongodb://localhost/db_english_study",
+            "prefixCollection": "mhv_"
+        },
+        "elasticsearch": {
+            "ES_Sync": false,
+            "prefixIndex": "dev",
+            "config": {
+                "hosts": [
+                    {
+                        "protocol": "http",
+                        "host": "localhost",
+                        "port": 9200
+                    }
+                ]
+            }
+        }
+    }
+}

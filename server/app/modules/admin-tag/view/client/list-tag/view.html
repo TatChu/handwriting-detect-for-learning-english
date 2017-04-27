@@ -1,0 +1,85 @@
+<!--Content Wrapper. Contains page content -->
+<div id="mod-tag-list" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Nhãn
+			<small>Danh sách</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a class="active">Nhãn</a></li>
+		</ol>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Danh sách</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="form-inline pull-right">
+							<div class="form-group form-group-item">
+								<a class="btn btn-primary btn-sm btn-flat" ng-show="vmTags.showBtnAdd" ui-sref="tag-create()">
+									<i class="glyphicon glyphicon-plus"></i>
+									<span>Thêm</span>
+								</a>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<form name="filterForm" ng-submit="vmTags.filter(vmTags.keyword)">
+							<div class="row">
+								<div class="col-xs-3">
+									<div class="form-group">
+										<input type="text" class="form-control" ng-model="vmTags.keyword" placeholder="Tên nhãn" />
+									</div>
+								</div>
+								<div class="col-xs-4">
+									<button type="submit" name="search"  class="btn btn-success btn-flat">
+										<i class="fa fa-search"></i>
+										<span>Filter</span>
+									</button>
+									<a type="button" name="reset"  class="btn btn-default btn-flat" ng-click="vmTags.filterReset()">
+										<i class="fa fa-undo"></i>
+										<span>Reset</span>
+									</a>
+								</div>
+							</div>
+						</form>
+
+						<div ng-show="vmTags.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
+						<table ng-show="!vmTags.loading" ng-table="vmTags.table" class="table table-condensed table-bordered table-striped text-center">
+							<tr ng-repeat="item in $data">
+								<td data-title="'STT'">
+									<div class="col col-num" ng-bind=" ((vmTags.queryParams.page - 1) * vmTags.queryParams.limit) + $index + 1"></div>
+								</td>
+								<td data-title="'Tên'">[[item.name]]</td>
+								<td data-title="'Loại'">[[vmTags.checkType(item.type)]]</td>
+								<td data-title="'Mô tả'">[[item.description]]</td>
+								<td  data-title="'Action'">
+									<a class="btn btn-default" ng-show="vmTags.showBtnEdit" ui-sref="tag-edit({id:item._id})">
+										<!--<i class="fa fa-pencil"></i>--> Sửa 
+									</a>
+									&nbsp
+									<a class="btn btn-default" ng-show="vmTags.showBtnDelete" ng-click="vmTags.remove(item._id)">
+										<!--<i class="fa fa-close"></i>--> Xóa
+									</a>
+								</td>
+							</tr>
+						</table>
+
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper-->

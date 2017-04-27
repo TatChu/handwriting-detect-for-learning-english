@@ -1,0 +1,7 @@
+<!-- =========================Users========================= -->
+<li ng-if="pageMethods.authSvc.isSuperAdmin()" ng-class="{'active':pageData.menuType === 'user'}" class="treeview">
+    <a ui-sref="users({page:1})">
+        <i class="fa fa-users text-aqua"></i> <span> User list</span>
+    </a>
+</li>
+<!-- =========================END Users========================= -->

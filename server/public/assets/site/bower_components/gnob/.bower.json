@@ -1,0 +1,32 @@
+{
+  "name": "gnob",
+  "main": "gnob.js",
+  "version": "0.1.11",
+  "authors": [
+    "Darrell Banks <hacknightly@gmail.com>"
+  ],
+  "description": "Simple, mouse-wheelable, dependency-free knob",
+  "keywords": [
+    "knob",
+    "audio",
+    "range"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "homepage": "https://github.com/hacknightly/gnob",
+  "_release": "0.1.11",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.11",
+    "commit": "06e4f88e096661805b3423912e2bfb33191b7682"
+  },
+  "_source": "https://github.com/hacknightly/gnob.git",
+  "_target": "^0.1.11",
+  "_originalSource": "knob"
+}

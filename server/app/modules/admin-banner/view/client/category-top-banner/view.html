@@ -1,0 +1,181 @@
+<div id="mod-banner-category-top" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Banner Category Top
+			<small>Banner Category Top</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="" ui-sref="dashboard"><i class="fa fa-dashboard"></i>Trang chủ</a></li>
+			<li><a href="" class="active" ui-sref="banner-list">Banner</a></li>
+		</ol>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title pull-left">Banner Category Top</h3>
+						<div class="box-tools pull-right">
+							<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+							<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<p class="box-header">Kích thước: 1232x200</p>
+
+					<!-- /.box-header -->
+					<div class="box-body" ng-show="vmBaCT.loading">
+						<div class="text-center">
+							<img src="/assets/loading.svg" alt="">
+						</div>
+					</div>
+
+					<div class="box-body" ng-if="!vmBaCT.loading">
+						<div id="comeback">
+							<a class="btn btn-primary btn-flat pull-right" ui-sref="banner-list">
+								Quay về
+							</a>
+							<div class="clearfix"></div>
+						</div>
+
+						<div ng-repeat="(key, banner) in vmBaCT.banList">
+							<div class="row">
+								<div class="col-xs-12">
+									<h3>[[banner.category.name]]</h3>
+								</div>
+							</div>
+							<!--Start: Add Form Item-->
+							<form novalidate name="baCTAddForm" id="baCTAddForm" ng-submit="vmBaCT.create(baCTAddForm,banner.banner, vmBaCT.banList, 'item')" ng-show="!banner.banner.data._id">
+								<div class="row">
+									<!--Start: Link and Image-->
+									<div class="col-xs-8">
+										<div class="form-group">
+											<label for="">Link</label>
+											<input type="text" class="form-control" id="link" name="link" ng-model="banner.banner.data.link" ng-change="vmBaCT.enableForm(baCTAddForm)" required>
+											<div class="messages-error" ng-messages="baCTAddForm.link.$error" ng-show="baCTAddForm.$submitted">
+												<div ng-message="required">Bạn chưa thêm link.</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<a href="" ngf-select ngf-multiple="false" ngf-change="vmBaCT.uploadImage($files, banner.banner.data, baCTAddForm)" ng-show="!banner.banner.data.image">
+												Upload hình
+											</a>
+											<a href="" ngf-select ngf-multiple="false" ngf-change="vmBaCT.uploadImage($files, banner.banner.data, baCTAddForm)" ng-show="banner.banner.data.image">
+												<img ng-src="[[vmBaCT.urlImg]][[banner.banner.data.image]]" alt="" width="200">
+											</a>
+											<div class="text-red" ng-show="baCTAddForm.$submitted && !banner.banner.data.image">
+												<p>Bạn chưa thêm upload hình.</p>
+											</div>
+										</div>
+									</div>
+									<!--End: Link and Image-->
+
+									<!--Start: Order and Status-->
+									<div class="col-xs-4">
+										<div class="form-group">
+											<label for="">Thứ tự</label>
+											<input type="number" name="order" class="form-control" ng-model="banner.banner.data.order" bz-input-number min="0" ng-change="vmBaCT.enableForm(baCTAddForm)" required>
+											<div class="messages-error" ng-messages="baCTAddForm.order.$error" ng-show="baCTAddForm.$submitted">
+												<div ng-message="required">Bạn chưa nhập thứ tự.</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<input i-check id="slider" type="checkbox" ng-model="banner.banner.data.status" ng-true-value="true" ng-false-value="false">
+											<label for="slider">Status</label>
+										</div>
+									</div>
+									<!--End: Order and Status-->
+
+									<!--Start:Button-->
+									<div class="col-xs-12">
+										<div class="form-group text-right">
+											<button type="submit" ng-disabled="baCTAddForm.$submitted" class="btn btn-success btn-flat">
+												<i class="glyphicon glyphicon-floppy-disk"></i>
+												Thêm
+											</button>
+											<div class="clearfix"></div>
+										</div>
+									</div>
+									<!--End:Button-->
+								</div>
+								<div class="clearfix"></div>
+							</form>
+							<!--Start: Add Form Item-->
+
+							<!--Start: Edit Form Item-->
+							<form novalidate name="baCTEditForm" id="baCTEditForm" ng-submit="vmBaCT.update(baCTEditForm,banner.banner, banner.banner.data._id)" ng-show="banner.banner.data._id">
+								<div class="row">
+
+									<!--Start: Link and Image-->
+									<div class="col-xs-8">
+										<div class="form-group">
+											<label for="">Link</label>
+											<input type="text" class="form-control" id="link" name="link" ng-model="banner.banner.data.link" ng-change="vmBaCT.enableForm(baCTEditForm)" required>
+											<div class="messages-error" ng-messages="baCTEditForm.link.$error" ng-show="baCTEditForm.$submitted">
+												<div ng-message="required">Bạn chưa thêm link.</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<a href="" ngf-select ngf-multiple="false" ngf-change="vmBaCT.uploadImage($files, banner.banner.data, baCTEditForm, true)" ng-show="!banner.banner.data.image">
+												Upload hình
+											</a>
+											<a href="" ngf-select ngf-multiple="false" ngf-change="vmBaCT.uploadImage($files, banner.banner.data, baCTEditForm, true)" ng-show="banner.banner.data.image">
+												<img ng-src="[[vmBaCT.urlImg]][[banner.banner.data.image]]" alt="" width="200">
+											</a>
+											<div class="text-red" ng-show="baCTEditForm.$submitted && !banner.banner.data.image">
+												<p>Bạn chưa thêm upload hình.</p>
+											</div>
+										</div>
+									</div>
+									<!--End: Link and Image-->
+
+									<!--Start: Order and Status-->
+									<div class="col-xs-4">
+										<div class="form-group">
+											<label for="">Thứ tự</label>
+											<input type="number" name="order" class="form-control" ng-model="banner.banner.data.order" bz-input-number min="0" ng-change="vmBaCT.enableForm(baCTEditForm)" required>
+											<div class="messages-error" ng-messages="baCTEditForm.order.$error" ng-show="baCTEditForm.$submitted">
+												<div ng-message="required">Bạn chưa nhập thứ tự.</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<input i-check id="slider-[[banner.banner.data._id]]" type="checkbox" ng-model="banner.banner.data.status" ng-true-value="true" ng-false-value="false">
+											<label for="slider-[[banner.banner._id]]">Status</label>
+										</div>
+									</div>
+									<!--Start: Order and Status-->
+
+									<!--Start: Button-->
+									<div class="col-xs-12">
+										<div class="form-group text-right">
+											<button type="submit" ng-disabled="baCTEditForm.$submitted" class="btn btn-success btn-flat">
+												<i class="glyphicon glyphicon-floppy-disk"></i>
+												Sửa
+											</button>
+											<div class="clearfix"></div>
+										</div>
+									</div>
+									<!--End: Button-->
+									<div class="clearfix"></div>
+								</div>
+							</form>
+							<!--End: Edit Form Item-->
+						</form>
+						</div>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
+</div>

@@ -1,0 +1,28 @@
+#mod-user-shipping {
+    .address{
+        margin-top: 10px;
+    }
+    .feild{
+        margin-bottom: 10px;
+        .editable-controls{
+        .form-control{
+            height: 30px;
+        }
+    }
+    }
+	.editable-input{
+        // float: right;
+    }
+    .btn-delete{
+        color: red;
+    }
+    .btn-cancel{
+        color: "#fb8300";
+    }
+    .btn-submit{
+        border: none;
+    }
+    .editable-error{
+        display: inline-flex;
+    }
+}

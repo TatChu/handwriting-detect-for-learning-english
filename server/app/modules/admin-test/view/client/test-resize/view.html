@@ -1,0 +1,96 @@
+<div id="mod-unit-add" class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Test
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Test</a></li>
+            <li class="active">Resize</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- SELECT2 EXAMPLE -->
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Resize</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                
+                <button ng-click="vmTestResize.crop()">crop</button>
+
+                <form id="frmUnit" name="frmUnit" ng-submit="vmTestResize.resize()">
+                    <div class="box-body">
+                        <!-- Toolbar -->
+                        <div class="toolbar">
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <!-- End: Toolbar -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- Tên đơn vị -->
+                                <div class="form-group">
+                                    <label>Image</label>
+                                    <!--<div class="col-xs-12">-->
+                                    <div class="image-upload-section">
+                                        <a class="form-control" href="" ngf-select ngf-multiple="false" ngf-change="vmTestResize.uploadImage($files)">
+												Add new image
+											</a>
+                                        <div>
+                                            <img style="width: 100%" ng-src="[[vmTestResize.tempImgPath + vmTestResize.image.old.filename]]" alt="">
+                                        </div>
+                                    </div>
+                                    <!--</div>-->
+                                </div>
+                                <!-- Height -->
+                                <div class="form-group">
+                                    <label for="txtDes">Height</label>
+                                    <input id="txtDes" name="txtDes" class="form-control" type="number" ng-model="vmTestResize.formData.height" />
+                                </div>
+
+                                <!--Width -->
+                                <div class="form-group">
+                                    <label for="txtDes">Width</label>
+                                    <input id="txtDes" name="txtDes" class="form-control" type="number" ng-model="vmTestResize.formData.width" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtDes">Image resized:</label>
+                                    <div style="width: 100%">
+                                        <img class="image-upload" ng-src="[[vmTestResize.thumbImgPath + vmTestResize.image.new.filename]]" alt="">
+                                    </div>
+                                    <div class="info">
+                                        [[vmTestResize.image.new]]
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <a ui-sref="units" class="btn btn-primary btn-flat">
+                            <i class="glyphicon glyphicon-remove"></i>
+                            <span>Thoát</span>
+                        </a>
+                        <button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': lockForm}" ng-disabled="lockForm">
+							<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmTestResize.lockForm"></i>
+							<span>Resize file [[ vmTestResize.formData.name]]</span>
+                            </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,124 @@
+{
+    "shippingfee": [
+        {
+            "district": "Bình Chánh",
+            "fee": 50,
+            "type": 2
+        },
+        {
+            "district": "Củ Chi",
+            "fee": 70,
+            "type": 2
+        },
+        {
+            "district": "Hóc Môn",
+            "fee": 70,
+            "type": 2
+        },
+        {
+            "district": "Nhà Bè",
+            "fee": 50,
+            "type": 2
+        },
+        {
+            "district": "Cần Giờ",
+            "fee": 70,
+            "type": 2
+        },
+        {
+            "district": "Quận 1",
+            "fee": 15,
+            "type": 1
+        },
+        {
+            "district": "Quận 2",
+            "fee": 20,
+            "type": 1
+        },
+        {
+            "district": "Quận 3",
+            "fee": 15,
+            "type": 1
+        },
+        {
+            "district": "Quận 4",
+            "fee": 20,
+            "type": 1
+        },
+        {
+            "district": "Quận 5",
+            "fee": 20,
+            "type": 1
+        },
+        {
+            "district": "Quận 6",
+            "fee": 30,
+            "type": 1
+        },
+        {
+            "district": "Quận 7",
+            "fee": 20,
+            "type": 1
+        },
+        {
+            "district": "Quận 8",
+            "fee": 30,
+            "type": 1
+        },
+        {
+            "district": "Quận 9",
+            "fee": 30,
+            "type": 1
+        },
+        {
+            "district": "Quận 10",
+            "fee": 20,
+            "type": 1
+        },
+        {
+            "district": "Quận 11",
+            "fee": 30,
+            "type": 1
+        },
+        {
+            "district": "Quận 12",
+            "fee": 30,
+            "type": 1
+        },
+        {
+            "district": "Tân Bình",
+            "fee": 20,
+            "type": 1
+        },
+        {
+            "district": "Tân Phú",
+            "fee": 30,
+            "type": 1
+        },
+        {
+            "district": "Thủ Đức",
+            "fee": 30,
+            "type": 1
+        },
+        {
+            "district": "Bình Tân",
+            "fee": 30,
+            "type": 1
+        },
+        {
+            "district": "Bình Thạnh",
+            "fee": 20,
+            "type": 1
+        },
+        {
+            "district": "Gò Vấp",
+            "fee": 20,
+            "type": 1
+        },
+        {
+            "district": "Phú Nhuận",
+            "fee": 20,
+            "type": 1
+        }
+    ]
+}

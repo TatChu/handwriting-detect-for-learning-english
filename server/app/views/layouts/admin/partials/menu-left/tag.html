@@ -1,0 +1,7 @@
+<!-- =========================Tag========================= -->
+<li ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('tag', ['view']))" ng-class="{'active':pageData.menuType === 'tag'}" class="treeview">
+    <a ui-sref="tag-list()">
+        <i class="fa fa-tags text-aqua"></i> <span> Danh sách tag</span>
+    </a>
+</li>
+<!-- =========================END Tag========================= -->

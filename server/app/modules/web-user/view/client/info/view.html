@@ -1,0 +1,111 @@
+<div id="mod-user-infomation" class="module" ng-controller="userInfoCtrl as vmUserInfo">
+    <div class="container">
+        <div class="row">
+            <div class="col-left col-xs-6">
+                {{> web/partials/user/menu_left}}
+            </div>
+            <div class="col-right col-xs-18 hidden" id="hide1">
+                <div class="right">
+                    <h6 class="title-heading6">THÔNG TIN TÀI KHOẢN</h6>
+                    <form class="form-horizontal" novalidate name="frmInfo" ng-submit="vmUserInfo.editInfo(frmInfo.$valid)">
+                        <div class="avatar">
+                            <div class="image">
+                                <img class="image"  ng-src="[[vmUserInfo.urlAvatar]]" class="img-responsive opacity" alt="">
+                            </div>
+                            <div ng-click="vmUserInfo.uploadAvatar(frmInfo.$valid)" class="button-update" onclick="helperJsCustom.GA('send', 'event', 'AccountInformation', 'ClickButtonUpdateAvatar', '');">
+                                <a class="btn">Cập nhật ảnh đại diện</a>
+                            </div>
+                        </div>
+
+                        <div class="form-group " ng-class="{'error': ( frmInfo.txtEmail.$error.pattern || vmUserInfo.err == 'email' ) && vmUserInfo.submitted }">
+                            <label class="col-xs-4">Email</label>
+                            <div class="col-xs-20">
+                                <div class="msg-input">
+                                    <input autocomplete="off" type="text" class="form-control" name="txtEmail" ng-change="vmUserInfo.checkInput()" ng-model="vmUserInfo.formData.email" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/">
+                                </div>
+                                <div ng-messages="frmInfo.txtEmail.$error" ng-if="vmUserInfo.submitted">
+                                    <span class="message-error" ng-message="pattern">Nhập email chưa đúng định dạng.</span>
+                                </div>
+                                <span class="message-error" ng-if="vmUserInfo.err == 'email' && vmUserInfo.submitted">Email này đã được đăng ký bởi người khác</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group " ng-class="{'error': (frmInfo.txtName.$error.required  ) && vmUserInfo.submitted }">
+                            <label class="col-xs-4">Họ và Tên</label>
+                            <div class="col-xs-20">
+                                <div class="msg-input">
+                                    <input type="text" class="form-control" name="txtName" ng-model="vmUserInfo.formData.name" placeholder="" required>
+                                </div>
+                                <div ng-messages="frmInfo.txtName.$error" ng-if="vmUserInfo.submitted">
+                                    <span class="message-error" ng-message="required">Vui lòng nhập họ và tên của bạn.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'error': (frmInfo.txtPhone.$error.required  ||  frmInfo.txtPhone.$error.pattern || frmInfo.txtPhone.$error.minlength || frmInfo.txtPhone.$error.maxlength || vmUserInfo.err == 'phone') && vmUserInfo.submitted }">
+                            <label class="col-xs-4">Số điện thoại</label>
+                            <div class="col-xs-20">
+                                <div class="msg-input">
+                                    <input type="tel" class="form-control" name="txtPhone" ng-change="vmUserInfo.checkInput()" ng-model="vmUserInfo.formData.phone" ng-pattern="/^0[\d]{9,10}/" bz-input-only-digits
+                                        ng-minlength="10" ng-maxlength="11" required>
+                                </div>
+                                <div ng-messages="frmInfo.txtPhone.$error" ng-if="vmUserInfo.submitted">
+                                    <span class="message-error" ng-message="required">Vui lòng nhập số điện thoại của bạn.</span>
+                                    <span class="message-error" ng-message="pattern">Vui lòng nhập đúng số điện thoại</span>
+                                    <span class="message-error" ng-message="minlength">Bạn phải nhập ít nhất 10 số.</span>
+                                    <span class="message-error" ng-message="maxlength">Bạn phải nhập không quá 11 số.</span>
+                                </div>
+                                    <span class="message-error" ng-if="vmUserInfo.err == 'phone' && vmUserInfo.submitted">Số điện thoại này đã được đăng ký bởi người khác</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-4" for="sel1">Danh xưng</label>
+                            <div class="col-xs-20">
+                                <div class="msg-input">
+                                    <select class="selectbox" id="sel1" name="vocative" ng-model="vmUserInfo.formData.vocative">
+                                        <option value="">--Chọn danh xưng--</option>
+                                        <option ng-repeat="vocative in vmUserInfo.listVocative" value="[[vocative.value]]">[[vocative.name]]</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group"  ng-class="{'error': ( frmInfo.dob.$error.isdate) && vmUserInfo.submitted }">
+                            <label class="col-xs-4">Ngày sinh</label>
+                            <div class="col-xs-20">
+                                <div class="msg-input date" >
+                                   
+                                    <input  type="text" class="form-control"  name="dob" id="dob"  atr-date-time-picker atr-options="vmUserInfo.optionTimePicker" ng-model="vmUserInfo.formData.dob" 
+                                        bz-check-date  placeholder="dd/mm/yyyy">
+                                        <p atr-date-time-picker atr-options="vmUserInfo.optionTimePicker" ng-model="vmUserInfo.formData.dob">
+                                        <img src="{{ linkAssets 'frontend/images/iconcalendar.png'}}"
+                                            alt="" class="img-responsive">
+                                        </p>
+                                </div>
+
+                                <div ng-messages="frmInfo.dob.$error" ng-if="vmUserInfo.submitted">
+                                    <!--<span class="message-error" ng-message="required">Vui lòng nhập đúng ngày sinh của bạn với định dạng dd/mm/yyyy</span>-->
+                                    <span class="message-error" ng-message="isdate">Vui lòng nhập đúng ngày sinh của bạn với định dạng dd/mm/yyyy</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group group-change">
+                            <div class="col-md-24">
+                                <a href="/khach-hang/doi-mat-khau" title="" class="changepass">Đổi mật khẩu</a>
+                                <button class="btn btn-primary" type="submit" ng-disabled="vmUserInfo.lockForm" onclick="helperJsCustom.GA('send', 'event', 'AccountInformation', 'ClickButtonSaveInfomation', '');">
+                                    Lưu lại
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var data = {{{json data}}};
+
+</script>

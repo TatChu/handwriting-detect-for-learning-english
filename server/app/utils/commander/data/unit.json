@@ -1,0 +1,87 @@
+[
+    {
+        "name": "vỉ",
+        "description": "Vỉ",
+        "status": "true"
+    },
+    {
+        "name": "hộp",
+        "description": "Hộp",
+        "status": "true"
+    },
+    {
+        "name": "túi",
+        "description": "Túi",
+        "status": "true"
+    },
+    {
+        "name": "trái",
+        "description": "Trái",
+        "status": "true"
+    },
+    {
+        "name": "bó",
+        "description": "Bó",
+        "status": "true"
+    },
+    {
+        "name": "khay",
+        "description": "Khay",
+        "status": "true"
+    },
+    {
+        "name": "gói",
+        "description": "Gói",
+        "status": "true"
+    },
+    {
+        "name": "con",
+        "description": "Con",
+        "status": "true"
+    },
+    {
+        "name": "kg",
+        "description": "Kg",
+        "status": "true"
+    },
+    {
+        "name": "cái",
+        "description": "Cái",
+        "status": "true"
+    },
+    {
+        "name": "gr",
+        "description": "gr",
+        "status": "true"
+    },
+    {
+        "name": "set",
+        "description": "set",
+        "status": "true"
+    },
+    {
+        "name": "hũ",
+        "description": "hũ",
+        "status": "true"
+    },
+    {
+        "name": "chai",
+        "description": "Chai",
+        "status": "true"
+    },
+    {
+        "name": "ml",
+        "description": "Ml",
+        "status": "true"
+    },
+    {
+        "name": "bịch",
+        "description": "Bịch",
+        "status": "true"
+    },
+    {
+        "name": "quả",
+        "description": "Quả",
+        "status": "true"
+    }
+]

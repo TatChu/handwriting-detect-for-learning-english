@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<table width="650" border="0" cellpadding="0" cellspacing="0" align="center" style="border:1px solid rgb(225,225,225);margin-top:60px;margin-bottom:60px;font-family:arial">
+		<tbody><tr>
+			<td style="background:rgb(255,255,255);padding:30px 40px 0px">
+				<a><img style="border:none" src="https://www.muahangviet.com.vn/assets/site/images/emails/logo.jpg" alt="" class="CToWUd"></a>
+				<table>
+					<tbody><tr>
+						<td style="height:10px"></td>
+					</tr>
+					<tr>
+						<td style="width:570px;height:3px;background:rgb(86,126,57)"></td>
+					</tr>
+				</tbody></table>
+			</td>
+		</tr>
+		<tr>
+			<td style="background:rgb(255,255,255);padding-left:40px;padding-right:40px"><br>
+				<p style="line-height:22px"><b style="color:rgb(86,126,57)">Xin chào </b>, {{payment_info.info.full_name}}<br><br>
+					Chúc mừng bạn đã đặt hàng thành công tại<strong> Mua Hàng Việt</strong>. Cám ơn quý bạn  đã tin tưởng và mua sắm tại Mua Hàng Việt, đơn hàng của bạn đang được thực hiện với thông tin như sau:<br><br>
+				</p>
+				<table border="0" cellpadding="0" cellspacing="0">
+					<tbody><tr>
+						<td valign="top">
+							<p><strong>Thông tin đơn hàng: </strong></p>
+						</td>
+					</tr>
+					<tr><td style="height:20px"></td></tr>
+					<tr><td>
+						<h2 style="font-size:12px;font-weight:normal;margin:0px"><strong>Mã đơn hàng của bạn </strong> #{{id_order}}</h2>
+					</td></tr>
+					<tr>
+						<td style="height:10px"></td>
+					</tr>
+					<tr><td>
+						<table cellspacing="0" cellpadding="0" border="0" width="">
+							<thead>
+								<tr>
+									<th align="left" width="280" bgcolor="#EAEAEA" style="font-size:12px;padding:5px 9px 6px;line-height:1em"><strong>Thông tin thanh toán:</strong></th>
+									<th width="10"></th>
+									<th align="left" width="280" bgcolor="#EAEAEA" style="font-size:12px;padding:5px 9px 6px;line-height:1em"><strong>Phương thức thanh toán:</strong></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td valign="top" style="font-size:12px;padding:7px 9px 9px;border-left:1px solid rgb(234,234,234);border-bottom:1px solid rgb(234,234,234);border-right:1px solid rgb(234,234,234)">
+										{{payment_info.info.full_name}}<br>
+
+										{{payment_info.info.address}}<br>
+
+
+
+										{{payment_info.info.district}},  Hồ Chí Minh, 84<br>
+										Việt Nam<br>
+										T: {{payment_info.info.phone}}
+
+
+									</td>
+									<td>&nbsp;</td>
+									<td valign="top" style="font-size:12px;padding:7px 9px 9px;border-left:1px solid rgb(234,234,234);border-bottom:1px solid rgb(234,234,234);border-right:1px solid rgb(234,234,234)">
+										<p>
+										<strong>{{payment_method}}</strong>
+										</p>
+
+
+
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+
+						<table cellspacing="0" cellpadding="0" border="0" width="">
+							<thead>
+								<tr>
+									<th align="left" width="280" bgcolor="#EAEAEA" style="font-size:12px;padding:5px 9px 6px;line-height:1em"><strong>Thông tin giao hàng:</strong></th>
+									<th width="10"></th>
+									<th align="left" width="280" bgcolor="#EAEAEA" style="font-size:12px;padding:5px 9px 6px;line-height:1em"><strong>Phương thức giao hàng:</strong></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td valign="top" style="font-size:12px;padding:7px 9px 9px;border-left:1px solid rgb(234,234,234);border-bottom:1px solid rgb(234,234,234);border-right:1px solid rgb(234,234,234)">
+										{{payment_info.info.full_name}}<br>
+
+										{{payment_info.info.address}}<br>
+
+
+
+										{{payment_info.info.district}},  Hồ Chí Minh, 84<br>
+										Việt Nam<br>
+										T: {{payment_info.info.phone}}
+
+										&nbsp;
+									</td>
+									<td>&nbsp;</td>
+									<td valign="top" style="font-size:12px;padding:7px 9px 9px;border-left:1px solid rgb(234,234,234);border-bottom:1px solid rgb(234,234,234);border-right:1px solid rgb(234,234,234)">
+										{{shiper}}&nbsp;
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+
+						<table cellspacing="0" cellpadding="0" border="0" width="570" style="border:1px solid rgb(234,234,234)">
+							<thead>
+								<tr>
+									<th align="left" bgcolor="#EAEAEA" style="font-size:13px;padding:3px 9px">Sản phẩm</th>
+									<th align="right" bgcolor="#EAEAEA" style="font-size:13px;padding:3px 9px;width:100px">Số lượng</th>
+									<th align="right" bgcolor="#EAEAEA" style="font-size:13px;padding:3px 9px;width:100px">Trọng lượng</th>
+									<th align="right" bgcolor="#EAEAEA" style="font-size:13px;padding:3px 9px">Tổng giá đơn hàng</th>
+								</tr>
+							</thead>
+
+							<tbody bgcolor="#F6F6F6">
+								{{#each order_detail}}
+								<tr>
+									<td align="left" valign="top" style="font-size:11px;padding:3px 9px;border-bottom:1px dotted rgb(204,204,204)">
+										<strong style="font-size:11px">{{this.product.name}}</strong>
+									</td>
+									<td align="right" valign="top" style="font-size:11px;padding:3px 9px;border-bottom:1px dotted rgb(204,204,204)">{{this.order_quantity}}</td>
+									<td align="right" valign="top" style="font-size:11px;padding:3px 9px;border-bottom:1px dotted rgb(204,204,204)">
+										{{this.product.view_unit}}	</td>
+										<td align="right" valign="top" style="font-size:11px;padding:3px 9px;border-bottom:1px dotted rgb(204,204,204)">
+											<span class="m_4290571976680312246gmail-m_1546141429207544528price">{{this.total}}&nbsp;₫</span>    
+										</td>
+									</tr>
+								{{/each}}
+								</tbody>
+
+								<tbody>
+									<tr class="m_4290571976680312246gmail-m_1546141429207544528subtotal">
+										<td colspan="3" align="right" style="padding:3px 9px">
+											Tổng giá đơn hàng                    </td>
+											<td align="right" style="padding:3px 9px">
+												<span class="m_4290571976680312246gmail-m_1546141429207544528price">{{total}}&nbsp;₫</span>                    </td>
+											</tr>
+											<tr class="m_4290571976680312246gmail-m_1546141429207544528shipping">
+												<td colspan="3" align="right" style="padding:3px 9px">
+													Phí vận chuyển                    </td>
+													<td align="right" style="padding:3px 9px">
+														<span class="m_4290571976680312246gmail-m_1546141429207544528price">{{payment_info.info.shipping_fee}}&nbsp;₫</span>                    </td>
+													</tr>
+													<tr>
+												<td colspan="3" align="right" style="padding:3px 9px">
+													Khuyến mãi                    </td>
+													<td align="right" style="padding:3px 9px">
+														<span>{{khuyenmai}}&nbsp;₫</span>                    </td>
+													</tr>
+													<tr class="m_4290571976680312246gmail-m_1546141429207544528grand_total">
+														<td colspan="3" align="right" style="padding:3px 9px">
+															<strong>Tổng cộng</strong>
+														</td>
+														<td align="right" style="padding:3px 9px">
+															<strong><span class="m_4290571976680312246gmail-m_1546141429207544528price">{{total_pay}}&nbsp;₫</span></strong>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+											<br>
+										</td></tr>
+									</tbody></table>
+									<table width="100%" border="0">
+										<tbody><tr>
+											<td>
+												Nếu bạn cần hỗ trợ thêm, xin vui lòng liên hệ Bộ phận Chăm sóc khách hàng <br><br>
+												Hotline: <span style="color:red">(08) 3820 9099 hoặc 0917 18  07 09</span>  từ <b>09:00 - 18:00, Thứ 2 - Thứ 7</b><br><br>
+												Email:<span style="color:blue"> <a href="mailto:support@muahangviet.com.vn" target="_blank">support@muahangviet.com.vn</a> </span><br><br>
+												Văn phòng đại diện: Lầu 2, 62A Phạm Ngọc Thạch, P6, Quận 3, TP.HCM<br><br>
+												<b style="color:rgb(2,2,2)">Chân thành cảm ơn.</b>
+											</td>
+										</tr>
+										<tr>
+											<td style="height:40px"></td>
+										</tr>
+									</tbody></table>
+								</td>
+							</tr>
+							<tr>
+							<td><img src="https://www.muahangviet.com.vn/assets/site/images/emails/footer.jpg" alt="" class="CToWUd"></td>
+							</tr>
+						</tbody></table>
+					</body>

@@ -1,0 +1,21 @@
+<!-- Frontend build -->
+<script src="{{linkAssets 'frontend/main.js'}}?v={{settings.versionJs}}"></script>
+<!--End Frontend build -->
+
+{{#if_eq settings.env "development"}}
+<script>
+	document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+</script>
+
+{{> web/partials/link/script}} 
+
+<script>
+	$( document ).ready(function() {
+		/*Lazy load image*/
+		$("img").unveil();
+		$("div.lazy").lazyload({
+			effect : "fadeIn"
+		});
+	});
+</script>
+{{/if_eq}}

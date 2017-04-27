@@ -1,0 +1,183 @@
+ Content Wrapper. Contains page content -->
+<div id="mod-user-edit" class="content-wrapper" ng-init="userEdit.getData()">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Thành viên Form
+			<small>[[userEdit.queryParams.id ? 'Cập nhật' : 'Thêm mới']]</small>
+		</h1>
+
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a href="#">Thành viên</a></li>
+			<li class="active">[[userEdit.queryParams.id ? 'Cập nhật' : 'Thêm mới']]</li>
+		</ol>
+	</section>
+
+	<!-- Main content -->
+	<section class="content">
+
+		<!-- SELECT2 EXAMPLE -->
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<h3 class="box-title">[[userEdit.queryParams.id ? 'Cập nhật' : 'Thêm mới']]</h3>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<div ng-if="userEdit.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
+
+				<form ng-if="!userEdit.loading" novalidate id="frmUser" name="frmUser" ng-submit="userEdit.save(frmUser.$valid)">
+					<div class="box-body">
+						<!-- Toolbar -->
+						<div class="toolbar">
+							<div class="form-inline pull-right">
+								<div class="form-group form-action">
+
+									<a ui-sref="users" class="btn btn-primary btn-flat">
+										<i class="glyphicon glyphicon-remove"></i>
+										<span>Hủy bỏ</span>
+									</a>
+									<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': userEdit.lockForm}"
+									 ng-disabled="userEdit.lockForm">
+										<i class="glyphicon glyphicon-floppy-disk" ng-if="!userEdit.lockForm"></i>
+										<span>Lưu</span>
+									</button>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<!-- End: Toolbar -->
+						<div class="row">
+							<!--<div class="col-sm-2"></div>-->
+							<div class="col-sm-10">
+								<div class="row">
+									<div class="col-sm-2">
+										<label for="txtVocative">Danh xưng</label>
+										<select name="txtVocative" id="txtVocative" class="form-control" ng-model="userEdit.formData.vocative" ng-options="item.value as item.name for item in userEdit.listVocative"
+										 data-placeholder="--Chọn---" ui-select2>
+										</select>
+									</div>
+									<div class="col-sm-10">
+										<!-- Tên đăng nhập -->
+										<div class="form-group">
+											<label for="txtName">Họ và Tên <span class="required">*</span></label>
+											<input id="txtName" name="txtName" class="form-control" type="text" ng-model="userEdit.formData.name" ng-pattern="/[a-zA-Z0-9]/"
+											 required />
+											<div class="messages-error" ng-messages="frmUser.txtName.$error" ng-if="userEdit.submitted">
+												<div ng-message="required">Bạn chưa nhập tên.</div>
+												<div ng-message="pattern">Tên không được chứa các ký tự đặc biệt.</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label for="phone">Số điện thoại <span class="required">*</span></label>
+											<input id="phone" name="phone" class="form-control" type="text" ng-model="userEdit.formData.phone" ng-pattern="/[0-9]/" ng-minlength="10"
+											 required />
+											<div class="messages-error" ng-messages="frmUser.phone.$error" ng-if="userEdit.submitted">
+												<div ng-message="required">Bạn chưa nhập số điện thoại.</div>
+												<div ng-message="pattern">Bạn phải nhập số.</div>
+												<div ng-message="minlength">Bạn phải nhập ít nhất 10 số.</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label for="dob">Ngày sinh</label>
+											<input id="dob" name="dob" class="form-control" type="text" ng-model="userEdit.formData.dob" atr-date-time-picker />
+										</div>
+									</div>
+
+									<div class="col-sm-6">
+										<!-- Email -->
+										<div class="form-group">
+											<label for="txtEmail">Email đăng nhập<span class="required">*</span></label>
+											<input class="form-control" autocomplete="off" id="txtEmail" name="txtEmail" type="text" ng-model="userEdit.formData.email" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/"
+											/>
+											<div class="messages-error" ng-messages="frmUser.txtEmail.$error" ng-if="userEdit.submitted">
+												<div ng-message="pattern">Email không hợp lệ.</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-sm-6">
+										<!-- Mật khẩu -->
+										<div class="form-group" ng-if="!userEdit.isEditMode">
+											<label for="txtPassword">Nhập mật khẩu <span class="required">*</span></label>
+											<input class="form-control" autocomplete="off" id="txtPas nhập mật khẩusword" name="txtPassword" type="password" ng-if="!userEdit.isEditMode"
+											 ng-model="userEdit.formData.password" ng-minlength="8" ng-maxlength="30" required />
+											<input class="form-control" autocomplete="off" id="txtPassword" name="txtPassword" type="password" ng-if="userEdit.isEditMode" ng-model="userEdit.tmppassword"
+											 ng-minlength="8" ng-maxlength="30" required />
+											<div class="messages-error" ng-messages="frmUser.txtPassword.$error" ng-if="userEdit.submitted">
+												<div ng-message="required">Bạn chưa nhập mật khẩu.</div>
+												<div ng-message="minlength">Mật khẩu quá ngắn.</div>
+												<div ng-message="maxlength">Mật khẩu quá dài.</div>
+												<div ng-message="passwordcharacters">Mật khẩu phải có ký tự in hoa, thường, số và ký tự đặc biệt.</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Nhập lại mật khẩu -->
+								<!-- <div class="form-group">
+									<label for="txtRePassword">Nhập lại mật khẩu <span class="required">*</span></label>
+									<input class="form-control" id="txtRePassword" name="txtRePassword" type="text" ng-if="!userEdit.isEditMode" ng-model="userEdit.formData.cfpassword" bz-valid-password-match="#txtPassword" required>
+									<input class="form-control" id="txtRePassword" name="txtRePassword" type="password" ng-if="userEdit.isEditMode" ng-model="userEdit.tmpcfpassword" bz-valid-password-match="#txtPassword">
+									<div class="messages-error" ng-messages="frmUser.txtRePassword.$error" ng-if="userEdit.submitted">
+										<div ng-message="required">Bạn chưa nhập mật khẩu xác nhận.</div>
+										<div ng-message="match">Mật khẩu không trùng khớp.</div>
+									</div>
+								</div> -->
+								<!-- Roles -->
+								<div class="form-group">
+									<label for="ddlRoles">Quyền thành viên <span class="required">*</span></label>
+									<select name="ddlRoles" id="ddlRoles" ng-model="userEdit.formData.roles" ng-options="item as item for item in userEdit.userRoles"
+									 data-placeholder="Chọn quyền thành viên" ui-select2 multiple required>
+										</select>
+									<div class="messages-error" ng-messages="frmUser.ddlRoles.$error" ng-if="userEdit.submitted">
+										<div ng-message="required">Bạn chưa chọn quyền cho thành viên.</div>
+									</div>
+								</div>
+								<!-- Active -->
+								<div class="form-group">
+									<input i-check id="chkPublish" type="checkbox" ng-model="userEdit.formData.status" ng-true-value="true" ng-false-value="false">
+									<label for="chkPublish">Active</label>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!--<textarea name="editor1" id="editor1" rows="10" cols="80">
+                This is my textarea to be replaced with CKEditor.
+            </textarea>-->
+					<div class="box-footer">
+						<a ui-sref="users" class="btn btn-primary btn-flat">
+							<i class="glyphicon glyphicon-remove"></i>
+							<span>Hủy bỏ</span>
+						</a>
+						<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': userEdit.lockForm}">
+							<i class="glyphicon glyphicon-floppy-disk" ng-if="!userEdit.lockForm"></i>
+							<span>Lưu</span>
+							</button>
+					</div>
+					<!-- <pre>[[userEdit.formData | json]]</pre> -->
+				</form>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+		<!-- ng-disabled="userEdit.lockForm" -->
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper-->
+<!--<script>
+	$(document).ready(function () {
+		CKEDITOR.replace( 'editor1' )
+	});
+</script>

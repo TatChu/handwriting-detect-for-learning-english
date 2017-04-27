@@ -1,0 +1,7 @@
+<!-- =========================Report Product Order========================= -->
+<li ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('order', ['export','view']))" ng-class="{'active':pageData.menuType === 'report-product-a-day'}"  class="treeview">
+    <a ui-sref="report-product-a-day()">
+        <i class="fa fa-cart-arrow-down text-aqua"></i><span> Sản phẩm bán chạy trong ngày</span>
+    </a>
+</li>
+<!-- =========================END Report Product Order========================= -->

@@ -1,0 +1,7 @@
+<!-- =========================Users========================= -->
+<li  ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('log', ['view']))" ng-class="{'active':pageData.menuType === 'log'}" class="treeview">
+    <a ui-sref="logs()">
+        <i class="fa fa-history text-aqua"></i> <span> Nhật ký hệ thống</span>
+    </a>
+</li>
+<!-- =========================END Users========================= -->

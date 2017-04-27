@@ -1,0 +1,487 @@
+<div id="mod-detail" class="module" data-module="detail" data-ng-controller="productDetailCtrl as vmProductDetail">
+    <div class="container">
+        <!--Start: Tree Link-->
+        <div class="tree-link">
+            <a href="/">Trang chủ</a>
+            <!--class="active"-->
+            <span>
+                <img src="{{ linkAssets 'frontend/images/icon-navigation.png' }}" class='img-responsive' alt="">
+            </span>
+            <a href="/danh-muc/{{parent_category.slug}}">
+                {{parent_category.name}}
+            </a>
+            {{#if_neq parent_category.slug data.product.category_list.[0].slug}}
+            <span>
+                <img src="{{ linkAssets 'frontend/images/icon-navigation.png' }}" class='img-responsive' alt="">
+            </span>
+            <a href="/danh-muc/{{parent_category.slug}}/{{data.product.category_list.[0].slug}}">
+                {{data.product.category_list.[0].name}}
+            </a>
+            {{/if_neq}}
+        </div>
+        <!--End: Tree Link-->
+
+        <div class="detail-proc">
+            <div class="row detail" itemscope itemtype="http://schema.org/Product">
+                <span class="hidden" itemprop="productID">{{data.product._id}}</span>
+                <img src="{{checkImgOld '/files/thumb_image/product_image/' data.product.thumb}}" class="hidden" alt="{{data.product.name}}" itemprop="image">
+                <!--Start: Image section-->
+                <div class="col-xs-11 col-left">
+                    <div class="row" style="height: 0; overflow: hidden;">
+                        <div class="col-xs-4">
+                            <div class="list-image max-height">
+                                {{#each data.product.images}}
+                                <div class="item">
+                                    <img src="{{checkImgOld '/files/product_image/' this.url}}" class="img-responsive" alt="{{../data.product.name}}">
+                                </div>
+                                {{/each}} 
+                                {{#each data.product.videos}}
+                                <div class="item">
+                                    <img src="/assets/frontend/images/group-10.png" alt="">
+                                </div>
+                                {{/each}}
+
+                            </div>
+                        </div>
+                        <div class="col-xs-20">
+                            <div class="view-image max-height">
+                                {{#each data.product.images}}
+                                <div class="image" style="background: url({{checkImgOld '/files/product_image/' this.url}}) top center no-repeat;">
+                                    <a href="{{checkImgOld '/files/product_image/' this.url}}" class="fancybox fancybox-image fancybox-thumbs">
+
+                                        <img src="{{ linkAssets 'frontend/images/view-image-detail.png'}}" class="img-responsive opacity" alt="">
+                                        <img src="{{checkImgOld '/files/product_image/' this.url}}" alt="{{../data.product.name}}" class="hidden">
+                                    </a>
+                                </div>
+                                {{/each}}
+
+                                {{#each data.product.videos}}
+                                <div class="image" style="background: url({{checkImgOld '/files/product_image/' ../data.product.images.[0].url}}) top center no-repeat;">
+                                    <a href="{{this.url}}" class="fancybox fancybox-image fancybox-thumbs fancybox.iframe video">
+                                        <img src="{{ linkAssets 'frontend/images/view-image-detail.png'}}" class="img-responsive opacity" alt="">
+                                        <span class="play-video img-responsive">
+                                            <img src="/assets/frontend/images/group-10.png" alt="">
+                                        </span>
+                                    </a>
+                                </div>
+                                {{/each}}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center" style="position: relative">
+                        <img src="{{ linkAssets 'frontend/images/view-image-detail.png'}}" class="img-responsive opacity" alt="">
+                        <img src="{{ linkAssets 'loading.svg' }}" alt="" style="position: absolute; top: 50%; left: 50%;transform: translate(-50%,-75%);">
+                    </div>
+                </div>
+                <!--End: Image section-->
+
+                <!--Start: Detail Product Section-->
+                <div class="col-xs-12 col-right">
+                    <div class="proc">
+                        <div class="text">
+                            <h1 itemprop="name">{{data.product.name}}</h1>
+                            <p class="weight">
+                                {{#if data.product.view_unit}} {{data.product.view_unit}} - {{/if}} có sẵn {{data.product.qty_in_stock}} {{data.product.unit.name}}
+                                <br> {{#if data.product.other_is}} {{data.product.other_price}}{{/if}}
+                            </p>
+                        </div>
+                        <div class="button active hidden">
+                            <div class="price-proc">
+                                {{#if data.product.promotion.status}}
+                                <span class="price_old" data-ng-bind="{{data.product.price}} | currency : '':0">{{data.product.price}}</span>
+                                <span class="price_old"> đ</span>
+                                <p class="price">
+                                    <span data-ng-bind="{{discount data.product.promotion.type data.product.promotion.value data.product.price}} | currency : '':0" itemprop="price">
+                                        {{discount data.product.promotion.type data.product.promotion.value data.product.price}}
+                                    </span> đ<span itemprop="priceCurrency" class="hidden">VND</span>
+                                </p>
+                                {{else}}
+                                <p class="price">
+                                    <span data-ng-bind="{{data.product.price}} | currency : '':0" itemprop="price">{{data.product.price}}</span> đ<span itemprop="priceCurrency" class="hidden">VND</span>
+                                </p>
+                                {{/if}}
+                            </div>
+                            <div data-ng-if="checkDueDate(data.product.due_date.end_date)" style="display: inline-block">
+                                <div data-ng-if="data.product.qty_in_stock > 0">
+                                    <!--Start: Takecart Desktop-->
+                                    <div class="take-cart active show-desktop" data-ng-if="data.product.cart && data.product.cart.quantity > 0">
+                                        <div class="soluong">
+                                            <img src="{{ linkAssets 'frontend/images/icon-giam.svg' }}" alt="" class="img-reponsive" data-ng-click="decreaseCart('{{data.product._id}}',data.product.cart.quantity)" data-ng-if="data.product.cart.quantity > 0" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickDecreaseQuantityItem', '');">
+                                            <img src="{{ linkAssets 'frontend/images/icon-giam.svg' }}" alt="" class="img-reponsive disabled" data-ng-if="data.product.cart.quantity == 0">
+                                            <span data-ng-bind="data.product.cart.quantity"></span>
+                                            <img src="{{ linkAssets 'frontend/images/icon-tang.svg' }}" alt="" class="img-responsive" data-ng-click="addToCart('{{data.product._id}}')" data-ng-if="data.product.cart.quantity < data.product.qty_in_stock" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickIncreaseQuantityItem', '');">
+                                            <img src="{{ linkAssets 'frontend/images/icon-tang.svg' }}" alt="" class="img-responsive disabled" data-ng-if="data.product.cart.quantity >= data.product.qty_in_stock">
+                                        </div>
+                                    </div>
+
+                                    <div class="take-cart show-desktop" data-ng-if="!data.product.cart || data.product.cart.quantity == 0">
+                                        <button class="btn btn-primary" data-ng-click="addToCart('{{data.product._id}}'); addToCartGA(data.product)" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonAddToCart', '');">
+                                            Bỏ vào giỏ
+                                        </button>
+                                    </div>
+                                    <!--End: Takecart Desktop-->
+
+                                    <!--Start: Takecart Moblie-->
+                                    <div class="take-cart show-mb" data-ng-if="!data.product.cart || data.product.cart.quantity == 0">
+                                        <button class="btn btn-primary" data-ng-click="addToCart('{{data.product._id}}')" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonAddToCart', '');">
+                                            <img src="{{ linkAssets 'frontend/images/card-button.svg' }}" class="img-reponsive" alt="">
+                                            Bỏ vào giỏ
+                                        </button>
+                                    </div>
+
+                                    <div class="take-cart active show-mb" data-ng-if="data.product.cart && data.product.cart.quantity > 0">
+                                        <div class="soluong">
+                                            <img src="{{ linkAssets 'frontend/images/detail-icon-giam.png' }}" alt="" class="img-reponsive" data-ng-click="decreaseCart('{{data.product._id}}',data.product.cart.quantity)" data-ng-if="data.product.cart.quantity > 0" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickDecreaseQuantityItem', '');">
+                                            <img src="{{ linkAssets 'frontend/images/detail-icon-giam.png' }}" alt="" class="img-reponsive disabled" data-ng-if="data.product.cart.quantity == 0">
+                                            <span data-ng-bind="data.product.cart.quantity"></span>
+                                            <img src="{{ linkAssets 'frontend/images/detail-icon-tang.png' }}" alt="" class="img-responsive" data-ng-click="addToCart('{{data.product._id}}')" data-ng-if="data.product.cart.quantity < data.product.qty_in_stock" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickIncreaseQuantityItem', '');">
+                                            <img src="{{ linkAssets 'frontend/images/detail-icon-tang.png' }}" alt="" class="img-responsive disabled" data-ng-if="data.product.cart.quantity >= data.product.qty_in_stock">
+                                        </div>
+                                    </div>
+                                    <!--Start: Takecart Moblie-->
+                                </div>
+                                <!--Start: Takecart Disable Desktop-->
+                                <div class="take-cart show-desktop" data-ng-if="data.product.qty_in_stock == 0">
+                                    <button class="btn btn-primary" disabled>Sắp có hàng</button>
+                                </div>
+                                <div class="take-cart show-mb" data-ng-if="data.product.qty_in_stock == 0">
+                                    <button class="btn btn-primary" disabled>
+                                        Sắp có hàng
+                                    </button>
+                                </div>
+                                <!--Start: End Disable Desktop-->
+                            </div>
+                            <!--Start: Takecart Disable Desktop-->
+                            <div class="take-cart show-desktop" data-ng-if="!checkDueDate(data.product.due_date.end_date)">
+                                <button class="btn btn-primary" disabled>
+                                    Đã hết hàng
+                                </button>
+                            </div>
+                            <div class="take-cart show-mb" data-ng-if="!checkDueDate(data.product.due_date.end_date)">
+                                <button class="btn btn-primary" disabled>
+                                    Đã hết hàng
+                                </button>
+                            </div>
+                            <!--Start: Takecart Disable Desktop-->
+                        </div>
+                    </div>
+
+                    <div class="like-share show-mb">
+                        {{#if credentials.uid}}
+                        <span class="share-section hidden">
+                            <a href="" data-ng-if="data.user.favorite_product.indexOf(data.product._id) != -1" data-ng-click="removeFavoriteProduct()" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonRemoveWishlist', '');">
+                                <img src="{{ linkAssets 'frontend/images/unlike.png' }}" class="not-like" alt="">
+                                <span class="not-like">Xóa khỏi sổ tay nội trợ</span>
+                            </a>
+
+                            <a href="" data-ng-if="data.user.favorite_product.indexOf(data.product._id) == -1" data-ng-click="addFavoriteProduct()" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonAddWishlist', '');">
+                                <img src="{{ linkAssets 'frontend/images/like.svg' }}" class="not-like" alt="">
+                                <span class="not-like">Lưu vào sổ tay nội trợ</span>
+                            </a>
+                        </span>
+                        {{else}}
+                        <span class="share-section hidden">
+                            <a href="" data-ng-click="login()">
+                                <img src="{{ linkAssets 'frontend/images/like.svg' }}" class="not-like" alt="" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonAddWishlist', '');">
+                                <span class="not-like">Lưu vào sổ tay nội trợ</span>
+                            </a>
+                        </span>
+                        {{/if}}
+                      <div class="like-share" style="float: right;margin: 0 -17px 0 0;">
+                      <div class="fb-like" data-href="{{Domain}}/san-pham/{{data.product.slug}}-{{data.product._id}}" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                      </div>
+                      <div class="clearfix"></div>
+                  </div>
+                  <h5 class="regulations">
+                    {{data.configOrder1.description}} <br>
+                    {{data.configOrder2.description}} <br>
+                </h5>
+                <div class="include" itemprop="description">
+                    {{{data.product.short_description}}}
+                </div>
+                <div class="include">
+                    {{#if data.product.made_in}}
+                    <p>Xuất xứ: {{data.product.made_in}}</p>
+                    {{/if}}
+                </div>
+                <div class="like-share show-desktop">
+                    {{#if credentials.uid}}
+                    <span class="share-section hidden">
+                       <a href="" data-ng-if="data.user.favorite_product.indexOf(data.product._id) != -1" data-ng-click="removeFavoriteProduct()" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonRemoveWishlist', '');">
+                        <img src="{{ linkAssets 'frontend/images/unlike.png' }}" class="not-like" alt="">
+                        <span class="not-like">Xóa khỏi sổ tay nội trợ</span>
+                    </a>
+
+                    <a href="" data-ng-if="data.user.favorite_product.indexOf(data.product._id) == -1" data-ng-click="addFavoriteProduct()" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonAddWishlist', '');">
+                        <img src="{{ linkAssets 'frontend/images/like.svg' }}" class="not-like" alt="">
+                        <span class="not-like">Lưu vào sổ tay nội trợ</span>
+                    </a>
+                </span>
+                {{else}}
+                <span class="share-section hidden">
+                    <a href="" data-ng-click="login()">
+                        <img src="{{ linkAssets 'frontend/images/like.svg' }}" class="not-like" alt="" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonAddWishlist', '');">
+                        <span class="not-like">Lưu vào sổ tay nội trợ</span>
+                    </a>
+                </span>
+                {{/if}}
+                <div class="like-share" style="display: inline-block;margin-left: 30px;">
+                    <div class="fb-like" data-href="{{Domain}}/san-pham/{{data.product.slug}}-{{data.product._id}}" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                </div>
+            </div>
+            {{#if data.product.certificates}}
+            <div class="certify show-desktop">
+                <p>Sản phẩm đã được chứng nhận đạt tiêu chuẩn</p>
+                <div class="list-sp">
+                    {{#each data.product.certificate_list}}
+                    <a href="">
+                        <img src="/files/certificate_image/{{this.images.[0].url}}" alt="">
+                    </a>
+                    {{/each}}
+                </div>
+            </div>
+            {{/if}}
+        </div>
+        <!--Start: Detail Product Section-->
+    </div>
+
+    <!--Start: Product in month-->
+    {{#if data.list_pro_month}}
+    <div class="hot-product">
+        <h2>CÁC SẢN PHẨM THƯỜNG ĐƯỢC MUA KÈM</h2>
+        <div class="list-product">
+            <div class="row">
+                {{#each data.list_pro_month}} {{#if_neq ../data.product.slug this.product.slug}}
+                <div class="col-xs-4">
+                    <div class="proc">
+                        <!--Start: Image Section-->
+                        <div class="image" {{#if this.product.thumb}}style="background: url('{{checkImgOld '/files/thumb_image/product_image/' this.product.thumb}}') top center no-repeat; cursor: pointer;"{{else}}style="cursor: pointer;"{{/if}}
+                        data-ng-click="popProDetail('{{this.product.slug}}','{{this.product._id}}')">
+                        <img data-lazy="{{ linkAssets 'frontend/images/category-default-image.png' }}" class='img-responsive' alt="" src="{{ linkAssets 'frontend/images/category-default-image.png' }}">
+                        {{#if this.product.promotion.status}}
+                        <span class="sale-code">
+                            Giảm giá
+                            {{#if_eq this.product.promotion.type 'MN'}}
+                                <span data-ng-bind="{{this.product.promotion.value}} | currency : '':0">{{this.product.promotion.value}}</span>
+                            Đ
+                            {{/if_eq}}
+                            {{#if_eq this.product.promotion.type 'PC'}}
+                            {{this.product.promotion.value}} %
+                            {{/if_eq}}
+                        </span>
+                        {{/if}}
+                    </div>
+                    <!--End: Image Section-->
+
+                    <!--Start: Info Section-->
+                    <div class="info">
+                        <div class="text" style="cursor: pointer;" data-ng-click="popProDetail('{{this.product.slug}}','{{this.product._id}}')">
+                            <a class="name">
+                                {{this.product.name}}
+                            </a>
+                            <p class="weight">
+                                {{#if this.product.view_unit}}
+                                {{this.product.view_unit}} <br>
+                                {{/if}}
+                            </p>
+                        </div>
+                    </div>
+                    <!--End: Info Section-->
+
+                    <!--Start: Price, Status, Order Section-->
+                    <div class="button hidden" data-ng-init="monthPro[{{@index}}] = findPro('{{this.product._id}}')">
+                        <div class="prices">
+                            {{#if this.product.promotion.status}}
+                            <span class="price-old show-desktop">
+                                <span data-ng-bind="{{this.product.price}} | currency : '':0"></span> <span class="dv">₫</span>
+                            </span>
+                            <span class="price-old show-mb">
+                                <span data-ng-bind="{{this.product.price}} | currency : '':0"></span> <span class="dv">₫</span>
+                            </span>
+
+                            <span class="price">
+                                {{#if_eq this.product.promotion.type 'PC'}}
+                                <span data-ng-bind="({{this.product.price}} * (100 - {{this.product.promotion.value}}) / 100) | currency : '':0"></span>
+                                {{/if_eq}} {{#if_eq this.product.promotion.type 'MN'}}
+                                <span data-ng-bind="{{this.product.price}} - {{this.product.promotion.value}} | currency : '':0"></span>
+                                {{/if_eq}}
+                                <span class="dv">₫</span>
+                            </span>
+                            {{else}}
+                            <span class="price">
+                                <span data-ng-bind="{{this.product.price}} | currency : '':0"></span> <span class="dv">đ</span>
+                            </span>
+                            {{/if}}
+                            <div class="clearfix"></div>
+                        </div>
+
+                        {{#if this.product.qty_in_stock}}
+                        <div class="take-cart" data-ng-if="!monthPro[{{@index}}].cart || monthPro[{{@index}}].cart.quantity == 0">
+                            <button class="btn btn-primary" data-ng-click="addToCart('{{this.product._id}}'); addToCartGA({_id: '{{this.product._id}}' ,price: {{this.product.price}} })" onclick="helperJsCustom.GA('send', 'event', 'ProductDetailAlsoBuy', 'ClickButtonAddToCart', '');">Bỏ vào giỏ</button>
+                        </div>
+
+                        <div class="take-cart active" data-ng-if="monthPro[{{@index}}].cart && monthPro[{{@index}}].cart.quantity > 0">
+                            <div class="soluong">
+                                <img src="{{ linkAssets 'frontend/images/icon-giam.svg' }}" alt="" class="img-reponsive" data-ng-click="decreaseCart('{{this.product._id}}', monthPro[{{@index}}].cart.quantity)" data-ng-if="monthPro[{{@index}}].cart.quantity > 0" onclick="helperJsCustom.GA('send', 'event', 'ProductDetailAlsoBuy', 'ClickDecreaseQuantityItem', '');">
+                                <img src="{{ linkAssets 'frontend/images/icon-giam.svg' }}" alt="" class="img-reponsive disabled" data-ng-if="monthPro[{{@index}}].cart.quantity == 0">
+                                <span data-ng-bind="monthPro[{{@index}}].cart.quantity"></span>
+                                <img src="{{ linkAssets 'frontend/images/icon-tang.svg' }}" alt="" class="img-responsive" data-ng-click="addToCart('{{this.product._id}}')" data-ng-if="monthPro[{{@index}}].cart.quantity < {{this.product.qty_in_stock}}" onclick="helperJsCustom.GA('send', 'event', 'ProductDetailAlsoBuy', 'ClickIncreaseQuantityItem', '');">
+                                <img src="{{ linkAssets 'frontend/images/icon-tang.svg' }}" alt="" class="img-responsive disabled" data-ng-if="monthPro[{{@index}}].cart.quantity >= {{this.product.qty_in_stock}}">
+                            </div>
+                        </div>
+                        {{/if}}
+
+                        {{#unless this.product.qty_in_stock}}
+                        <div class="take-cart">
+                            <button class="btn btn-primary" disabled>Sắp có hàng</button>
+                        </div>
+                        {{/unless}}
+
+                    </div>
+                    <!--End: Price, Status, Order Section-->
+                </div>
+            </div>
+            {{/if_neq}} {{/each}}
+
+        </div>
+    </div>
+</div>
+{{/if}}
+<!--End: Product in month-->
+
+<!--Start: Content Product Section-->
+<div class="hot-product">
+    <h2>THÔNG TIN CHI TIẾT SẢN PHẨM</h2>
+    <div class="text-detail">
+        <div id="text-detail" data-ng-style="detailContentStyle">
+            {{{ fixImgProductDetail data.product.detail_infor }}}
+        </div>
+        <a href="" title="" class="viewmore" data-ng-click="showDetail()" data-ng-show="showDetailContent">
+            <span data-ng-show="detailContent == 'hideContent'">
+                Đọc tiếp <img src="{{ linkAssets 'frontend/images/icon-dropdown.png' }}" class="" alt="" style="margin-left: 10px;">
+            </span>
+            <span data-ng-show="detailContent == 'showContent'">
+                Thu gọn <img src="{{ linkAssets 'frontend/images/icon-dropup.png' }}" class="" alt="" style="margin-left: 10px;">
+            </span>
+        </a>
+    </div>
+</div>
+<!--End: Content Product Section-->
+
+<!--Start: Relative Product Section-->
+{{#if data.product.relative_product_list}}
+<div class="hot-product">
+    <h2>CÁC SẢN PHẨM LIÊN QUAN</h2>
+    <div class="list-product">
+        <div class="row">
+            {{#each data.product.relative_product_list}}
+            <div class="col-xs-4">
+                <div class="proc">
+                    <!--Start: Image Section-->
+                    <div class="image" {{#if this.thumb}}style="background: url('{{checkImgOld '/files/thumb_image/product_image/' this.thumb}}') top center no-repeat; cursor: pointer"
+                    {{else}}
+                    style="cursor: pointer"
+                    {{/if}} data-ng-click="popProDetail('{{this.slug}}','{{this._id}}')">
+                    <img data-lazy="{{ linkAssets 'frontend/images/category-default-image.png' }}" class='img-responsive' alt="" src="{{ linkAssets 'frontend/images/category-default-image.png' }}">
+
+                    {{#if this.promotion.status}}
+                    <span class="sale-code">
+                        Giảm giá
+                        {{#if_eq this.promotion.type 'MN'}}
+                            <span data-ng-bind="{{this.promotion.value}} | currency : '':0">{{this.promotion.value}}</span> Đ
+                        {{/if_eq}}
+                        {{#if_eq this.promotion.type 'PC'}}
+                        {{this.promotion.value}} %
+                        {{/if_eq}}
+                    </span>
+                    {{/if}}
+                </div>
+                <!--End: Image Section-->
+
+                <!--Start: Info Section-->
+                <div class="info">
+                    <div class="text" style="cursor: pointer;" data-ng-click="popProDetail('{{this.slug}}','{{this._id}}')">
+                        <a class="name">
+                            {{this.name}}
+                        </a>
+                        <p class="weight">
+                            {{#if this.view_unit}}
+                            {{this.view_unit}} <br>
+                            {{/if}}
+                        </p>
+                    </div>
+                </div>
+                <!--End: Info Section-->
+
+                <!--Start: Price, Status, Order Section-->
+                <div class="button hidden" data-ng-init="relativePro[{{@index}}] = findPro('{{this._id}}')">
+                    <div class="prices">
+                        {{#if this.promotion.status}}
+                        <span class="price-old show-desktop">
+                            <span data-ng-bind="{{this.price}} | currency : '':0"></span>
+                            <span class="dv"> ₫</span>
+                        </span>
+                        <span class="price-old show-mb">
+                            <span data-ng-bind="{{this.price}} | currency : '':0"></span>
+                            <span class="dv"> ₫</span>
+                        </span>
+
+                        <span class="price">
+                            {{#if_eq this.promotion.type 'PC'}}
+                            <span data-ng-bind="({{this.price}} * (100 - {{this.promotion.value}}) / 100) | currency : '':0"></span>
+                            {{/if_eq}}
+                            {{#if_eq this.promotion.type 'MN'}}
+                            <span data-ng-bind="({{this.price}} - {{this.promotion.value}}) | currency : '':0"></span>
+                            {{/if_eq}}
+                            <span class="dv">₫</span>
+                        </span>
+                        {{else}}
+                        <span class="price">
+                            <span data-ng-bind="{{this.price}} | currency : '':0"></span> <span class="dv">₫</span>
+                        </span>
+                        {{/if}}
+                        <div class="clearfix"></div>
+                    </div>
+
+                    {{#if this.qty_in_stock}}
+                    <div class="take-cart" data-ng-if="!relativePro[{{@index}}].cart || relativePro[{{@index}}].cart.quantity == 0">
+                        <button class="btn btn-primary" data-ng-click="addToCart('{{this._id}}'); addToCartGA({ _id:'{{this._id}}', price: {{this.price}} })" onclick="helperJsCustom.GA('send', 'event', 'ProductDetailRelate', 'ClickButtonAddToCart', '');">Bỏ vào giỏ</button>
+                    </div>
+
+                    <div class="take-cart active" data-ng-if="relativePro[{{@index}}].cart && relativePro[{{@index}}].cart.quantity > 0">
+                        <div class="soluong">
+                            <img src="{{ linkAssets 'frontend/images/icon-giam.svg' }}" alt="" class="img-reponsive" data-ng-click="decreaseCart('{{this._id}}', relativePro[{{@index}}].cart.quantity)" data-ng-if="relativePro[{{@index}}].cart.quantity > 0" onclick="helperJsCustom.GA('send', 'event', 'ProductDetailRelate', 'ClickDecreaseQuantityItem', '');">
+                            <img src="{{ linkAssets 'frontend/images/icon-giam.svg' }}" alt="" class="img-reponsive disabled" data-ng-if="relativePro[{{@index}}].cart.quantity == 0">
+                            <span data-ng-bind="relativePro[{{@index}}].cart.quantity"></span>
+                            <img src="{{ linkAssets 'frontend/images/icon-tang.svg' }}" alt="" class="img-responsive" data-ng-click="addToCart('{{this._id}}')" data-ng-if="relativePro[{{@index}}].cart.quantity < {{this.qty_in_stock}}" onclick="helperJsCustom.GA('send', 'event', 'ProductDetailRelate', 'ClickIncreaseQuantityItem', '');">
+                            <img src="{{ linkAssets 'frontend/images/icon-tang.svg' }}" alt="" class="img-responsive disabled" data-ng-if="relativePro[{{@index}}].cart.quantity >= {{this.qty_in_stock}}">
+                        </div>
+                    </div>
+                    {{/if}}
+
+                    {{#unless this.qty_in_stock}}
+                    <div class="take-cart">
+                        <button class="btn btn-primary" disabled>Sắp có hàng</button>
+                    </div>
+                    {{/unless}}
+                </div>
+                <!--End: Price, Status, Order Section-->
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+</div>
+</div>
+{{/if}}
+<!--End: Relative Product Section-->
+</div>
+</div>
+</div>
+
+<script>
+    var data = {{{json data}}};
+    var credentials = {{{json credentials}}};
+
+</script>

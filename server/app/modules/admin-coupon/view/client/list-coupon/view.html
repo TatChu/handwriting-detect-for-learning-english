@@ -1,0 +1,96 @@
+<!--Content Wrapper. Contains page content -->
+<div id="mod-coupon-list" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Phiếu giảm giá
+			<small>Danh sách</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a class="active">Phiếu giảm giá</a></li>
+		</ol>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Danh sách</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="form-inline pull-right">
+							<div class="form-group form-group-item">
+								<a class="btn btn-primary btn-sm btn-flat" ng-show="vmCoupons.showBtnAdd" ui-sref="coupon-create()">
+									<i class="glyphicon glyphicon-plus"></i>
+									<span>Tạo 1 phiếu giảm giá</span>
+								</a>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<form name="filterForm" ng-submit="vmCoupons.filter(vmCoupons.keyword)">
+							<div class="row">
+								<div class="col-xs-3">
+									<div class="form-group">
+										<input type="text" class="form-control" ng-model="vmCoupons.keyword" placeholder="Mã giảm giá" />
+									</div>
+								</div>
+								<div class="col-xs-4">
+									<button type="submit" name="search"  class="btn btn-success btn-flat">
+										<i class="fa fa-search"></i>
+										<span>Filter</span>
+									</button>
+									<a type="button" name="reset"  class="btn btn-default btn-flat" ng-click="vmCoupons.filterReset()">
+										<i class="fa fa-undo"></i>
+										<span>Reset</span>
+									</a>
+								</div>
+							</div>
+						</form>
+
+						<div ng-show="vmCoupons.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
+						<table ng-show="!vmCoupons.loading" ng-table="vmCoupons.table" class="table table-condensed table-bordered table-striped text-center">
+							<tr ng-repeat="item in $data">
+								<td data-title="'STT'">
+									<div class="col col-num" ng-bind="((vmCoupons.queryParams.page - 1) * vmCoupons.queryParams.limit) + $index + 1"></div>
+								</td>
+								<td data-title="'Mã'">[[item.code]]</td>
+								<td data-title="'Tên'">[[item.name]]</td>
+								<td data-title="'Số đơn hàng được sử dụng'">
+									<span ng-bind="item.used_times_count"></span>
+								</td>
+								<td data-title="'Trạng thái'">
+								<span class="[[item.status == 'active' ? 'label label-success': 'label label-default']]">[[item.status == 'active' ? 'Active': 'Inactive']]</span>
+								</td>
+								<td data-title="'Action'">
+									<a class="btn btn-default" ng-show="vmCoupons.showBtnEdit" ui-sref="coupon-edit({id:item._id})">
+										Sửa
+									</a>
+									&nbsp
+									<a class="btn btn-default" ng-show="vmCoupons.showBtnDelete" ng-click="vmCoupons.remove(item._id)">
+										Xóa
+									</a>
+									
+									&nbsp
+									<a class="btn btn-default" ui-sref="order-list({coupon:item._id, export: true})">
+										Xem các order được sử dụng
+									</a>
+									
+								</td>
+							</tr>
+						</table>
+
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper-->

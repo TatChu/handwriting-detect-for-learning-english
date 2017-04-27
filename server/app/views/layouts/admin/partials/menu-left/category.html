@@ -1,0 +1,7 @@
+<!-- =========================Users========================= -->
+<li  ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('category', ['view']))" ng-class="{'active':pageData.menuType === 'category'}" class="treeview">
+    <a ui-sref="categories({module: 'category', parrentId: null})">
+        <i class="fa fa-bars text-aqua"></i> <span> Danh mục sản phẩm</span>
+    </a>
+</li>
+<!-- =========================END Users========================= -->

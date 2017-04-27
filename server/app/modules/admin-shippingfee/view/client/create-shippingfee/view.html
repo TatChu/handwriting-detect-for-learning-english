@@ -1,0 +1,102 @@
+<div id="mod-shippingfee-add" class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Thêm mới phí vận chuyển
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Phí vận chuyển</a></li>
+            <li class="active">Thêm mới</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- SELECT2 EXAMPLE -->
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Thêm mới</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form novalidate id="frmShippingFee" name="frmShippingFee" ng-submit="vmAddShippingFees.save(frmShippingFee.$valid)">
+                    <div class="box-body">
+                        <!-- Toolbar -->
+                        <div class="toolbar">
+                            <div class="form-inline pull-right">
+                                <div class="form-group form-action">
+                                    <a ui-sref="shippingfee-list" class="btn btn-primary btn-flat">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                        <span>Hủy bỏ</span>
+                                    </a>
+                                    <button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': userEdit.lockForm}"
+                                        ng-disabled="lockForm">
+										<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmAddShippingFees.lockForm"></i>
+										<span>Lưu</span>
+									</button>
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <!-- End: Toolbar -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- Tên tỉnh thành -->
+                                <div class="form-group">
+                                    <label for="district">Tên Quận(Huyện)<span class="required">*</span></label>
+                                    <select class="form-control" ng-change="vmAddShippingFees.onChangeDistrict()" required name="district"  ui-select2 ng-model="vmAddShippingFees.formData.district">
+											<option ng-repeat="option in vmAddShippingFees.listShippingFeeNoExitsInMongoDB" ng-value="option.district" >[[option.district]]</option>
+										</select>
+
+                                    <div class="messages-error" ng-messages="frmShippingFee.district.$error" ng-if="vmAddShippingFees.submitted">
+                                        <div ng-message="required">Bạn chưa chọn quận/huyện</div>
+                                    </div>
+                                </div>
+                                <!-- Giá vận chuyển -->
+                                <div class="form-group">
+                                    <label for="fee">Phí vận chuyển</label>
+                                    <input id="fee" name="fee" class="form-control" type="number" ng-model="vmAddShippingFees.formData.fee" bz-input-number ng-pattern="/[0-9]/"
+                                        required min="0" />
+                                    <div class="messages-error" ng-messages="frmShippingFee.fee.$error" ng-if="vmAddShippingFees.submitted">
+                                        <div ng-message="pattern">Bạn phải nhập số</div>
+                                        <div ng-message="required">Bạn chưa nhập phí vận chuyển</div>
+                                        <div ng-message="min">Giá trị tối thiểu bằng không</div>
+                                    </div>
+                                </div>
+
+                                <!--Ngoại thành- nội thành -->
+                                <div class="form-group">
+                                    <label for="type">Loại</label>
+                                    <select class="form-control" name="type" id="type" ng-model="vmAddShippingFees.formData.type">
+                                        <option value="1">Nội Thành</option>
+                                        <option value="2">Ngoại Thành</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <a ui-sref="shippingfee-list" class="btn btn-primary btn-flat">
+                            <i class="glyphicon glyphicon-remove"></i>
+                            <span>Hủy bỏ</span>
+                        </a>
+                        <button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': lockForm}" ng-disabled="lockForm">
+							<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmAddShippingFees.lockForm"></i>
+							<span>Lưu</span>
+						</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

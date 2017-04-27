@@ -1,0 +1,7 @@
+<!-- =========================Post========================= -->
+<li  ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('blog', ['view']))" ng-if="pageMethods.authSvc.isSuperAdmin()" ng-class="{'active':pageData.menuType === 'blog-post'}" class="treeview">
+    <a ui-sref="blogsPost({module: 'blog'})">
+        <i class="fa fa-pencil-square-o text-aqua"></i> <span> Bài viết</span>
+    </a>
+</li>
+<!-- =========================END Blog========================= -->

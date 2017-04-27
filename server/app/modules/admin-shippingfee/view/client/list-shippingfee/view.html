@@ -1,0 +1,97 @@
+<!--Content Wrapper. Contains page content -->
+<div id="mod-shippingfee-list" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Phí vận chuyển
+			<small>Danh sách</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a class="active">Phí vận chuyển</a></li>
+		</ol>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Danh sách</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="form-inline pull-right">
+								<div class="form-group form-group-item">
+									<a class="btn btn-primary btn-sm btn-flat" ng-show="vmShippingFees.showBtnAdd" ui-sref="shippingfee-create()">
+										<i class="glyphicon glyphicon-plus"></i>
+										<span>Thêm</span>
+									</a>
+								</div>
+						</div>
+						<div class="clearfix"></div>
+						
+						<form name="filterForm" ng-submit="vmShippingFees.filter(vmShippingFees.keyword)">
+							<div class="row">
+								
+								<div class="col-xs-3">
+									<div class="form-group">
+										<input type="text" class="form-control" ng-model="vmShippingFees.keyword" placeholder="Quận(huyện)" />
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="form-group">
+										<select class="form-control">
+											<option value="HCM">TP Hồ Chí Minh</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-xs-4">
+									<button type="submit" name="search"  class="btn btn-success btn-flat">
+										<i class="fa fa-search"></i>
+										<span>Filter</span>
+									</button>
+									<a type="button" name="reset"  class="btn btn-default btn-flat" ng-click="vmShippingFees.filterReset()">
+										<i class="fa fa-undo"></i>
+										<span>Reset</span>
+									</a>
+								</div>
+							</div>
+						</form>
+
+						<div ng-show="vmShippingFees.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
+						<table ng-show="!vmShippingFees.loading" ng-table="vmShippingFees.table" class="table table-condensed table-bordered table-striped">
+							<tr ng-repeat="item in $data">
+								<td data-title="'STT'">
+									<div class="col col-num" ng-bind=" ((vmShippingFees.queryParams.page - 1) * vmShippingFees.queryParams.limit) + $index + 1"></div>
+								</td>
+								<td data-title="'Quận(huyện)'">[[item.district]]</td>
+								<td data-title="'Giá ship'">[[item.fee]]</td>
+								<td data-title="'Khu vực'">
+									<span ng-if="item.type=='1'">Nội Thành</span>
+									<span ng-if="item.type!='1'">Ngoại Thành</span>
+								</td>
+								<td data-title="'Action'">
+									&nbsp
+									<a class="btn btn-default" ng-show="vmShippingFees.showBtnEdit" ui-sref="shippingfee-edit({id:item._id})">
+										<span>Sửa</span>
+									</a>
+									&nbsp
+									<a class="btn btn-default" ng-show="vmShippingFees.showBtnDelete" ng-click="vmShippingFees.remove(item._id)">
+										<span>Xóa</span>
+									</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper-->

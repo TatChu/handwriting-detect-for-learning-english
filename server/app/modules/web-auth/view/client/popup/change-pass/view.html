@@ -1,0 +1,65 @@
+<style>
+	.modal-dialog {max-width: 400px}
+</style>
+<div id="pop-change-pass" class="modal-dialog"  >
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="$dismiss()">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<h4 class="modal-title">Đổi mật khẩu</h4>
+		</div>
+		<form novalidate name="frmChangePass" ng-submit="changePass(frmChangePass.$valid)" >
+			<div class="modal-body">
+				<div class="pop-content">
+					<div class="row">
+						<div class="col-md-12" >
+							<!-- Mật khẩu hiện tại-->
+							<div class="form-group">
+								<label for="txtPasswordCur">Mật khẩu hiện tại <span class="required">*</span></label>
+								<input class="form-control" id="txtPasswordCur" name="txtPasswordCur" type="password" ng-model="formData.currentPassword" ng-minlength="8" ng-maxlength="30" required />
+								
+								<div class="messages-error" ng-messages="frmChangePass.txtPasswordCur.$error" ng-if="submitted">
+									<div ng-message="required">Bạn chưa nhập mật khẩu hiện tại.</div>
+								</div>
+							</div>
+							<!-- Mật khẩu -->
+							<div class="form-group">
+								<label for="txtPassword">Nhập mật khẩu mới <span class="required">*</span></label>
+								<input class="form-control" id="txtPassword" name="txtPassword" type="password" ng-model="formData.newPassword" ng-minlength="8" ng-maxlength="30" required />
+								
+								<div class="messages-error" ng-messages="frmChangePass.txtPassword.$error" ng-if="submitted">
+									<div ng-message="required">Bạn chưa nhập mật khẩu.</div>
+									<div ng-message="minlength">Mật khẩu quá ngắn.</div>
+									<div ng-message="maxlength">Mật khẩu quá dài.</div>
+									 <div ng-message="passwordcharacters">Mật khẩu phải có ký tự in hoa, thường, số và ký tự đặc biệt.</div> 
+								</div>
+							</div>
+							<!-- Nhập lại mật khẩu -->
+							<div class="form-group">
+								<label for="txtRePassword">Nhập lại mật khẩu mới <span class="required">*</span></label>
+								<input class="form-control" id="txtRePassword" name="txtRePassword" type="password" ng-model="formData.confirmNewPassword" bz-valid-password-match="#txtPassword"  required>
+								
+								<div class="messages-error" ng-messages="frmChangePass.txtRePassword.$error" ng-if="submitted">
+									<div ng-message="required">Bạn chưa nhập mật khẩu xác nhận.</div>
+									 <div ng-message="match">Mật khẩu không trùng khớp.</div> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- <pre ng-bind="formData | json"></pre> -->
+
+			</div><!-- End: Body -->
+			<div class="modal-footer">
+				<button bz-submit type="submit" class="btn btn-flat btn-primary btn-submit" ng-class="{'loading-btn': lockForm}" ng-disabled="lockForm" >
+					<i class="glyphicon glyphicon-floppy-disk" ng-if="!lockForm"></i>
+					<span>Lưu mật khẩu</span>
+				</button>
+			</div>
+		</form>
+	</div>
+	<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+

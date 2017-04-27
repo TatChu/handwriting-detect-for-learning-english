@@ -1,0 +1,72 @@
+[
+    {
+        "name": "Giới thiệu về Mua Hàng Việt",
+        "slug": "gioi-thieu-ve-mua-hang-viet",
+        "content": "Lorem ipsum dolor sit amet ...",
+        "status": "true",
+        "type": "CS"
+    },
+    {
+        "name": "Chính sách bảo mật",
+        "slug": "chinh-sach-bao-mat",
+        "content": "Lorem ipsum dolor sit amet ...",
+        "status": "true",
+        "type": "CS"
+    },
+    {
+        "name": "Điều khoản sử dụng",
+        "slug": "dieu-khoan-su-dung",
+        "content": "Lorem ipsum dolor sit amet ...",
+        "status": "true",
+        "type": "CS"
+    },
+    {
+        "name": "Chính sách giao hàng",
+        "slug": "chinh-sach-giao-hang",
+        "content": "Lorem ipsum dolor sit amet ...",
+        "status": "true",
+        "type": "CS"
+    },
+    {
+        "name": "Chính sách đặt hàng",
+        "slug": "chinh-sach-dat-hang",
+        "content": "Lorem ipsum dolor sit amet ...",
+        "status": "true",
+        "type": "CS"
+    },
+    {
+        "name": "Hướng dẫn đặt hàng",
+        "slug": "huong-dan-dat-hang",
+        "content": "Lorem ipsum dolor sit amet ...",
+        "status": "true",
+        "type": "CS"
+    },
+     {
+        "name": "Chính sách thanh toán",
+        "slug": "chinh-sach-thanh-toan",
+        "content": "Lorem ipsum dolor sit amet ...",
+        "status": "true",
+        "type": "CS"
+    },
+     {
+        "name": "Chính sách khiếu nại",
+        "slug": "chinh-sach-khieu-nai",
+        "content": "Lorem ipsum dolor sit amet ...",
+        "status": "true",
+        "type": "CS"
+    },
+    {
+        "name": "Các câu hỏi thường gặp",
+        "slug": "cac-cau-hoi-thuong-gap",
+        "content": "Lorem ipsum dolor sit amet ...",
+        "status": "true",
+        "type": "CS"
+    },
+     {
+        "name": "Hướng dẫn thanh toán",
+        "slug": "huong-dan-thanh-toan",
+        "content": "Lorem ipsum dolor sit amet ...",
+        "status": "true",
+        "type": "CS"
+    }
+]

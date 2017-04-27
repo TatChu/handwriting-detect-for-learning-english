@@ -1,0 +1,104 @@
+<div id="mod-permission-add" ng-init=" vmEditPermission.getResource()" class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Phân quyền
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a ui-sref="permission">Phân quyền</a></li>
+            <li class="active">Thêm role</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- SELECT2 EXAMPLE -->
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Thêm vai trò</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form novalidate id="frmPermission" name="frmPermission" ng-submit="vmEditPermission.save(frmPermission.$valid)">
+                    <div class="box-body">
+                        <!-- Toolbar -->
+                        <div class="toolbar">
+                            <div class="form-inline pull-right">
+                                <div class="form-group form-action">
+
+                                    <a ui-sref="permission" class="btn btn-primary btn-flat">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                        <span>Hủy bỏ</span>
+                                    </a>
+                                    <button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': userEdit.lockForm}"
+                                        ng-disabled="lockForm">
+                                        <i class="glyphicon glyphicon-floppy-disk" ng-if="!vmEditPermission.lockForm"></i>
+                                        <span>Lưu</span>
+                                        </button>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <!-- End: Toolbar -->
+                        <div class="row">
+                            <div class="col-md-8">
+                                <!-- Tên đơn vị -->
+                                <div class="form-group">
+                                    <label for="txtName">Quyền: <span class="role-name" ng-bind="vmEditPermission.formData.role"></span></label>
+                                </div>
+
+                                <!-- Tài nguyên-->
+                                <div class="form-group">
+                                    <label for="slResource">Tài nguyên: <span class="resource"  ng-if="vmEditPermission.modEdit == 'edit-permission'" ng-bind="vmEditPermission.formData.resource[0]"></span> </label>
+                                    <select ng-if="vmEditPermission.modEdit == 'add-resource'" ui-select2 class="form-control" multiple ng-model="vmEditPermission.formData.resource"
+                                        name="slResource" id="slResource" required>
+                                        <option value="[[value]]" ng-repeat="(key, value) in vmEditPermission.listResource">[[value]]</option>
+                                        </select>
+                                    <div class="messages-error" ng-messages="frmPermission.slResource.$error" ng-if="vmEditPermission.submitted">
+                                        <div ng-message="required">Bạn cần chọn ít nhất 1 module</div>
+                                    </div>
+                                </div>
+
+                                <!-- Quyền hạn-->
+                                <div class="form-group">
+                                    <label for="slPermission">Quyền hạn<span class="required">*</span></label>
+                                    <br>
+                                    <input ng-cloak i-check id="chkFullPermission" type="checkbox" ng-model="vmEditPermission.fullPermission" ng-change="vmEditPermission.onChangePermission()">                                    Tất cả quyền
+                                    <br>
+                                    <strong class="space"> hoặc chọn </strong>
+                                    <select ng-cloak ng-disabled="vmEditPermission.fullPermission" ui-select2 class="form-control" multiple ng-model="vmEditPermission.formData.permission"
+                                        name="slPermission" id="slPermission" required>
+                                        <option value="[[value.value]]" ng-repeat="(key, value) in vmEditPermission.listPermission">[[value.name]]</option>
+                                        </select>
+                                    <div class="messages-error" ng-messages="frmPermission.slPermission.$error" ng-if="vmEditPermission.submitted">
+                                        <div ng-message="required">Bạn cần nhập tối thiếu 1 quyền</div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <a ui-sref="permission" class="btn btn-primary btn-flat">
+                            <i class="glyphicon glyphicon-remove"></i>
+                            <span>Hủy bỏ</span>
+                        </a>
+                        <button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': lockForm}" ng-disabled="lockForm">
+							<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmEditPermission.lockForm"></i>
+							<span>Lưu</span>
+						</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

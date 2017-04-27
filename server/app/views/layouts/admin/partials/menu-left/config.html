@@ -1,0 +1,7 @@
+<!-- =========================Users========================= -->
+<li ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('config', ['view']))" ng-class="{'active':pageData.menuType === 'config'}" class="treeview">
+    <a ui-sref="configs({page:1})">
+        <i class="fa fa-cogs text-aqua"></i> <span>Configs</span>
+    </a>
+</li>
+<!-- =========================END Users========================= -->

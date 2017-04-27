@@ -1,0 +1,84 @@
+<div id="mod-import-product-list" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Lịch sử nhập hàng
+			<small>Theo nhà cung cấp</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a ui-sref="suppliers">Nhà cung cấp</a></li>
+            <li><a class="active">Lịch sử nhập hàng</a></li>
+		</ol>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h5 class="">Tên nhà cung cấp: 
+                            <strong  ng-bind="vmSupplierImportProductHistory.supplier.name"></strong>
+                        </h5>
+                        <h5 class=" ">Email: 
+                            <strong ng-bind="vmSupplierImportProductHistory.supplier.email"></strong>
+                        </h5>
+                        <h5 class="">Điện thoại: 
+                            <strong ng-bind="vmSupplierImportProductHistory.supplier.phone"></strong>
+                        </h5>
+                        <h5 class="">Địa chỉ: 
+                            <strong ng-bind="vmSupplierImportProductHistory.supplier.address"></strong>
+                        </h5>
+                        
+						<div class="clearfix"></div>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div ng-show="vmSupplierImportProductHistory.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
+
+                        <table class="table table-condensed table-bordered table-striped" ng-table="vmSupplierImportProductHistory.table" ng-show="!vmSupplierImportProductHistory.loading">
+                            <tr ng-repeat="item in $data">
+                                <td data-title="'ID'">
+                                    <div class="col col-num" ng-bind="((vmSupplierImportProductHistory.queryParams.page - 1) * vmSupplierImportProductHistory.queryParams.limit) + $index + 1"></div>
+                                </td>
+                                <td data-title="'Sản phẩm'">
+                                    [[item.product.name]]
+                                </td>
+                                <td data-title="'Thời gian nhập kho'">
+                                    <span ng-bind="item.createdAt | bzFormatDate:'DD/MM/YYYY hh:mm:ss A'"></span>
+                                </td>
+                                <td data-title="'Số lượng lúc nhập hàng'">
+                                    <span ng-bind="item.qty_before"></span>
+                                    <!-- <span ng-bind="item.product.units_in_stock.id_unit.name"></span> -->
+                                </td>
+                                <td data-title="'Số lượng hao hụt sơ chế'">
+                                    <span ng-bind="item.qty_before - item.qty_after"></span>
+                                    <!-- <span ng-bind="item.product.units_in_stock.id_unit.name"></span> -->
+                                </td>
+                                <td data-title="'Số lượng sau sơ chế'">
+                                    <span ng-bind="item.qty_after"></span>
+                                    <!-- <span ng-bind="item.product.units_in_stock.id_unit.name"></span> -->
+                                </td>
+                                <td data-title="'Tổng tiền nhập hàng sau sơ chế'">
+                                    <span ng-bind="item.total_money_after"></span>đ
+                                </td>
+                                <td data-title="'Giá đổi (nếu có)'">
+                                    <span ng-if="item.price_new != item.price_old" ng-bind="item.price_new + 'đ'"></span>
+                                </td>
+                                <td data-title="'Người nhập hàng'">
+                                    <span ng-bind="item.user.name"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
+</div>

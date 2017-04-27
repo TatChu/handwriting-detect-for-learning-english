@@ -1,0 +1,56 @@
+/******************************************************************
+Component
+*******************************************************************/
+@import "../styles/tools/settings";
+@import "../styles/component/message";
+@import "../styles/component/_select2";
+@import "../../global/cropper/_style.scss";
+/******************************************************************
+Modules Load Auto
+*******************************************************************/
+/*inject-module:scss*/
+@import "../../../../app/modules/admin-dashboard/view/client/_style.scss";
+@import "../../../../app/modules/admin-acl/view/client/add/_style.scss";
+@import "../../../../app/modules/admin-acl/view/client/list/_style.scss";
+@import "../../../../app/modules/admin-auth/view/client/login/_style.scss";
+@import "../../../../app/modules/admin-blog/view/client/add/_style.scss";
+@import "../../../../app/modules/admin-blog/view/client/list/_style.scss";
+@import "../../../../app/modules/admin-category/view/client/add-category/_style.scss";
+@import "../../../../app/modules/admin-category/view/client/list-category/_style.scss";
+@import "../../../../app/modules/admin-certificate/view/client/certificate-product/_style.scss";
+@import "../../../../app/modules/admin-certificate/view/client/create-certificate/_style.scss";
+@import "../../../../app/modules/admin-certificate/view/client/edit-certificate/_style.scss";
+@import "../../../../app/modules/admin-certificate/view/client/list-certificate/_style.scss";
+@import "../../../../app/modules/admin-coupon/view/client/create-coupon/_style.scss";
+@import "../../../../app/modules/admin-coupon/view/client/edit-coupon/_style.scss";
+@import "../../../../app/modules/admin-coupon/view/client/list-coupon/_style.scss";
+@import "../../../../app/modules/admin-import-product/view/client/add-import-product/_style.scss";
+@import "../../../../app/modules/admin-import-product/view/client/edit-import-product/_style.scss";
+@import "../../../../app/modules/admin-import-product/view/client/list-import-product/_style.scss";
+@import "../../../../app/modules/admin-log/view/client/list/_style.scss";
+@import "../../../../app/modules/admin-order/view/client/add-order/_style.scss";
+@import "../../../../app/modules/admin-order/view/client/edit-order/_style.scss";
+@import "../../../../app/modules/admin-order/view/client/list-order/_style.scss";
+@import "../../../../app/modules/admin-product/view/client/add-product/_style.scss";
+@import "../../../../app/modules/admin-product/view/client/edit-product/_style.scss";
+@import "../../../../app/modules/admin-product/view/client/list-product/_style.scss";
+@import "../../../../app/modules/admin-promotion/view/client/add-promotion/_style.scss";
+@import "../../../../app/modules/admin-promotion/view/client/list-promotion/_style.scss";
+@import "../../../../app/modules/admin-report/view/client/list-report-product-a-day/_style.scss";
+@import "../../../../app/modules/admin-report/view/client/list-report-product-order/_style.scss";
+@import "../../../../app/modules/admin-shippingfee/view/client/list-shippingfee/_style.scss";
+@import "../../../../app/modules/admin-supplier/view/client/add-supplier/_style.scss";
+@import "../../../../app/modules/admin-supplier/view/client/list-supplier/_style.scss";
+@import "../../../../app/modules/admin-tag/view/client/list-tag/_style.scss";
+@import "../../../../app/modules/admin-tag/view/client/tag-processing/_style.scss";
+@import "../../../../app/modules/admin-tag/view/client/tag-product/_style.scss";
+@import "../../../../app/modules/admin-unit/view/client/list-unit/_style.scss";
+@import "../../../../app/modules/admin-user/view/client/edit/_style.scss";
+@import "../../../../app/modules/admin-user/view/client/edit-profile/_style.scss";
+@import "../../../../app/modules/admin-user/view/client/list-user/_style.scss";
+@import "../../../../app/modules/admin-user/view/client/user-shipping/_style.scss";
+@import "../../../../app/modules/admin-coupon/view/client/popup/add-many-coupon/_style.scss";
+@import "../../../../app/modules/admin-log/view/client/popup/detail-log/_style.scss";
+@import "../../../../app/modules/admin-order/view/client/popup-order/detail-order/_style.scss";
+@import "../../../../app/modules/admin-user/view/client/popup/change-pass/_style.scss";
+/*endinject*/

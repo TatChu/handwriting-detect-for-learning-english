@@ -1,0 +1,44 @@
+<!-- <div id="pop-avatar" class="bzPopup bzPopupAnimation">
+	<div class="pop-head">
+		<h3>Cắt hình</h3>
+	</div>
+	<bz-cropper
+	crop-image="[[popupScope.image]]"
+	crop-ratio="[[popupScope.ratio]]"
+	crop-width="[[popupScope.width]]"
+	crop-height="[[popupScope.height]]"
+	crop-event="[[popupScope.event]]"
+	crop-mime="[[popupScope.mimeType]]">
+</bz-cropper>
+</div> -->
+<style>
+	.modal-dialog {max-width: 500px;}
+</style>
+<div id="pop-avatar" class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="$dismiss()">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<!-- <h4 class="modal-title" ng-bind="popTitle"></h4> -->
+			<h3>Cắt hình</h3>
+		</div>
+		<div class="modal-body">
+			<bz-cropper
+			crop-image="[[popupScope.image]]"
+			crop-ratio="[[popupScope.ratio]]"
+			crop-width="[[popupScope.width]]"
+			crop-height="[[popupScope.height]]"
+			crop-event="[[popupScope.event]]"
+			crop-mime="[[popupScope.mimeType]]">
+		</bz-cropper>
+	</div><!-- End: Body -->
+	<!-- <div class="modal-footer">
+		<button class="btn btn-danger" type="button" ng-click="ok()">OK</button>
+		<button class="btn btn-default" type="button" ng-click="$dismiss()">Cancel</button>
+	</div> -->
+</div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+

@@ -1,0 +1,73 @@
+#pop-avatar{
+	// width: 100%;
+	.cropper-browser{
+		width: 100%;
+		height: 200px;
+		margin:0 auto;
+		background: #E6E6E6;
+		text-align: center;
+		display: table;
+		border-radius: 2px;
+		a{
+			color: #808080;
+			display: table-cell;
+			vertical-align: middle;
+			cursor: pointer;
+			span{
+				position: relative;
+				top: 2px;
+				font-size: 20px;
+				color: #808080;
+				font-weight: bold;
+
+				display: inline-block;
+				margin-right: 5px;
+			}
+		}
+	}
+	.pop-content{
+		position: relative;
+		&:hover{
+			.croper-zoom{
+				display: block;
+			}
+		}
+	}
+	.loading-btn{
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		width: 100%;
+		height: 100%;
+	}
+	.croper-zoom{
+		position: absolute;
+		top: -20px;
+		left: 50%;
+		z-index: 1;
+
+		display: none;
+		background: #444;
+		border-radius:28px;
+		text-align: center;
+		width:154px;
+		margin-left:-77px;
+		padding:5px;
+		input,span{
+			display: inline-block;
+			vertical-align:middle;
+			cursor: pointer;
+		}
+		img{
+			width:32px;
+		}
+	}
+	.btnSelectPic{
+		margin-left:0;
+	}
+
+	.pop-top-controls{
+		margin-bottom: 15px;
+	}
+}

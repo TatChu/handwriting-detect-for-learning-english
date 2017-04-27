@@ -1,0 +1,14 @@
+{
+  "name": "bz-popup",
+  "version": "1.0.0",
+  "main": [
+  	"./scripts/popup.js",
+    "./scripts/angular-popup.js",
+  	"./styles/style.scss"
+  ],
+  "ignore": [],
+  "dependencies": {
+    "angular-toastr": "^2.1.1",
+  	"magnific-popup": "^1.1.0"
+  }
+}

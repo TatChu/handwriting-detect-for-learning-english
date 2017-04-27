@@ -1,0 +1,193 @@
+<div id="mod-supplier-add" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Nhà cung cấp
+		</h1>
+
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a ui-sref="suppliers">Nhà cung cấp</a></li>
+			<li class="active">Thêm mới</li>
+		</ol>
+	</section>
+
+	<!-- Main content -->
+	<section class="content">
+
+		<!-- SELECT2 EXAMPLE -->
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<h3 class="box-title">Thêm mới nhà cung cấp</h3>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<form novalidate id="formSupplier" name="formSupplier" ng-submit="vmsupplierAdd.save(formSupplier.$valid)">
+					<div class="box-body">
+						<!-- Toolbar -->
+						<div class="toolbar">
+							<div class="form-inline pull-right">
+								<div class="form-group form-action">
+									
+									<a ui-sref="suppliers" class="btn btn-primary btn-flat">
+										<i class="glyphicon glyphicon-remove"></i>
+										<span>Hủy bỏ</span>
+									</a>
+									<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': userEdit.lockForm}"
+										ng-disabled="vmsupplierAdd.lockForm">
+										<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmsupplierAdd.lockForm"></i>
+										<span>Lưu</span>
+									</button>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<!-- End: Toolbar -->
+						<div class="row">
+							<div class="col-sm-6">
+								<!-- Tên đơn vị -->
+								<div class="form-group ">
+									<label for="txtName">Tên nhà cung cấp<span class="required">*</span></label>
+									<input id="txtName" name="txtName" class="form-control" placeholder="Tên nhà cung cấp" type="text" ng-model="vmsupplierAdd.formData.name"
+										ng-pattern="/[a-zA-Z0-9]/" required />
+									<div class="messages-error" ng-messages="formSupplier.txtName.$error" ng-if="vmsupplierAdd.submitted">
+										<div ng-message="required">Bạn chưa nhập tên</div>
+									</div>
+								</div>
+								<!-- Phone-->
+								<div class="form-group">
+									<label for="txtPhone">Điện thoại<span class="required">*</span></label>
+									<!--<span class="input-group-addon"><i class="fa fa-mobile"></i></span>-->
+									<input type="phone" name="txtPhone" ng-model="vmsupplierAdd.formData.phone" class="form-control" placeholder="Phone" required ng-pattern="/^[0-9]{10,11}$/">
+										<div class="messages-error" ng-messages="formSupplier.txtPhone.$error" ng-if="vmsupplierAdd.submitted">
+										<div ng-message="required">Bạn chưa nhập điện thoại.</div>
+										<div ng-message="pattern">Điện thoại không hợp lệ.</div>
+									</div>
+								</div>
+								<!-- Tax code-->
+								<div class="form-group">
+									<label for="txtTaxCode">Mã số thuế<span class="required">*</span></label>
+									<!--<span class="input-group-addon"><i class="fa fa-fax"></i></span>-->
+									<input required type="text" name="txtTaxCode" ng-model="vmsupplierAdd.formData.tax_code" ng-pattern="/^[0-9]{7,20}$/" class="form-control" placeholder="Mã số thuế">
+									<div class="messages-error" ng-messages="formSupplier.txtTaxCode.$error" ng-if="vmsupplierAdd.submitted">
+										<div ng-message="required">Bạn phải nhập mã số thuế</div>
+										<div ng-message="pattern">Mã số thuế không hợp lệ.</div>
+									</div>
+								</div>
+
+								<!-- Email -->
+								<div class="form-group">
+									<label for="txtEmail">Email nhà cung cấp<span class="required">*</span></label>
+									<input class="form-control" id="txtEmail" name="txtEmail" placeholder="Email nhà cung cấp" type="text" ng-model="vmsupplierAdd.formData.email" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/"
+										required />
+									<div class="messages-error" ng-messages="formSupplier.txtEmail.$error" ng-if="vmsupplierAdd.submitted">
+										<div ng-message="required">Bạn chưa nhập email.</div>
+										<div ng-message="pattern">Email không hợp lệ.</div>
+									</div>
+								</div>
+
+								<!-- Website-->
+								<div class="form-group">
+									<label for="txtWebsite">Website nhà cung cấp</label>
+									<!--<span class="input-group-addon"><i class="fa fa-fax"></i></span>-->
+									<input type="text" name="txtWebsite" ng-model="vmsupplierAdd.formData.website" class="form-control" placeholder="Website">
+								</div>
+								<!-- Address-->
+								<div class="form-group">
+									<label for="txtAddress">Địa chỉ nhà cung cấp</label>
+									<!--<span class="input-group-addon"><i class="fa fa-fax"></i></span>-->
+									<textarea type="text" name="txtAddress" ng-model="vmsupplierAdd.formData.address" class="form-control" placeholder="Địa chỉ"></textarea>
+								</div>
+								<!-- Active -->
+								<div class="form-group">
+									<label>Active</label>
+									<br/>
+									<input i-check id="chkPublish" type="checkbox" ng-model="vmsupplierAdd.formData.status" ng-true-value="true" ng-false-value="false">									Kích hoạt
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<!-- Deputy-->
+								<div class="form-group">
+									<label class="deputy" for="txtFax">Người đại diện<span class="required">*</span></label>
+									<!--<span class="input-group-addon"><i class="fa fa-fax"></i></span>-->
+									<div class="form-group ">
+										<label class="deputy-label" for="txtDeputyName">Tên người đại diện<span class="required">*</span></label>
+										<input type="text" name="txtDeputyName" ng-model="vmsupplierAdd.formData.deputy.name" class="form-control" required placeholder="Tên người đại diện">
+										<div class="messages-error" ng-messages="formSupplier.txtDeputyName.$error" ng-if="vmsupplierAdd.submitted">
+											<div ng-message="required">Bạn chưa nhập tên người đại diện</div>
+										</div>
+									</div>
+
+									<div class="form-group ">
+										<label class="deputy-label" for="txtDeputyPhone">Điện thoại người đại diện<span class="required">*</span></label>
+										<input type="phone" name="txtDeputyPhone" ng-model="vmsupplierAdd.formData.deputy.phone" ng-pattern="/^[0-9]{10,11}$/" required class="form-control" placeholder="Điện thoại người đại diện">
+										<div class="messages-error" ng-messages="formSupplier.txtDeputyPhone.$error" ng-if="vmsupplierAdd.submitted">
+											<div ng-message="required">Bạn chưa nhập điện thoại người đại diện</div>
+											<div ng-message="pattern">Điện thoại người đại diện không hợp lệ</div>
+										</div>
+									</div>
+
+									<div class="form-group ">
+										<label class="deputy-label" for="txtDeputyEmail">Email người đại diện<span class="required">*</span></label>
+										<input class="form-control" id="txtDeputyEmail" name="txtDeputyEmail" type="email" placeholder="Email người đại diện" ng-model="vmsupplierAdd.formData.deputy.email"
+											ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/" required />
+										<div class="messages-error" ng-messages="formSupplier.txtDeputyEmail.$error" ng-if="vmsupplierAdd.submitted">
+											<div ng-message="required">Bạn chưa nhập email người đại diện.</div>
+											<div ng-message="pattern">Email không hợp lệ.</div>
+										</div>
+									</div>
+								</div>
+
+								<!--Account info -->
+								<div class="form-group">
+									<label class="deputy" for="txtAccountName">Tài khoản ngân hàng<span class="required">*</span></label>
+									<!--<span class="input-group-addon"><i class="fa fa-fax"></i></span>-->
+									<div class="form-group ">
+										<label class="deputy-label" for="txtAccountName">Chủ tài khoản<span class="required">*</span></label>
+										<input type="text" name="txtAccountName" ng-model="vmsupplierAdd.formData.bank_info.name" class="form-control" required placeholder="Tên tài chủ khoản">
+										<div class="messages-error" ng-messages="formSupplier.txtAccountName.$error" ng-if="vmsupplierAdd.submitted">
+											<div ng-message="required">Bạn chưa tên chủ tài khoản</div>
+										</div>
+									</div>
+
+									<div class="form-group ">
+										<label class="deputy-label" for="txtAccNum">Số tài khoản<span class="required">*</span></label>
+										<input type="phone" name="txtAccNum" ng-model="vmsupplierAdd.formData.bank_info.account_number" ng-pattern="/^[0-9]{10,20}$/" required class="form-control" placeholder="Số tài khoản ngân hàng">
+										<div class="messages-error" ng-messages="formSupplier.txtAccNum.$error" ng-if="vmsupplierAdd.submitted">
+											<div ng-message="required">Bạn chưa nhập số tài khoản</div>
+											<div ng-message="pattern">Số tải khoản không hợp lệ</div>
+										</div>
+									</div>
+
+									<div class="form-group ">
+										<label class="deputy-label" for="txtAccName">Tên ngân hàng<span class="required">*</span></label>
+										<input type="text" name="txtAccName" ng-model="vmsupplierAdd.formData.bank_info.bank_name"  required class="form-control" placeholder="Tên ngân hàng">
+										<div class="messages-error" ng-messages="formSupplier.txtAccName.$error" ng-if="vmsupplierAdd.submitted">
+											<div ng-message="required">Bạn chưa nhập tên ngân hàng</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="box-footer pull-right">
+						<a ui-sref="suppliers" class="btn btn-primary btn-flat">
+							<i class="glyphicon glyphicon-remove"></i>
+							<span>Hủy bỏ</span>
+						</a>
+						<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': lockForm}" ng-disabled="vmsupplierAdd.lockForm || formData.$invalid">
+							<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmsupplierAdd.lockForm"></i>
+							<span>Lưu</span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+</div>

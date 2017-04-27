@@ -1,0 +1,17 @@
+#/usr/lib/systemd/system/servicename.service
+[Unit]
+Description=servicename Service
+After=mongod.service
+[Service]
+WorkingDirectory=/srv/nodeapp/path-to-webroot/
+ExecStart=/usr/bin/node /srv/nodeapp/path-to-webroot/app.js
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=servicename
+User=root
+Group=root
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

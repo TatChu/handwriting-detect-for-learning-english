@@ -1,0 +1,65 @@
+<style>
+	.modal-dialog {max-width: 400px}
+</style>
+<div id="pop-change-pass" class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="$dismiss()">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<h4 class="modal-title">Đổi mật khẩu</h4>
+		</div>
+		<div class="modal-body">
+			<div class="pop-content">
+				<div class="row">
+					<form novalidate name="frmUser" ng-submit="mvCPass.submit(frmUser.$valid)">
+						<div class="col-md-12">
+							<!-- Mật khẩu hiện tại-->
+							<div class="form-group">
+								<label for="txtPasswordCur">Mật khẩu hiện tại <span class="required">*</span></label>
+								<input autocomplete="off" class="form-control" id="txtPasswordCur" name="txtPasswordCur" type="password" ng-model="mvCPass.formData.currentPassword" ng-minlength="8" ng-maxlength="30" required />
+								
+								<div class="messages-error" ng-messages="frmUser.txtPasswordCur.$error" ng-if="mvCPass.submitted">
+									<div ng-message="required">Bạn chưa nhập mật khẩu hiện tại.</div>
+								</div>
+							</div>
+							<!-- Mật khẩu -->
+							<div class="form-group">
+								<label for="txtPassword">Nhập mật khẩu mới <span class="required">*</span></label>
+								<input autocomplete="off" class="form-control" id="txtPassword" name="txtPassword" type="password" ng-model="mvCPass.formData.newPassword" ng-minlength="8" ng-maxlength="30" required />
+								
+								<div class="messages-error" ng-messages="frmUser.txtPassword.$error" ng-if="mvCPass.submitted">
+									<div ng-message="required">Bạn chưa nhập mật khẩu.</div>
+									<div ng-message="minlength">Mật khẩu quá ngắn.</div>
+									<div ng-message="maxlength">Mật khẩu quá dài.</div>
+									<div ng-message="passwordcharacters">Mật khẩu phải có ký tự in hoa, thường, số và ký tự đặc biệt.</div>
+								</div>
+							</div>
+							<!-- Nhập lại mật khẩu -->
+							<div class="form-group">
+								<label for="txtRePassword">Nhập lại mật khẩu mới <span class="required">*</span></label>
+								<input autocomplete="off" class="form-control" id="txtRePassword" name="txtRePassword" type="password" ng-model="mvCPass.formData.confirmNewPassword" bz-valid-password-match="#txtPassword" required>
+								
+								<div class="messages-error" ng-messages="frmUser.txtRePassword.$error" ng-if="mvCPass.submitted">
+									<div ng-message="required">Bạn chưa nhập mật khẩu xác nhận.</div>
+									<div ng-message="match">Mật khẩu không trùng khớp.</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- <pre ng-bind="mvCPass.formData | json"></pre> -->
+
+		</div><!-- End: Body -->
+		<div class="modal-footer">
+			<button bz-submit type="submit" class="btn btn-flat btn-primary btn-submit" ng-class="{'loading-btn': mvCPass.lockForm}" ng-disabled="mvCPass.lockForm" ng-click="mvCPass.submit(frmUser.$valid)">
+				<i class="glyphicon glyphicon-floppy-disk" ng-if="!mvCPass.lockForm"></i>
+				<span>Lưu mật khẩu</span>
+			</button>
+		</div>
+	</div>
+	<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+

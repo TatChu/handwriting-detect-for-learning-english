@@ -1,0 +1,7 @@
+<!-- =========================Tag========================= -->
+<li ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('tag', ['view']))" ng-class="{'active':pageData.menuType === 'tag-processing'}" class="treeview">
+    <a ui-sref="tag-processing({type:'CN'})">
+        <i class="fa fa fa-tasks text-aqua"></i> <span> Tag cách nấu</span>
+    </a>
+</li>
+<!-- =========================END Tag========================= -->

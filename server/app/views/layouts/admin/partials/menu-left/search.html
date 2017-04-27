@@ -1,0 +1,7 @@
+<!-- =========================ShippingFee========================= -->
+<li ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('search', ['view']))" ng-class="{'active':pageData.menuType === 'search'}" class="treeview">
+    <a ui-sref="search-list()">
+        <i class="fa fa-search text-aqua"></i> <span> Từ khoá tìm kiếm</span>
+    </a>
+</li>
+<!-- =========================END ShippingFee========================= -->

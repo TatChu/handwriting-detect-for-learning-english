@@ -1,0 +1,7 @@
+<!-- =========================Product========================= -->
+<li ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('import_product', ['view']))" ng-class="{'active':pageData.menuType === 'import-product'}"  class="treeview">
+    <a ui-sref="import-product()">
+        <i class="fa fa-university text-aqua"> </i><span> Nhập hàng</span>
+    </a>
+</li>
+<!-- =========================END Product========================= -->

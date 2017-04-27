@@ -1,0 +1,59 @@
+<div id="pop-submit" class="bzPopup pop-login">
+	<div class="button-fb">
+
+		<button class="btn btn-primary" ng-click="vmLogin.loginFacebook();" onclick="helperJsCustom.GA('send', 'event', 'Login', 'ClickButtonLoginFacebook', '');">
+			Đăng nhập bằng Facebook
+		</button>
+
+	</div>
+	<p class="text-center or"><span></span>Hoặc<span></span></p>
+	<form novalidate name="frmLogin" ng-submit="vmLogin.login(frmLogin.$valid)">
+
+		<div class="form-group" ng-class="{'error': (frmLogin.txtPhone.$error.required || vmLogin.err == 'Email hoặc số điện thoại không đúng' || vmLogin.err == 'Tài khoản này đã bị khóa' ) && vmLogin.submitted }">
+
+			<div class="msg-input phone">
+				<input type="text" class="form-control" placeholder="Số điện thoại hoặc email" name="txtPhone" ng-change="vmLogin.checkInput()" ng-model="vmLogin.formData.phone" required>
+			</div>
+			<div ng-messages="frmLogin.txtPhone.$error" ng-if="vmLogin.submitted">
+				<span class="message-error" ng-message="required">Vui lòng nhập số điện thoại hoặc email của bạn.</span>
+			</div>
+				<span class="message-error" ng-if="vmLogin.err == 'Email hoặc số điện thoại không đúng' && vmLogin.submitted">[[vmLogin.err]]</span>
+				<span class="message-error" ng-if="vmLogin.err == 'Tài khoản này đã bị khóa' && vmLogin.submitted">[[vmLogin.err]]</span>
+		</div>
+
+
+		<div class="form-group"  ng-class="{'error': ( frmLogin.txtPassword.$error.required || frmLogin.txtPassword.$error.minlength || vmLogin.err == 'Mật khẩu không đúng' ) && vmLogin.submitted }">
+
+			<div class="msg-input password">
+				<input type="password" autocomplete="off" class="form-control" placeholder="Mật khẩu" name="txtPassword" ng-change="vmLogin.checkInput()" ng-model="vmLogin.formData.password" ng-minlength="6"  required>
+			</div>
+			<div ng-messages="frmLogin.txtPassword.$error" ng-if="vmLogin.submitted">
+				<span class="message-error" ng-message="required">Nhập mật khẩu ít nhất từ 6 kí tự.</span>
+				<span class="message-error" ng-message="minlength">Nhập mật khẩu ít nhất từ 6 kí tự.</span>
+			</div>
+			<span class="message-error" ng-if="vmLogin.err == 'Mật khẩu không đúng' && vmLogin.submitted">[[vmLogin.err]]</span>
+		</div>
+
+
+		<button  class="btn btn-primary"  type="submit" ng-disabled="vmLogin.lockForm" onclick="helperJsCustom.GA('send', 'event', 'Login', 'ClickButtonSubmitLogin', '');" >
+			Đăng nhập
+		</button>
+
+		<div class="form-group flex">
+			<label role="checkbox">
+        <input type="checkbox" checked>
+        <i></i>
+        <span>Ghi nhớ đăng nhập</span>
+      </label>
+			<a class="qmk" ng-click="vmLogin.popForgotPass()" onclick="helperJsCustom.GA('send', 'event', 'Login', 'ClickButtonForgotPassword', '');">Quên mật khẩu</a>
+</div> 
+<div class="bot">
+	<p>
+		Bạn chưa có tài khoản?
+		<a ng-click="vmLogin.popRegister();" onclick="helperJsCustom.GA('send', 'event', 'Login', 'ClickButtonSignup', '');">Đăng ký</a>
+</p>
+</div>
+</form>
+</div>
+
+

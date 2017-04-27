@@ -1,0 +1,115 @@
+<!--Content Wrapper. Contains page content -->
+<div id="mod-category-list" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Danh mục sản phẩm
+			<small>Danh sách danh mục</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a ui-sref="categories({module: 'category', parrentSlug:null})">Tất cả danh mục</a></li>
+
+			<!--<li ng-show="vmListCategory.viewChild"><a class="active">[[vmListCategory.categoriesParrent.name]]</a></li>-->
+			<li ng-repeat="category in vmListCategory.listCategoriesParrent">
+				<a ui-sref="categories({module: 'category', parrentSlug:category.slug})">[[category.name]]</a>
+			</li>
+			<li ng-show="vmListCategory.viewChild"><a class="active">[[vmListCategory.categoriesParrent.name]]</a></li>
+		</ol>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<div ng-show="!vmListCategory.keyword">
+							<h3 ng-show="!vmListCategory.viewChild" class="box-title">Danh sách các danh mục sản phẩm</h3>
+							<h3 ng-show="vmListCategory.viewChild" class="box-title">Danh mục con của: <span>[[vmListCategory.categoriesParrent.name]]</span></h3>
+						</div>
+						<h3 ng-show="!!vmListCategory.keyword" class="box-title">Kết quả tìm kiếm: "<span>[[vmListCategory.keyword]]</span>"</h3>
+
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<!--search-->
+						<div class="form-inline pull-left">
+							<div class="form-group form-group-item">
+								<form ng-submit="vmListCategory.search(vmListCategory.keyword)" >
+									<input type="search" class="form-control" name="keyword" ng-model="vmListCategory.keyword" id="keyword" placeholder="Từ khoá tìm kiếm...">
+									<a class="btn btn-success btn-flat" ng-click="vmListCategory.search(vmListCategory.keyword);">
+										<i class="fa fa-search"></i>
+										<span>Search</span>
+									</a>
+									<a class="btn  btn-default btn-flat" ng-click="vmListCategory.filterReset();">
+										<i class="fa fa-undo "></i>
+										<span>Reset</span>
+									</a>
+								</form>
+
+							</div>
+						</div>
+
+						<div ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('category', ['add']))"
+						 class="form-inline pull-right">
+							<div class="form-group form-group-item">
+								<a class="btn btn-primary btn-sm btn-flat" ui-sref="createCategory({module: 'category', parrentId: vmListCategory.query.parrentId })">
+									<i class="glyphicon glyphicon-plus"></i>
+									<span>Thêm</span>
+								</a>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div ng-show="vmListCategory.loading" style="text-align: center;">
+							<img src="/assets/loading.svg" alt="" />
+						</div>
+						<table ng-show="!vmListCategory.loading" ng-table="vmListCategory.table" class="table table-condensed table-bordered table-striped">
+							<tr ng-repeat="item in $data">
+								<td data-title="'STT'">
+									<div class="col col-num" ng-bind="((vmListCategory.queryParams.page - 1) * vmListCategory.queryParams.limit) + $index + 1"></div>
+								</td>
+								<td data-title="'Hình ảnh'" sortable="'name'">
+									<img class="img-product" ng-show="item.images[0]" ng-src="[[vmListCategory.imagesDerectory + item.images[0].url]]" alt="Hình ảnh bj lỗi">
+									<span class="text-center" ng-if="!item.images[0]">Danh mục chưa có ảnh</span>
+								</td>
+								<td data-title="'Tên/Slug liên kết'" sortable="'slug'">
+									<a ui-sref="categories({module: 'category', parrentSlug:item.slug})">
+										<b>[[item.name]]</b>
+									</a> <br> [[item.slug]]
+								</td>
+								<td data-title="'Mô tả'">[[item.description]]</td>
+								<td data-title="'Trạng thái'">
+									<span class="[[item.status === true ? 'label label-success': 'label label-default']]">[[item.status === true ? 'Active': 'Inactive']]</span>
+								</td>
+								<!--<td data-title="'Ngày tạo'">
+																<span ng-bind="item.created | bzFormatDate:'h:m:s DD/MM/YYYY'"></span>
+															</td>-->
+								<td data-title="'Action'">
+									&nbsp
+									<a ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('category', ['edit']))"
+									 class="btn btn-default btn-flat btn-edit" ui-sref="editCategory({module: 'category', slug:item.slug})">
+										Sửa
+									</a>
+									&nbsp
+									<a class="btn btn-default btn-flat btn-delete" ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('category', ['delete']))"
+									 ng-click="vmListCategory.remove(item._id)">
+										Xoá
+									</a>
+								</td>
+							</tr>
+						</table>
+						<div ng-show="vmListCategory.listCategory.length == 0" class="no-data">
+							Chưa có dữ liệu
+						</div>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper-->

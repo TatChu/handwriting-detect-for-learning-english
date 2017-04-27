@@ -1,0 +1,161 @@
+<div id="mod-user-shipping" class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Địa chỉ giao hàng
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a ui-sref="users">Thành viên</a></li>
+            <li class="active">Địa chỉ giao hàng</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- SELECT2 EXAMPLE -->
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Danh sách địa chỉ giao hàng của tài khoản: '[[vmUserShipping.user.email]]'</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <!-- End: Toolbar -->
+                <div class="row">
+                    <div ng-repeat="item in vmUserShipping.user.customer.shipping_address" class="col-sm-9 address">
+                        <!-- Tên tỉnh thành -->
+                        <div class="text-left col-sm-7">
+                            <div class="feild">
+                                <label>Người nhận: </label>
+                                <span editable-text="item.name" e-name="name" e-form="rowform" onbeforesave="vmUserShipping.checkEmpty($data)">
+                                [[ item.name || 'Chưa có dữ liệu' ]]
+                                </span>
+                            </div>
+
+                            <div class="feild">
+                                <label>Điện thoại:</label>
+                                <span editable-text="item.phone" e-name="phone" e-form="rowform" onbeforesave="vmUserShipping.checkEmpty($data)">
+                                [[ item.phone || 'Chưa có dữ liệu' ]]
+                                </span>
+                            </div>
+
+                            <div class="feild">
+                                <label>Địa chỉ: </label>
+                                <strong ng-show="!rowform.$visible" ng-bind="item.id_shipping_fee.district + ' - '"></strong>
+                                <span editable-text="item.address_detail" e-name="address_detail" e-form="rowform" onbeforesave="vmUserShipping.checkEmpty($data)">
+                                [[ item.address_detail || 'Chưa có dữ liệu' ]]
+                                </span>
+
+                            </div>
+
+                            <div class="feild" ng-show="rowform.$visible">
+                                <label for="district">Quận:
+                                </label>
+                                <span editable-select="item.id_shipping_fee._id" e-name="id_shipping_fee" e-form="rowform" e-ng-options="s._id as s.district for s in vmUserShipping.districts">
+                                </span>
+                            </div>
+                            <hr>
+                            <!--<a href="#" editable-text="item.name">[[ item.name || "Chưa có dữ liệu" ]]</a>-->
+
+                            <!--<a href="#" editable-text="item.phone">[[ item.phone || "Chưa có dữ liệu" ]]</a>-->
+
+                            <!--<a href="#" editable-text="item.address">[[ item.address_detail || "Chưa có dữ liệu" ]]</a>-->
+                        </div>
+                        <div class="col-sm-3" ng-show="rowform.$visible">
+
+                            <form editable-form name="rowform" shown="inserted == item" onbeforesave="vmUserShipping.updateAddressShipping(item)" ng-show="rowform.$visible"
+                                class="form-buttons form-inline">
+                                <button type="submit" class="btn-submit" ng-disabled="rowform.$waiting"> 
+                                        <i class="fa fa-check"></i>
+                                </button>
+
+                                <a class="btn-cancel" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()">
+                                    <i class="fa fa-reply"></i>
+                                </a>
+                            </form>
+                        </div>
+
+                        <div class="col-sm-3" ng-show="!rowform.$visible">
+                            <!--<button class="btn btn-primary" ng-click="rowform.$show()">edit</button>-->
+                            <a class="btn-edit" ng-click="rowform.$show()">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            &nbsp
+                            <a class="btn-delete" ng-click="vmUserShipping.deleteUserShipping(item._id)">
+                                <i class="fa fa-close"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <a href="" ng-click="vmUserShipping.show()">
+                    <span>Thêm địa chỉ mới</span>
+                </a>
+                <!--Form add -->
+                <form novalidate class="frmUser" name="frmUser" ng-submit="vmUserShipping.addUserShipping(frmUser.$valid)" ng-show="vmUserShipping.showForm">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <!-- Tên sản phẩm -->
+                                <div class="form-group">
+                                    <label for="name">Họ và Tên <span class="required">*</span></label>
+                                    <input id="name" name="name" class="form-control" type="text" ng-model="vmUserShipping.formData.txtName" ng-pattern="/[a-zA-Z0-9]/"
+                                        required />
+                                    <div class="messages-error" ng-messages="frmUser.name.$error" ng-if="vmUserShipping.submitted">
+                                        <div ng-message="required">Bạn chưa nhập tên.</div>
+                                        <div ng-message="pattern">Tên không được chứa các ký tự đặc biệt.</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Số điện thoại <span class="required">*</span></label>
+                                    <input id="phone" name="phone" class="form-control" type="text" ng-model="vmUserShipping.formData.phone" ng-pattern="/[0-9]/"
+                                        ng-minlength="10" required />
+                                    <div class="messages-error" ng-messages="frmUser.phone.$error" ng-if="vmUserShipping.submitted">
+                                        <div ng-message="required">Bạn chưa nhập số điện thoại.</div>
+                                        <div ng-message="pattern">Bạn phải nhập số.</div>
+                                        <div ng-message="minlength">Bạn phải nhập ít nhất 10 số.</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Địa chỉ chi tiết <span class="required">*</span></label>
+                                    <input id="address" name="address" class="form-control" type="text" ng-model="vmUserShipping.formData.address" required />
+                                    <div class="messages-error" ng-messages="frmUser.address.$error" ng-if="vmUserShipping.submitted">
+                                        <div ng-message="required">Bạn chưa địa chỉ.</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="district">Quận/Huyện TP Hồ Chí Minh <span class="required">*</span></label>
+                                    <select class="form-control" name="district" id="district" ng-model="vmUserShipping.formData.district" required>
+                                            <option value="">-- Chọn quận (huyện) --</option>
+                                            <option ng-repeat="district in vmUserShipping.districts" value="[[district._id]]">[[district.district]]</option> 
+                                    </select>
+                                    <div class="messages-error" ng-messages="frmUser.district.$error" ng-if="vmUserShipping.submitted">
+                                        <div ng-message="required">Bạn chưa chọn quận huyện</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': lockForm}" ng-disabled="lockForm">
+                            <i></i>
+                            <span>Thêm mới</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="box-footer">
+                <a ui-sref="users({module: 'user'})" class="btn btn-primary btn-flat">
+                    <i class="glyphicon glyphicon-arrow-left"></i>
+                    <span>Quay lại danh sách User</span>
+                </a>
+            </div>
+            </form>
+        </div>
+</div>
+</section>
+</div>

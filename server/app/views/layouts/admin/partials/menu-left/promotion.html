@@ -1,0 +1,7 @@
+<!-- =========================On sale========================= -->
+<li ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('promotion', ['view']))" ng-class="{'active':pageData.menuType === 'promotion'}" class="treeview">
+    <a ui-sref="promotion-list()">
+        <i class="fa fa-percent text-aqua"></i> <span>On sale</span>
+    </a>
+</li>
+<!-- =========================END On sale========================= -->

@@ -1,0 +1,7 @@
+<!-- =========================Users========================= -->
+<li ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('unit', ['view']))" ng-class="{'active':pageData.menuType === 'unit'}" class="treeview">
+    <a ui-sref="units()">
+        <i class="fa fa-flask text-aqua"></i> <span> Đơn vị</span>
+    </a>
+</li>
+<!-- =========================END Users========================= -->

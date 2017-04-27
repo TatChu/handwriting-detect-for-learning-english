@@ -1,0 +1,77 @@
+<!--Content Wrapper. Contains page content -->
+<div id="mod-promotion-list" class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            On sale
+            <small>Danh sách</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a class="active">On sale</a></li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Danh sách</h3>
+                        <a class="btn btn-primary btn-sm btn-flat pull-right" ng-show="vmPoL.showBtnAdd" ui-sref="promotion-add()">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span>Thêm</span>
+                        </a>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div ng-show="vmPoL.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
+                        <table ng-show="!vmPoL.loading" ng-table="vmPoL.table" class="table table-condensed table-bordered table-striped">
+                            <tr ng-repeat="item in $data">
+                                <td data-title="'STT'">
+                                    <div class="col col-num" ng-bind=" ((vmPoL.queryParams.page - 1) * vmPoL.queryParams.limit) + $index + 1"></div>
+                                </td>
+                                <td data-title="'Tên'" ng-bind="item.name"></td>
+                                <td data-title="'Chú thích'" ng-bind="item.desc"></td>
+                                <td data-title="'Loại'">
+                                    <p ng-switch="item.type">
+                                        <span ng-switch-when="PC">Phần trăm</span>
+                                        <span ng-switch-when="MN">Giá tiền</span>
+                                        <span ng-switch-default>Phần trăm</span>
+                                    </p>
+                                </td>
+                                <td data-title="'Giá trị'">
+                                    [[item.value]]
+                                    <span ng-switch="item.type">
+                                        <span ng-switch-when="PC">%</span>
+                                        <span ng-switch-when="MN">Đ</span>
+                                        <span ng-switch-default>%</span>
+                                    </span>
+                                </td>
+                                <td data-title="'Trạng thái'">
+                                    <span ng-if="item.status">Active</span>
+                                    <span ng-if="!item.status">Unactive</span>
+                                </td>
+                                <td data-title="'Action'">
+                                    <a class="btn btn-default btn-flat" ng-show="vmPoL.showBtnEdit" ui-sref="promotion-edit({id:item._id})" class="btn btn-default btn-flat">
+                                        Sửa
+                                    </a>
+                                    <a class="btn btn-default btn-flat" ng-show="vmPoL.showBtnDelete" href="" ng-click="vmPoL.remove(item._id)">
+                                        Xóa
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper-->

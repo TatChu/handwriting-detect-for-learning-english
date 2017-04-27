@@ -1,0 +1,35 @@
+#mod-category-add{
+    .tip-err{
+        color: darkgreen;
+    }
+    .image-upload{
+        max-width: 100%;
+        border: 1px solid green;
+        margin-top: 10px;
+    }
+    .btn-remove-img{
+        float: right;
+        color: red;
+        background: white;
+        // margin-bottom: -15px;
+    }
+    .img-count{
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+    .select2-container{
+        display: block;
+        .select2-choice{
+            height: 34px;
+            border-radius: 0;
+            border: 1px solid #ccc;
+            background-color: white;
+            background-image: none;
+            .select2-arrow{
+                background: none;
+                background-image: none;
+                border: none;
+            }
+        }
+    }
+}

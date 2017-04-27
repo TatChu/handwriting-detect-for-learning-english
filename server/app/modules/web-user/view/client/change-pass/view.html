@@ -1,0 +1,47 @@
+<div id="mod-change-password" class="module" ng-controller="changePassCtrl as vmChangePass">
+	<div class="container">
+		<div class="content" >
+			<div class="form">
+				<h5>Đặt lại mật khẩu mới </h5>
+				<form  novalidate name="frmChangePass" ng-submit="vmChangePass.changePass(frmChangePass.$valid)" >
+					<div class="form-group" ng-class="{'error': (frmChangePass.txtPasswordCur.$error.required) && vmChangePass.submitted }">
+						<label for="">Mật khẩu hiện tại</label>
+						<div class="msg-input ">
+							<input autocomplete="off" class="form-control" id="txtPasswordCur" name="txtPasswordCur" type="password" ng-model="vmChangePass.formData.currentPassword" required />
+						</div>
+						<div ng-messages="frmChangePass.txtPasswordCur.$error" ng-if="vmChangePass.submitted">
+							<div class="message-error" ng-message="required">Bạn chưa nhập mật khẩu hiện tại.</div>
+						</div>
+					</div>
+					<div class="form-group" ng-class="{'error': (frmChangePass.txtPassword.$error.required || frmChangePass.txtPassword.$error.minlength ) && vmChangePass.submitted }">
+						<label for="">Mật khẩu mới</label>
+						<div class="msg-input error">
+							<input autocomplete="off" class="form-control" id="txtPassword" name="txtPassword" type="password" ng-model="vmChangePass.formData.newPassword" ng-minlength="6"  required />
+						</div>
+						<div  ng-messages="frmChangePass.txtPassword.$error" ng-if="vmChangePass.submitted">
+							<span class="message-error" ng-message="required">Nhập mật khẩu ít nhất từ 6 kí tự.</span>
+							<span class="message-error" ng-message="minlength">Nhập mật khẩu ít nhất từ 6 kí tự.</span>
+						</div>
+					</div>
+					<div class="form-group" ng-class="{'error': (frmChangePass.txtRePassword.$error.required || frmChangePass.txtRePassword.$error.match) && vmChangePass.submitted }">
+						<label for="">Nhập lại mật khẩu mới</label>
+						<div class="msg-input ">
+							<input autocomplete="off" class="form-control" id="txtRePassword" name="txtRePassword" type="password" ng-model="vmChangePass.formData.confirmNewPassword" bz-valid-password-match="#txtPassword"  required>
+						</div>
+						<div  ng-messages="frmChangePass.txtRePassword.$error" ng-if="vmChangePass.submitted">
+							<span class="message-error" ng-message="required">Xác nhận mật khẩu không khớp.</span> 
+							<span class="message-error" ng-message="match">Xác nhận mật khẩu không khớp.</span>
+						</div>
+					</div>
+					<div class="button">
+						<button  type="submit" class="btn" ng-disabled="vmChangePass.lockForm" >Đặt lại mật khẩu</button>
+					</div>
+				</form>
+			</div>		
+		</div>
+	</div>
+</div>
+
+<script>
+	var data = {{{json data}}}
+</script>

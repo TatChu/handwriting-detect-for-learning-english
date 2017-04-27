@@ -1,0 +1,432 @@
+<style>
+    .modal-dialog {
+        position: relative;
+    }
+    #pop-detail{
+        position: absolute;
+        width: 300%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+    }
+    #pop-detail .container{
+        width: 100%;
+    }
+    @media screen and (max-width: 1185px) {
+        #pop-detail {
+            width: 250%;
+        }
+    }
+    @media screen and (max-width: 1024px) {
+        #pop-detail {
+            width: 200%;
+        }
+    }
+    @media screen and (max-width: 870px) {
+        #pop-detail {
+            max-width: 768px;
+        }
+    }
+    @media screen and (max-width: 767px) {
+        .modal-dialog {
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 15px;
+        }
+        #pop-detail {
+            width: 100%;
+        }
+    }
+</style>
+<div id="pop-detail" class="bzPopup bzPopupAnimation" data-ng-init="init()">
+    <div class="container" data-ng-if="doneLoad">
+        <div class="detail-proc">
+            <!--Start: Product Information-->
+            <div class="row detail" itemscope itemtype="http://schema.org/Product">
+                <span class="hidden" itemprop="productID">[[data.product._id]]</span>
+
+                <!--Start: Image content-->
+
+                <div class="col-xs-12 col-left">
+                    <div class="row" data-ng-if="doneLoad" style="height: 0; overflow: hidden;">
+                        <!--Start: Image icon content-->
+                        <div class="col-xs-4">
+                            <div class="list-image max-height" slick-popup-product-detail atr-options="slickOptionListImage">
+                                <div class="item" data-ng-repeat="(key, image) in data.product.images track by key">
+                                    <img data-ng-src="[[checkImgOld(imagesProductDirectory, image.url)]]" class="img-responsive" alt="[[data.product.name]]">
+                                </div>
+                                <div class="item" data-ng-repeat="(key, video) in data.product.videos track by key">
+                                    <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/group-10.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <!--End: Image icon content-->
+
+                        <!--Start: Image show-->
+                        <div class="col-xs-20">
+                            <div class="view-image max-height" slick-popup-product-detail atr-options="slickOptionViewImage">
+
+                                <div class="image" style="background: url('[[checkImgOld(imagesProductDirectory, image.url)]]') top center no-repeat;"
+                                    data-ng-repeat="(key, image) in data.product.images track by key">
+                                    <a href="[[checkImgOld(imagesProductDirectory, image.url)]]" class="fancybox fancybox-image fancybox-thumbs"
+                                        rel="gallery1">
+                                        <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/view-image-detail.png" class="img-responsive opacity" alt="[[data.product.name]]">
+                                        <img data-ng-src="[[checkImgOld(imagesProductDirectory, image.url)]]" class="hidden" alt="[[data.product.name]]">
+                                    </a>
+                                </div>
+
+                                <div class="image" data-ng-repeat="(key, video) in data.product.videos track by key" style="background: url([[checkImgOld(imagesProductDirectory, image.url)]]) top center no-repeat;">
+                                    <a href="[[video.url]]" class="fancybox fancybox-image fancybox-thumbs fancybox.iframe video" rel="gallery1">
+                                        <img data-ng-src="[[checkImgOld(imagesProductDirectory, image.url)]]" class="img-responsive opacity" alt="">
+                                        <span class="play-video img-responsive">
+                                            <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/group-10.png" alt="">
+                                        </span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--End: Image show-->
+                    </div>
+                </div>
+                <!--End: Image content-->
+
+                <!--Start: Product information-->
+                <div class="col-xs-12 col-right">
+                    <div class="proc">
+                        <div class="text">
+                            <h1 itemprop="name">[[data.product.name]]</h1>
+                            <p class="weight">
+                                [[data.product.view_unit]] - có sẵn [[data.product.qty_in_stock]] [[data.product.unit.name]]<br>
+                                <span data-ng-if="data.product.other_is">[[data.product.other_price]] <br></span>
+                            </p>
+                        </div>
+
+                        <div class="button active">
+                            <div class="price-proc" data-ng-if="data.product.promotion.status">
+                                <span class="price_old">[[data.product.price | currency : '':0]] đ</span>
+                                <p class="price" data-ng-switch="data.product.promotion.type">
+                                    <span data-ng-bind="(data.product.price * (100 - data.product.promotion.value) / 100) | currency : '':0" data-ng-switch-when="PC" itemprop="priceCurrency"></span>
+                                    <span data-ng-bind="(data.product.price - data.product.promotion.value) | currency : '':0" data-ng-switch-when="MN" itemprop="priceCurrency"></span>đ
+                                </p>
+                            </div>
+                            <div class="price-proc" data-ng-if="!data.product.promotion.status">
+                                <p class="price" itemprop="priceCurrency">[[data.product.price | currency : '':0]] đ</p>
+                            </div>
+                            <span data-ng-if="checkDueDate(data.product.due_date.end_date)">
+                                <span data-ng-if="data.product.qty_in_stock > 0">
+                                    <!--Start: Takecart Desktop-->
+                                    <div class="take-cart show-desktop active" data-ng-if="data.product.cart && data.product.cart.quantity > 0">
+                                        <div class="soluong">
+                                            <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/icon-giam.svg" class="img-reponsive" data-ng-click="decreaseCart(data.product._id,data.product.cart.quantity, data.product.cart)" data-ng-if="data.product.cart.quantity > 0" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickDecreaseQuantityItem', '');">
+                                            <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/icon-giam.svg" class="img-reponsive disabled" data-ng-if="data.product.cart.quantity == 0">
+                                            <span data-ng-bind="data.product.cart.quantity"></span>
+                                            <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/icon-tang.png" alt="" class="img-responsive" data-ng-click="addToCart(data.product._id)" data-ng-if="data.product.cart.quantity < data.product.qty_in_stock" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickIncreaseQuantityItem', '');">
+                                            <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/icon-tang.png" alt="" class="img-responsive disabled" data-ng-if="data.product.cart.quantity >= data.product.qty_in_stock">
+                                        </div>
+                                    </div>
+
+                                    <div class="take-cart show-desktop" data-ng-if="!data.product.cart || data.product.cart.quantity == 0">
+                                        <button class="btn btn-primary" data-ng-click="addToCart(data.product._id); addToCartGA(data.product);" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonAddToCart', '');">
+                                            <!--<img src="{{ linkAssets 'frontend/images/card-button.svg' }}" class="img-reponsive">-->
+                                            Bỏ vào giỏ
+                                        </button>
+                                    </div>
+                                    <!--End: Takecart Desktop-->
+                                </span>
+                                <!--Start: Takecart Disabled Desktop-->
+                                <div class="take-cart show-desktop" data-ng-if="data.product.qty_in_stock == 0">
+                                    <button class="btn btn-primary" disabled>Sắp có hàng</button>
+                                </div>
+                                <!--End: Takecart Disabled Desktop-->
+                            </span>
+                            <!--Start: Takecart Disabled Desktop-->
+                            <div class="take-cart show-desktop" data-ng-if="!checkDueDate(data.product.due_date.end_date)">
+                                <button class="btn btn-primary" disabled>Đã hết hàng</button>
+                            </div>
+                            <!--Start: Takecart Disabled Desktop-->
+
+                        </div>
+                    </div>
+
+                    <div class="like-share show-mb">
+                        <span class="share-section" data-ng-if="data.user">
+                            <a href="" data-ng-if="data.user.favorite_product.indexOf(data.product._id) != -1" data-ng-click="removeFavoriteProduct()" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonRemoveWishlist', '');">
+                                <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/unlike.png" class="not-like" alt="">
+                                <span class="not-like">Xóa khỏi sổ tay nội trợ</span>
+                            </a>
+
+                            <a href="" data-ng-if="data.user.favorite_product.indexOf(data.product._id) == -1" data-ng-click="addFavoriteProduct()" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonAddWishlist', '');">
+                                <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/like.svg" class="not-like" alt="">
+                                <span class="not-like">Lưu vào sổ tay nội trợ</span>
+                            </a>
+                        </span>
+                        <span class="share-section" data-ng-if="!data.user">
+                            <a href="" data-ng-click="login()" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonAddWishlist', '');">
+                                <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/like.svg" class="not-like" alt="">
+                                <span class="not-like">Lưu vào sổ tay nội trợ</span>
+                            </a>
+                        </span>
+                        <span class="facebook-section"></span>
+                    </div>
+
+                    <div class="like-share show-desktop">
+                        <span class="share-section" data-ng-if="data.user">
+                            <a href="" data-ng-if="data.user.favorite_product.indexOf(data.product._id) != -1" data-ng-click="removeFavoriteProduct()" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonRemoveWishlist', '');">
+                                <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/unlike.png" class="not-like" alt="">
+                                <span class="not-like">Xóa khỏi sổ tay nội trợ</span>
+                            </a>
+
+                            <a href="" data-ng-if="data.user.favorite_product.indexOf(data.product._id) == -1" data-ng-click="addFavoriteProduct()" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonAddWishlist', '');">
+                                <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/like.svg" class="not-like" alt="">
+                                <span class="not-like">Lưu vào sổ tay nội trợ</span>
+                            </a>
+                        </span>
+                        <span class="share-section" data-ng-if="!data.user">
+                            <a href="" data-ng-click="login()">
+                                <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/like.svg" class="not-like" alt="" onclick="helperJsCustom.GA('send', 'event', 'ProductDetail', 'ClickButtonAddWishlist', '');">
+                                <span class="not-like">Lưu vào sổ tay nội trợ</span>
+                            </a>
+                        </span>
+                        <span class="facebook-section"></span>
+                    </div>
+
+                    <h5 class="regulations">
+                        <p>[[data.configOrder1.description]]</p>
+                        <p>[[data.configOrder2.description]]</p>
+                    </h5>
+
+                    <div class="include" data-ng-bind-html="data.product.short_description" itemprop="description"></div>
+                    <div class="include" data-ng-if="data.product.made_in">
+                        <p>Xuất xứ: [[data.product.made_in]]</p>
+                    </div>
+                    <div class="certify show-desktop" data-ng-show="data.product.certificate_list.length > 0">
+                        <p>Sản phẩm đã được chứng nhận đạt tiêu chuẩn</p>
+                        <div class="list-sp">
+                            <a href="" data-ng-repeat="img in data.product.certificate_list">
+                                <img data-ng-src="[[settings.services.webUrl]]/files/certificate_image/[[img.images[0].url]]" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--End: Product information-->
+
+            <!--Start: Product list month-->
+            <div class="hot-product" data-ng-if="data.list_pro_month.length > 0">
+                <h2>CÁC SẢN PHẨM THƯỜNG ĐƯỢC MUA KÈM</h2>
+                <div class="list-product">
+                    <div class="row" slick-popup-product-detail atr-options="slickOption" data-ng-if="doneLoad">
+                        <div class="col-xs-4" data-ng-repeat="(key,product) in data.list_pro_month track by key" data-ng-if="data.product.slug != product.product.slug">
+                            <div class="proc">
+
+                                <!--Start: Image section-->
+                                <div class="image" style="background: url('[[checkImgOld(imagesDirectory, product.product.thumb)]]') top center no-repeat; cursor: pointer;"
+                                    data-ng-click="popDetPro(product.product.slug, product.product._id)" data-ng-if="product.product.thumb">
+                                    <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/category-default-image.png" class="img-responsive">
+                                    <span class="sale-code" data-ng-show="product.product.promotion.status">
+                                        Giảm giá [[product.product.promotion.value | currency : '':0]]
+                                        <span data-ng-switch="product.product.promotion.type">
+                                            <span data-ng-switch-when="MN">Đ</span>
+                                            <span data-ng-switch-when="PC">%</span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="image" style="cursor: pointer;" data-ng-click="popDetPro(product.product.slug, product.product._id)" data-ng-if="!product.product.thumb">
+                                    <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/category-default-image.png" class="img-responsive">
+                                    <span class="sale-code" data-ng-show="product.product.promotion.status">
+                                        Giảm giá [[product.product.promotion.value | currency : '':0]]
+                                        <span data-ng-switch="product.product.promotion.type">
+                                            <span data-ng-switch-when="MN">Đ</span>
+                                            <span data-ng-switch-when="PC">%</span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <!--End: Image section-->
+
+                                <!--Start: Product infomation-->
+                                <div class="info">
+                                    <div class="text" data-ng-click="popDetPro(product.product.slug, product.product._id)" style="cursor: pointer;">
+                                        <a class="name" data-ng-bind="product.product.name"></a>
+                                        <p class="weight">
+                                            <span data-ng-if="product.product.view_unit">
+                                                [[product.product.view_unit]] <br>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!--End: Product infomation-->
+
+                                <!--Start: Button section-->
+                                <div class="button">
+
+                                    <div class="prices" data-ng-show="product.product.promotion.status">
+                                        <span class="price-old show-desktop">
+                                            [[product.product.price | currency : '':0]] <span class="dv">đ</span>
+                                        </span>
+                                        <span class="price">
+                                            <span data-ng-switch="product.product.promotion.type">
+                                                <span data-ng-bind="(product.product.price * (100 - product.product.promotion.value) / 100) | currency : '':0" data-ng-switch-when="PC"></span>
+                                                <span data-ng-bind="(product.product.price - product.product.promotion.value) | currency : '':0" data-ng-switch-when="MN"></span>
+                                            </span>
+                                            <span class="dv">đ</span>
+                                        </span>
+                                        <span class="price-old show-mb">
+                                            [[product.product.price | currency : '':0]] <span class="dv">đ</span>
+                                        </span>
+                                    </div>
+
+                                    <div class="prices" data-ng-show="!product.product.promotion.status">
+                                        <span class="price">
+                                            [[product.product.price | currency : '':0]] <span class="dv">đ</span>
+                                        </span>
+                                    </div>
+
+                                    <div class="take-cart" data-ng-if="(!product.cart || product.cart.quantity == 0) && product.product.qty_in_stock > 0">
+                                        <button class="btn btn-primary" data-ng-click="addToCart(product.product._id); addToCartGA(product.product);" onclick="helperJsCustom.GA('send', 'event', 'ProductDetailAlsoBuy', 'ClickButtonAddToCart', '');">Bỏ vào giỏ</button>
+                                    </div>
+
+                                    <div class="take-cart active" data-ng-if="(product.cart && product.cart.quantity > 0) && product.product.qty_in_stock > 0">
+                                        <div class="soluong">
+                                            <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/icon-giam.svg" class="img-reponsive" data-ng-click="decreaseCart(product.product._id,product.cart.quantity, product.cart)" data-ng-if="product.cart.quantity > 0" onclick="helperJsCustom.GA('send', 'event', 'ProductDetailAlsoBuy', 'ClickDecreaseQuantityItem', '');">
+                                            <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/icon-giam.svg" class="img-reponsivem disabled" data-ng-if="product.cart.quantity == 0">
+                                            <span data-ng-bind="product.cart.quantity"></span>
+                                            <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/icon-tang.png" alt="" class="img-responsive" data-ng-click="addToCart(product.product._id)" data-ng-if="product.cart.quantity < product.product.qty_in_stock" onclick="helperJsCustom.GA('send', 'event', 'ProductDetailAlsoBuy', 'ClickIncreaseQuantityItem', '');">
+                                            <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/icon-tang.png" alt="" class="img-responsive disabled" data-ng-if="product.cart.quantity >= product.product.qty_in_stock">
+                                        </div>
+                                    </div>
+
+                                    <div class="take-cart" data-ng-if="product.product.qty_in_stock == 0">
+                                        <button class="btn btn-primary" disabled>
+                                            Sắp có hàng
+                                        </button>
+                                    </div>
+
+                                </div>
+                                <!--End: Button section-->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--End: Product list month-->
+
+            <div class="hot-product">
+                <h2>THÔNG TIN CHI TIẾT SẢN PHẨM</h2>
+                <div class="text-detail">
+                    <div id="text-detail" data-ng-bind-html="fixImgProductDetail(data.product.detail_infor)" data-ng-style="detailContentStyle"></div>
+                    <a href="" title="" class="viewmore" data-ng-click="showDetail()" data-ng-show="showDetailContent">
+                        <span data-ng-show="detailContent == 'hideContent'">
+                            Đọc tiếp <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/icon-dropdown.png" class="" alt="" style="margin-left: 10px;">
+                        </span>
+                        <span data-ng-show="detailContent == 'showContent'">
+                            Thu gọn <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/icon-dropup.png" class="" alt="" style="margin-left: 10px;">
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hot-product" data-ng-if="data.product.relative_product_list.length > 0">
+                <h2>CÁC SẢN PHẨM LIÊN QUAN</h2>
+                <div class="list-product">
+                    <div class="row" slick-popup-product-detail atr-options="slickOption" data-ng-if="doneLoad">
+
+                        <div class="col-xs-4" data-ng-repeat="(key,product) in data.product.relative_product_list track by key">
+                            <div class="proc">
+
+                                <!--Start: Image section-->
+                                <div class="image" style="background: url('[[checkImgOld(imagesDirectory, product.thumb)]]') top center no-repeat; cursor: pointer;" data-ng-click="popDetPro(product.slug, product._id)" data-ng-if="product.thumb">
+                                    <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/category-default-image.png" class="img-responsive">
+                                    <span class="sale-code" data-ng-show="product.promotion.status">
+                                        Giảm giá [[product.promotion.value | currency : '':0]]
+                                        <span data-ng-switch="product.promotion.type">
+                                        <span data-ng-switch-when="MN">Đ</span>
+                                        <span data-ng-switch-when="PC">%</span>
+                                    </span>
+                                    </span>
+                                </div>
+
+                                <div class="image" style="cursor: pointer;" data-ng-click="popDetPro(product.slug, product._id)" data-ng-if="!product.thumb">
+                                    <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/category-default-image.png" class="img-responsive">
+                                    <span class="sale-code" data-ng-show="product.promotion.status">
+                                        Giảm giá [[product.promotion.value | currency : '':0]]
+                                        <span data-ng-switch="product.promotion.type">
+                                        <span data-ng-switch-when="MN">Đ</span>
+                                        <span data-ng-switch-when="PC">%</span>
+                                    </span>
+                                    </span>
+                                </div>
+                                <!--End: Image section-->
+
+                                <!--Start: Product infomation-->
+                                <div class="info">
+                                    <div class="text" data-ng-click="popDetPro(product.slug, product._id)">
+                                        <a class="name" data-ng-bind="product.name"></a>
+                                        <p class="weight">
+                                            <span data-ng-if="product.view_unit">[[product.view_unit]] <br> </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!--End: Product infomation-->
+
+                                <!--Start: Button section-->
+                                <div class="button">
+
+                                    <div class="prices" data-ng-show="product.promotion.status">
+                                        <span class="price-old show-desktop">
+                                            [[product.price | currency : '':0]] <span class="dv">đ</span>
+                                        </span>
+                                        <span class="price">
+                                            <span data-ng-switch="product.promotion.type">
+                                            <span data-ng-bind="(product.price * (100 - product.promotion.value) / 100) | currency : '':0" data-ng-switch-when="PC"></span>
+                                            <span data-ng-bind="(product.price - product.promotion.value) | currency : '':0" data-ng-switch-when="MN"></span>
+                                            <span class="dv">đ</span>
+                                        </span>
+                                        <span class="price-old show-mb">
+                                            [[product.price | currency : '':0]] <span class="dv">đ</span>
+                                        </span>
+                                    </div>
+
+                                    <div class="prices" data-ng-show="!product.promotion.status">
+                                        <span class="price">
+                                            [[product.price | currency : '':0]] <span class="dv">đ</span>
+                                        </span>
+                                    </div>
+
+                                    <div class="take-cart show-desktop" data-ng-if="(!product.cart || product.cart.quantity == 0) && product.qty_in_stock > 0">
+                                        <button class="btn btn-primary" data-ng-click="addToCart(product._id); addToCartGA(product)" onclick="helperJsCustom.GA('send', 'event', 'ProductDetailRelate', 'ClickButtonAddToCart', '');">Bỏ vào giỏ</button>
+                                    </div>
+
+                                    <div class="take-cart active show-desktop" data-ng-if="(product.cart && product.cart.quantity > 0) && product.qty_in_stock > 0">
+                                        <div class="soluong">
+                                            <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/icon-giam.svg" class="img-reponsive" data-ng-click="decreaseCart(product._id,product.cart.quantity, product.cart)" data-ng-if="product.cart.quantity > 0" onclick="helperJsCustom.GA('send', 'event', 'ProductDetailRelate', 'ClickDecreaseQuantityItem', '');">
+                                            <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/icon-giam.svg" class="img-reponsive disabled" data-ng-if="product.cart.quantity == 0">
+                                            <span data-ng-bind="product.cart.quantity"></span>
+                                            <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/icon-tang.png" alt="" class="img-responsive" data-ng-click="addToCart(product._id)" data-ng-if="product.cart.quantity < product.qty_in_stock" onclick="helperJsCustom.GA('send', 'event', 'ProductDetailRelate', 'ClickIncreaseQuantityItem', '');">
+                                            <img data-ng-src="[[settings.services.webUrl]]/assets/frontend/images/icon-tang.png" alt="" class="img-responsive disabled" data-ng-if="product.cart.quantity >= product.qty_in_stock">
+                                        </div>
+                                    </div>
+
+                                    <div class="take-cart" data-ng-if="product.qty_in_stock == 0">
+                                        <button class="btn btn-primary" disabled>
+                                            Sắp có hàng
+                                        </button>
+                                    </div>
+
+                                </div>
+                                <!--End: Button section-->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button title="Close (Esc)" type="button" class="mfp-close" data-ng-click="close()">×</button>
+    </div>
+    <div class="container text-center" data-ng-if="!doneLoad" style="min-height: 674px; position: relative">
+        <img data-ng-src="[[settings.services.webUrl]]/assets/loading.svg" alt="" width="50" height="50" style="position: absolute; left: 50%; top: 50%; margin-left: -25px; margin-top: -25px;">
+    </div>
+</div>

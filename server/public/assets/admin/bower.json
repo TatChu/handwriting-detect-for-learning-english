@@ -1,0 +1,86 @@
+{
+  "name": "bzHapi-admin",
+  "homepage": "",
+  "authors": [
+    "Hoàng Vũ <hoangvu53th@gmail.com>"
+  ],
+  "license": "MIT",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jrespond": "*",
+    "jquery": "^3.1.1",
+    "jquery-ui": "^1.12.1",
+    "magnific-popup": "latest",
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.3",
+    "angular-messages": "^1.5.3",
+    "angular-resource": "^1.5.3",
+    "angular-sanitize": "^1.5.3",
+    "angular-ui-router": "^0.2.17",
+    "angular-toastr": "^2.1.1",
+    "bz-popup": "^1.0.0",
+    "is_js": "^0.7.6",
+    "font-awesome": "^4.6.3",
+    "gnob": "knob#^0.1.11",
+    "cropper": "^2.3.4",
+    "moment": "^2.15.1",
+    "angular-daterangepicker": "^0.2.2",
+    "angularjs-datetime-picker": "^0.1.20",
+    "jqueryui-timepicker-addon": "^1.6.3",
+    "lodash": "^4.16.2",
+    "angular-bootstrap": "^2.1.4",
+    "bootstrap-daterangepicker": "^2.1.24",
+    "ng-file-upload-shim": "^12.2.12",
+    "ng-file-upload": "^12.2.12",
+    "file-saver": "^1.3.3",
+    "socket.io-client": "^1.7.1",
+    "AdminLTE": "admin-lte#^2.3.6",
+    "angular-ui-select2": "^0.0.5",
+    "angular-slugify": "^1.0.1",
+    "angular-xeditable": "^0.6.0",
+    "js-xlsx": "^0.8.5",
+    "angular-speakingurl": "^1.1.0",
+    "pdfmake": "^0.1.27"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/js/bootstrap.js",
+        "dist/css/bootstrap.css",
+        "fonts/glyphicons-halflings-regular.eot",
+        "fonts/glyphicons-halflings-regular.svg",
+        "fonts/glyphicons-halflings-regular.ttf",
+        "fonts/glyphicons-halflings-regular.woff",
+        "fonts/glyphicons-halflings-regular.woff2"
+      ]
+    },
+    "AdminLTE": {
+      "main": [
+        "dist/js/app.min.js",
+        "dist/css/AdminLTE.min.css",
+        "dist/css/skins/_all-skins.min.css",
+        "plugins/iCheck/icheck.min.js",
+        "plugins/iCheck/square/_all.css",
+        "plugins/iCheck/square/blue.png",
+        "plugins/iCheck/square/blue@2x.png",
+        "plugins/iCheck/square/green.png",
+        "plugins/iCheck/square/green@2x.png"
+      ]
+    },
+    "socket.io-client": {
+      "main": [
+        "dist/socket.io.js"
+      ]
+    }
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "chai": "^3.5.0"
+  },
+  "resolutions": {
+    "jquery": ">= 1.7.1",
+    "angular": ">=1.4.0"
+  }
+}

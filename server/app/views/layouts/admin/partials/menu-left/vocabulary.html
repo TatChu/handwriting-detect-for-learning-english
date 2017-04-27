@@ -1,0 +1,7 @@
+<!-- =========================Users========================= -->
+<li ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('vocabulary', ['vocabulary']))" ng-class="{'active':pageData.menuType === 'vocabulary'}" class="treeview">
+    <a ui-sref="vocabularys()">
+        <i class="fa fa-flask text-aqua"></i> <span> Từ vựng</span>
+    </a>
+</li>
+<!-- =========================END Users========================= -->

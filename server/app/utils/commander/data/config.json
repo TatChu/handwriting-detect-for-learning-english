@@ -1,0 +1,40 @@
+{
+    "config": [
+        {
+            "name": "ProductBalance",
+            "value": 3,
+            "type": "",
+            "description": "Tự động chuyển trạng thái sản phẩm sang sắp hết hàng khi trong kho còn dưới 3 sản phẩm"
+        },
+        {
+            "name": "onSale_order_NT",
+            "value": 300000,
+            "type": "MN",
+            "description": "Miễn phí giao hàng cho đơn hàng nội thành cho đơn hàng trên 300.000 đ"
+        },
+        {
+            "name": "onSale_order_NGT",
+            "value": 500000,
+            "type": "MN",
+            "description": "Miễn phí giao hàng cho đơn hàng trên nội thành trên 500.000 đ"
+        },
+        {
+            "name": "onSale_order_BC",
+            "value": 5,
+            "type": "PC",
+            "description": "Giảm 5% cho các đơn hàng giao buổi chiều"
+        },
+        {
+            "name": "onSale_order_DT",
+            "value": 10,
+            "type": "PC",
+            "description": "Giảm 10% cho đơn hàng đầu tiên của khách hàng"
+        },
+        {
+            "name": "onSale_A_Day",
+            "value": 5,
+            "type": "PC",
+            "description": "Sản phẩm bán chạy trong ngày"
+        }
+    ]
+}

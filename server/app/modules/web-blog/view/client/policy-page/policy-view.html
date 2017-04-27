@@ -1,0 +1,21 @@
+<div id="mod-policy" class="module">
+    <div class="container ">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="policy-left">
+                    <h3>CHÍNH SÁCH</h3>
+                    <ul class="list-unstyled">
+                        {{#each allPostPolicy}}
+                        <li {{#compare this.slug ../post.slug operator="==" }} class="active" {{/compare}}><a href="/{{this.slug}}"  rel="nofollow">{{this.name}}</a></li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-18">
+                <div class="policy-right">
+                    {{{fixLinkImg post.content}}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

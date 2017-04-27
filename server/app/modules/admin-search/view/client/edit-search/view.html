@@ -1,0 +1,68 @@
+<div id="mod-search-add" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Sửa tìm kiếm
+			<small>Sửa tìm kiếm</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>Trang chủ</a></li>
+			<li><a class="active" ui-sref="search-list()">Tìm kiếm</a></li>
+		</ol>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Sửa tìm kiếm</h3>
+						<div class="clearfix"></div>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body" ng-init="vmSeE.getData()">
+                        <div ng-show="!vmSeE.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
+                        <form novalidate name="addSearchtForm" id="addSearchtForm" ng-submit="vmSeE.update(addSearchtForm)" ng-show="vmSeE.loading">
+
+                            <!--Start: Keyword-->
+                            <div class="form-group">
+                                <label>Tên tìm kiếm <span class="text-red">(*)</span></label>
+                                <input type="text" class="form-control" name="keyword" id="keyword" ng-model="vmSeE.search.keyword" ng-change="vmSeE.removeDisabledSubmit(addSearchtForm)" required>
+                                <div class="messages-error" ng-messages="addSearchtForm.keyword.$error" ng-if="addSearchtForm.$submitted">
+                                    <div ng-message="required">Bạn chưa nhập tên tìm kiếm.</div>
+                                </div>
+                            </div>
+                            <!--End: Keyword-->
+
+							<!--Start: Keyword-->
+                            <div class="form-group">
+								<label role="switcher">
+									<label>Publish</label>
+									<input i-check type="checkbox" name="type" ng-model="vmSeE.search.status" ng-true-value="true" ng-false-value="false">
+								</label>
+                            </div>
+                            <!--End: Keyword-->
+
+                            <div class="form-group text-right">
+                                <a class="btn btn-primary btn-flat" ui-sref="search-list()">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                    Hủy bỏ
+                                </a>
+								<button type="submit" ng-disabled="addSearchtForm.$submitted" class="btn btn-success btn-flat">
+                                    <i class="glyphicon glyphicon-floppy-disk"></i>
+                                    Sửa
+                                </button>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
+</div>

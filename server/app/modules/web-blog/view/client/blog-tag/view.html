@@ -1,0 +1,113 @@
+<div id="mod-blogtag" class="module blog-page">
+    <div class="container">
+        <div class="content">
+            <div class="tree-link">
+                <a href="/">Trang chủ</a> <span>></span> <a href="/goc-bep" class="active">Góc bếp</a>
+            </div>
+            <div class="row">
+                <div class="col-xs-17 col-left">
+                    <div class="cont-left">
+                        <div class="list-item">
+                            {{#each data.items}}
+                            <div class="item">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="image" style="background: url({{../Domain}}{{../imgBlogDir}}{{this.featured_image.[0].url}}) top center no-repeat;">
+                                            <a style="text-decoration: none;" class="title" href="/goc-bep/{{this.slug}}-{{this._id}}">
+                                                <img src="{{../Domain}}{{../imgBlogDir}}{{this.featured_image.[0].url}}" alt="{{this.name}}" class="img-responsive opacity">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <a style="text-decoration: none;" class="title" href="/goc-bep/{{this.slug}}-{{this._id}}">
+                                            <h2>{{this.name}}
+                                            </h2>
+                                        </a>
+
+                                        <div class="tag">
+                                            {{#each this.tags}}
+                                            <a style="text-decoration: none; cursor: pointer" href="/goc-bep/1*{{this._id}}">#{{this.name}}</a>                                            {{/each}}
+                                        </div>
+                                        <div class="text">
+                                            {{limitTextDisplay this.name this.short_description}}
+                                        </div>
+                                        <div class="like-share">
+                                            <div class="fb-like" data-href="{{../Domain}}/goc-bep/{{this.slug}}-{{this._id}}" data-layout="button_count" data-action="like"
+                                                data-size="small" data-show-faces="true" data-share="true"></div>
+                                        </div>
+                                        <div class="button">
+                                            <a href="/goc-bep/{{this.slug}}-{{this._id}}" class="btn">Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+
+                        <div id="mod-paging">
+                            <ul data-ng-cloak>
+                                {{#compare data.currentPage 2 operator=">"}}
+                                <li class="first">
+                                    <a href="/goc-bep{{#if isFilterTag}}/1*{{tag}}{{/if}}"><img src="{{ linkAssets 'frontend/images/icon-prev.svg'}}" alt="<" class="img-responsive"></a>
+                                </li>
+                                {{/compare}} {{#compare data.currentPage 1 operator=">"}}
+                                <li>
+                                    <a href="/goc-bep/{{math data.currentPage "-" 1}}{{#if isFilterTag}}*{{tag}}{{/if}}">{{math data.currentPage "-" 1 }}</a>
+                                </li>
+                                {{/compare}} {{#compare data.totalPage 1 operator=">"}}
+                                <li class="active">
+                                    <a>{{data.currentPage}}</a>
+                                </li>
+                                {{/compare}} {{#compare data.currentPage data.totalPage operator="<"}}
+                                <li>
+                                    <a href="/goc-bep/{{math data.currentPage "+" 1 }}{{#if isFilterTag}}*{{tag}}{{/if}}">{{math data.currentPage "+" 1 }}</a>
+                                </li>
+                                {{/compare}}
+
+                                {{#compare data.currentPage data.totalPageSub2 operator="<"}}
+                                <li><a>...</a></li>
+                                {{/compare}}
+                                
+                                {{#compare data.currentPage data.totalPageSub1 operator="<"}}
+                                {{#compare data.currentPage data.totalPage  operator="!="}}
+                                 <li>
+                                    <a href="/goc-bep/{{data.totalPage}}{{#if isFilterTag}}*{{tag}}{{/if}}">{{data.totalPage}}</a>
+                                </li>
+                                {{/compare}}
+                                {{/compare}}
+
+                               {{#compare data.currentPage data.totalPage operator="<"}}
+                                <li class="last " >
+                                    <a href="/goc-bep/{{data.totalPage}}{{#if isFilterTag}}*{{tag}}{{/if}}"><img src="{{ linkAssets
+                                    'frontend/images/icon-next.svg'}}" alt=">>" class="img-responsive "></a>
+                                </li>
+                                {{/compare }}
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xs-7 col-right ">
+                    <div class="cont-right ">
+                        <h3>Tag nổi bật</h3>
+                        <div class="hot-tag">
+                            {{#each tags}}
+                            <a href="/goc-bep/1*{{this._id}}">#{{this.name}} </a>
+                            {{/each}}
+                        </div>
+                        <div class="fanpage ">
+                            <div class="fb-page " data-href="https://www.facebook.com/muahangviet.com.vn
+                                    " data-small-header="false " data-adapt-container-width="true "
+                                data-hide-cover="false " data-show-facepile="true ">
+                                <blockquote cite="https://www.facebook.com/muahangviet.com.vn " class="fb-xfbml-parse-ignore
+                                    "><a href="https://www.facebook.com/muahangviet.com.vn ">Mua Hàng Việt</a></blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+{
+    "permissions": [
+        {
+            "name": "Xem",
+            "value": "view"
+        },
+        {
+            "name": "Thêm",
+            "value": "add"
+        },
+        {
+            "name": "Sửa",
+            "value": "edit"
+        },
+        {
+            "name": "Xoá",
+            "value": "delete"
+        },
+        {
+            "name": "Trích xuất",
+            "value": "export"
+        }
+    ],
+    "full_permission": "*"
+}

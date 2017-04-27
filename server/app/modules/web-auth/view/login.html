@@ -1,0 +1,38 @@
+<div class="login-box" ng-controller="authCtrl as vmAuth">
+	<div class="login-logo">
+		<a href="{{settings.services.admin}}">Mua Hàng Việt</a>
+	</div>
+	<!-- /.login-logo -->
+	<div class="login-box-body">
+		<p class="login-box-msg">Sign in to start your session</p>
+
+		<form novalidate name="frmLogin" ng-submit="vmAuth.siteLogin(frmLogin.$valid)">
+			<div class="form-group has-feedback">
+				<input type="email" id="email" name="email" class="form-control" ng-model="vmAuth.formData.email" placeholder="Email">
+				<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+			</div>
+			<div class="form-group has-feedback">
+				<input type="password" id="password" name="password" class="form-control" ng-model="vmAuth.formData.password" placeholder="Password">
+				<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+			</div>
+			<div class="row">
+				<div class="col-xs-8">
+					<div class="checkbox icheck">
+						<label>
+							<input type="checkbox" checked> Remember Me
+						</label>
+					</div>
+				</div>
+				<!-- /.col -->
+				<div class="col-xs-4" style="padding-left: 0px">
+					<button style="padding-right: 8px;" bz-submit type="submit" class="btn btn-primary btn-flat btn-submit" ng-class="{'loading-btn': vmAuth.lockForm}" ng-disabled="vmAuth.lockForm">
+						<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmAuth.lockForm"></i>
+						<span>Đăng nhập</span>
+					</button>
+				</div>
+				<!-- /.col -->
+			</div>
+		</form>
+	</div>
+</div>
+<!-- /.login-box -->

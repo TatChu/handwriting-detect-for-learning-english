@@ -1,0 +1,152 @@
+<div id="mod-report-a-day" class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Báo cáo danh sách sản phẩm bán chạy trong ngày
+			<small>Báo cáo danh sách sản phẩm bán chạy trong ngày</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>Trang chủ</a></li>
+			<li><a class="active" ui-sref="product">Báo cáo danh sách sản phẩm bán chạy trong ngày</a></li>
+		</ol>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Báo cáo danh sách sản phẩm bán chạy trong ngày</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+
+						<!--Start: Filter form-->
+						<form name='filterForm' ng-submit='vmRPA.filterForm(filterForm)'>
+							<div class="row">
+								<div class="col-xs-4">
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Tên sản phẩm" ng-model="vmRPA.queryParams.name">
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<select class="form-control" ng-model="vmRPA.queryParams.category">
+											<option value="">Danh mục</option>
+											<option value="[[category._id]]" ng-repeat="category in vmRPA.optionsCate">[[category.name]]</option>
+											<optgroup label="[[option.name]]" ng-repeat="(key, option) in vmRPA.optionsCate" ng-if="option.sub_cate.length > 0">
+												<option value="[[value._id]]" ng-repeat="(key, value) in option.sub_cate">
+													[[value.name]]
+												</option>
+											</optgroup>
+										</select>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<select class="form-control" ng-model="vmRPA.filterTmp.status">
+											<option value="">Trạng thái sản phẩm</option>
+											<option value="HH">Hết hàng</option>
+											<option value="HSV">Sắp hết hàng</option>
+											<option value="CH">Còn hàng</option>
+											<!--<option value="[[status.value]]" ng-repeat="status in vmRPA.statusProduct" ng-bind="status.name"></option>-->
+										</select>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<select class="form-control" ng-model="vmRPA.queryParams.tag">
+											<option value="">Thẻ</option>
+											<option value="[[tag._id]]" ng-repeat="tag in vmRPA.tagList">[[tag.name]]</option>
+										</select>
+									</div>
+								</div>
+								<!--<div class="col-xs-2">
+									<div class="form-group">
+										<select class="form-control" ng-model="vmRPA.queryParams.active">
+											<option value="">Publish</option>
+											<option value="true">Có</option>
+											<option value="false">Không</option>
+										</select>
+									</div>
+								</div>-->
+								<div class="col-xs-2">
+									<div class="form-group">
+										<select class="form-control" ng-model="vmRPA.queryParams.dueDate">
+											<option value="">Sản phẩm hết hạn</option>
+											<option value="0">Hàng hết hạn</option>
+											<option value="1">Hàng còn hạn</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-xs-4">
+									<button type="submit" class="btn btn-success btn-flat">
+										<i class="fa fa-search"></i>
+										<span>Filter</span>
+									</button>
+									<a href="" ng-click="vmRPA.clearFilter()" class="btn btn-default btn-flat">
+										<i class="fa fa-undo "></i>
+										<span></span> Reset
+									</a>
+								</div>
+							</div>
+						</form>
+						<!--End: Filter form-->
+
+						<div ng-show="vmRPA.loading" class="text-center"><img src="/assets/loading.svg" alt=""></div>
+						<table ng-show="!vmRPA.loading" ng-table="vmRPA.table" class="table table-condensed table-bordered table-striped">
+							<tr ng-repeat="(key, item) in $data">
+								<td data-title="'STT'" class="text-center">
+									<div class="col col-num" ng-bind="((vmRPA.queryParams.page - 1) * vmRPA.queryParams.limit) + $index + 1"></div>
+								</td>
+								<td data-title="'Hình ảnh'" class="">
+									<a ng-href="[[vmRPA.setting.configs.webUrl]]/san-pham/[[item.product.slug]]-[[item.product._id]]" target="_blank">
+										<img ng-src="[[vmRPA.checkImgOld(vmRPA.urlImg, item.product.thumb)]]" alt="" class="img-product" ng-if="item.product.thumb">
+									</a>
+								</td>
+								<td data-title="'Tên'" ng-bind="item.product.name"></td>
+								<td data-title="'Số lượng trong kho'" ng-bind="item.product.qty_in_stock"></td>
+								<td data-title="'Trạng thái'">
+									<label class="label label-danger" ng-if="item.product.qty_in_stock == 0">
+										Hết hàng
+									</label>
+									<label class="label label-danger" ng-if="0 < item.product.qty_in_stock && item.product.qty_in_stock <= 3">
+										Sắp hết hàng
+									</label>
+									<label class="label label-success" ng-if="item.product.qty_in_stock > 3">Còn hàng</label>
+								</td>
+								<td data-title="'Thẻ'" ng-init="item.product.tag_list = vmRPA.formatTag(item)">
+									<span ng-repeat="tag_pro in item.product.tag_list" ng-if="item.product.tag_list.length > 0">
+										[[tag_pro.id_tag.name]] <span ng-if="!$last">,</span>
+									</span>
+								</td>
+								<td data-title="'Ngày hết hạn'">
+									<span ng-if="item.product.due_date.end_date">
+										<span ng-if="vmPrL.dueDate(item.product.due_date.end_date)" class="label label-success">
+											[[item.product.due_date.end_date | bzFormatDate:'DD/MM/YYYY']]
+										</span>
+										<span ng-if="!vmPrL.dueDate(item.product.due_date.end_date)" class="label label-danger">
+											[[item.product.due_date.end_date | bzFormatDate:'DD/MM/YYYY']]
+										</span>
+									</span>
+								</td>
+								<td data-title="'Số lượng bán ra'">
+									[[item.order.order_quanlity]]
+								</td>
+								<td data-title="'Danh mục'">
+									<span ng-repeat="category in item.product.category_list">[[category.name]]<span ng-if="!$last">,</span> </span>
+								</td>
+							</tr>
+						</table>
+
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
+</div>

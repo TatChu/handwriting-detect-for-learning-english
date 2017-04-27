@@ -1,0 +1,93 @@
+{
+    "category": [
+        {
+            "name": "Rau củ",
+            "sub_category": [
+                {
+                    "name": "Rau ăn củ"
+                },
+                {
+                    "name": "Rau ăn lá"
+                },
+                {
+                    "name": "Rau ăn quả"
+                },
+                {
+                    "name": "Rau ăn thân"
+                },
+                {
+                    "name": "Rau củ sơ chế"
+                },
+                {
+                    "name": "Rau ăn hoa"
+                }
+            ]
+        },
+        {
+            "name": "Trái cây",
+            "sub_category": [
+                {
+                    "name": "Trái cây quanh năm"
+                },
+                {
+                    "name": "Trái cây sơ chế"
+                },
+                {
+                    "name": "Trái cây theo mùa"
+                },
+                {
+                    "name": "Chuối"
+                },
+                {
+                    "name": "Bưởi"
+                },
+                {
+                    "name": "Dâu"
+                }
+            ]
+        },
+        {
+            "name": "Thực phẩm tươi và đông lạnh",
+            "sub_category": [
+                {
+                    "name": "Hàng sơ chế"
+                },
+                {
+                    "name": "Thịt heo"
+                },
+                {
+                    "name": "Thịt gà"
+                },
+                {
+                    "name": "Cá"
+                }
+            ]
+        },
+        {
+            "name": "Thực phẩm đóng gói",
+            "sub_category": [
+                {
+                    "name": "Cà phê"
+                },
+                {
+                    "name": "Gạo"
+                },
+                {
+                    "name": "Lạp xưởng"
+                },
+                {
+                    "name": "Trứng"
+                },
+                {
+                    "name": "Ngũ cốc"
+                },
+                {
+                    "name": "Chà bông giòn"
+                },
+                {
+                    "name": "Bánh ngọt"
+                }
+            ]
+        }
+    ]
+}

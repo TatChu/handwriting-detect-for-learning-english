@@ -1,0 +1,87 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "jquery-fancybox@^3.1.0",
+        "scope": null,
+        "escapedName": "jquery-fancybox",
+        "name": "jquery-fancybox",
+        "rawSpec": "^3.1.0",
+        "spec": ">=3.1.0 <4.0.0",
+        "type": "range"
+      },
+      "D:\\Project\\MHV_Front"
+    ]
+  ],
+  "_from": "jquery-fancybox@>=3.1.0 <4.0.0",
+  "_id": "jquery-fancybox@3.1.0",
+  "_inCache": true,
+  "_location": "/jquery-fancybox",
+  "_nodeVersion": "0.12.5",
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/jquery-fancybox-3.1.0.tgz_1469553359813_0.041110504418611526"
+  },
+  "_npmUser": {
+    "name": "drmartin",
+    "email": "drmartinkf@gmail.com"
+  },
+  "_npmVersion": "3.9.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "jquery-fancybox@^3.1.0",
+    "scope": null,
+    "escapedName": "jquery-fancybox",
+    "name": "jquery-fancybox",
+    "rawSpec": "^3.1.0",
+    "spec": ">=3.1.0 <4.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "#DEV:/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jquery-fancybox/-/jquery-fancybox-3.1.0.tgz",
+  "_shasum": "7e438bcb58539bcd4a4262f8d87d6c448ea3cf68",
+  "_shrinkwrap": null,
+  "_spec": "jquery-fancybox@^3.1.0",
+  "_where": "D:\\Project\\MHV_Front",
+  "author": {
+    "name": "Daniel Reyes",
+    "email": "drmartin@outlook.com",
+    "url": "https://github.com/dr-martin"
+  },
+  "bugs": {
+    "url": "https://github.com/dr-martin/jquery-fancybox/issues"
+  },
+  "dependencies": {},
+  "description": "fancyBox ========",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "7e438bcb58539bcd4a4262f8d87d6c448ea3cf68",
+    "tarball": "https://registry.npmjs.org/jquery-fancybox/-/jquery-fancybox-3.1.0.tgz"
+  },
+  "gitHead": "bbf2b283aaa399a8739811e3209af5a17941edf0",
+  "homepage": "https://github.com/dr-martin/jquery-fancybox#readme",
+  "keywords": [
+    "fancybox",
+    "jquery"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "drmartin",
+      "email": "drmartinkf@gmail.com"
+    }
+  ],
+  "name": "jquery-fancybox",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dr-martin/jquery-fancybox.git"
+  },
+  "scripts": {},
+  "version": "3.1.0"
+}

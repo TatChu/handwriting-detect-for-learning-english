@@ -1,0 +1,86 @@
+    <!--Content Wrapper. Contains page content -->
+    <div id="mod-tag-product" class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Nhãn cách nấu
+            <small>Danh sách</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a class="active">Nhãn cách nấu</a></li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Danh sách</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div ng-repeat="item in vmTagProcessing.tags">
+                        <label>[[item.name]]</label>
+                        <table  class="table table-condensed table-bordered table-striped text-center">
+                            <tr>
+								<th>
+									<div class="col col-num">STT</div>
+								</th>
+								<th>Tên sản phẩm</th>
+								<th>Hành động</th>
+							</tr>
+                            <tr ng-repeat="product in item.table">
+                                <td data-title="'STT'">
+                                    <div class="col col-num" ng-bind="$index + 1"></div>
+                                </td>
+                                <td data-title="'Sản phẩm'">[[product.name]]</td>
+                                <td  data-title="'Action'">
+                                    &nbsp
+                                    <a class="btn btn-default" ng-click="vmTagProcessing.deleteProduct(product,item._id)">
+                                        Xóa
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <a href="" ng-click="vmTagProcessing.showForm(item)">
+                            <span>Thêm sản phẩm</span>
+                        </a>
+                        <form novalidate class="formTag" name="frmTag" ng-submit="vmTagProcessing.saveProduct(frmTag.$valid,item)" ng-show="item.showForm">
+                            <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <!-- Tên sản phẩm -->
+                                    <div class="form-group">
+                                        <label for="idProduct-[[$index]]">Chọn sản phẩm <span class="required">(*)</span></label>
+                                        <select class="form-control" ui-select2 multiple name="idProduct" id="idProduct-[[$index]]" ng-model="item.formData.idProducts" required>
+                                            <option ng-repeat="product in item.products" value="[[product._id]]">[[product.name]]</option> 
+                                        </select>
+                                        <div class="messages-error" ng-messages="frmTag.idProduct.$error" ng-if="vmTagProcessing.submitted" >
+                                            <div ng-message="required">Bạn chưa chọn sản phẩm</div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': lockForm}" ng-disabled="lockForm">
+                                <i ng-if="!vmTagProcessing.lockForm"></i>
+                                <span>Thêm</span>
+                            </button>
+                            </div>
+                        </form>
+                        <br><br><br>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper-->

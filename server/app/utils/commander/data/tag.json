@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Sản phẩm Nổi bật",
+        "description": "Sản phẩm Nổi bật",
+        "type": "SP"
+    },
+    {
+        "name": "Sản phẩm Bán chạy",
+        "description": "Sản phẩm Bán chạy",
+        "type": "SP"
+    },
+    {
+        "name": "Sản phẩm Mới",
+        "description": "Sản phẩm Mới",
+        "type": "SP"
+    },
+    {
+        "name": "Trộn, salad",
+        "description": "Trộn, salad",
+        "type": "CN"
+    },
+    {
+        "name": "Luộc",
+        "description": "Luộc",
+        "type": "CN"
+    },
+    {
+        "name": "Nấu canh",
+        "description": "Nấu canh",
+        "type": "CN"
+    },
+    {
+        "name": "Xào",
+        "description": "Xào",
+        "type": "CN"
+    },
+    {
+        "name": "Hầm",
+        "description": "Hầm",
+        "type": "CN"
+    }
+]

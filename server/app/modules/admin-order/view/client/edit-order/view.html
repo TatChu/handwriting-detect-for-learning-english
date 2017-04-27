@@ -1,0 +1,479 @@
+<div id="mod-order-edit" class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Đơn hàng
+            <small>Sửa đơn hàng</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a class="active" ui-sref="order-list()">Đơn hàng</a></li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Đơn hàng:
+                            <strong ng-bind="vmOrE.order.id_order"></strong> <em ng-if="vmOrE.order.old_id" ng-bind="'(ID cũ: ' + vmOrE.order.old_increment_id + ')'"></em>
+                            <span ng-if="!vmOrE.loading"> - đặt ngày [[vmOrE.order.createdAt
+                            | date:"dd/MM/yyyy"]] lúc [[vmOrE.order.createdAt  | date:"h:mma"]] </span>
+                        </h3>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div ng-if="vmOrE.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
+
+
+                        <form novalidate name="editOrderForm" id="editOrderForm" ng-submit="vmOrE.editOrder(editOrderForm); vmOrE.updateUserShippingAdress(editOrderForm)"
+                            ng-if="!vmOrE.loading">
+
+                            <div class="toolbar">
+                                <div class="form-inline pull-right">
+                                    <div class="form-group form-action">
+                                        <div class="form-group text-right">
+                                            <a class="btn btn-primary btn-flat" ui-sref="order-list()">
+                                                <i class="glyphicon glyphicon-remove"></i> Hủy bỏ
+                                            </a>
+                                            <button type="submit" ng-disabled="vmOrE.submitted" class="btn btn-success btn-flat">
+                                                <i class="glyphicon glyphicon-floppy-disk"></i>
+                                                Cập nhật
+                                            </button>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <!--Start: Delivery type-->
+                            <div class="show-grid">
+                                <div class="form-group">
+                                    <label>Hình thức nhận hàng</label>
+                                    <div class="form-inline">
+                                        <label role="switcher">
+                                            <input i-check type="radio" ng-model="vmOrE.order.delivery_type" value="CN" ng-change="vmOrE.onChangeDeleveryType()">
+                                            <span>Địa chỉ cá nhân</span>
+                                        </label>
+                                        <label role="switcher">
+                                            <input i-check type="radio" ng-model="vmOrE.order.delivery_type" value="CT" ng-change="vmOrE.onChangeDeleveryType()">
+                                            <span>Nhận tại công ty Mua Hàng Việt</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End: Delivery type-->
+
+                            <!--Start: User-->
+                            <div class="form-group">
+                                <div class="show-grid">
+                                    <div class="form-group">
+                                        <label>Khách hàng</label>
+
+                                        <div class="form-inline">
+                                            <span role="switcher">
+                                            <input i-check type="radio" ng-model="vmOrE.customerSignIn" value="true">
+                                            <span>Thành viên</span>
+                                            </span>
+
+                                            <span role="switcher">
+                                            <input i-check type="radio" ng-disabled="vmOrE.order.payment_info.info.user_id"  ng-model="vmOrE.customerSignIn" value="false">
+                                            <span>Khách chưa đăng ký</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <select ng-if="vmOrE.customerSignIn == 'true'" name="payment_info.info.user_id" ng-model="vmOrE.orderTmp.user" class="form-control"
+                                    ui-select2 ng-change="vmOrE.getDataUser(true)">
+                                    <option value=""></option>
+                                    <option value="[[user._id]]" ng-repeat="user in vmOrE.listUser" ng-bind="user.name"></option>
+                                </select>
+                            </div>
+                            <!--End: User-->
+
+                            <!--Start: Order detail-->
+                            <div class="list-shipping-add" ng-if="vmOrE.customerSignIn == 'true' && vmOrE.orderTmp.user">
+                                <table class="table table-bordered table-list-product">
+                                    <tr>
+                                        <th>Chọn thông tin giao hàng</th>
+                                        <th>Họ tên</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Địa chỉ giao</th>
+                                    </tr>
+                                    <tr ng-repeat="item in vmOrE.userTmp.customer.shipping_address" ng-if="item.id_shipping_fee">
+                                        <td>
+                                            <label role="switcher">
+                                                <input i-check type="radio"  ng-disabled="vmOrE.userTmp.deletedAt" ng-model="vmOrE.order.payment_info.info.id_shipping_address" name="shipping_address" value="[[item._id]]" ng-change="vmOrE.setPaymentInfo(); vmOrE.enableForm(editOrderForm);" ng-required="vmOrE.order.delivery_type == 'CN'">
+                                                <span>Chọn</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <span ng-bind="item.name"></span>
+                                        </td>
+                                        <td>
+                                            <span ng-bind="item.phone"></span>
+                                        </td>
+                                        <td>
+                                            <span ng-bind="item.address_detail +  ' - '+item.id_shipping_fee.district"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <div class="messages-error" ng-messages="editOrderForm.shipping_address.$error" ng-if="vmOrE.submitted">
+                                    <div ng-message="required">Bạn chưa chọn thông tin giao hàng.</div>
+                                </div>
+                            </div>
+                            <!--End: Order detail-->
+
+
+                            <!--Start Payment info-->
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <!--Start: Vocative-->
+                                    <div class="form-group">
+                                        <label>Danh xưng</label>
+                                        <select class="form-control" id="vocative" name="vocative" ng-model="vmOrE.order.payment_info.info.vocative" ui-select2>
+                                      <option value="[[item.value]]" ng-repeat="item in vmOrE.listVocative">[[item.name]]</option>
+                                    </select>
+
+                                    </div>
+                                    <!--End: Vocative-->
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <!--Start: Vocative-->
+                                        <label>Tên khách hàng</label>
+                                        <input type="text" class="form-control" name="vocative" id="vocative" ng-model="vmOrE.order.payment_info.info.full_name">
+                                    </div>
+                                    <!--End: address-->
+                                </div>
+                                <div class="col-sm-3">
+                                    <!--Start: Email-->
+                                    <div class="form-group">
+                                        <label>Email:</label>
+                                        <input type="text" class="form-control" name="email" id="email" ng-model="vmOrE.order.payment_info.info.email" ng-change="vmOrE.enableForm(editOrderForm)"
+                                            ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/">
+                                        <div class="messages-error" ng-messages="editOrderForm.email.$error" ng-if="vmOrE.submitted">
+                                            <div ng-message="pattern">Email không hợp lệ.</div>
+                                        </div>
+                                    </div>
+                                    <!--End: Email-->
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <!--Start: Phone-->
+                                    <div class="form-group">
+                                        <label>Điện thoại:</label>
+                                        <input type="text" class="form-control" name="info_phone" id="info_phone" ng-model="vmOrE.order.payment_info.info.phone"
+                                            ng-change="vmOrE.enableForm(editOrderForm)" ng-pattern="/^0[\d]{9,10}/" bz-input-only-digits
+                                            ng-minlength="10" ng-maxlength="11">
+                                        <div class="messages-error" ng-messages="editOrderForm.info_phone.$error" ng-if="vmOrE.submitted">
+                                            <div ng-message="minlength">Bạn cần nhập ít nhất 10 số</div>
+                                            <div ng-message="maxlength">Số điện thoại quá dài</div>
+                                            <div ng-message="pattern">Điện thoại không hợp lệ, phải có số 0 đầu</div>
+                                        </div>
+                                    </div>
+                                    <!--End: Phone-->
+                                </div>
+
+                            </div>
+                            <!--END Payment info-->
+
+
+                            <!--Start: address-->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Địa chỉ giao hàng</label>
+                                        <input type="text" class="form-control" name="vocative" id="vocative" ng-model="vmOrE.order.payment_info.info.address">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Quận huyện</label>
+                                        <select name="info_shiping_add" id="info_shiping_add" ng-model="vmOrE.order.id_shipping_fee" class="form-control fix-select-2-district"
+                                            ng-change="vmOrE.getDataShippingFee()" ng-cloak ui-select2 ng-options="district._id as district.district for district in vmOrE.listShippingFee ">
+˝                                        </select>
+
+                                        <!--<input type="text" class="form-control" name="info_district" id="info_district" ng-disabled="true" ng-model="vmOrE.order.payment_info.info.district">-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End: address-->
+
+
+                            <!--Start: Coupon-->
+                            <div class="form-group">
+                                <label>Phiếu giảm giá</label>
+                                <select name="coupon" ng-model="vmOrE.order.id_coupon" ui-select2 class="form-control fix-select-2-coupon" ng-change="vmOrE.checkCoupon(true);">
+                                    <option value="">Chọn phiếu giảm giá</option>
+                                    <option value="[[coupon._id]]" ng-repeat="coupon in vmOrE.listCoupon" ng-bind="coupon.code"></option>
+                                </select>
+                            </div>
+                            <!--End: Coupon-->
+
+                            <!--Start: Payment method-->
+                            <div class="form-group">
+                                <label>Hình thức thanh toán</label>
+                                <div class="form-inline">
+                                    <div>
+                                        <label role="switcher">
+                                            <input i-check type="radio" ng-model="vmOrE.order.payment_method" value="COD">
+                                            <span>COD</span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label role="switcher">
+                                            <input i-check type="radio" ng-model="vmOrE.order.payment_method" value="CK">
+                                            <span>Chuyển khoản</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End: Payment method-->
+
+                            <!--Start: Time-->
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Thời gian giao hàng</label>
+                                    <div class="form-inline">
+                                        <label role="switcher">
+                                            <input i-check type="radio" ng-model="vmOrE.order.delivery_time"  ng-change="vmOrE.setPaymentInfo ()" value="SANG">
+                                            <span>Sáng 10:30 - 12:00</span>
+                                        </label>
+                                        <label role="switcher">
+                                            <input i-check type="radio" ng-model="vmOrE.order.delivery_time" ng-change="vmOrE.setPaymentInfo ()" value="CHIEU">
+                                            <span>Chiều 14:00 - 17:00</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End: Time-->
+
+                            <!--Start: Type-->
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Loại</label>
+                                    <div class="form-inline">
+                                        <label role="switcher">
+                                            <input i-check type="radio" ng-model="vmOrE.order.type" value="BT">
+                                            <span>Bình thường</span>
+                                        </label>
+                                        <label role="switcher">
+                                            <input i-check type="radio" ng-model="vmOrE.order.type" value="TL">
+                                            <span>Thanh lý</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End: Type-->
+
+                            <!--Start: Status-->
+                            <div class="form-group">
+                                <label>Trạng thái <span class="text-red">(*)</span></label>
+                                <select name="status" class="form-control" ng-model="vmOrE.order.status" ng-options="option.value as option.name group by option.group for option in vmOrE.statusOrderList"
+                                    ng-change="vmOrE.enableForm(editOrderForm)" required ng-disabled="vmOre.order.old_id"></select>
+                                <div class="messages-error" ng-messages="editOrderForm.status.$error" ng-if="vmOrE.submitted">
+                                    <div ng-message="required">Bạn chưa chọn trạng thái.</div>
+                                </div>
+                            </div>
+                            <!--End: Status-->
+
+                            <!--Start: Shipping date-->
+                            <div class="form-group" style="height: 60px; overflow: hidden">
+                                <label>Ngày giao hàng</label>
+                                <input type="text" class="form-control" placeholder="Ngày giao hàng" ng-model="vmOrE.order.ship_date" id="datetime-picker"
+                                    single-date-time-picker atr-options="vmOrE.dateTimePickerOpt" ng-if="!vmOrE.loading && vmOrE.order.ship_date"
+                                    ng-value="vmOrE.order.ship_date | bzFormatDate:'DD/MM/YYYY'">
+                                <input type="text" class="form-control" placeholder="Ngày giao hàng" ng-model="vmOrE.order.ship_date" id="datetime-picker"
+                                    single-date-time-picker atr-options="vmOrE.dateTimePickerOpt" ng-if="!vmOrE.loading && !vmOrE.order.ship_date">
+                            </div>
+                            <!--End: Shipping date-->
+
+                            <!--Start: Shipper-->
+                            <div class="form-group">
+                                <label>Đơn vị giao đơn hàng <span class="text-red">(*)</span></label>
+                                <select name="shiper" class="form-control" ng-model="vmOrE.order.shiper" class="form-control" ng-options="option.value as option.name group by option.group for option in vmOrE.shipperList"
+                                    ng-change="vmOrE.enableForm(addOrderForm)" required></select>
+                                <div class="messages-error" ng-messages="editOrderForm.shiper.$error" ng-if="addOrderForm.$submitted">
+                                    <div ng-message="required">Bạn chưa chọn đơn vị giao đơn hàng.</div>
+                                </div>
+                            </div>
+                            <!--End: Shipper-->
+
+                            <!--Start: Note-->
+                            <div class="form-group">
+                                <label>Ghi chú giao hàng</label>
+                                <textarea rows="5" class="form-control" ng-model="vmOrE.order.note"></textarea>
+                            </div>
+                            <!--End: Note-->
+
+                            <!--Start: Order Detail-->
+                            <div class="form-group product-select">
+                                <label>Sản phẩm <span class="text-red">(*)</span></label>
+                                <select name="product_list" ng-model="vmOrE.orderTmp.orderDetailProduct" class="form-control" ui-select2 multiple ng-change="vmOrE.getOrderDetail(); vmOrE.enableForm(editOrderForm); vmOrE.setTotalProduct();"
+                                    required>
+                                    <option value="[[item._id]]" ng-repeat="item in vmOrE.listProduct" ng-bind="item.name"></option>
+                                </select>
+                                <div class="messages-error" ng-messages="editOrderForm.product_list.$error" ng-if="vmOrE.submitted">
+                                    <div ng-message="required">Bạn chưa chọn sản phẩm.</div>
+                                </div>
+                            </div>
+
+                            <div class="order-detail" ng-show="vmOrE.order.order_detail && vmOrE.order.order_detail.length > 0">
+                                <table class="table table-bordered table-list-product">
+                                    <tr>
+                                        <th>Sản phẩm</th>
+                                        <th>Đơn giá (đ)</th>
+                                        <th>Số lượng</th>
+                                        <th>Giảm giá</th>
+                                        <th>Tổng cộng</th>
+                                    </tr>
+                                    <tr ng-repeat="item in vmOrE.order.order_detail">
+                                        <td>
+                                            <div ng-if="item.product._id">
+                                                <img class="img-product" ng-src="[[vmOrE.checkImgOld(vmOrE.urlImg,item.product.thumb)]]" alt="Product image">
+                                                <span ng-bind="item.product.name"></span>
+                                            </div>
+                                            <div ng-if="item.product_obj">
+                                                <img class="img-product" ng-src="[[vmOrE.checkImgOld(vmOrE.urlImg,item.product_obj.thumb)]]" alt="Product image">
+                                                <span ng-bind="item.product_obj.name"></span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span ng-if="vmOrE.order.status == 'PROCCESS'">
+                                            
+                                            <input type="number" name="order_price_[[item.product._id]]"  ng-model="item.price" min="0" class="form-control input-number"
+                                                ng-change="vmOrE.setTotalProduct(); vmOrE.enableForm(editOrderForm); vmOrE.setPaymentInfo ();"
+                                                required>
+                                            
+                                                <div class="messages-error" ng-messages="editOrderForm['order_price_' + item.product._id].$error">
+                                                <div ng-message="min">Giá không hợp lệ</div>
+                                                <div ng-message="required">Chưa nhập giá</div>
+                                            </div>
+                                            </span>
+
+                                            <span ng-if="vmOrE.order.status != 'PROCCESS'" ng-bind="item.price | currency : '':0"></span>
+
+                                        </td>
+                                        <td>
+                                            <span ng-if="vmOrE.order.status == 'PROCCESS'">
+                                                <input type="number" name="order_quantity_[[item.product]]" ng-model="item.order_quantity" min="1" max="[[item.max_product]]" class="form-control input-number" ng-change="vmOrE.setTotalProduct(); vmOrE.enableForm(editOrderForm); vmOrE.setPaymentInfo ();" required >
+                                                <span class="text-red">(*)</span>
+                                            <div class="messages-error" ng-messages="editOrderForm['order_quantity_' + item.product].$error">
+                                                <div ng-message="max">Số lượng đặt vượt quá số lượng tồn kho.</div>
+                                            </div>
+                                            <div class="messages-error" ng-messages="editOrderForm['order_quantity_' + item.product].$error" ng-if="vmOrE.submitted">
+                                                <div ng-message="required">Vui lòng nhập số lượng đặt.</div>
+                                                <div ng-message="min">Số lượng đặt tối thiểu là 1.</div>
+                                            </div>
+                                            </span>
+                                            <span ng-if="vmOrE.order.status != 'PROCCESS'" ng-bind="item.order_quantity"></span>
+                                        </td>
+                                        <td>
+                                            <p ng-if="item.id_promote.id">
+                                                <span ng-bind="item.id_promote.name"></span> - Giảm [[item.id_promote.value]]
+                                                <span ng-switch="item.id_promote.type">
+                                                    <span ng-switch-when="PC">%</span>
+                                                <span ng-switch-when="MN">đ</span>
+                                                </span>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p ng-show="item.order_quantity">
+                                                <span ng-bind="item.total | currency : '':0"></span> đ
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="info-order text-right">
+                                    <p>
+                                        <label>Tổng cộng: </label>
+                                        <span class="value-order-info" ng-bind="vmOrE.order.total | currency : '':0"></span>                                        đ
+                                    </p>
+
+                                    <p>
+
+                                        <label>Tiền khuyến mãi </label>
+                                        <strong ng-if="vmOrE.order.coupon.value > 0" class="text-green" ng-bind="'(' + vmOrE.order.coupon.code +')'"></strong>:
+                                        <span>
+                                            <span ng-if="vmOrE.order.coupon.value != 0">-</span>                                        [[vmOrE.order.coupon.value | currency:"":0]] ₫
+                                        </span>
+                                    </p>
+
+                                    <p ng-if="vmOrE.order.delivery_time =='CHIEU'">
+                                        <label class="text-green"><strong ng-bind="promotionForOrderDeleveryOnAffternoon.description"></strong>: </label>
+                                        <span>
+                                            - [[ (promotionForOrderDeleveryOnAffternoon.type
+                                        == "PC" ? ((promotionForOrderDeleveryOnAffternoon.value/100) * vmOrE.order.total) : promotionForOrderDeleveryOnAffternoon.value
+                                        ) | currency:"":0]] ₫
+                                        </span>
+                                    </p>
+                                    <p ng-if="vmOrE.isFirstOder">
+                                        <label class="text-green"><strong ng-bind="promotionForFirstOrder.description"></strong>: </label>
+                                        <span>
+                                             -[[ promotionForFirstOrder.type == "MN"? promotionForFirstOrder.value
+                                        :( (promotionForFirstOrder.value/100) * vmOrE.order.total)  | currency:"":0]]  ₫
+                                         </span>
+                                    </p>
+
+                                    <p>
+                                        <label>Phí vận chuyển </label><span class="value-order-info text-red" ng-if="vmOrE.freeShip =='Urban' || vmOrE.freeShip =='Suburb'"
+                                            ng-bind="'(Miễn phí)'"></span>:
+                                        <span ng-if="(vmOrE.freeShip !='Urban' && vmOrE.freeShip !='Suburb') || vmOrE.order.old_id != null" class="value-order-info"
+                                            ng-bind="vmOrE.order.payment_info.info.shipping_fee | currency : '':0"></span>
+                                        <span ng-if="vmOrE.freeShip =='Urban' || vmOrE.freeShip =='Suburb'" class="value-order-info" ng-bind="vmOrE.shippingTmp.fee | currency : '':0"></span>                                        đ
+                                    </p>
+                                    <p ng-if="vmOrE.freeShip =='Urban'">
+                                        <label class="text-green"><strong ng-bind="freeShipUrban.description"></strong></label>
+                                    </p>
+                                    <p ng-if="vmOrE.freeShip =='Suburb'">
+                                        <label class="text-green"><strong ng-bind="freeShipSuburb.description"></strong></label>
+                                    </p>
+
+                                    <p>
+                                        <label>Số tiền cần thanh toán: </label>
+                                        <strong class="text-red">
+                                            [[((vmOrE.order.total + (vmOrE.isFreeShipping ? 0 : vmOrE.order.payment_info.info.shipping_fee))
+                                            - vmOrE.order.coupon.value
+                                            - ((vmOrE.order.delivery_time == 'CHIEU')? (promotionForOrderDeleveryOnAffternoon.type == "PC" ? 
+                                            ((promotionForOrderDeleveryOnAffternoon.value/100) * vmOrE.order.total) : 
+                                            promotionForOrderDeleveryOnAffternoon.value) : 0 )
+                                             - (vmOrE.isFirstOder? ( promotionForFirstOrder.type == "MN"? promotionForFirstOrder.value:( (promotionForFirstOrder.value/100) * vmOrE.order.total) ): 0) )
+                                             | currency:"":0]]
+                                            </strong> đ
+                                    </p>
+                                </div>
+                            </div>
+                            <!--End: Order Detail-->
+
+                            <!--Start: Submit button-->
+                            <div class="form-group text-right">
+                                <a class="btn btn-primary btn-flat" ui-sref="order-list()">
+                                    <i class="glyphicon glyphicon-remove"></i> Hủy bỏ
+                                </a>
+                                <button type="submit" ng-disabled="vmOrE.submitted" class="btn btn-success btn-flat">
+                                    <i class="glyphicon glyphicon-floppy-disk"></i>
+                                    Cập nhật
+                                </button>
+                                <div class="clearfix"></div>
+                            </div>
+                            <!--End: Submit button-->
+                        </form>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>

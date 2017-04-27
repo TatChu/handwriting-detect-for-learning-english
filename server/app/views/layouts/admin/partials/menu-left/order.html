@@ -1,7 +1,0 @@
-<!-- =========================Order========================= -->
-<li ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('order', ['view']))" ng-class="{'active':pageData.menuType === 'order'}"  class="treeview">
-    <a ui-sref="order-list()">
-        <i class="fa fa-cart-arrow-down text-aqua"> </i><span> Danh sách đặt hàng</span>
-    </a>
-</li>
-<!-- =========================END Order========================= -->

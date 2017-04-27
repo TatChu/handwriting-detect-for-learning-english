@@ -1,7 +1,28 @@
-<!-- =========================Users========================= -->
-<li ng-if="pageMethods.authSvc.isSuperAdmin()" ng-class="{'active':pageData.menuType === 'user'}" class="treeview">
-    <a ui-sref="users({page:1})">
-        <i class="fa fa-users text-aqua"></i> <span> User list</span>
+<li class="">
+    <a href="#" class="dropdown-toggle">
+        <i class="menu-icon fa fa-users"></i>
+        <span class="menu-text"> Học viên </span>
+
+        <b class="arrow fa fa-angle-down"></b>
     </a>
+
+    <b class="arrow"></b>
+
+    <ul class="submenu">
+        <li>
+            <a ui-sref="users({module: 'user', role: 'student'})">
+                <i class="menu-icon fa fa-caret-right"></i> Danh sách học viên
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+
+        <li class="">
+            <a ui-sref="user-edit({module: 'user'})" ng-class="{'active':pageData.menuType === 'add-user'}">
+                <i class="menu-icon fa fa-caret-right"></i> Thêm học viên
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+    </ul>
 </li>
-<!-- =========================END Users========================= -->

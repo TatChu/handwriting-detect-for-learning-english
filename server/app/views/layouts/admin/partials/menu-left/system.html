@@ -1,0 +1,44 @@
+<li class="">
+    <a href="#" class="dropdown-toggle">
+        <i class="menu-icon fa fa-cogs"></i>
+        <span class="menu-text"> Quản lý hệ thống </span>
+
+        <b class="arrow fa fa-angle-down"></b>
+    </a>
+
+    <b class="arrow"></b>
+
+    <ul class="submenu">
+        <li ng-class="{'active':pageData.menuType === 'user'}">
+            <a ui-sref="users({module: 'user'})">
+                <i class="menu-icon fa fa-caret-right"></i> Danh sách tài khoản
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+
+        <li ng-class="{'active':pageData.menuType === 'permission'}">
+            <a ui-sref="permission({module: 'permission'})">
+                <i class="menu-icon fa fa-caret-right"></i> Phân quyền
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+
+        <li ng-class="{'active':pageData.menuType === 'config'}">
+            <a ui-sref="configs({page:1})">
+                <i class="menu-icon fa fa-caret-right"></i> Cấu hình
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+
+        <li ng-class="{'active':pageData.menuType === 'log'}">
+            <a ui-sref="logs()">
+                <i class="menu-icon fa fa-caret-right"></i> Nhật ký
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+    </ul>
+</li>

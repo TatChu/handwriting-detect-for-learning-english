@@ -21,24 +21,6 @@
 			<div class="box-body">
 				<form novalidate id="formCategory" name="formCategory" ng-submit="vmBlogAdd.save(formCategory.$valid)">
 					<div class="box-body">
-						<!-- Toolbar -->
-						<div class="toolbar">
-							<div class="form-inline pull-right">
-								<div class="form-group form-action">
-									<a ng-click="vmBlogAdd.cancel()" class="btn btn-primary btn-flat">
-										<i class="glyphicon glyphicon-remove"></i>
-										<span>Hủy bỏ</span>
-									</a>
-									<button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': userEdit.lockForm}"
-									 ng-disabled="lockForm">
-										<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmBlogAdd.lockForm"></i>
-										<span>Lưu</span>
-									</button>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<!-- End: Toolbar -->
 						<div class="row">
 							<div class="col-sm-6">
 								<!-- Tên -->

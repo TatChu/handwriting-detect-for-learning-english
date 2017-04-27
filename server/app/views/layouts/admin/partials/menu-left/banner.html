@@ -1,7 +1,0 @@
-<!-- =========================Banner========================= -->
-<li ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('banner', ['view']))" ng-class="{'active':pageData.menuType === 'banner'}" class="treeview">
-    <a ui-sref="banner-list()">
-        <i class="fa fa-search text-aqua"></i> <span>Banner</span>
-    </a>
-</li>
-<!-- =========================END Banner========================= -->

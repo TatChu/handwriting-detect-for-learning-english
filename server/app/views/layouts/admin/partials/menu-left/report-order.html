@@ -1,7 +1,0 @@
-<!-- =========================Report Order========================= -->
-<li ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('order', ['export','view']))" ng-class="{'active':pageData.menuType === 'order-report'}"  class="treeview">
-    <a ui-sref="order-report()">
-        <i class="fa fa-cart-arrow-down text-aqua"></i><span> Báo cáo đặt hàng</span>
-    </a>
-</li>
-<!-- =========================END Report Order========================= -->

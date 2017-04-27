@@ -1,7 +1,27 @@
-<!-- =========================Post========================= -->
-<li  ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('blog', ['view']))" ng-if="pageMethods.authSvc.isSuperAdmin()" ng-class="{'active':pageData.menuType === 'blog-post'}" class="treeview">
-    <a ui-sref="blogsPost({module: 'blog'})">
-        <i class="fa fa-pencil-square-o text-aqua"></i> <span> Bài viết</span>
+<li class="">
+    <a href="#" class="dropdown-toggle">
+        <i class="menu-icon fa-pencil-square-o "></i>
+        <span class="menu-text"> Bài viết</span>
+
+        <b class="arrow fa fa-angle-down"></b>
     </a>
+    <b class="arrow"></b>
+
+    <ul class="submenu">
+        <li ng-class="{'active':pageData.menuType === 'blog'}">
+            <a ui-sref="blogsPost({module: 'blog'})">
+                <i class="menu-icon fa fa-caret-right"></i> Danh sách bài viết
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+
+        <li ng-class="{'active':pageData.menuType === 'permission'}">
+            <a ui-sref="blogsPolicy({module: 'blog'})">
+                <i class="menu-icon fa fa-caret-right"></i> Trang chính sách, điều khoản
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+    </ul>
 </li>
-<!-- =========================END Blog========================= -->

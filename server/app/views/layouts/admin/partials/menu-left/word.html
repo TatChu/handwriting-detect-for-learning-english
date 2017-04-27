@@ -1,0 +1,26 @@
+<li class="">
+    <a href="#" class="dropdown-toggle">
+        <i class="menu-icon fa fa-file-audio-o"></i>
+        <span class="menu-text"> Từ vựng </span>
+
+        <b class="arrow fa fa-angle-down"></b>
+    </a>
+
+    <b class="arrow"></b>
+    <ul class="submenu">
+        <li ng-class="{'active':pageData.menuType === 'word'}">
+            <a ui-sref="words({module: 'word'})">
+                <i class="menu-icon fa fa-caret-right"></i> Danh sách từ vựng
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+
+        <li ng-class="{'active':pageData.menuType === 'add-word'}">
+            <a ui-sref="createUnit({module: 'word'})">
+                <i class="menu-icon fa fa-caret-right"></i> Thêm mới
+            </a>
+            <b class="arrow"></b>
+        </li>
+    </ul>
+</li>

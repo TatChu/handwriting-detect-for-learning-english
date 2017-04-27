@@ -10,7 +10,7 @@ config.web = {
         //     pass: '',
         //     password: ''
         // },
-        prefixCollection: 'mhv_'
+        prefixCollection: 'tb_'
     },
     elasticsearch: {
         ES_Sync: false,

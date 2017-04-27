@@ -20,7 +20,7 @@ module.exports = function initRolesUserCommand(program) {
     .description('In it data roles')
     .action(function (command) {
         mongodb.connect(config.web.db.uri, function (error, db) {
-            acl = new Acl(new Acl.mongodbBackend(db, 'mhv_acl_'));
+            acl = new Acl(new Acl.mongodbBackend(db, 'tb_acl_'));
             async.waterfall(
                 [
                 function removeOldColection(callback) {

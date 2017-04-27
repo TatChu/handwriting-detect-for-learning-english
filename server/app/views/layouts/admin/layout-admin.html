@@ -1,17 +1,29 @@
 <!doctype html>
 <html>
+
 <head>
     <title>English Study System CMS</title>
     {{> admin/partials/header}}
 </head>
-<body class="hold-transition skin-blue sidebar-mini hide">
+
+<body class="hide no-skin">
     <div class="wrapper">
         {{> admin/partials/nav-header}}
-        {{> admin/partials/sitebar-left}}
-        {{{ content }}}
-        {{> admin/partials/sitebar-footer}}
-        {{> admin/partials/sitebar-control}}
+
+        <div class="main-container ace-save-state" id="main-container">
+            <script type="text/javascript">
+                try { ace.settings.loadState('main-container') } catch (e) { }
+            </script>
+
+            {{> admin/partials/sitebar-left}} 
+            {{{ content }}} 
+            {{> admin/partials/sitebar-footer}}
+        </div>
+        <!-- /.main-container -->
+
+         {{> admin/partials/sitebar-control}}
     </div>
     {{> admin/partials/footer}}
 </body>
+
 </html>

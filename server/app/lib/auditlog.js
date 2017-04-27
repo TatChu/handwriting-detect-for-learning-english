@@ -9,7 +9,7 @@ const auditLog = require('audit-log');
 exports.register = function(server, options, next) {
 	const config = server.plugins['hapi-kea-config'];
 
-	auditLog.addTransport("mongoose", {collectionName: 'mhv_auditlogs', connectionString: config.get('web.db.uri') });
+	auditLog.addTransport("mongoose", {collectionName: 'tb_auditlogs', connectionString: config.get('web.db.uri') });
 	auditLog.addTransport("console");
 
     // console.log(auditLog.logEvent(

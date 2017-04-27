@@ -17,44 +17,26 @@
 <link rel="apple-touch-icon" sizes="144x144" href="{{linkAssets 'favicon/cms.ico/apple-icon-144x144.png'}}">
 <link rel="apple-touch-icon" sizes="152x152" href="{{linkAssets 'favicon/cms.ico/apple-icon-152x152.png'}}">
 <link rel="apple-touch-icon" sizes="180x180" href="{{linkAssets 'favicon/cms.ico/apple-icon-180x180.png'}}">
-<link rel="icon" type="image/png" sizes="192x192"  href="{{linkAssets 'favicon/cms.ico/android-icon-192x192.png'}}">
+<link rel="icon" type="image/png" sizes="192x192" href="{{linkAssets 'favicon/cms.ico/android-icon-192x192.png'}}">
 <link rel="icon" type="image/png" sizes="32x32" href="{{linkAssets 'favicon/cms.ico/favicon-32x32.png'}}">
 <link rel="icon" type="image/png" sizes="96x96" href="{{linkAssets 'favicon/cms.ico/favicon-96x96.png'}}">
 <link rel="icon" type="image/png" sizes="16x16" href="{{linkAssets 'favicon/cms.ico/favicon-16x16.png'}}">
-<link rel="manifest" href="{{linkAssets 'favicon/cms.ico/manifest.json'}}">
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="{{linkAssets 'favicon/cms.ico/ms-icon-144x144.png'}}">
 <meta name="theme-color" content="#ffffff">
 <!-- END FAVICON -->
 
-<!-- Social: Facebook / Open Graph -->
-<!-- <meta property="og:title" content="Title">
-<meta property="og:image" content="https://localhost:9999/images/social-avatar.jpg">
-<meta property="og:description" content=""> -->
-<!-- Social: Twitter -->
-<!-- <meta name="twitter:title" content="Title">
-<meta name="twitter:description" content="">
-<meta name="twitter:image:src" content="https://localhost:9999/images/social-avatar.jpg"> -->
-<!-- Social: Google+ / Schema.org  -->
-<!-- <meta itemprop="name" content="Title">
-<meta itemprop="description" content="">
-<meta itemprop="image" content="https://localhost:9999/images/social-avatar.jpg"> -->
-
 <!-- Font Awesome, Ionicons -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-
-{{#if_eq settings.env "production"}}
-<link rel="stylesheet" href="{{linkPublic 'dist/admin/styles/full.min.css'}}?v={{settings.versionJs}}">
-{{else}}
-{{> admin/partials/link/style}} 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"> {{#if_eq settings.env "production"}}
+<link rel="stylesheet" href="{{linkPublic 'dist/admin/styles/full.min.css'}}?v={{settings.versionJs}}"> {{else}} {{> admin/partials/link/style}}
 <!-- build:css main.min.css -->
 <!-- Main:css -->
 <link rel="stylesheet" href="{{linkPublic 'tmp/admin/styles/main.css'}}">
 <!-- endinject -->
 <!-- endbuild -->
-{{/if_eq}} 
+{{/if_eq}}
 
 <style>
     .content-wrapper {
@@ -66,8 +48,7 @@
     }
 </style>
 <script>
-
-    var permissions  = {{{json permissions}}};
+    var permissions = {{{json permissions}}};
     var user = {{{json credentials}}};
     var settings = {{{json settings}}};
 
@@ -77,3 +58,43 @@
     };
 
 </script>
+
+<!--ACE ADMIN-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+<!-- bootstrap & fontawesome -->
+<link rel="stylesheet" href="{{ linkAssets 'ace-admin/css/bootstrap.min.css' }}" />
+<link rel="stylesheet" href="{{ linkAssets 'ace-admin/font-awesome/4.5.0/css/font-awesome.min.css' }}" />
+
+<!-- page specific plugin styles -->
+
+<!-- text fonts -->
+<link rel="stylesheet" href="{{ linkAssets 'ace-admin/css/fonts.googleapis.com.css' }}" />
+
+<!-- ace styles -->
+<link rel="stylesheet" href="{{ linkAssets 'ace-admin/css/ace.min.css' }}" class="ace-main-stylesheet" id="main-ace-style" />
+
+<!--[if lte IE 9]>
+			<link rel="stylesheet" href="{{ linkAssets 'ace-admin/css/ace-part2.min.css' }}" class="ace-main-stylesheet" />
+		<![endif]-->
+<link rel="stylesheet" href="{{ linkAssets 'ace-admin/css/ace-skins.min.css' }}" />
+<link rel="stylesheet" href="{{ linkAssets 'ace-admin/css/ace-rtl.min.css' }}" />
+
+<!--[if lte IE 9]>
+		  <link rel="stylesheet" href="{{ linkAssets 'ace-admin/css/ace-ie.min.css' }}" />
+		<![endif]-->
+
+<!-- inline styles related to this page -->
+
+<!-- ace settings handler -->
+<script src="{{ linkAssets 'ace-admin/js/ace-extra.min.js ' }}"></script>
+
+<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+<!--[if lte IE 8]>
+		<script src="{{ linkAssets 'ace-admin/js/html5shiv.min.js' }}"></script>
+		<script src="{{ linkAssets 'ace-admin/js/respond.min.js' }}"></script>
+		<![endif]-->

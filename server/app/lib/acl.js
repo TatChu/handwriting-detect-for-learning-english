@@ -12,7 +12,7 @@ exports.register = function(server, options, next) {
 	const config = server.plugins['hapi-kea-config'];
 
 	mongodb.connect(config.get('web.db.uri'), function(error, db) {
-		let acl = new Acl(new Acl.mongodbBackend(db, 'mhv_acl_'));
+		let acl = new Acl(new Acl.mongodbBackend(db, 'tb_acl_'));
 
 		// const  aclCustom = {
 		// 	findAllRoles: internals.findAllRoles(db),
@@ -39,7 +39,7 @@ exports.register.attributes = {
 
 // internals.getCollection =  function(db){
 // 	return new Promise((resolve, reject) => {
-// 		resolve(db.collection("mhv_acl_roles"));
+// 		resolve(db.collection("tb_acl_roles"));
 // 	});
 // }
 

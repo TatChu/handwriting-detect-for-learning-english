@@ -427,10 +427,10 @@ function login(request, reply) {
                 if (!user || (user && user.status != true)) {
                     return reply(Boom.unauthorized('Email hoặc số điện thoại không đúng'));
                 }
-                acl.userRoles(user._id.toString(), function (err, roleUser) {
+                return acl.userRoles(user._id.toString(), function (err, roleUser) {
                     if (err)
-                        reply(Boom.unauthorized('Không có quyền'));
-
+                        reply(Boom.unauthorized('Đã xảy ra lỗi. Hãy thử lại'));
+                    
                     if (roleUser && _.intersection(roleUser, role).length === 0) {
                         return reply(Boom.unauthorized('Không có quyền'));
                     }

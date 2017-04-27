@@ -19,7 +19,7 @@ module.exports = function syncdbCustomer(program) {
     .action(function (command) {
 
         mongodb.connect(config.web.db.uri, function (error, db) {
-            let acl = new Acl(new Acl.mongodbBackend(db, 'mhv_acl_'));
+            let acl = new Acl(new Acl.mongodbBackend(db, 'tb_acl_'));
 
             program.successMessage('Start import db Customer cũ....');
             let tmp = [];

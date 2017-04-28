@@ -9,6 +9,7 @@ UserValidate.prototype = (function () {
         create: {
             payload: {
                 name: Joi.string().required().description('Name'),
+                classes: Joi.string().allow('').description('Class'),
                 phone: Joi.string().required().description('Phone'),
                 email: Joi.string().email().allow("").default(null).description('Email'),
                 password: Joi.string().description('Password'),
@@ -29,6 +30,7 @@ UserValidate.prototype = (function () {
             payload: {
                 _id: Joi.string().description('MongoID'),
                 name: Joi.string().required().description('Name'),
+                classes: Joi.string().allow('').description('Class'),
                 phone: Joi.string().required().description('Phone'),
                 email: Joi.allow(),
                 password: Joi.string().description('Password'),

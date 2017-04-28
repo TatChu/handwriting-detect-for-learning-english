@@ -5,7 +5,7 @@
 		.module('bzUser')
 		.controller('userInfoCtrl', userInfoCtrl);
 
-	function userInfoCtrl($scope, $rootScope, $location, $state, $window,$filter, $bzPopup, $uibModal, bzResourceSvc, userSvc, authSvc, bzUpload) {
+	function userInfoCtrl($scope, $rootScope, $location, $state, $window, $filter, $bzPopup, $uibModal, bzResourceSvc, userSvc, authSvc, bzUpload) {
 		var vmUserInfo = this;
 
 		vmUserInfo.menuActive = "info";
@@ -22,13 +22,21 @@
 		vmUserInfo.formData = {};
 		vmUserInfo.formData = $window.data;
 		vmUserInfo.formData.roles = $window.user.scope;
-		vmUserInfo.listVocative = [{ name: 'Anh', value: 'Anh' },
-		{ name: 'Chị', value: 'Chị' },
-		{ name: 'Cô', value: 'Cô' },
-		{ name: 'Chú', value: 'Chú' },
-		{ name: 'Bác', value: 'Bác' },
-		{ name: 'Ông', value: 'Ông' },
-		{ name: 'Bà', value: 'Bà' }];
+		vmUserInfo.listClasses = [
+			{ name: "Lớp 1", value: "1" },
+			{ name: "Lớp 2", value: "2" },
+			{ name: "Lớp 3", value: "3" },
+			{ name: "Lớp 4", value: "4" },
+			{ name: "Lớp 5", value: "5" },
+			{ name: "Lớp 6", value: "6" },
+			{ name: "Lớp 7", value: "7" },
+			{ name: "Lớp 8", value: "8" },
+			{ name: "Lớp 9", value: "9" },
+			{ name: "Lớp 10", value: "10" },
+			{ name: "Lớp 11", value: "11" },
+			{ name: "Lớp 12", value: "12" },
+			{ name: "Khác", value: "khac" },
+		];
 		vmUserInfo.urlAvatar = settings.services.webUrl + vmUserInfo.avatarDir + vmUserInfo.formData.avatar;
 		// Methods
 		vmUserInfo.checkInput = checkInput;
@@ -36,10 +44,10 @@
 		vmUserInfo.popChangePass = popChangePass;
 		vmUserInfo.uploadAvatar = uploadAvatar;
 		//Init
-		
-		
 
-		
+
+
+
 		// console.log(123,vmUserInfo.formData.dob);
 		angular.element('#hide1').removeClass('hidden');
 
@@ -80,7 +88,7 @@
 			});
 		}
 
-		
+
 		function editInfo(isValid, reload) {
 			vmUserInfo.submitted = true;
 			vmUserInfo.lockForm = true;
@@ -94,17 +102,17 @@
 				delete vmUserInfo.formData.activeToken;
 				delete vmUserInfo.formData.favorite_product;
 				delete vmUserInfo.formData.password;
-				
-				if(vmUserInfo.formData.dob){
+
+				if (vmUserInfo.formData.dob) {
 					var dates = vmUserInfo.formData.dob.toString().split("/");
-					if(dates.length == 3) {
+					if (dates.length == 3) {
 						vmUserInfo.formData.dob = new Date(dates[2], dates[1] - 1, dates[0]);
 					} else {
 						vmUserInfo.formData.dob = new Date(vmUserInfo.formData.dob);
 					}
 				}
-				
-				
+
+
 				authSvc.update(vmUserInfo.formData, vmUserInfo.formData._id).then(function (resp) {
 
 					if (reload) {
@@ -136,10 +144,10 @@
 				}).catch(function (err) {
 					vmUserInfo.err = err.data.message;
 					vmUserInfo.lockForm = false;
-					if(vmUserInfo.err != 'email' && vmUserInfo.err != 'phone'){
+					if (vmUserInfo.err != 'email' && vmUserInfo.err != 'phone') {
 						$bzPopup.toastr({
 							type: 'error',
-							data:{
+							data: {
 								title: 'Lỗi',
 								message: "Dữ liệu nhập vào bị lỗi !!"
 							}

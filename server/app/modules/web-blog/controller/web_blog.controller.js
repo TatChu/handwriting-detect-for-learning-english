@@ -16,9 +16,10 @@ var await = require('asyncawait/await');
 
 module.exports = {
     listPostByTag,
+    getDetailPost,
+
     getAllPost,
     getAllTagBlog,
-    getDetailPost,
     getPolicyPage,
     getDetailPageKhuyenMai,
 
@@ -251,10 +252,11 @@ function getDetailPost(request, reply) {
             meta.og_image = Domain + '/files/blog_image/' + post.featured_image[0].url;
         return promiseTag.then(function (tags) {
             let data = {
+               
                 Domain: Domain,
                 post: post,
                 meta: meta,
-                menu: { blog: true }, // cờ để check active menu và page góc bếp hay page banner
+                menu: { blog: true }, 
                 class: { body_class: 'page-blog' },
                 tags: tags
             };

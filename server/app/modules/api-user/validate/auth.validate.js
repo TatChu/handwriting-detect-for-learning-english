@@ -13,13 +13,15 @@ AuthValidate.prototype = (function () {
                 password: Joi.string().description('Password'),
                 cfpassword: Joi.string(),
                 status: Joi.boolean(),
-                roles: Joi.any().description('Roles')
+                roles: Joi.any().description('Roles'),
+                classes: Joi.string().description('classes')
             }
 		},
 		update: {
             payload: {
                 _id: Joi.string().description('MongoID'),
                 name: Joi.string().required().description('Name'),
+                classes: Joi.string().description('classes'),
                 phone: Joi.allow(),
                 email: Joi.allow(),
                 password: Joi.string().description('Password'),

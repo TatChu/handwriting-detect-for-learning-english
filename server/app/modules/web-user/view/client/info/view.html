@@ -1,10 +1,10 @@
 <div id="mod-user-infomation" class="module" ng-controller="userInfoCtrl as vmUserInfo">
     <div class="container">
         <div class="row">
-            <div class="col-left col-xs-6">
+            <div class="col-left col-xs-4">
                 {{> web/partials/user/menu_left}}
             </div>
-            <div class="col-right col-xs-18 hidden" id="hide1">
+            <div class="col-right col-xs-8 hidden" id="hide1">
                 <div class="right">
                     <h6 class="title-heading6">THÔNG TIN TÀI KHOẢN</h6>
                     <form class="form-horizontal" novalidate name="frmInfo" ng-submit="vmUserInfo.editInfo(frmInfo.$valid)">
@@ -60,12 +60,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-xs-4" for="sel1">Danh xưng</label>
+                            <label class="col-xs-4" for="sel1">Lớp</label>
                             <div class="col-xs-20">
                                 <div class="msg-input">
-                                    <select class="selectbox" id="sel1" name="vocative" ng-model="vmUserInfo.formData.vocative">
-                                        <option value="">--Chọn danh xưng--</option>
-                                        <option ng-repeat="vocative in vmUserInfo.listVocative" value="[[vocative.value]]">[[vocative.name]]</option>
+                                    <select class="selectbox" id="sel1" name="classes" ng-model="vmUserInfo.formData.classes">
+                                        <option value="">--Chọn lớp bạn đang học--</option>
+                                        <option ng-repeat="classes in vmUserInfo.listClasses" value="[[classes.value]]">[[classes.name]]</option>
                                     </select>
                                 </div>
                             </div>

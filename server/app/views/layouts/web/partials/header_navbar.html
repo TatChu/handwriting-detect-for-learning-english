@@ -5,27 +5,23 @@
     </div>
     <div class="collapse navbar-collapse" id="navbar-ex-collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li {{#if home }} class="active" {{/if}}><a href="/">Home</a></li>
-        <li {{#if forum }} class="active" {{/if}}><a href="/dien-dan">Forum</a></li>
-        <li {{#if learn }} class="active" {{/if}}><a href="/hoc-tu-vung">Learn</a></li>
-        <li {{#if about }} class="active" {{/if}}>
-          <a href="/gioi-thieu">About</a>
-        </li>
-        <li {{#if contact }} class="active" {{/if}}><a href="/lien-he">Contact</a></li>
+        <li {{#if menu.home }} class="active" {{/if}}><a href="/">Trang chủ</a></li>
+        <li {{#if menu.dictionary }} class="active" {{/if}}><a href="/dien-dan">Tra từ điển</a></li>
+        <li {{#if menu.blog  }} class="active" {{/if}}><a href="/dien-dan">Diễn đàn</a></li>
+        <li {{#if menu.learn }} class="active" {{/if}}><a href="/hoc-tu-vung">Học bài</a></li>
+        <li {{#if menu.about }} class="active" {{/if}}><a href="/gioi-thieu">Giới thiệu</a></li>
+        <li {{#if menu.contact }} class="active" {{/if}}><a href="/lien-he">Liên hệ</a></li>
         {{#if credentials.uid}}
         <li class="dropdown ">
-          <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Chào <span ng-bind="vmAuth.name"></span> <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span ng-bind="'Chào ' + vmAuth.name"></span> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li>
-            <li><a href="#">Vào học</a></li>
-            <!--<li><a href="#"></a></li>
-              <a href="#"></a>
-            </li>-->
+            <li><a href="/hoc-bai">Vào học</a></li>
+
             <li role="separator" class="divider"></li>
-            <li><a href="#">Tài khoản</a></li>
-            <li class="dropdown-header">Đổi mật khẩu</li>
-            <li><a href="#">Đăng xuất</a></li>
-            
+            <li><a href="/khach-hang/thong-tin-tai-khoan" >Tài khoản</a></li>
+            <li><a href="#">Đổi mật khẩu</a></li>
+            <li><a data-ng-click="vmAuth.logout()">Đăng xuất</a></li>
           </ul>
         </li>
         {{else}}

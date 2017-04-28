@@ -27,6 +27,11 @@ var UserSchema = new Schema({
         trim: true,
         validate: [validateLocalStrategyProperty, 'Please fill in your name']
     },
+    classes: {
+        type: String,
+        trim: true,
+        default: '4'
+    },
     phone: {
         type: String,
         unique: true,

@@ -4,7 +4,7 @@
 	Application.registerRouter({
 		state: 'user-edit',
 		config: {
-			url: '/user-edit&id',
+			url: '/user-edit?id',
 			data: {
 				title: 'Tài khoản',
 				menuType: 'add-user'

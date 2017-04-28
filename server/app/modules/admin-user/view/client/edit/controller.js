@@ -5,7 +5,7 @@ var userEditCtrl = (function () {
 		.module('bzUser')
 		.controller('userEditCtrl', userEditCtrl);
 
-	function userEditCtrl($scope, $window, $state, $stateParams, $bzPopup, userRoles, authSvc, userSvc, bzResourceSvc) {
+	function userEditCtrl($scope, $window, $state, $stateParams, $bzPopup, userRoles, authSvc, userSvc, bzResourceSvc, listClasses) {
 		var userEdit = this;
 
 		/*XÉT QUYỀN TRUY CẬP ROUTER*/
@@ -19,7 +19,7 @@ var userEditCtrl = (function () {
 		userEdit.queryParams = $stateParams;
 		userEdit.userRoles = [];
 		userEdit.loading = true;
-
+		userEdit.listClasses = listClasses;
 		// Methods
 		userEdit.isEdit = isEdit;
 		userEdit.save = save;

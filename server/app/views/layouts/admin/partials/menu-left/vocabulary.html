@@ -1,7 +1,26 @@
-<!-- =========================Users========================= -->
-<li ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('vocabulary', ['vocabulary']))" ng-class="{'active':pageData.menuType === 'vocabulary'}" class="treeview">
-    <a ui-sref="vocabularys()">
-        <i class="fa fa-flask text-aqua"></i> <span> Từ vựng</span>
+<li class="">
+    <a href="#" class="dropdown-toggle">
+        <i class="menu-icon fa fa-file-audio-o"></i>
+        <span class="menu-text"> Từ vựng </span>
+
+        <b class="arrow fa fa-angle-down"></b>
     </a>
+
+    <b class="arrow"></b>
+    <ul class="submenu">
+        <li ng-class="{'active':pageData.menuType === 'vocabulary'}">
+            <a ui-sref="vocabularys({module: 'vocabulary'})">
+                <i class="menu-icon fa fa-caret-right"></i> Danh sách từ vựng
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+
+        <li ng-class="{'active':pageData.menuType === 'add-vocabulary'}">
+            <a ui-sref="createVocabulary({module: 'vocabulary'})">
+                <i class="menu-icon fa fa-caret-right"></i> Thêm mới
+            </a>
+            <b class="arrow"></b>
+        </li>
+    </ul>
 </li>
-<!-- =========================END Users========================= -->

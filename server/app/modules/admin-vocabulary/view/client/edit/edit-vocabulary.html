@@ -1,0 +1,134 @@
+<div id="mod-vocabulary-add" class="">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Thêm từ vựng
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Từ vựng</a></li>
+            <li class="active">Cập nhật</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="box box-default">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form id="frmVocabulary" novalidate name="frmVocabulary" ng-submit="vmEditVocabularys.save(frmVocabulary.$valid)">
+                    <div class="box-body">
+                        <!-- End: Toolbar -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="txtName">Lớp:</label>
+                                            <select name="classes" id="classes" ng-model="vmEditVocabularys.classes" class="form-control" ui-select2 ng-change="vmEditVocabularys.getUnits()"
+                                                ng-options="class.value as class.name for class in vmEditVocabularys.listClasses ">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="txtName">Bài học:<span class="required">*</span></label>
+                                            <select ng-disabled="vmEditVocabularys.listUnit.length == 0" name="classes" id="classes" ng-model="vmEditVocabularys.formData.unit"
+                                                class="form-control" ui-select2 ng-options="unit._id as unit.name for unit in vmEditVocabularys.listUnit">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Từ-->
+                                <div class="form-group">
+                                    <label for="txtWord">Từ vựng:<span class="required">*</span></label>
+                                    <input id="txtWord" name="txtWord" class="form-control" type="text" ng-model="vmEditVocabularys.formData.word" ng-pattern="/[a-zA-Z0-9]/"
+                                        required />
+                                    <div class="messages-error" ng-messages="frmVocabulary.txtWord.$error" ng-if="vmEditVocabularys.submitted">
+                                        <div ng-message="required">Bạn chưa nhập từ</div>
+                                        <div ng-message="pattern">Từ không hợp lệ</div>
+                                    </div>
+                                </div>
+
+                                <!-- Mô tả  -->
+                                <div class="form-group">
+                                    <label for="txtDes">Nghĩa<span class="required">*</span></label>
+                                    <input id="txtWord" name="txtWord" class="form-control" type="text" ng-model="vmEditVocabularys.formData.define" required
+                                    />
+                                    <div class="messages-error" ng-messages="frmVocabulary.txtWord.$error" ng-if="vmEditVocabularys.submitted">
+                                        <div ng-message="required">Bạn chưa nhập nghĩa</div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="slClass">Loại từ: </label>
+                                            <select name="classes" id="classes" ng-model="vmEditVocabularys.formData.classes" class="form-control" ui-select2 ng-options="type.value as type.name for type in vmEditVocabularys.listTypesWord "
+                                                required>
+                                    </select>
+                                            <div class="messages-error" ng-messages="frmVocabulary.classes.$error" ng-if="vmEditVocabularys.submitted">
+                                                <div ng-message="required">Bạn chưa chọn loại từ</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="sllang">Ngôn ngữ: </label>
+                                            <select name="lang" id="lang" ng-model="vmEditVocabularys.formData.lang" class="form-control" ui-select2>
+                                        <option value="en">Tiếng Anh</option>
+                                        <option value="vi">Tiếng Việt</option>
+                                    </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Active -->
+                                <div class="form-group">
+                                    <label>Active</label>
+                                    <br/>
+                                    <input i-check id="chkPublish" type="checkbox" ng-model="vmEditVocabularys.formData.status" ng-true-value="true" ng-false-value="false">                                    Kích hoạt
+                                </div>
+
+                                <!--Start: Upload Image Section-->
+                                <div class="form-group">
+                                    <label>Hình ảnh:</label>
+                                    <!--<div class="col-xs-12">-->
+                                    <div class="image-upload-section">
+                                        <a class="form-control" href="" ngf-select ngf-multiple="false" ngf-change="vmEditVocabularys.uploadImage($files)">
+												Thêm ảnh ...
+											</a>
+                                        <strong class="img-count" ng-show="vmEditVocabularys.formData.images.length > 0">Đã tải lên [[vmEditVocabularys.formData.images.length]] ảnh</strong>
+                                        <div ng-repeat="(key, value) in vmEditVocabularys.formData.images">
+                                            <img ng-click="vmEditVocabularys.cropImage(key, value.url)" class="image-upload" ng-src="[[vmEditVocabularys.imagesDirectory + value.url]]"
+                                                alt="">
+                                            <a class="btn-remove-img" ng-click="vmEditVocabularys.removeImage(key);" href="">Hủy ảnh này</a>
+                                        </div>
+                                    </div>
+                                    <uib-progressbar ng-if="progressPercentage" style="max-width: 500px; height: 50px;" animate="true" value="progressPercentage"
+                                        type="success"><b>[[progressPercentage]]%</b></uib-progressbar>
+                                    <!--</div>-->
+                                </div>
+                                <!--End: Upload Image Section-->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <a ui-sref="vocabularys" class="btn btn-primary btn-flat">
+                            <i class="glyphicon glyphicon-remove"></i>
+                            <span>Hủy bỏ</span>
+                        </a>
+                        <button bz-submit type="submit" class="btn btn-success btn-flat btn-submit" ng-class="{'loading-btn': lockForm}" ng-disabled="lockForm">
+							<i class="glyphicon glyphicon-floppy-disk" ng-if="!vmEditVocabularys.lockForm"></i>
+							<span>Lưu</span>
+						</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

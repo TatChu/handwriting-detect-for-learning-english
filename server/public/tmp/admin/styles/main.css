@@ -508,6 +508,10 @@ Modules Load Auto
   display: inline-flex;
 }
 
+#mod-vocabulary-list .img-word {
+  max-width: 100px;
+}
+
 #mod-popup-add-coupon .error-require, #mod-popup-add-coupon .ng-scope, #mod-popup-add-coupon .messages-error, #mod-popup-add-coupon .ng-scope, #mod-popup-add-coupon .ng-active {
   color: red;
   margin-top: 1%;

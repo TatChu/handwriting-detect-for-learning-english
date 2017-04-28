@@ -20,6 +20,7 @@ var settingJs = (function () {
 			uploadDirectory: {
 				general: '/files/',
 				category: '/files/category_image/',
+				vocabulary: '/files/vocabulary_image/',
 				product: '/files/product_image/',
 				certificate: '/files/certificate_image/',
 				blog: '/files/blog_image/',

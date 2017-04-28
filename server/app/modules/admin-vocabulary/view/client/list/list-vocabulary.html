@@ -1,0 +1,125 @@
+<!--Content Wrapper. Contains page content -->
+<div id="mod-vocabulary-list" class="">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Từ vựng
+			<small>Danh sách từ vựng</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a class="active">Từ vựng</a></li>
+		</ol>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Danh sách từ vựng</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('vocabulary', ['add']))"
+						 class="form-inline pull-right">
+							<div class="form-group form-group-item">
+								<a class="btn btn-primary btn-sm btn-flat" ui-sref="createVocabulary({module: 'vocabulary'})">
+									<i class="glyphicon glyphicon-plus"></i>
+									<span>Thêm</span>
+								</a>
+							</div>
+						</div>
+
+						<div class="row">
+							<form ng-submit="vmVocabularys.filter(vmVocabularys.queryParams.keyword)">
+								<div class="col-xs-2">
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Từ vựng" ng-model="vmVocabularys.queryParams.keyword">
+									</div>
+								</div>
+
+								<div class="col-xs-2">
+									<div class="form-group">
+										<select name="ddClass" id="ddClass" class="form-control" ng-model="vmVocabularys.queryParams.class">
+										<option value="">Lớp</option>
+										<option ng-repeat="item in vmVocabularys.listClasses" value="[[item.value]]">[[item.name]]</option>
+                                    </select>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="form-group">
+										<select name="ddClass" id="ddClass" class="form-control" ng-model="vmVocabularys.queryParams.class">
+										<option value="">Bài học</option>
+										<option ng-repeat="item in vmVocabularys.listClasses" value="[[item.value]]">[[item.name]]</option>
+                                    </select>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<a type="button" name="search" class="btn btn-success btn-flat" ng-click="vmVocabularys.filter(vmVocabularys.keyword)">
+										<i class="fa fa-search"></i>
+										<span>Tìm</span>
+									</a>
+									<a type="button" name="reset" class="btn btn-default btn-flat" ng-click="vmVocabularys.filterReset()">
+										<i class="fa fa-undo"></i>
+										<span>Reset</span>
+									</a>
+								</div>
+							</form>
+						</div>
+
+
+						<div class="clearfix"></div>
+						<div ng-show="vmVocabularys.loading" style="text-align: center;"><img src="/assets/loading.svg" alt=""></div>
+						<table ng-show="!vmVocabularys.loading" ng-table="vmVocabularys.table" class="table table-condensed table-bordered table-striped">
+							<tr ng-repeat="item in $data">
+								<td class="center" data-title="'STT'">
+									<div class="col col-num" ng-bind="((vmVocabularys.queryParams.page - 1) * vmVocabularys.queryParams.limit) + $index + 1"></div>
+								</td>
+								<td class="" data-title="'Từ vựng'">
+									<strong class="word" ng-bind="item.word"></strong>
+									<br>
+									<span> ([[item.classes]])</span>
+								</td>
+								<td data-title="'Ảnh minh hoạ'" class="center">
+									<img class="img-word" ng-if="item.images.length > 0" ng-src="[[vmVocabularys.imagesDirectory + item.images[0].url]]" alt="">
+									<span ng-if="item.images.length == 0">Chưa có ảnh</span>
+								</td>
+								<td data-title="'Nghĩa'">[[item.define]]</td>
+								<td class="center" data-title="'Trạng thái'">
+									<span class="[[item.status === true ? 'label label-success': 'label label-default']]">[[item.status === true ? 'Active': 'Inactive']]</span>
+								</td>
+								<!--<td data-title="'Ngày tạo'">
+									<span ng-bind="item.created | bzFormatDate:'h:m:s DD/MM/YYYY'"></span>
+								</td>-->
+								</td>
+								<td data-title="'Action'" class="center">
+									&nbsp
+
+									<button ui-sref="editVocabulary({module: 'vocabulary', id:item._id})" ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('vocabulary', ['edit']))"
+									 class="btn btn-xs btn-info">
+										<i class="ace-icon fa fa-pencil bigger-120"></i>
+									</button>
+
+									<button class="btn btn-xs btn-danger" ng-if="pageMethods.authSvc.isSuperAdmin() || (pageMethods.authSvc.isAdmin() && pageMethods.authSvc.hasPermission('vocabulary', ['delete']))"
+									 ng-click="vmVocabularys.remove(item._id)">
+										<i class="ace-icon fa fa-trash-o bigger-120"></i>
+									</button>
+								</td>
+							</tr>
+						</table>
+						<div ng-show="vmVocabularys.listVocabulary.length == 0" class="no-data">
+							Chưa có dữ liệu
+						</div>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.-->

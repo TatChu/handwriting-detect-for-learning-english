@@ -33,11 +33,11 @@ config.web = {
         ES_Sync: false,
         config: {
             hosts: [
-            {
-                protocol: 'http',
-                host: 'localhost',
-                port: 9200,
-            },
+                {
+                    protocol: 'http',
+                    host: 'localhost',
+                    port: 9200,
+                },
             ],
             /*log: 'trace',*/
         }
@@ -91,6 +91,9 @@ config.web = {
         productContentPath: process.cwd() + '/public/files/product_image_content/',
         productImgPath: '/files/product_image/',
 
+        vocabularyPath: process.cwd() + '/public/files/vocabulary_image/',
+        vocabularyImgPath: '/files/vocabulary_image/',
+
         thumbImgPath: '/public/files/thumb_image/',
         thumbImgContentPath: process.cwd() + '/public/files/thumb_image/',
 
@@ -104,49 +107,49 @@ config.web = {
         oldMediaContentPath: process.cwd() + '/public/files/media_old/',
     },
     connections: [
-    {
-        port: 9020,
-        labels: ['web'],
-        routes: {
-            cors: {
-                origin: ['*'],
-                credentials: true
+        {
+            port: 9020,
+            labels: ['web'],
+            routes: {
+                cors: {
+                    origin: ['*'],
+                    credentials: true
+                }
+            }
+        },
+        {
+            port: 9021,
+            labels: ['admin'],
+            routes: {
+                cors: {
+                    origin: ['*'],
+                    credentials: true
+                },
+                auth: {
+                    scope: ['admin']
+                }
+            }
+        },
+        {
+            port: 9022,
+            labels: 'api',
+            routes: {
+                cors: {
+                    origin: ['*'],
+                    credentials: true
+                }
+            }
+        },
+        {
+            port: 9023,
+            labels: 'socket',
+            routes: {
+                cors: {
+                    origin: ['*'],
+                    credentials: true
+                }
             }
         }
-    },
-    {
-        port: 9021,
-        labels: ['admin'],
-        routes: {
-            cors: {
-                origin: ['*'],
-                credentials: true
-            },
-            auth: {
-                scope: ['admin']
-            }
-        }
-    },
-    {
-        port: 9022,
-        labels: 'api',
-        routes: {
-            cors: {
-                origin: ['*'],
-                credentials: true
-            }
-        }
-    },
-    {
-        port: 9023,
-        labels: 'socket',
-        routes: {
-            cors: {
-                origin: ['*'],
-                credentials: true
-            }
-        }
-    }
     ],
     allRoles: ['super-admin', 'admin', 'student'],
     jwt: {
@@ -224,8 +227,8 @@ config.web = {
         }
     },
     category_level: 5,
-    thumb_image_config:{
-        product:{
+    thumb_image_config: {
+        product: {
             width: 248,
             height: 248
         }

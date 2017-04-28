@@ -57,7 +57,7 @@ function find(request, reply) {
             if (err || items == null) {
                 request.log([
                     'error', 'list', 'user'
-                    ], err);
+                ], err);
                 if (items == null)
                     return reply(Boom.badRequest('Không thể lấy dữ liệu'));
 
@@ -117,15 +117,15 @@ function find(request, reply) {
     if (request.query.keyword && request.query.keyword.length > 0) {
         let re = new RegExp(request.query.keyword, 'ui');
         filters.$or = [
-        {
-            name: re
-        },
-        {
-            email: re
-        },
-        {
-            phone: re
-        },
+            {
+                name: re
+            },
+            {
+                email: re
+            },
+            {
+                phone: re
+            },
         ]
 
     }
@@ -153,8 +153,8 @@ function find(request, reply) {
                         if (keywordQuery) {
                             filters.$or.push({
                                 $and: [
-                                { $or: keywordQuery },
-                                { _id: id }
+                                    { $or: keywordQuery },
+                                    { _id: id }
                                 ]
                             });
                         }
@@ -209,11 +209,11 @@ function create(request, reply) {
     request.payload.vocative = sanitizeHtml(request.payload.vocative);
     request.payload.dob = sanitizeHtml(request.payload.dob);
 
-    if(request.payload.phone == 'null' || request.payload.phone == 'undefined')
+    if (request.payload.phone == 'null' || request.payload.phone == 'undefined')
         request.payload.phone = null;
-    if(request.payload.email == 'null' || request.payload.email == 'undefined')
+    if (request.payload.email == 'null' || request.payload.email == 'undefined')
         request.payload.email = null;
-    if(request.payload.dob == 'null' || request.payload.dob == 'undefined')
+    if (request.payload.dob == 'null' || request.payload.dob == 'undefined')
         request.payload.dob = null;
 
     let user = new User(request.payload);
@@ -266,20 +266,20 @@ function update(request, reply) {
     // Thay đổi user
     let user = request.pre.user;
     request.pre.user = request.pre.user.toObject();
-    
+
     request.payload.name = sanitizeHtml(request.payload.name);
     request.payload.email = sanitizeHtml(request.payload.email);
     request.payload.phone = sanitizeHtml(request.payload.phone);
     request.payload.vocative = sanitizeHtml(request.payload.vocative);
     request.payload.dob = sanitizeHtml(request.payload.dob);
 
-    if(request.payload.phone == 'null' || request.payload.phone == 'undefined')
+    if (request.payload.phone == 'null' || request.payload.phone == 'undefined')
         request.payload.phone = null;
-    if(request.payload.email == 'null' || request.payload.email == 'undefined')
+    if (request.payload.email == 'null' || request.payload.email == 'undefined')
         request.payload.email = null;
-    if(request.payload.dob == 'null' || request.payload.dob == 'undefined')
+    if (request.payload.dob == 'null' || request.payload.dob == 'undefined')
         request.payload.dob = null;
-    
+
     user = _.extend(user, request.payload);
 
     let promise = user.save();
@@ -368,28 +368,28 @@ function register(request, reply) {
     request.payload.vocative = sanitizeHtml(request.payload.vocative);
     request.payload.dob = sanitizeHtml(request.payload.dob)
 
-    if(request.payload.phone == 'null' || request.payload.phone == 'undefined')
+    if (request.payload.phone == 'null' || request.payload.phone == 'undefined')
         request.payload.phone = null;
-    if(request.payload.email == 'null' || request.payload.email == 'undefined')
+    if (request.payload.email == 'null' || request.payload.email == 'undefined')
         request.payload.email = null;
-    if(request.payload.dob == 'null' || request.payload.dob == 'undefined')
+    if (request.payload.dob == 'null' || request.payload.dob == 'undefined')
         request.payload.dob = null;
 
     UserHelper.createUser(request.payload, request.pre.userByPhone, function (err, resp) {
         if (err)
             return reply(Boom.badRequest(err));
         let acl = request.acl;
-        acl.addUserRoles(resp._id.toString(), ["user", "customer"], function (err) {
+        acl.addUserRoles(resp._id.toString(), ["student"], function (err) {
             if (err)
                 return reply(Boom.badRequest(err));
 
             //send email
-            if(resp.email){
+            if (resp.email) {
                 let context = resp;
                 let to = { name: resp.name, address: resp.email }
                 UserEmail.sendRegisterEmail(request, to, context);
             }
-            
+
             return reply({ phone: resp.phone });
         })
     });
@@ -406,12 +406,12 @@ function login(request, reply) {
         // deletedAt: null
     };
     optionLogin.$or = [
-    {
-        email: phone
-    },
-    {
-        phone: phone
-    }
+        {
+            email: phone
+        },
+        {
+            phone: phone
+        }
     ];
     acl.userRoles(representUser, function (err, roles) {
         if (err) {
@@ -430,7 +430,7 @@ function login(request, reply) {
                 return acl.userRoles(user._id.toString(), function (err, roleUser) {
                     if (err)
                         reply(Boom.unauthorized('Đã xảy ra lỗi. Hãy thử lại'));
-                    
+
                     if (roleUser && _.intersection(roleUser, role).length === 0) {
                         return reply(Boom.unauthorized('Không có quyền'));
                     }
@@ -443,7 +443,7 @@ function login(request, reply) {
                             if (err || !result) {
                                 request.log([
                                     'error', 'login'
-                                    ], err);
+                                ], err);
                                 return reply(Boom.unauthorized('Mật khẩu không đúng'));
                             }
                         }
@@ -500,11 +500,11 @@ function logout(request, reply) {
         if (err) {
             request.log([
                 'error', 'redis', 'lgout'
-                ], err);
+            ], err);
         }
 
         let session = result ?
-        JSON.parse(result) : {};
+            JSON.parse(result) : {};
         if (session.id) {
             session.valid = false;
             session.ended = new Date().getTime();
@@ -537,13 +537,13 @@ function active(request, reply) {
         }).catch(err => {
             request.log([
                 'error', 'active'
-                ], err);
+            ], err);
             return reply(Boom.badRequest(ErrorHandler.getErrorMessage(err)));
         });
     }).catch(err => {
         request.log([
             'error', 'active'
-            ], err);
+        ], err);
         return reply(Boom.badRequest(ErrorHandler.getErrorMessage(err)));
     });
 }
@@ -646,7 +646,7 @@ function facebookLogin(request, reply) {
                             provider: 'facebook',
                             password: null,
                             roles: [
-                            'customer', 'user'
+                                'customer', 'user'
                             ],
                             status: true
                         });
@@ -657,7 +657,7 @@ function facebookLogin(request, reply) {
 
                             saveAndReply(newUser);
                             //send email
-                            if(newUser.email){
+                            if (newUser.email) {
                                 let context = newUser.toObject();
                                 let to = { name: newUser.name, address: newUser.email }
                                 UserEmail.sendRegisterEmail(request, to, context);
@@ -742,7 +742,7 @@ function resetPassword(request, reply) {
             }).catch(err => {
                 request.log([
                     'error', 'reset'
-                    ], err);
+                ], err);
                 return reply(Boom.badRequest(ErrorHandler.getErrorMessage(err)));
             });
         });
@@ -767,7 +767,7 @@ function changePassword(request, reply) {
         if (err) {
             request.log([
                 'error', 'changepassword'
-                ], err);
+            ], err);
         }
         if (!result) {
             return reply(Boom.badRequest('Mật khẩu cũ không đúng'));
@@ -782,7 +782,7 @@ function changePassword(request, reply) {
             }).catch(err => {
                 request.log([
                     'error', 'changepassword'
-                    ], err);
+                ], err);
                 return reply(Boom.badRequest(ErrorHandler.getErrorMessage(err)));
             });
         });

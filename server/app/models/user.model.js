@@ -32,6 +32,9 @@ var UserSchema = new Schema({
         trim: true,
         default: '4'
     },
+    neural_network_json: {
+        type: String,
+    },
     phone: {
         type: String,
         unique: true,
@@ -85,11 +88,11 @@ var UserSchema = new Schema({
         trim: true,
     },
     favorite_product: [
-    {
-        _id: false,
-        type: Schema.ObjectId,
-        ref: 'Product'
-    }
+        {
+            _id: false,
+            type: Schema.ObjectId,
+            ref: 'Product'
+        }
     ],
     dob: {
         type: Date,
@@ -134,9 +137,9 @@ var UserSchema = new Schema({
         }]
     }
 }, {
-    collection: prefixCollection + 'users',
-    timestamps: true
-});
+        collection: prefixCollection + 'users',
+        timestamps: true
+    });
 /******************************************************************
 Methods
 *******************************************************************/
@@ -146,17 +149,17 @@ UserSchema.methods = {
     },
     compare: function (password, callback) {
         /*So Sánh kiểu mã hóa cũ*/
-        let saltArr = String (this.password).split(':');
-        if(saltArr.length == 2){
+        let saltArr = String(this.password).split(':');
+        if (saltArr.length == 2) {
             let salt = saltArr[1];
             let hashOld = saltArr[0];
 
             var hashedPassword = crypto.createHash('md5').update(salt + password).digest('hex');
-            if(hashedPassword == hashOld){
+            if (hashedPassword == hashOld) {
                 return callback(null, true);
             }
         }
-        
+
         /*So Sánh kiểu mã hóa mới*/
         Bcrypt.compare(password, this.password, callback);
     }

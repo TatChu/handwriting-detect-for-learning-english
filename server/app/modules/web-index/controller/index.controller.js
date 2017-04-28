@@ -9,8 +9,8 @@ module.exports = {
 	index,
 };
 
-function index(request,reply) {
+function index(request, reply) {
 	return reply.view('web-index/view/client/home/view', {
-		index: true
+		menu: { home: true }
 	}, { layout: 'web/layout' });
 }

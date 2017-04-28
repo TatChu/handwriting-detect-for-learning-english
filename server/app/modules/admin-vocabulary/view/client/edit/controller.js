@@ -1,11 +1,11 @@
-var vocabularysCtrl = (function () {
+var vocabularyEditCtrl = (function () {
     'use strict';
 
     angular
         .module('bzVocabulary')
-        .controller('vocabularyAddCtrl', vocabularyAddCtrl);
+        .controller('vocabularyEditCtrl', vocabularyEditCtrl);
 
-    function vocabularyAddCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
+    function vocabularyEditCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
         userRoles, authSvc, NgTableParams, ngTableEventsChannel, Upload, bzResourceSvc, vocabularySvc, listClasses, listTypesWord, bzUpload) {
         /* jshint validthis: true */
         var vmEditVocabularys = this;
@@ -18,12 +18,7 @@ var vocabularysCtrl = (function () {
 
         // Vars
         vmEditVocabularys.classes = '4';
-        vmEditVocabularys.formData = {
-            status: true,
-            lang: 'en',
-            classes: 'noun',
-            images: []
-        };
+
         vmEditVocabularys.lockFOrm = false;
         vmEditVocabularys.save = create;
         vmEditVocabularys.submitted = false;
@@ -39,7 +34,22 @@ var vocabularysCtrl = (function () {
 
 
         //Init
-        // getUnits();
+        getData();
+
+
+        function getData() {
+            vocabularySvc.get($stateParams.id).then(function (resp) {
+                vmEditVocabularys.formData = resp;
+            }).catch(function (err) {
+                $bzPopup.toastr({
+                    type: 'error',
+                    data: {
+                        title: 'từ vựng',
+                        message: 'Xảy ra lỗi. Thử lại sau'
+                    }
+                });
+            })
+        }
 
         function getUnits() {
             vocabularySvc.getUnits(vmEditVocabularys.classes).then(function (resp) {
@@ -120,17 +130,16 @@ var vocabularysCtrl = (function () {
                 }
         }
 
-
         function create(isValid) {
             vmEditVocabularys.submitted = true;
             vmEditVocabularys.lockForm = true;
             if (isValid) {
-                vocabularySvc.create(vmEditVocabularys.formData).then(function (resp) {
+                vocabularySvc.update(vmEditVocabularys.formData, $stateParams.id).then(function (resp) {
                     $bzPopup.toastr({
                         type: 'success',
                         data: {
                             title: 'Từ vựng',
-                            message: 'Thêm thành công'
+                            message: 'Cập nhật thành công'
                         }
                     });
                     $state.go('vocabularys');
@@ -138,7 +147,7 @@ var vocabularysCtrl = (function () {
                     $bzPopup.toastr({
                         type: 'error',
                         data: {
-                            title: 'Thêm từ vựng',
+                            title: 'Cập nhật từ vựng',
                             message: error.data.message
                         }
                     });

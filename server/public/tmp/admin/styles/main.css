@@ -508,6 +508,10 @@ Modules Load Auto
   display: inline-flex;
 }
 
+#mod-vocabulary-add .image-upload {
+  max-width: 150px;
+}
+
 #mod-vocabulary-list .img-word {
   max-width: 100px;
 }

@@ -1,4 +1,4 @@
-var vocabularysCtrl = (function () {
+var vocabularyAddCtrl = (function () {
     'use strict';
 
     angular

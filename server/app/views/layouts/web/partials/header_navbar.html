@@ -1,4 +1,4 @@
-<div class="navbar navbar-default navbar-static-top">
+<div class="navbar navbar-default navbar-static-top" data-ng-controller="authCtrl as vmAuth">
   <div class="container">
     <div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
       <a class="navbar-brand" href="/"><span>Boss | Learning English System</span></a>
@@ -12,7 +12,27 @@
           <a href="/gioi-thieu">About</a>
         </li>
         <li {{#if contact }} class="active" {{/if}}><a href="/lien-he">Contact</a></li>
-        <li {{#if login }} class="active" {{/if}}><a href="/dang-nhap">Login</a></li>
+        {{#if credentials.uid}}
+        <li class="dropdown ">
+          <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Chào <span ng-bind="vmAuth.name"></span> <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li>
+            <li><a href="#">Vào học</a></li>
+            <!--<li><a href="#"></a></li>
+              <a href="#"></a>
+            </li>-->
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Tài khoản</a></li>
+            <li class="dropdown-header">Đổi mật khẩu</li>
+            <li><a href="#">Đăng xuất</a></li>
+            
+          </ul>
+        </li>
+        {{else}}
+        <li {{#if login }} class="active" {{/if}}><a href="/dang-nhap">Login / Signin</a></li>
+        {{/if}}
+
+
       </ul>
     </div>
   </div>

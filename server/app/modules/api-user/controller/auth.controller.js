@@ -456,6 +456,7 @@ function login(request, reply) {
                                 id: aguid() + '-' + user._id.toString(),
                                 name: user.name,
                                 phone: user.phone,
+                                classes: user.classes,
                                 dob: user.dob,
                                 avatar: user.avatar,
                                 email: user.email,

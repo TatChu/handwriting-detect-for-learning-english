@@ -1,0 +1,114 @@
+<div data-ng-controller="LearnCtrl as vmLearn" class="section">
+    <div class="container">
+        <div class="row">
+            <div ng-show="vmLearn.listVocabulary.length > 0">
+                <div class="col-md-3 center ">
+                    <div class="text-center">
+                        <label class="control-label">Bài học: </label>
+                    </div>
+                    <br>
+                    <ol>
+                        <li type="1" ng-repeat="item in vmLearn.listUnit" ng-class="{active: (vmLearn.unit == item._id)}" ng-click="vmLearn.getVocabulary(item._id)"
+                            ng-bind="item.title"></li>
+                    </ol>
+                </div>
+                <div class="col-sm-1">
+                    <div class="btn-arrow" ng-if="vmLearn.word_no != 0" ng-click="vmLearn.prevVocabulary()">
+                        <a href="" class="back-word">
+                            <img src="{{linkAssets 'button/back.png'}}" alt="" class="img-button-word">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <img ng-src="[[vmLearn.word.image]]" alt="" class="img-word" />
+                </div>
+                <div class="col-sm-4">
+                    <div class="content">
+                        <span class="vocabulary" ng-bind="vmLearn.word.word"></span>
+                        <span class="define" ng-bind="vmLearn.word.define"></span>
+                        <span class="phienam" ng-hide="true">/word/</span>
+                        <div class="row more">
+                            <div ng-click="vmLearn.speak()" class="col-sm-6">
+                                <div class="">
+                                    <img src="{{linkAssets 'button/sound.png'}}" alt="" class="img-sound-word">
+                                    <!--<input onclick=';' type='button' value='🔊 Play' />-->
+                                    <label class="control-label"> Cách đọc từ</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Loại từ: </label>
+                                <span class="" ng-bind=" ' ' + vmLearn.word.classes"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div ng-if="vmLearn.listVocabulary.length - 2 > vmLearn.word_no" ng-click="vmLearn.nextVocabulary()" class="btn-arrow">
+                        <a href="" class="next-word">
+                            <img src="{{linkAssets 'button/next.png'}}'" alt="" class="img-button-word">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="vmLearn.listVocabulary.length == 0" class="text-center">
+                <strong>Bài học chưa có dữ liệu</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-arrow {
+        text-align: center;
+        margin-top: 19px;
+    }
+    
+    .content {
+        text-align: center;
+    }
+    
+    .img-word {
+        width: 100%;
+    }
+    
+    .img-button-word {
+        width: 50px;
+    }
+    
+    .more {
+        margin-top: 20px;
+    }
+    
+    .img-sound-word {
+        width: 20px;
+    }
+    
+    .vocabulary {
+        display: inherit;
+        margin-top: 4%;
+        font-size: -webkit-xxx-large;
+        color: seagreen;
+    }
+    
+    .define {
+        color: fuchsia;
+        display: inherit;
+        font-size: x-large;
+    }
+    
+    .classes,
+    .phienam {
+        display: inherit;
+        font-size: x-large;
+    }
+    
+    .active {
+        color: forestgreen;
+    }
+    
+    li {
+        margin: 0 0 2px 3px;
+        font-weight: 700;
+    }
+</style>

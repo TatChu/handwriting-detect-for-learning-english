@@ -1,23 +1,57 @@
 <div class="container" data-ng-controller="dictionaryWebCtrl as vmDictionary">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="text-center">Trà từ điển trực tuyến</h1>
+            <h1 class="text-center">Tra từ điển trực tuyến</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
             <form role="form">
-                <div class="form-group">
-                    <div class="input-group input-search">
-                        <angucomplete id="txt-search" placeholder="Search countries" pause="100" selectedobject="vmDictionary.selectedCountry" localdata="vmDictionary.countries"
-                            searchfields="name" titlefield="name" minlength="1" inputclass="form-control form-control-small"
-                            match-class="highlight" />
-                        <span class="input-group-btn"> 
-                            <a class="btn btn-success" type="submit">Xem</a> 
-                        </span>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <div class="input-group search-area">
+                                <div ng-if="vmDictionary.lang == 'en'" angucomplete-alt id="txt-search" placeholder="Nhập từ..." pause="200" selected-object="vmDictionary.onSelected"
+                                    remote-url="/tra-tu-dien/en/" remote-url-data-field="data" title-field="word" minlength="1"
+                                    input-class="form-control form-control-small" match-class="highlight">
+                                </div>
+
+                                <div ng-if="vmDictionary.lang == 'vi'" angucomplete-alt id="txt-search" placeholder="Nhập từ..." pause="200" selected-object="vmDictionary.onSelected"
+                                    remote-url="/tra-tu-dien/vi/" remote-url-data-field="data" title-field="word" minlength="1"
+                                    input-class="form-control form-control-small" match-class="highlight">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <button class="submit-form en" ng-if="vmDictionary.lang == 'en'" ng-click="vmDictionary.changeLanguage('vi')" type="button">Anh → Việt</button>
+
+                            <button class="submit-form vi" ng-if="vmDictionary.lang == 'vi'" ng-click="vmDictionary.changeLanguage('en')" type="button">Việt → Anh</button>
+                        </div>
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div class="row" ng-if="vmDictionary.wordSelected">
+        <div class="col-md-offset-3 col-md-6">
+            <div class="row">
+                <div class="col-md-9">
+                    <h2 ng-bind="vmDictionary.wordSelected.word" class="text-success"></h2>
+                </div>
+                <div class="col-md-3" ng-click="vmDictionary.speak()">
+                    <img src="{{linkAssets 'button/sound.png'}}" alt="" class="img-sound-word">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="word-content" ng-bind-html="vmDictionary.wordSelected.content"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -29,11 +63,6 @@
         background: green;
     }
     
-    #txt-search_value {
-        border: solid 1px;
-        border-inline-end-color: green;
-    }
-    
     .angucomplete-row {
         padding: 5px;
         color: #000000;
@@ -42,11 +71,51 @@
         margin-left: 2%;
     }
     
-    .input-search {
+    .search-area {
         width: 100%;
     }
     
     .highlight {
         color: red;
+    }
+    
+    #txt-search_value {
+        border: solid 1px;
+        border-inline-end-color: green;
+    }
+    
+    #txt-search_dropdown {
+        margin-top: 8%;
+        width: 100%;
+    }
+    
+    .submit-form {
+        color: #ffffff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+        cursor: pointer;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        height: 33px;
+        width: 100%;
+        position: absolute;
+    }
+    
+    .en {
+        background-color: brown;
+    }
+    
+    .word-content {
+        margin-left: 5%;
+    }
+    
+    span.title {
+        color: magenta;
+    }
+    
+    .img-sound-word {
+        margin: 18px 0 0 -14px;
+        max-width: 31px;
     }
 </style>

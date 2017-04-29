@@ -9,7 +9,7 @@ var settingJs = (function () {
 		host = window.location.host,
 		configs = {
 			facebookAppId: settings.facebookId,
-			appPrefix: 'Muahangviet',
+			appPrefix: 'EnglishStudyApp',
 			webUrl: settings.services.webUrl,
 			apiUrl: settings.services.apiUrl,
 			socketUrl: settings.services.socketApi,

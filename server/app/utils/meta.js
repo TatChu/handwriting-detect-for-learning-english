@@ -19,7 +19,7 @@ var meta = {
     },
     'detail-article-gb':{
         title: '',
-        desc: 'Mua Hàng Việt là dự án được phát triển bởi Công ty Cổ phần Báo Thanh Niên, nhằm cổ vũ, tôn vinh các thương hiệu Việt, đồng thời tạo cầu nối giữa người tiêu dùng và các doanh nghiệp trong nước, mang đến những sản phẩm đảm bảo về chất lượng cho người tiêu dùng, khuyến khích tinh thần người Việt dùng hàng Việt. \n Trong khuôn khổ dự án, website muahangviet.com.vn là kênh phân phối trực tuyến, giúp các doanh nghiệp Việt thêm một kênh bán lẻ tiếp cận khách hàng tiềm năng và người tiêu dùng Việt thêm một kênh để mua hàng Việt Nam đúng giá, đúng chất lượng, đặc biệt là hàng thực phẩm, nông sản sạch, an toàn.'
+        desc: 'Mua Hàng Việt là dự án được phát triển bởi Công ty Cổ phần Báo Thanh Niên, nhằm cổ vũ, tôn vinh các thương hiệu Việt, đồng thời tạo cầu nối giữa người tiêu dùng và các doanh nghiệp trong nước, mang đến những sản phẩm đảm bảo về chất lượng cho người tiêu dùng, khuyến khích tinh thần người Việt dùng hàng Việt. \n Trong khuôn khổ dự án, website english.study.app.com.vn là kênh phân phối trực tuyến, giúp các doanh nghiệp Việt thêm một kênh bán lẻ tiếp cận khách hàng tiềm năng và người tiêu dùng Việt thêm một kênh để mua hàng Việt Nam đúng giá, đúng chất lượng, đặc biệt là hàng thực phẩm, nông sản sạch, an toàn.'
     },
     'product':{
         title: '',

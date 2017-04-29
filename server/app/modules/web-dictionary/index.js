@@ -6,8 +6,16 @@ exports.register = function (server, options, next) {
 
     server.route({
         method: 'GET',
-        path: '/tra-tu-dien/{word?}',
+        path: '/tra-tu-dien',
         handler: DictionaryController.dictionary,
+        config: {
+        },
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/tra-tu-dien/{lang}/{word}',
+        handler: DictionaryController.searchDictionary,
         config: {
         },
     });

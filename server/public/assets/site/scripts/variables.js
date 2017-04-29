@@ -8,7 +8,7 @@ var settingJs = (function () {
 		// endDate = new Date(2017,0,1,23,59,59),
 		host = window.location.host,
 		configs = {
-			appPrefix: 'Muahangviet',
+			appPrefix: 'EnglishStudyApp',
 			facebookAppId: settings.facebookId,
 			webUrl: settings.services.webUrl,
 			apiUrl: settings.services.apiUrl,

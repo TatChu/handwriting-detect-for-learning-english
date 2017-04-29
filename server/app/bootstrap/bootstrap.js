@@ -65,6 +65,9 @@ module.exports = function(server) {
         {
             register: require('../lib/acl.js')
         },
+        {
+            register: require('../lib/sqlite.js')
+        },
         // {
         //     register: require('hapi-io'),
         //     options: {

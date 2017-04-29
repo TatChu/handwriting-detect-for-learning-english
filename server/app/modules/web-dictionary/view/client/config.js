@@ -3,10 +3,9 @@
 
     Application.registerModule('bsDictionary');
     angular
-        .module('bsDictionary', ['angucomplete'])
+        .module('bsDictionary', ['angucomplete-alt'])
         .run(run);
 
     function run(authSvc) {
-
     }
 })();

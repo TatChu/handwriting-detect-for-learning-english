@@ -75,15 +75,15 @@ config.web = {
             env: 'development', //'development', //'production'
             facebookId: process.env.FACEBOOK_ID || '1230438623691617',//'870270899727751',
             services: {
-                webUrl: 'http://muahangviet.local',
-                admin: 'http://muahangviet.local/admin',
-                apiUrl: 'http://muahangviet.local/api',
+                webUrl: 'http://english.study.app.local',
+                admin: 'http://english.study.app.local/admin',
+                apiUrl: 'http://english.study.app.local/api',
                 
-                userApi: 'http://muahangviet.local/api',
-                logApi: 'http://muahangviet.local/api',
-                contactApi: 'http://muahangviet.local/api',
-                uploadApi: 'http://muahangviet.local/api',
-                socketApi: 'http://muahangviet.local/api',
+                userApi: 'http://english.study.app.local/api',
+                logApi: 'http://english.study.app.local/api',
+                contactApi: 'http://english.study.app.local/api',
+                uploadApi: 'http://english.study.app.local/api',
+                socketApi: 'http://english.study.app.local/api',
             }
         }
     }

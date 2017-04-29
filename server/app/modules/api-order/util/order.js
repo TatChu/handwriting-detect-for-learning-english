@@ -54,7 +54,7 @@ function mailOrderSuccess (doc, request){
         "from": config.get('web.email.from'),
         "to": { name: context.payment_info.info.full_name, address: context.payment_info.info.email },
         "bcc": [
-        { name: 'Mua Hàng Việt', address: 'support@muahangviet.com.vn' },
+        { name: 'Mua Hàng Việt', address: 'english.study.app@gmail.com' },
         { name: 'Mua Hàng Việt', address: 'cs@chorus.vn' }
         ],
         "subject": "Đặt hàng thành công trên hệ thống Mua Hàng Việt, cho đơn hàng # "+context.id_order,

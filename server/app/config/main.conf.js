@@ -48,7 +48,7 @@ config.web = {
             service: 'Gmail',
             auth: {
                 user: 'tatchu.it@gmail.com',
-                pass: 'muahangviet2017'
+                pass: 'english.study.app2017'
             },
             // host: 'smtp.kuikoo.com',
             // port: 465,

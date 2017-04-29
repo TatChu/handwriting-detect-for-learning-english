@@ -1,0 +1,52 @@
+<div class="container" data-ng-controller="dictionaryWebCtrl as vmDictionary">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center">Trà từ điển trực tuyến</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            <form role="form">
+                <div class="form-group">
+                    <div class="input-group input-search">
+                        <angucomplete id="txt-search" placeholder="Search countries" pause="100" selectedobject="vmDictionary.selectedCountry" localdata="vmDictionary.countries"
+                            searchfields="name" titlefield="name" minlength="1" inputclass="form-control form-control-small"
+                            match-class="highlight" />
+                        <span class="input-group-btn"> 
+                            <a class="btn btn-success" type="submit">Xem</a> 
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    input.txt-search {
+        border: solid 1px;
+        background: green;
+    }
+    
+    #txt-search_value {
+        border: solid 1px;
+        border-inline-end-color: green;
+    }
+    
+    .angucomplete-row {
+        padding: 5px;
+        color: #000000;
+        margin-bottom: 4px;
+        clear: both;
+        margin-left: 2%;
+    }
+    
+    .input-search {
+        width: 100%;
+    }
+    
+    .highlight {
+        color: red;
+    }
+</style>

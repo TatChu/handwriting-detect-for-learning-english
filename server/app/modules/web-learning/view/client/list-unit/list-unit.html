@@ -4,13 +4,14 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="profile" data-ng-controller="authCtrl as vmAuth">
-                        <h2 class="text-center text-muted">Tài khoản</h2>
+                        <h3 class="text-center text-muted">Thông tin học viên</h3>
                         <div class="avatar fix-avatar">
 
                             <img data-ng-src=[[vmAuth.urlAvatar]] class="img-responsive" alt="">
                         </div>
-                        <h3 class="text-center"><a href="/khach-hang/thong-tin-tai-khoan">{{user.name}}</a></h3>
-                        <h3 class="text-center">Lớp: {{user.classes}}</h3>
+                        <h4 class="text-center"><a href="/khach-hang/thong-tin-tai-khoan">{{user.name}}</a></h4>
+                        <h4 class="text-center">Lớp: {{user.classes}}</h4>
+                        <h5 class="text-center"><a href="/khach-hang/nhan-dang-chu-cua-toi">Nhận dạng chữ của tôi</a></h5>
                     </div>
                 </div>
                 <div class="col-md-9">

@@ -6,6 +6,7 @@ const _ = require('lodash');
 const ErrorHandler = require(BASE_PATH + '/app/utils/error.js');
 const User = mongoose.model('User');
 const Unit = mongoose.model('Unit');
+const Vocabulary = mongoose.model('Vocabulary');
 
 module.exports = {
 	listUnit,
@@ -39,7 +40,14 @@ function listUnit(request, reply) {
 }
 
 function learning(request, reply) {
-	return reply.view('web-learning/view/client/learning/learning', {
-		menu: { learning: true }
-	}, { layout: 'web/layout' });
+	let unit = request.params.unit || null;
+	Vocabulary.find({ unit: unit }).exec().then(function (vocabularys) {
+		return reply.view('web-learning/view/client/learning/learning', {
+			vocabularys,
+			menu: { learning: true }
+		}, { layout: 'web/layout' });
+	}).catch(function (err) {
+		return reply.redirect('/error404');
+	})
+
 }

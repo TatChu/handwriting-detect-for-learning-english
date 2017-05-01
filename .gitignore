@@ -1,0 +1,6 @@
+/ocr/*.jpg
+/ocr/image/*/*
+
+/ocr/image/*/*.json
+*.vscode
+.ocr/data/*.*

@@ -9,6 +9,7 @@ const blackPixel = Jimp.rgbaToInt(0, 0, 0, 255);
 const fs = require('fs');
 const jsonfile = require('jsonfile')
 
+const size = 14;
 module.exports = croper;
 
 function croper(dirSrc = 'image/chu cai trang den/', imgName = 'a', imgDist = 'image/croped/', callback) {
@@ -46,7 +47,7 @@ function croper(dirSrc = 'image/chu cai trang den/', imgName = 'a', imgDist = 'i
 
                 Jimp.read(imgCrop.toBuffer(), function (err, image) {
 
-                    this.autocrop().resize(28, 28).scan(0, 0, image.bitmap.width, image.bitmap.height, function (x, y, idx) {
+                    this.autocrop().resize(size, size).scan(0, 0, image.bitmap.width, image.bitmap.height, function (x, y, idx) {
 
                         var red = this.bitmap.data[idx + 0];
                         var green = this.bitmap.data[idx + 1];
@@ -67,9 +68,9 @@ function croper(dirSrc = 'image/chu cai trang den/', imgName = 'a', imgDist = 'i
 
                         dataTrain.input.push(input);
                         dataTrain.output.push(output);
-                        for (var u = 28; u < 28 * 28; u += 28) {
+                        for (var u = size; u < size * size; u += size) {
                             let row = '';
-                            for (var v = u - 28; v < u; v++) {
+                            for (var v = u - size; v < u; v++) {
                                 row += input[v];
                             }
                             console.log(row);
@@ -81,11 +82,11 @@ function croper(dirSrc = 'image/chu cai trang den/', imgName = 'a', imgDist = 'i
                         mat.rectangle([i * 200 + 10, j * 200 + 30], [140, 140], WHITE, 2);
                         if (i == 14 && j == 9) {
                             mat.save('image/view croped/' + imgName + '1.jpg');
-                            var obj = JSON.stringify(dataTrain);
-                            jsonfile.writeFile(imgDist + imgName + '.json', obj, function (err) {
-                                if (err) console.error(err)
-                                // callback();
-                            })
+                            // var obj = JSON.stringify(dataTrain);
+                            // jsonfile.writeFile(imgDist + imgName + '.json', obj, function (err) {
+                            //     if (err) console.error(err)
+                            //     // callback();
+                            // })
                         }
 
                         if (j < 9) crop(i, j + 1)

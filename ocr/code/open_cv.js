@@ -20,8 +20,6 @@ characters.forAllEmissions(function (character, index, done) {
         img.resize(3000, 2000);
         //chuyen xam
         img.convertGrayscale();
-        img.dilate(1); // giản nở
-        // img.erode(0); // xói mòn
 
         // lam mo
         img.medianBlur(1);
@@ -36,9 +34,14 @@ characters.forAllEmissions(function (character, index, done) {
         const highThresh = 120; // cang lon loc cang manh
         img.canny(lowThresh, highThresh);
 
+        // img.erode(0); // xói mòn
         // lam beo chu
         const iterations = 1; // cang lon chu cang beo'
         img.dilate(iterations);
+
+        // chuyen trang den
+        // img = img.adaptiveThreshold(255, 0, 0, 15, 2);
+
 
         img.save('image/chu cai trang den/' + character + '.jpg');
         // console.log('Done image ' + imgDist + '');

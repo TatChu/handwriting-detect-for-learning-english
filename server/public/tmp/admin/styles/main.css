@@ -131,6 +131,124 @@ Description: Bootstrap variables
 Modules Load Auto
 *******************************************************************/
 /*inject-module:scss*/
+#mod-permission-add .space {
+  display: inherit;
+  margin: 5px 0 5px 5px;
+}
+
+#mod-permission-add .role-name {
+  color: red;
+  text-transform: uppercase;
+}
+
+#mod-permission-add .select2-container {
+  height: initial;
+}
+
+#mod-permission-add .resource {
+  color: blue;
+  text-transform: uppercase;
+}
+
+#mod-permission-list .btn-del {
+  margin-left: 10px;
+  color: red;
+}
+
+#mod-permission-list .btn-delete {
+  margin-left: 5px;
+  color: red;
+}
+
+#mod-permission-list .btn-add {
+  margin-left: 10px;
+  color: blue;
+}
+
+#mod-permission-list .btn-edit {
+  margin-left: 5px;
+}
+
+#mod-blog-add .image-upload-section img {
+  width: 150px;
+  height: 150px;
+}
+
+#mod-blog-add .image-upload-section .image-item {
+  display: inline-block;
+  margin-right: 20px;
+  position: relative;
+  font-size: 25px;
+}
+
+#mod-blog-add .image-upload-section .image-item:hover .btn-remove-image {
+  display: block;
+}
+
+#mod-blog-add .image-upload-section .btn-remove-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+
+#mod-blog-list .no-data {
+  text-align: center;
+}
+
+#mod-blog-list .img-blog {
+  width: 100px;
+  height: 100px;
+}
+
+#mod-category-add .tip-err {
+  color: darkgreen;
+}
+
+#mod-category-add .image-upload {
+  max-width: 100%;
+  border: 1px solid green;
+  margin-top: 10px;
+}
+
+#mod-category-add .btn-remove-img {
+  float: right;
+  color: red;
+  background: white;
+}
+
+#mod-category-add .img-count {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+#mod-category-add .select2-container {
+  display: block;
+}
+
+#mod-category-add .select2-container .select2-choice {
+  height: 34px;
+  border-radius: 0;
+  border: 1px solid #ccc;
+  background-color: white;
+  background-image: none;
+}
+
+#mod-category-add .select2-container .select2-choice .select2-arrow {
+  background: none;
+  background-image: none;
+  border: none;
+}
+
+#mod-category-list .no-data {
+  text-align: center;
+}
+
+#mod-category-list .img-product {
+  width: 100px;
+  height: 100px;
+}
+
 #mod-certificate-product .select2-container {
   display: block;
 }
@@ -396,124 +514,6 @@ Modules Load Auto
 
 #mod-vocabulary-list .img-word {
   max-width: 100px;
-}
-
-#mod-permission-add .space {
-  display: inherit;
-  margin: 5px 0 5px 5px;
-}
-
-#mod-permission-add .role-name {
-  color: red;
-  text-transform: uppercase;
-}
-
-#mod-permission-add .select2-container {
-  height: initial;
-}
-
-#mod-permission-add .resource {
-  color: blue;
-  text-transform: uppercase;
-}
-
-#mod-permission-list .btn-del {
-  margin-left: 10px;
-  color: red;
-}
-
-#mod-permission-list .btn-delete {
-  margin-left: 5px;
-  color: red;
-}
-
-#mod-permission-list .btn-add {
-  margin-left: 10px;
-  color: blue;
-}
-
-#mod-permission-list .btn-edit {
-  margin-left: 5px;
-}
-
-#mod-blog-add .image-upload-section img {
-  width: 150px;
-  height: 150px;
-}
-
-#mod-blog-add .image-upload-section .image-item {
-  display: inline-block;
-  margin-right: 20px;
-  position: relative;
-  font-size: 25px;
-}
-
-#mod-blog-add .image-upload-section .image-item:hover .btn-remove-image {
-  display: block;
-}
-
-#mod-blog-add .image-upload-section .btn-remove-image {
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: none;
-}
-
-#mod-blog-list .no-data {
-  text-align: center;
-}
-
-#mod-blog-list .img-blog {
-  width: 100px;
-  height: 100px;
-}
-
-#mod-category-add .tip-err {
-  color: darkgreen;
-}
-
-#mod-category-add .image-upload {
-  max-width: 100%;
-  border: 1px solid green;
-  margin-top: 10px;
-}
-
-#mod-category-add .btn-remove-img {
-  float: right;
-  color: red;
-  background: white;
-}
-
-#mod-category-add .img-count {
-  margin-top: 5px;
-  margin-left: 5px;
-}
-
-#mod-category-add .select2-container {
-  display: block;
-}
-
-#mod-category-add .select2-container .select2-choice {
-  height: 34px;
-  border-radius: 0;
-  border: 1px solid #ccc;
-  background-color: white;
-  background-image: none;
-}
-
-#mod-category-add .select2-container .select2-choice .select2-arrow {
-  background: none;
-  background-image: none;
-  border: none;
-}
-
-#mod-category-list .no-data {
-  text-align: center;
-}
-
-#mod-category-list .img-product {
-  width: 100px;
-  height: 100px;
 }
 
 #mod-popup-add-coupon .error-require, #mod-popup-add-coupon .ng-scope, #mod-popup-add-coupon .messages-error, #mod-popup-add-coupon .ng-scope, #mod-popup-add-coupon .ng-active {

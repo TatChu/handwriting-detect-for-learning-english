@@ -67,8 +67,8 @@ var meta = {
         title: 'Thông tin tài khoản ',
         desc: ''
     },
-    'user-address':{
-        title: 'Địa chỉ giao hàng ',
+    'user-recognition':{
+        title: 'Nhận dạng chữ của tôi ',
         desc: ''
     },
     'user-order':{

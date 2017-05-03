@@ -3,7 +3,7 @@
 const UserController = require('./controller/user.controller.js');
 const UserMiddleware = require('./middleware/user.middleware.js');;
 
-exports.register = function(server, options, next) {
+exports.register = function (server, options, next) {
     server.route({
         method: 'GET',
         path: '/khach-hang/thong-tin-tai-khoan',
@@ -18,18 +18,17 @@ exports.register = function(server, options, next) {
 
     server.route({
         method: 'GET',
-        path: '/khach-hang/dia-chi-giao-hang',
-        handler: UserController.shippingAddress,
+        path: '/khach-hang/nhan-dang-chu-cua-toi',
+        handler: UserController.recognitionMyData,
         config: {
             pre: [
-                { method: UserMiddleware.getAllShipping, assign: 'shippingfee' }
-                
+                { method: UserMiddleware.folderDefaultUser, assign: 'userFolder' }
             ]
         }
     });
     server.route({
         method: 'GET',
-        path: '/khach-hang/don-hang-cua-toi',
+        path: '/khach-hang/bai-hoc-yeu-thich',
         handler: UserController.order
     });
     server.route({

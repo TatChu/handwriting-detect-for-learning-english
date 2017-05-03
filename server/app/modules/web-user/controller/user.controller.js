@@ -10,7 +10,7 @@ const _ = require('lodash');
 module.exports = {
     info,
     favoriteProduct,
-    shippingAddress,
+    recognitionMyData,
     order,
     changePass
 };
@@ -25,7 +25,7 @@ function info(request, reply) {
     }
     let promise = User.findOne({ _id: uid });
     promise.then(function (user) {
-        return reply.view('web-user/view/client/info/view', { data: user, meta : meta }, { layout: 'web/layout' });
+        return reply.view('web-user/view/client/info/view', { data: user, meta: meta }, { layout: 'web/layout' });
     });
 
 }
@@ -52,17 +52,17 @@ function favoriteProduct(request, reply) {
 }
 
 
-function shippingAddress(request, reply) {
+function recognitionMyData(request, reply) {
     let uid = request.auth.credentials.uid;
     const Meta = request.server.plugins['service-meta'];
-    var meta = JSON.parse(JSON.stringify(Meta.getMeta('user-address')));
+    var meta = JSON.parse(JSON.stringify(Meta.getMeta('user-recognition')));
     if (!uid) {
         return reply.redirect('/');
     }
-    let shippingfee = request.pre.shippingfee;
+    let userFolder = request.pre.userFolder;
     let promise = User.findOne({ _id: uid }).populate('customer.shipping_address.id_shipping_fee');
     promise.then(function (user) {
-        return reply.view('web-user/view/client/shipping-address/view', { data: {user, shippingfee}, meta: meta }, { layout: 'web/layout' });
+        return reply.view('web-user/view/client/recognition/recognition', { userFolder, meta: meta }, { layout: 'web/layout' });
     });
 }
 

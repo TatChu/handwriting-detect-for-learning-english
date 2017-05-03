@@ -72,13 +72,14 @@ function croper(srcImg, character, imgDist, callback) {
 
         let crop = function (i, j) {
             if (i > 14) {
-                callback();
+                if (typeof callback == 'function') callback();
+                else return;
             } else {
 
                 if (!fs.existsSync(imgDist)) {
                     fs.mkdirSync(imgDist);
                 }
-                var imgCrop = mat.crop(i * 200 + 10, j * 200 + 30, 140, 140);
+                var imgCrop = mat.crop(i * 200 + 20, j * 200 + 20, 160, 160);
                 var name = imgDist + character + '_' + (i * 200) + '_' + (j * 200) + '.jpg';
 
                 Jimp.read(imgCrop.toBuffer(), function (err, image) {
@@ -110,6 +111,11 @@ function croper(srcImg, character, imgDist, callback) {
     });
 }
 
-PreProcess('tmp/a.jpg', 'a', 'tmp/a/', function () {
-    console.log('DONE');
+const characters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'k', 'i', 'j', 'l', 'k', 'm', 'n', 'o',
+    'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+
+PreProcess('image/bang chu cai/' + 'k' + '.jpg', 'k', 'tmp/' + 'k' + '/', 'image/output/' + 'k' + '/', function () {
+    console.log('DONE', 'k');
+    done();
 })

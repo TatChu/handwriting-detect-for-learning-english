@@ -5,8 +5,8 @@
                 {{> web/partials/user/menu_left}}
             </div>
             <div class="col-right col-xs-8" ng-cloak>
-                <div class="panel-group" id="accordion" ng-repeat="item in vmRecognition.arraysChart">
-                    <div class="panel panel-default">
+                <div class="panel-group" id="accordion" >
+                    <div class="panel panel-default" ng-repeat="item in vmRecognition.arraysChart">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#data_char_[[item]]">
@@ -14,7 +14,7 @@
                                 </a>
                             </h4>
                         </div>
-                        <div id="data_char_[[item]]" class="panel-collapse collapse">
+                        <div id="data_char_[[item]]" class="panel-collapse collapse" ng-class="{in: item == 'a'">
                             <div class="panel-body">
                                 <div class="scan">
                                     Ảnh scan:

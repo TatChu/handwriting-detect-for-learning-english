@@ -2,5 +2,6 @@
 /ocr/image/*/*
 
 /ocr/image/*/*.json
+/ocr/tmp/
 *.vscode
 .ocr/data/*.*

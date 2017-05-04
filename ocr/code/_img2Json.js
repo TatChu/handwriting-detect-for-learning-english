@@ -69,11 +69,21 @@ let readAllFiles = function (rootDir, charecter, outputDir, done) {
     })
 }
 
+
+let dataTraining = {
+    input: [],
+    output: []
+};
 arraysChart.forEachEmission(function (item, index, next) {
     readAllFiles('tmp/', item, 'tmp/output/', function (data) {
         console.log(index, item);
+        dataTraining.input.push(data.input);
+        dataTraining.output.push(data.output);
         next();
     })
 }, function () {
-    console.log('DONE');
+    jsonfile.writeFile('tmp/' + 'data-training.json', dataTraining, function (err) {
+        if (err) console.error(err)
+        console.log('DONE');
+    })
 })

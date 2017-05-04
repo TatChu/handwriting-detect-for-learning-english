@@ -3,10 +3,10 @@
 
     Application.registerModule('bsLearning');
     angular
-        .module('bsLearning', [])
+        .module('bsLearning', ['webcam'])
         .run(run);
 
-    function run(authSvc) {
+    function run() {
 
     }
 })();

@@ -20,6 +20,14 @@ exports.register = function (server, options, next) {
         },
     });
     
+    server.route({
+        method: 'GET',
+        path: '/hoc-bai/luyen-tu-vung-dang-1',
+        handler: LearningController.exercise_1,
+        config: {
+        },
+    });
+
     next();
 };
 

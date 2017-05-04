@@ -11,6 +11,7 @@ const Vocabulary = mongoose.model('Vocabulary');
 module.exports = {
 	listUnit,
 	learning,
+	exercise_1,
 };
 
 
@@ -43,6 +44,19 @@ function learning(request, reply) {
 	let unit = request.params.unit || null;
 	Vocabulary.find({ unit: unit }).exec().then(function (vocabularys) {
 		return reply.view('web-learning/view/client/learning/learning', {
+			vocabularys,
+			menu: { learning: true }
+		}, { layout: 'web/layout' });
+	}).catch(function (err) {
+		return reply.redirect('/error404');
+	})
+}
+
+
+function exercise_1(request, reply) {
+	let unit = request.params.unit || null;
+	Vocabulary.find({ unit: unit }).exec().then(function (vocabularys) {
+		return reply.view('web-learning/view/client/exercise_1/exercise_1', {
 			vocabularys,
 			menu: { learning: true }
 		}, { layout: 'web/layout' });

@@ -2,7 +2,8 @@ let brain = require('brain.js');
 var mnist = require('mnist');
 var fs = require('fs');
 var jsonfile = require('jsonfile')
-var file = 'tmp/net.json'
+var file = 'net.json'
+var shuffle = require('shuffle-array');
 
 var net = new brain.NeuralNetwork({
     hiddenLayers: 100,
@@ -12,8 +13,11 @@ var net = new brain.NeuralNetwork({
 var trainingSet = require('./../tmp/data-training.json');
 var testSet = require('./../tmp/data-testing.json');
 
+shuffle(trainingSet)
+shuffle(testSet)
+
 net.train(trainingSet, {
-    errorThresh: 0.0005,  // error threshold to reach
+    errorThresh: 0.0003,  // error threshold to reach
     iterations: 20000,   // maximum training iterations
     log: true,           // console.log() progress periodically
     logPeriod: 1,       // number of iterations between logging

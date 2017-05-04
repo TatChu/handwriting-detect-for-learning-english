@@ -3,7 +3,7 @@
 
     Application.registerModule('bsLearning');
     angular
-        .module('bsLearning', ['webcam'])
+        .module('bsLearning', [])
         .run(run);
 
     function run() {

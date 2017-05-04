@@ -2,7 +2,7 @@ let brain = require('brain.js');
 var mnist = require('mnist');
 var fs = require('fs');
 var jsonfile = require('jsonfile')
-var file = 'net.json'
+var file = 'net1.json'
 var shuffle = require('shuffle-array');
 
 var net = new brain.NeuralNetwork({
@@ -17,7 +17,7 @@ shuffle(trainingSet)
 shuffle(testSet)
 
 net.train(trainingSet, {
-    errorThresh: 0.0003,  // error threshold to reach
+    errorThresh: 0.0005,  // error threshold to reach
     iterations: 20000,   // maximum training iterations
     log: true,           // console.log() progress periodically
     logPeriod: 1,       // number of iterations between logging
@@ -40,5 +40,5 @@ console.log('Percent recognition: ', (OK / totalSetTest) * 100, '%')
 
 var obj = net.toJSON();
 jsonfile.writeFile(file, obj, function (err) {
-    console.error(err)
+    if (err) throw err;
 })

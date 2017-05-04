@@ -1,4 +1,4 @@
-var data = require('./../tmp/output/a.json');
+var data = require('./../tmp/output/y.json');
 const width = 10, height = 15;
 data.input.forEach(function (item, index) {
     for (var u = width; u < height * width; u += width) {

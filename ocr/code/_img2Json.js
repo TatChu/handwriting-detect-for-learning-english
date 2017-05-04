@@ -69,7 +69,11 @@ let readAllFiles = function (rootDir, charecter, outputDir, done) {
     })
 }
 
-
-readAllFiles('tmp/', 'a', 'tmp/output/', function (data) {
-    // console.log(files);
+arraysChart.forEachEmission(function (item, index, next) {
+    readAllFiles('tmp/', item, 'tmp/output/', function (data) {
+        console.log(index, item);
+        next();
+    })
+}, function () {
+    console.log('DONE');
 })

@@ -114,8 +114,8 @@ function croper(srcImg, character, imgDist, callback) {
 const characters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'k', 'i', 'j', 'l', 'k', 'm', 'n', 'o',
     'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-
-PreProcess('image/bang chu cai/' + 'k' + '.jpg', 'k', 'tmp/' + 'k' + '/', 'image/output/' + 'k' + '/', function () {
-    console.log('DONE', 'k');
+let character = 'k';
+PreProcess('image/bang chu cai/' + character + '.jpg', character, 'tmp/' + character + '/', 'image/output/' + character + '/', function () {
+    console.log('DONE', character);
     done();
 })

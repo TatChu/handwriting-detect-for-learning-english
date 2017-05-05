@@ -252,11 +252,11 @@ function getDetailPost(request, reply) {
             meta.og_image = Domain + '/files/blog_image/' + post.featured_image[0].url;
         return promiseTag.then(function (tags) {
             let data = {
-               
+
                 Domain: Domain,
                 post: post,
                 meta: meta,
-                menu: { blog: true }, 
+                menu: { blog: true },
                 class: { body_class: 'page-blog' },
                 tags: tags
             };
@@ -334,6 +334,7 @@ function getPolicyPage(request, reply) {
                     meta,
                     allPostPolicy: posts,
                     post: null,
+                    menu: { about: true },
                     class: { body_class: 'page-blog' }
                 };
 

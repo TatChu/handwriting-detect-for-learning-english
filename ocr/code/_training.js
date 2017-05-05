@@ -6,8 +6,8 @@ var file = 'net1.json'
 var shuffle = require('shuffle-array');
 
 var net = new brain.NeuralNetwork({
-    hiddenLayers: 100,
-    learningRate: 0.2
+    hiddenLayers: 120,
+    learningRate: 0.3
 });
 
 var trainingSet = require('./../tmp/data-training.json');

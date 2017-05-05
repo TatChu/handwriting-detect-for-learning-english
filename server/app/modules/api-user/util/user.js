@@ -71,12 +71,12 @@ function createUser(userData, userByPhone, callback) {
     let user = new User(userData);
 
     user.provider = 'local';
-    user.hashPassword(userData.password, function (err, hash) {
+    return user.hashPassword(userData.password, function (err, hash) {
         user.password = hash;
         user.activeToken = '';
 
         const promise = user.save();
-        promise.then(user => {
+        return promise.then(user => {
             user = user.toObject();
             delete user.password;
 

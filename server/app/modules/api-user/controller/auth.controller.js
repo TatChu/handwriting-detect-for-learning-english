@@ -384,11 +384,11 @@ function register(request, reply) {
                 return reply(Boom.badRequest(err));
 
             //send email
-            if (resp.email) {
-                let context = resp;
-                let to = { name: resp.name, address: resp.email }
-                UserEmail.sendRegisterEmail(request, to, context);
-            }
+            // if (resp.email) {
+            //     let context = resp;
+            //     let to = { name: resp.name, address: resp.email }
+            //     UserEmail.sendRegisterEmail(request, to, context);
+            // }
 
             return reply({ phone: resp.phone });
         })

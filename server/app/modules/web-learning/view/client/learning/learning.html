@@ -1,4 +1,9 @@
-<div class="container" data-ng-controller="vocabularyWebCtrl as vmLearn">
+<div class="container module-learn" data-ng-controller="vocabularyWebCtrl as vmLearn">
+    <style>
+        .module-learn {
+            margin-top: 5%;
+        }
+    </style>
     <div class="row" ng-if="vmLearn.listVocabulary.length > 0">
         <div class="col-md-3 col-md-offset-1">
             <img ng-src="[[vmLearn.imgDir + vmLearn.word.images[0].url]]" alt="" class="img-word" />
@@ -19,12 +24,12 @@
                     </div>
                     <div class="col-md-6">
                         <label class="control-label">Loại từ: </label>
-                        <span class="" ng-bind=" ' ' + vmLearn.word.classes"></span>
+                        <span class="" ng-bind="vmLearn.getClasses(vmLearn.word.classes)"></span>
                     </div>
                     <div class="btn-div">
-                        <button type="button" ng-click="vmLearn.prev()" ng-disabled="vmLearn.index == 0" class="btn btn-lg btn-block btn-warning btn-control">Từ trước</button>
+                        <button type="button" ng-click="vmLearn.prev()" ng-disabled="vmLearn.index == 0" class="btn btn-lg  btn-block btn-success btn-control">Từ trước</button>
 
-                        <button type="button" ng-click="vmLearn.next()" ng-disabled="vmLearn.index == vmLearn.listVocabulary.length" class="btn btn-lg btn-block btn-success btn-control">Từ tiếp theo</button>
+                        <button type="button" ng-click="vmLearn.next()" ng-disabled="vmLearn.index == vmLearn.listVocabulary.length" class="btn btn-block btn-warning btn-lg  btn-control">Từ tiếp theo</button>
                     </div>
                 </div>
 
@@ -47,56 +52,56 @@
         text-align: center;
         margin-top: 19px;
     }
-    
+
     .content {
         margin-bottom: 5%;
     }
-    
+
     .img-word {
         width: 100%;
     }
-    
+
     .img-button-word {
         width: 50px;
     }
-    
+
     .more {
         margin-top: 20px;
     }
-    
+
     .img-sound-word {
         width: 20px;
     }
-    
+
     .vocabulary {
         display: inherit;
         margin-top: 4%;
         font-size: -webkit-xxx-large;
         color: seagreen;
     }
-    
+
     .define {
         color: fuchsia;
         display: inherit;
         font-size: x-large;
     }
-    
+
     .classes,
     .phienam {
         display: inherit;
         font-size: x-large;
     }
-    
+
     button.btn-control {
         display: inline-block;
         width: 48%;
     }
 
-    .btn-div{
+    .btn-div {
         margin-top: 5%;
     }
 
-    .btn-block + .btn-block {
+    .btn-block+.btn-block {
         margin-top: 0;
     }
 </style>

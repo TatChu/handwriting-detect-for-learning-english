@@ -3,10 +3,12 @@
         <div class="col-md-offset-1 col-md-10 center">
             <div class="row">
                 <div class="col-md-3">
-                   
+
                 </div>
                 <div class="col-md-9">
-                    
+                    <webcam on-stream="vmExercise_1.onStream(stream)" on-access-denied="vmExercise_1.onError(err)" on-streaming="vmExercise_1.onSuccess()" channel="vmExercise_1.channel">
+                    </webcam>
+                    <button type="button" class="btn btn-success" ng-click="vmExercise_1.makeSnapshot()">Chụp ảnh</button>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@ var vocabularyWebCtrl = (function () {
         .module('bsLearning')
         .controller('vocabularyWebCtrl', vocabularyWebCtrl);
 
-    function vocabularyWebCtrl($scope, $window, bzResourceSvc) {
+    function vocabularyWebCtrl($scope, $window, bzResourceSvc, listTypesWord) {
         var vmLearn = this;
 
         // VARS
@@ -23,7 +23,9 @@ var vocabularyWebCtrl = (function () {
         vmLearn.speak = speak;
         vmLearn.next = next;
         vmLearn.prev = prev;
+        vmLearn.getClasses = getClasses;
 
+        // function
         function Init() {
             if (vmLearn.listVocabulary.length > 0) {
                 vmLearn.index = 0;
@@ -49,5 +51,15 @@ var vocabularyWebCtrl = (function () {
                 vmLearn.word = vmLearn.listVocabulary[vmLearn.index];
             }
         }
+
+        function getClasses(classesEsnglish) {
+            var classes = '';
+            listTypesWord.forEach(function (item) {
+                if (item.value == ('' + classesEsnglish))
+                    classes = item.name;
+            });
+            return classes;
+        }
+
     }
 })();

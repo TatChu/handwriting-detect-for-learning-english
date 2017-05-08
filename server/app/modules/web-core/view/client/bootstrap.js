@@ -15,7 +15,8 @@ var Application = (function () {
         'angularjs-datetime-picker',
         'ngFileUpload',
         'ngTable',
-        'angulike'
+        'angulike',
+        'webcam'
     ];
 
     angular

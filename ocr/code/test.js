@@ -7,28 +7,21 @@ var json = require('./../net.json');
 let net = new brain.NeuralNetwork();
 net.fromJSON(json);
 
-let dataTest = [
-    0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 1, 1, 1, 1,
-    0, 0, 0, 1, 1, 1, 1, 1, 0, 0,
-    0, 1, 1, 1, 1, 0, 0, 0, 0, 0,
-    1, 1, 0, 1, 1, 0, 0, 0, 0, 0,
-    1, 0, 0, 1, 1, 0, 0, 0, 0, 0,
-    1, 0, 0, 1, 0, 0, 0, 0, 0, 0,
-    1, 1, 0, 1, 0, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
-    0, 0, 1, 1, 0, 0, 0, 0, 0, 0];
-let resutl = 'f';
-let output = net.run(dataTest);
-let numberOut = output.indexOf(Math.max.apply(null, output))
 
-console.log(numberOut);
-console.log(output);
+let data = require('./../tmp/data-training.json');
+console.log(data)
+let OK = 0, FAILED = 0;
+data.forEach(function (item, index) {
+    var output = net.run(item.input);
+    let result = item.output;
+
+    if (output.indexOf(Math.max.apply(null, output)) == result.indexOf(Math.max.apply(null, result)))
+        OK++;
+    else
+        FAILED++;
+    console.log(index + 1, FAILED, ' : ', OK, ' / ', data.length, ' - ', OK / data.length, '%')
+});
+
 
 
 // Test ma tran nhi phan

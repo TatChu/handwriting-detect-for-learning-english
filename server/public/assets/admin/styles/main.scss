@@ -21,19 +21,19 @@ Modules Load Auto
 @import "../../../../app/modules/admin-certificate/view/client/create-certificate/_style.scss";
 @import "../../../../app/modules/admin-certificate/view/client/edit-certificate/_style.scss";
 @import "../../../../app/modules/admin-certificate/view/client/list-certificate/_style.scss";
+@import "../../../../app/modules/admin-log/view/client/list/_style.scss";
 @import "../../../../app/modules/admin-coupon/view/client/create-coupon/_style.scss";
 @import "../../../../app/modules/admin-coupon/view/client/edit-coupon/_style.scss";
 @import "../../../../app/modules/admin-coupon/view/client/list-coupon/_style.scss";
-@import "../../../../app/modules/admin-log/view/client/list/_style.scss";
-@import "../../../../app/modules/admin-order/view/client/add-order/_style.scss";
-@import "../../../../app/modules/admin-order/view/client/edit-order/_style.scss";
-@import "../../../../app/modules/admin-order/view/client/list-order/_style.scss";
+@import "../../../../app/modules/admin-promotion/view/client/add-promotion/_style.scss";
+@import "../../../../app/modules/admin-promotion/view/client/list-promotion/_style.scss";
 @import "../../../../app/modules/admin-product/view/client/add-product/_style.scss";
 @import "../../../../app/modules/admin-product/view/client/edit-product/_style.scss";
 @import "../../../../app/modules/admin-product/view/client/list-product/_style.scss";
-@import "../../../../app/modules/admin-promotion/view/client/add-promotion/_style.scss";
-@import "../../../../app/modules/admin-promotion/view/client/list-promotion/_style.scss";
 @import "../../../../app/modules/admin-shippingfee/view/client/list-shippingfee/_style.scss";
+@import "../../../../app/modules/admin-order/view/client/add-order/_style.scss";
+@import "../../../../app/modules/admin-order/view/client/edit-order/_style.scss";
+@import "../../../../app/modules/admin-order/view/client/list-order/_style.scss";
 @import "../../../../app/modules/admin-supplier/view/client/add-supplier/_style.scss";
 @import "../../../../app/modules/admin-supplier/view/client/list-supplier/_style.scss";
 @import "../../../../app/modules/admin-tag/view/client/list-tag/_style.scss";
@@ -46,8 +46,8 @@ Modules Load Auto
 @import "../../../../app/modules/admin-user/view/client/user-shipping/_style.scss";
 @import "../../../../app/modules/admin-vocabulary/view/client/edit/_style.scss";
 @import "../../../../app/modules/admin-vocabulary/view/client/list/_style.scss";
-@import "../../../../app/modules/admin-coupon/view/client/popup/add-many-coupon/_style.scss";
 @import "../../../../app/modules/admin-log/view/client/popup/detail-log/_style.scss";
+@import "../../../../app/modules/admin-coupon/view/client/popup/add-many-coupon/_style.scss";
 @import "../../../../app/modules/admin-order/view/client/popup-order/detail-order/_style.scss";
 @import "../../../../app/modules/admin-user/view/client/popup/change-pass/_style.scss";
 /*endinject*/

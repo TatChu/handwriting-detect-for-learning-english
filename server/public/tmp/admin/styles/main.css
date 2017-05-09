@@ -291,10 +291,6 @@ Modules Load Auto
   margin-right: 10px;
 }
 
-#mod-list-log .pointer {
-  cursor: pointer;
-}
-
 #mod-coupon-add .select2-container {
   display: block;
 }
@@ -306,6 +302,32 @@ Modules Load Auto
 
 #mod-coupon-edit .select2-container {
   display: block;
+}
+
+#mod-list-log .pointer {
+  cursor: pointer;
+}
+
+#mod-order-add img.img-product {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+#mod-order-add .input-number {
+  width: 200px;
+  display: inline-block;
+}
+
+#mod-order-edit img.img-product {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+#mod-order-edit .input-number {
+  width: 200px;
+  display: inline-block;
 }
 
 #mod-product-add .image-upload-section img {
@@ -410,28 +432,6 @@ Modules Load Auto
   margin-right: 10px;
 }
 
-#mod-order-add img.img-product {
-  width: 100px;
-  height: 100px;
-  margin-right: 20px;
-}
-
-#mod-order-add .input-number {
-  width: 200px;
-  display: inline-block;
-}
-
-#mod-order-edit img.img-product {
-  width: 100px;
-  height: 100px;
-  margin-right: 20px;
-}
-
-#mod-order-edit .input-number {
-  width: 200px;
-  display: inline-block;
-}
-
 #mod-supplier-add .input-w-icon {
   display: table;
 }
@@ -516,6 +516,11 @@ Modules Load Auto
   max-width: 100px;
 }
 
+#mod-popup-add-coupon .error-require, #mod-popup-add-coupon .ng-scope, #mod-popup-add-coupon .messages-error, #mod-popup-add-coupon .ng-scope, #mod-popup-add-coupon .ng-active {
+  color: red;
+  margin-top: 1%;
+}
+
 #mod-popup-log p {
   margin: 1px;
 }
@@ -531,11 +536,6 @@ Modules Load Auto
 
 #mod-popup-log .null {
   color: blue;
-}
-
-#mod-popup-add-coupon .error-require, #mod-popup-add-coupon .ng-scope, #mod-popup-add-coupon .messages-error, #mod-popup-add-coupon .ng-scope, #mod-popup-add-coupon .ng-active {
-  color: red;
-  margin-top: 1%;
 }
 
 #mod-popup-order .info-order {

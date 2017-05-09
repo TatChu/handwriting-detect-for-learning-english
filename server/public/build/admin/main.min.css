@@ -201,48 +201,6 @@ Modules Load Auto
   height: 100px;
 }
 
-#mod-certificate-product .select2-container {
-  display: block;
-}
-
-#mod-certificate-product .img-product {
-  width: 100px;
-  height: 100px;
-}
-
-#mod-certificate-add .image-upload {
-  float: left;
-  margin-right: 20px;
-}
-
-#mod-certificate-add .image-upload img {
-  width: 100px;
-  height: 100px;
-  border: 1px solid green;
-  margin-top: 10px;
-}
-
-#mod-certificate-add .btn-remove-img {
-  color: red;
-  background: white;
-  margin-bottom: -15px;
-}
-
-#mod-certificate-add .img-count {
-  margin-top: 5px;
-  margin-left: 5px;
-}
-
-#mod-certificate-list .img-product {
-  width: 30px;
-  height: 30px;
-}
-
-#mod-certificate-list .list-image {
-  float: left;
-  margin-right: 10px;
-}
-
 #mod-category-add .tip-err {
   color: darkgreen;
 }
@@ -289,6 +247,48 @@ Modules Load Auto
 #mod-category-list .img-product {
   width: 100px;
   height: 100px;
+}
+
+#mod-certificate-product .select2-container {
+  display: block;
+}
+
+#mod-certificate-product .img-product {
+  width: 100px;
+  height: 100px;
+}
+
+#mod-certificate-add .image-upload {
+  float: left;
+  margin-right: 20px;
+}
+
+#mod-certificate-add .image-upload img {
+  width: 100px;
+  height: 100px;
+  border: 1px solid green;
+  margin-top: 10px;
+}
+
+#mod-certificate-add .btn-remove-img {
+  color: red;
+  background: white;
+  margin-bottom: -15px;
+}
+
+#mod-certificate-add .img-count {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+#mod-certificate-list .img-product {
+  width: 30px;
+  height: 30px;
+}
+
+#mod-certificate-list .list-image {
+  float: left;
+  margin-right: 10px;
 }
 
 #mod-coupon-add .select2-container {
@@ -432,26 +432,6 @@ Modules Load Auto
   margin-right: 10px;
 }
 
-#mod-report-a-day td {
-  vertical-align: middle;
-}
-
-#mod-report-a-day .img-product {
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
-}
-
-#mod-report-product-list td {
-  vertical-align: middle;
-}
-
-#mod-report-product-list .img-product {
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
-}
-
 #mod-supplier-add .input-w-icon {
   display: table;
 }
@@ -526,6 +506,14 @@ Modules Load Auto
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
+}
+
+#mod-vocabulary-add .image-upload {
+  max-width: 150px;
+}
+
+#mod-vocabulary-list .img-word {
+  max-width: 100px;
 }
 
 #mod-popup-add-coupon .error-require, #mod-popup-add-coupon .ng-scope, #mod-popup-add-coupon .messages-error, #mod-popup-add-coupon .ng-scope, #mod-popup-add-coupon .ng-active {

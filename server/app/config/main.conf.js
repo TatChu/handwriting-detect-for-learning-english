@@ -203,7 +203,7 @@ config.web = {
             og_type: 'website'
         },
         settings: {
-            versionJs: '1.162',
+            versionJs: '0.01',
             env: 'development',
             server: 'staging', //local, dev, staging, live
             GA: 'NULL',

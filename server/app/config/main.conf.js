@@ -47,8 +47,8 @@ config.web = {
             pool: true,
             service: 'Gmail',
             auth: {
-                user: 'tatchu.it@gmail.com',
-                pass: 'english.study.app2017'
+                user: 'english.study.app@gmail.com',
+                pass: 'Boss4517'
             },
             // host: 'smtp.kuikoo.com',
             // port: 465,
@@ -66,7 +66,7 @@ config.web = {
     email: {
         from: {
             "name": "English Study App",
-            "address": "tatchu.it@gmail.com"
+            "address": "english.study.app@gmail.com"
         },
         to: [],
         cc: [],

@@ -42,14 +42,12 @@
                     index = key;
                     return item._id == data.shipping_address._id;
                 });
-                console.log('test',user.customer.shipping_address[index],vmEditShippingAddress.formData);
                 user.customer.shipping_address[index] = {
                     name: sanitizeHtml(vmEditShippingAddress.formData.name),
                     phone: sanitizeHtml(vmEditShippingAddress.formData.phone),
                     address_detail: sanitizeHtml(vmEditShippingAddress.formData.address_detail),
                     id_shipping_fee: vmEditShippingAddress.formData.id_shipping_fee._id
                 };
-                console.log('test1',user.customer.shipping_address[index]);
                 if(user.customer.shipping_address[index].name == '' 
                     || user.customer.shipping_address[index].phone == '' 
                     || user.customer.shipping_address[index].address_detail == '' )

@@ -1,0 +1,57 @@
+<div id="popup-exercise_1" class="bzPopup fix-width">
+    <div class="pop-head">
+        <h3 class="heading6 text-center">LUYỆN TẬP TỪ VỰNG</h3>
+    </div>
+    <div class="pop-content">
+        <div class="row">
+            <div class="col-md-5">
+                <h5 class="heading6 text-center">Hãy viết từ còn của từ vựng?</h5>
+                <h4 class="heading6 text-center word-missing">[[vmExercise_1.word.word]]</h4>
+            </div>
+            <div class="col-md-7">
+                <div class="has-snaphost" ng-show="vmExercise_1.hasImage">
+                    <div class="text-center">
+                        <img ng-click="vmExercise_1.cropImage()" ng-src="[[vmExercise_1.imgDir + vmExercise_1.image.name]]" alt="" class="image-responsive img-snaphot">
+                        <canvas id="snapshot" ng-show="false" class="image-responsive"></canvas>
+                    </div>
+                    <button ng-click="vmExercise_1.checkResult()" class="btn btn-md btn-success btn-left btn-block">Kiểm tra kết quả</button>
+                    <button ng-click="vmExercise_1.resetImage()" class="btn btn-md btn-default btn-right  btn-block">Chụp lại</button>
+                </div>
+                <div class="live-video" ng-show="!vmExercise_1.hasImage">
+                    <div class="text-center">
+                        <webcam on-stream="vmExercise_1.onStream(stream)" on-access-denied="vmExercise_1.onError(err)" on-streaming="vmExercise_1.onSuccess()"
+                            channel="vmExercise_1.channel">
+                        </webcam>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-left" ng-click="vmExercise_1.makeSnapshot()">Chụp ảnh</button>
+
+                    <button type="button" class="btn btn-default btn-right" ng-click="vmExercise_1.exit()">Quay lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .fix-width {
+        max-width: 1036px;
+    }
+
+    .word-missing {
+        font-size: -webkit-xxx-large;
+        margin-top: 5%;
+    }
+
+    .btn-left {
+        width: 70%;
+        max-width: 300px !important;
+    }
+
+    .btn-right {
+        width: 30%;
+        max-width: 150px !important;
+    }
+    .img-snaphot{
+        max-width: 150px;
+    }
+</style>

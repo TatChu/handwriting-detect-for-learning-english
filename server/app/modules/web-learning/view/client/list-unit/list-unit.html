@@ -20,7 +20,7 @@
                             <h2 class="text-center text-success">Danh sách bài học cho bạn</h2>
                             <div class="list-group">
                                 {{#each units}}
-                                <a href="/hoc-bai/{{this._id}}" class="list-group-item">
+                                <a href="/hoc-bai/{{this._id}}" class="list-group-item" ng-class="{'active': {{@index}}   % 2 == 0} ">
                                     <h4 class="list-group-item-heading">Unit {{this.index_unit}}: {{this.name}}</h4>
                                     <p class="list-group-item-text">{{this.short_description}}</p>
                                 </a>

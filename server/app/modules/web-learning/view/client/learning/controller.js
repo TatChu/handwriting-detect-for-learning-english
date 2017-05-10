@@ -5,7 +5,7 @@ var vocabularyWebCtrl = (function () {
         .module('bsLearning')
         .controller('vocabularyWebCtrl', vocabularyWebCtrl);
 
-    function vocabularyWebCtrl($scope, $window, bzResourceSvc, listTypesWord) {
+    function vocabularyWebCtrl($scope, $window, $uibModal, bzResourceSvc, listTypesWord) {
         var vmLearn = this;
 
         // VARS
@@ -24,6 +24,7 @@ var vocabularyWebCtrl = (function () {
         vmLearn.next = next;
         vmLearn.prev = prev;
         vmLearn.getClasses = getClasses;
+        vmLearn.openExersice_1 = openExersice_1;
 
         // function
         function Init() {
@@ -33,6 +34,28 @@ var vocabularyWebCtrl = (function () {
             }
         }
 
+        function openExersice_1() {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: settings.services.webUrl + '/modules/web-learning/view/client/popup/exercise_1/excercise_1.html',
+                controller: 'exercise_1_Ctrl',
+                controllerAs: 'vmExercise_1',
+                size: 'lg',
+                resolve: {
+                    word: function () {
+                        return angular.copy(vmLearn.word);
+                    },
+                    listVocabulary: function () {
+                        return angular.copy(vmLearn.listVocabulary);
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+
+            }, function () {
+            });
+        }
 
         function speak() {
             responsiveVoice.speak(vmLearn.word.word);

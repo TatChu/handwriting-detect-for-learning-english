@@ -5,7 +5,7 @@ var vocabularyWebCtrl = (function () {
         .module('bsLearning')
         .controller('vocabularyWebCtrl', vocabularyWebCtrl);
 
-    function vocabularyWebCtrl($scope, $window, $uibModal, bzResourceSvc, listTypesWord) {
+    function vocabularyWebCtrl($scope, $rootScope, $window, $uibModal, bzResourceSvc, listTypesWord) {
         var vmLearn = this;
 
         // VARS
@@ -52,7 +52,7 @@ var vocabularyWebCtrl = (function () {
             });
 
             modalInstance.result.then(function () {
-
+                $rootScope.stream.getTracks()[0].stop();
             }, function () {
             });
         }

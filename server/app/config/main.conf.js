@@ -98,6 +98,8 @@ config.web = {
         thumbImgContentPath: process.cwd() + '/public/files/thumb_image/',
 
         tempImgContentPath: process.cwd() + '/public/files/tmp/',
+        tempImgPath: 'public/files/tmp/',
+
         thumbImgPathProduct: '/public/files/thumb_image/product_image/',
         thumbImgContentPathProduct: process.cwd() + '/public/files/thumb_image/product_image/',
         avatarImgPath: process.cwd() + '/public/files/avatar_image/',

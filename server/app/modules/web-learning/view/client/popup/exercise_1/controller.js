@@ -5,7 +5,7 @@ var exercise_1_Ctrl = (function () {
         .module('bsLearning')
         .controller('exercise_1_Ctrl', exercise_1_Ctrl);
 
-    function exercise_1_Ctrl($scope, $window, $uibModalInstance, $uibModal, bzUpload, bzResourceSvc, word, listVocabulary) {
+    function exercise_1_Ctrl($scope, $rootScope, $window, $uibModalInstance, $uibModal, bzUpload, bzResourceSvc, LearnSvc, word, listVocabulary) {
         var vmExercise_1 = this;
 
         // VARS
@@ -13,8 +13,8 @@ var exercise_1_Ctrl = (function () {
 
 
         var _video = null,
-            patData = null,
-            stream = null;
+            patData = null
+        $rootScope.stream = null;
 
         vmExercise_1.showDemos = false;
         vmExercise_1.edgeDetection = false;
@@ -40,11 +40,23 @@ var exercise_1_Ctrl = (function () {
         vmExercise_1.exit = exit;
 
         vmExercise_1.randomCharecter = randomCharecter;
+        vmExercise_1.processImg = processImg;
 
         // FUNCTION
 
         function resetImage() {
             vmExercise_1.hasImage = false;
+        }
+
+        function processImg() {
+            LearnSvc.processImage({
+                directory: settingJs.configs.uploadDirectory.tmp,
+                name: vmExercise_1.image.name
+            }).then(function (resp) {
+                console.log('success', resp)
+            }).catch(function (err) {
+                console.log('err', err)
+            })
         }
 
         function checkResult() {
@@ -80,7 +92,7 @@ var exercise_1_Ctrl = (function () {
         };
 
         vmExercise_1.onStream = function (videoStream) {
-            stream = videoStream;
+            $rootScope.stream = videoStream;
         };
 
 
@@ -107,7 +119,7 @@ var exercise_1_Ctrl = (function () {
         };
 
         function exit() {
-            stream.getTracks()[0].stop();
+            $rootScope.stream.getTracks()[0].stop();
             $uibModalInstance.close();
         }
 

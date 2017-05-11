@@ -14,7 +14,7 @@
                         <img ng-click="vmExercise_1.cropImage()" ng-src="[[vmExercise_1.imgDir + vmExercise_1.image.name]]" alt="" class="image-responsive img-snaphot">
                         <canvas id="snapshot" ng-show="false" class="image-responsive"></canvas>
                     </div>
-                    <button ng-click="vmExercise_1.checkResult()" class="btn btn-md btn-success btn-left btn-block">Kiểm tra kết quả</button>
+                    <button ng-click="vmExercise_1.processImg()" class="btn btn-md btn-success btn-left btn-block">Xử lý ảnh</button>
                     <button ng-click="vmExercise_1.resetImage()" class="btn btn-md btn-default btn-right  btn-block">Chụp lại</button>
                 </div>
                 <div class="live-video" ng-show="!vmExercise_1.hasImage">

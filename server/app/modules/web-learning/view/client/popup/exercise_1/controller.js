@@ -26,13 +26,20 @@ var exercise_1_Ctrl = (function () {
 
         vmExercise_1.word = word;
         vmExercise_1.listVocabulary = listVocabulary;
-
+        vmExercise_1.indexWord = -1;
         vmExercise_1.hasImage = false;
 
         vmExercise_1.imgProcessed = {
             isProcessed: false,
             iamge: null
         }
+
+        vmExercise_1.textRecognition = {
+            identified: false,
+            char: '',
+            data: null
+        }
+
         // INIT
         randomCharecter();
 
@@ -45,6 +52,8 @@ var exercise_1_Ctrl = (function () {
 
         vmExercise_1.randomCharecter = randomCharecter;
         vmExercise_1.processImg = processImg;
+
+        vmExercise_1.nextWord = nextWord;
 
         // FUNCTION
 
@@ -71,6 +80,10 @@ var exercise_1_Ctrl = (function () {
                 directory: settingJs.configs.uploadDirectory.tmp,
                 name: vmExercise_1.imgProcessed.image.name
             }).then(function (resp) {
+                vmExercise_1.textRecognition.identified = true;
+                vmExercise_1.textRecognition.char = resp.charPredict;
+                vmExercise_1.textRecognition.data = resp;
+
                 console.log('checkResult', resp)
             }).catch(function (err) {
                 console.log('err checkResult', err)
@@ -78,13 +91,30 @@ var exercise_1_Ctrl = (function () {
         }
 
         function randomCharecter() {
+            // reset kêt quả trước nếu có
+            vmExercise_1.textRecognition.identified = false;
+
             var arr_charecter = vmExercise_1.word.word.split('');
-            var missingCharecter = arr_charecter[Math.round(Math.random() * (arr_charecter.length - 1))];
-            var indexMissingCharecter = arr_charecter.indexOf(missingCharecter);
+            vmExercise_1.missingCharecter = arr_charecter[Math.round(Math.random() * (arr_charecter.length - 1))];
+            var indexMissingCharecter = arr_charecter.indexOf(vmExercise_1.missingCharecter);
             arr_charecter[indexMissingCharecter] = '_';
-            vmExercise_1.word.word = arr_charecter.join('');
+            vmExercise_1.textMissing = arr_charecter.join('');
+
+            vmExercise_1.listVocabulary.forEach(function (item, index) {
+                if (item.word == vmExercise_1.word.word) {
+                    vmExercise_1.indexWord = index;
+                }
+            });
         }
 
+        function nextWord() {
+            if (vmExercise_1.indexWord + 1 < vmExercise_1.listVocabulary.length) {
+                vmExercise_1.indexWord++;
+                vmExercise_1.word = vmExercise_1.listVocabulary[vmExercise_1.indexWord];
+
+                randomCharecter();
+            }
+        }
 
 
         vmExercise_1.onError = function (err) {

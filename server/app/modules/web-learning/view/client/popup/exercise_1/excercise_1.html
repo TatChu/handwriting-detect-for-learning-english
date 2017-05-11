@@ -4,10 +4,6 @@
     </div>
     <div class="pop-content">
         <div class="row">
-            <div class="col-md-5">
-                <h5 class="heading6 text-center">Hãy viết từ còn của từ vựng?</h5>
-                <h4 class="heading6 text-center word-missing">[[vmExercise_1.word.word]]</h4>
-            </div>
             <div class="col-md-7">
                 <div class="has-snaphost" ng-show="vmExercise_1.hasImage">
                     <div class="text-center">
@@ -15,11 +11,14 @@
 
                         <img ng-if="vmExercise_1.imgProcessed.isProcessed" ng-src="[[vmExercise_1.imgDir + vmExercise_1.imgProcessed.image.name]]"
                             alt="" class="image-responsive img-processed">
+
                         <canvas id="snapshot" ng-show="false" class="image-responsive"></canvas>
                     </div>
-                    <button ng-if="vmExercise_1.imgProcessed.isProcessed" ng-click="vmExercise_1.checkResult()" class="btn btn-md btn-info btn-left btn-block">Kiểm tra kết quả</button>
 
                     <button ng-if="!vmExercise_1.imgProcessed.isProcessed" ng-click="vmExercise_1.processImg()" class="btn btn-md btn-success btn-left btn-block">Xử lý ảnh</button>
+
+                    <button ng-if="vmExercise_1.imgProcessed.isProcessed" ng-click="vmExercise_1.checkResult()" class="btn btn-md btn-info btn-left btn-block">Kiểm tra kết quả</button>
+
                     <button ng-click="vmExercise_1.resetImage()" class="btn btn-md btn-default btn-right  btn-block">Chụp lại</button>
                 </div>
                 <div class="live-video" ng-show="!vmExercise_1.hasImage">
@@ -28,9 +27,35 @@
                             channel="vmExercise_1.channel">
                         </webcam>
                     </div>
+
                     <button type="button" class="btn btn-primary btn-left" ng-click="vmExercise_1.makeSnapshot()">Chụp ảnh</button>
 
                     <button type="button" class="btn btn-default btn-right" ng-click="vmExercise_1.exit()">Quay lại</button>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <h5 class="heading6 text-center">Hãy viết từ còn của từ vựng?</h5>
+                <h4 class="heading6 text-center word-missing">[[vmExercise_1.textMissing]]</h4>
+
+                <div class="div-text-recog text-center" ng-if="vmExercise_1.textRecognition.identified">
+                    <h2>Đáp án của bạn:</h2>
+                    <span class="heading6 text-center char-recognition" ng-bind="vmExercise_1.textRecognition.char | uppercase"></span>
+                </div>
+                <div class="div-check-result text-center" ng-if="vmExercise_1.textRecognition.char == vmExercise_1.missingCharecter && vmExercise_1.textRecognition.identified">
+                    <h2 class="fuchsia">Chính xác!</h2>
+                    <h4 class="heading6 text-center word-missing">[[vmExercise_1.word.word]]
+                        <br>
+                        <span class="purple">[[vmExercise_1.word.define]]</span></h4>
+                </div>
+
+                <div class="div-check-result text-center" ng-if="vmExercise_1.textRecognition.char != vmExercise_1.missingCharecter && vmExercise_1.textRecognition.identified">
+                    <h2 class="res-false">Chưa chính xác!</h2>
+                </div>
+
+                <div class="button-recog" ng-if="vmExercise_1.textRecognition.identified">
+                    <button type="button" class="btn btn-default btn-50" ng-click="vmExercise_1.randomCharecter()">Làm lại</button>
+
+                    <button type="button" class="btn btn-warning btn-50" ng-click="vmExercise_1.nextWord()">Từ tiếp theo</button>
                 </div>
             </div>
         </div>
@@ -65,5 +90,29 @@
         width: 60px;
         height: 90px;
         margin-left: 15px;
+    }
+
+    .char-recognition {
+        font-size: 4em;
+    }
+
+    .div-text-recog {
+        margin-top: 15px;
+    }
+
+    .res-false {
+        color: red;
+        font-size: 3em;
+    }
+
+    .purple {
+        color: purple;
+    }
+
+    .fuchsia{
+        color: fuchsia;
+    }
+    .btn-50 {
+        width: 50%;
     }
 </style>

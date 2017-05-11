@@ -18,9 +18,12 @@ module.exports = {
 
 function recognition(request, reply) {
     let image = request.payload.name;
-    console.log(123123, image)
-    RecognitionUtil.recognition('public/files/tmp/' + image);
-    return reply({ success: false });
+    RecognitionUtil.recognition('public/files/tmp/' + image).then(function (resp) {
+        return reply(resp);
+    }).catch(function (err) {
+        console.log('err recognition', err);
+        return Boom.badRequest('Error', err)
+    });
 }
 
 function processImg(request, reply) {

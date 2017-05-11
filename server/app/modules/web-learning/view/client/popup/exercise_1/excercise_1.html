@@ -41,14 +41,14 @@
                     <h2>Đáp án của bạn:</h2>
                     <span class="heading6 text-center char-recognition" ng-bind="vmExercise_1.textRecognition.char | uppercase"></span>
                 </div>
-                <div class="div-check-result text-center" ng-if="vmExercise_1.textRecognition.char == vmExercise_1.missingCharecter && vmExercise_1.textRecognition.identified">
+                <div class="div-check-result text-center" ng-if="((vmExercise_1.textRecognition.char == vmExercise_1.missingCharecter) || (vmExercise_1.textRecognition.char.toUpperCase() == vmExercise_1.missingCharecter)) && vmExercise_1.textRecognition.identified">
                     <h2 class="fuchsia">Chính xác!</h2>
                     <h4 class="heading6 text-center word-missing">[[vmExercise_1.word.word]]
                         <br>
                         <span class="purple">[[vmExercise_1.word.define]]</span></h4>
                 </div>
 
-                <div class="div-check-result text-center" ng-if="vmExercise_1.textRecognition.char != vmExercise_1.missingCharecter && vmExercise_1.textRecognition.identified">
+                <div class="div-check-result text-center" ng-if="((vmExercise_1.textRecognition.char != vmExercise_1.missingCharecter) && (vmExercise_1.textRecognition.char.toUpperCase() != vmExercise_1.missingCharecter))">
                     <h2 class="res-false">Chưa chính xác!</h2>
                 </div>
 

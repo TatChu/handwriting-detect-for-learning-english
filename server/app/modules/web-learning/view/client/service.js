@@ -17,7 +17,7 @@
             processImage: processImage
         };
 
-        function recognition() {
+        function recognition(data) {
             var data = new LearnFac(data);
             return data.$save({ method: 'recognition' });
         }

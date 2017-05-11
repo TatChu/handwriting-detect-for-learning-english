@@ -29,6 +29,10 @@ var exercise_1_Ctrl = (function () {
 
         vmExercise_1.hasImage = false;
 
+        vmExercise_1.imgProcessed = {
+            isProcessed: false,
+            iamge: null
+        }
         // INIT
         randomCharecter();
 
@@ -46,6 +50,7 @@ var exercise_1_Ctrl = (function () {
 
         function resetImage() {
             vmExercise_1.hasImage = false;
+            vmExercise_1.imgProcessed.isProcessed = false;
         }
 
         function processImg() {
@@ -53,14 +58,23 @@ var exercise_1_Ctrl = (function () {
                 directory: settingJs.configs.uploadDirectory.tmp,
                 name: vmExercise_1.image.name
             }).then(function (resp) {
-                console.log('success', resp)
+                console.log('processImg', resp)
+                vmExercise_1.imgProcessed.isProcessed = true;
+                vmExercise_1.imgProcessed.image = resp.resp;
             }).catch(function (err) {
-                console.log('err', err)
+                console.log('err processImg', err)
             })
         }
 
         function checkResult() {
-
+            LearnSvc.recognition({
+                directory: settingJs.configs.uploadDirectory.tmp,
+                name: vmExercise_1.imgProcessed.image.name
+            }).then(function (resp) {
+                console.log('checkResult', resp)
+            }).catch(function (err) {
+                console.log('err checkResult', err)
+            })
         }
 
         function randomCharecter() {

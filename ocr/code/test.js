@@ -1,6 +1,6 @@
 // xáo trộn mảng
 var shuffle = require('shuffle-array');
-let brain = require('brain.js');
+let brain = require('brain');
 const Jimp = require('jimp');
 const width = 10, height = 15;
 const nguong = 20;
@@ -13,7 +13,7 @@ var json = require('./../net.json');
 let net = new brain.NeuralNetwork();
 net.fromJSON(json);
 
-const imgSrc = 'tmp/test/15_10_tmp_1494478246354.jpg'
+const imgSrc = 'tmp/test/processed_tmp_1494496665080.jpg'
 let input = [];
 Jimp.read(imgSrc, function (err, image) {
     this.scan(0, 0, image.bitmap.width, image.bitmap.height, function (x, y, idx) {

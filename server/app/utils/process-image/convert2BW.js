@@ -50,10 +50,10 @@ function PreProcess(imgDir, imgName, option) {
 
 
                         // khu nhieu
-                        const lowThresh = 0 // option.lowThresh || 0; // càng lớn càng mất nét
-                        const highThresh = 8 // option.highThresh || 100; // cang lon loc cang manh
+                        const lowThresh = option.lowThresh || 0; // càng lớn càng mất nét
+                        const highThresh = option.highThresh || 10; // cang lon loc cang manh
                         img.canny(lowThresh, highThresh);
-                        img.save(imgDir + '_1_' + imgName);
+                        // img.save(imgDir + '_1_' + imgName);
 
 
                         // img.erode(0); // xói mòn
@@ -66,14 +66,19 @@ function PreProcess(imgDir, imgName, option) {
                         // if (!fs.existsSync(imgDir)) {
                         //     fs.mkdirSync(imgDir);
                         // }
-                        let processedImg = 'processed_' + imgName;
+                        let processedImg = '_BW_' + imgName;
                         img.save(imgDir + processedImg);
                         Jimp.read(imgDir + processedImg, function (err, imgProcessed) {
-                            imgProcessed.autocrop().resize(10, 15).write(imgDir + '15_10_' + imgName);
+                            imgProcessed.autocrop().resize(10, 15).write(imgDir + 'processed_' + imgName);
+
+                            fs.unlink(imgDir + processedImg);
+                            fs.unlink(imgDir + '_gr_' + imgName);
+
+                            return resolve({
+                                name: 'processed_' + imgName
+                            })
                         })
-                        return resolve({
-                            name: processedImg
-                        })
+
                     })
                 })
             })

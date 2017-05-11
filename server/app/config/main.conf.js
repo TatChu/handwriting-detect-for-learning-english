@@ -107,10 +107,8 @@ config.web = {
         oldMediaContentPathProduct: process.cwd() + '/public/files/media_old/product/',
         oldMediaPath: '/files/media_old/',
         oldMediaContentPath: process.cwd() + '/public/files/media_old/',
-
-
     },
-    dirDataTraninng: {
+    dirDataNeuralNetwork: {
         root: '/public/data-tranning/',
         general: '/public/data-tranning/general/',
     },

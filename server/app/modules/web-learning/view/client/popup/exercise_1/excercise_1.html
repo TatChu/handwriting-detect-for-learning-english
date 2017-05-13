@@ -39,7 +39,7 @@
 
                 <div class="div-text-recog text-center" ng-if="vmExercise_1.textRecognition.identified">
                     <h2>Đáp án của bạn:</h2>
-                    <span class="heading6 text-center char-recognition" ng-bind="vmExercise_1.textRecognition.char | uppercase"></span>
+                    <span class="heading6 text-center char-recognition" ng-bind="vmExercise_1.textRecognition.char"></span>
                 </div>
                 <div class="div-check-result text-center" ng-if="((vmExercise_1.textRecognition.char == vmExercise_1.missingCharecter) || (vmExercise_1.textRecognition.char.toUpperCase() == vmExercise_1.missingCharecter)) && vmExercise_1.textRecognition.identified">
                     <h2 class="fuchsia">Chính xác!</h2>
@@ -68,7 +68,7 @@
     }
 
     .word-missing {
-        font-size: -webkit-xxx-large;
+        font-size: 3em;
         margin-top: 5%;
     }
 

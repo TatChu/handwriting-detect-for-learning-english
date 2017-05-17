@@ -16,13 +16,19 @@ var testSet = require('./../tmp/data-testing.json');
 shuffle(trainingSet)
 shuffle(testSet)
 
+console.time('train: ')
 net.train(trainingSet, {
     errorThresh: 0.0005,  // error threshold to reach
     iterations: 20000,   // maximum training iterations
     log: true,           // console.log() progress periodically
     logPeriod: 1,       // number of iterations between logging
-    learningRate: 0.2   // learning rate
+    learningRate: 0.2,   // learning rate
+    callback: function (resp) {
+        console.log(resp);
+    }
 });
+console.timeEnd('train: ')
+
 let totalSetTest = testSet.length;
 let OK = 0;
 

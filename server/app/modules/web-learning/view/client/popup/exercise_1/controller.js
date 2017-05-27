@@ -20,7 +20,7 @@ var exercise_1_Ctrl = (function () {
         vmExercise_1.edgeDetection = false;
         vmExercise_1.mono = false;
         vmExercise_1.invert = false;
-        vmExercise_1.patOpts = { x: 90, y: 30, w: 90, h: 90 };
+        vmExercise_1.patOpts = { x: 0, y: 0, w: 200, h: 200 };
         vmExercise_1.channel = {};
         vmExercise_1.webcamError = false;
 
@@ -207,7 +207,7 @@ var exercise_1_Ctrl = (function () {
                 patCanvas.height = _video.height;
                 var ctxPat = patCanvas.getContext('2d');
 
-                var idata = getVideoData(vmExercise_1.patOpts.x, vmExercise_1.patOpts.y, vmExercise_1.patOpts.w, vmExercise_1.patOpts.h);
+                var idata = getVideoData(vmExercise_1.patOpts.x, vmExercise_1.patOpts.y, _video.width, _video.height);
                 ctxPat.putImageData(idata, 0, 0);
                 processImageSnaphost(patCanvas.toDataURL());
 

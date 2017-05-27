@@ -119,3 +119,37 @@ PreProcess('image/bang chu cai/' + character + '.jpg', character, 'tmp/' + chara
     console.log('DONE', character);
     done();
 })
+
+
+
+// // Khai báo tham chiếu thư module
+// const cv = require('opencv');
+// const Jimp = require('jimp');
+
+// // Đọc ảnh
+// var imgSrc = ‘dist/to/img/scan.jpg’;
+// cv.readImage(imgSrc, function (err, img) {
+//         if (err) {
+//             throw err;
+//         }
+//         //Chỉnh kích thước ảnh scan về 3000x2000
+//         img.resize(3000, 2000);
+
+//         // Chuyển sang ảnh xám để xử lý
+//         img.convertGrayscale();
+
+//         // Khử nhiễu Gaussian
+//         img.gaussianBlur([3, 3]);
+
+//         // Chuyển ảnh trắng đen
+//         img = img.adaptiveThreshold(255, 0, 0, 15, 2);
+
+//         // Lọc nhiễu theo ngưỡng
+//         const lowThresh = 0;
+//         const highThresh = 250
+//         img.canny(lowThresh, highThresh);
+
+//         //Lưu ảnh đã xử lý
+//         let distSrc = imgDist + character + '.jpg';
+//         img.save(distSrc);
+//     });

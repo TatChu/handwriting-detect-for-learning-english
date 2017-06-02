@@ -10,9 +10,9 @@ Modules Load Auto
 *******************************************************************/
 /*inject-module:scss*/
 @import "../../../../app/modules/admin-dashboard/view/client/_style.scss";
+@import "../../../../app/modules/admin-auth/view/client/login/_style.scss";
 @import "../../../../app/modules/admin-acl/view/client/add/_style.scss";
 @import "../../../../app/modules/admin-acl/view/client/list/_style.scss";
-@import "../../../../app/modules/admin-auth/view/client/login/_style.scss";
 @import "../../../../app/modules/admin-blog/view/client/add/_style.scss";
 @import "../../../../app/modules/admin-blog/view/client/list/_style.scss";
 @import "../../../../app/modules/admin-category/view/client/add-category/_style.scss";
@@ -28,11 +28,11 @@ Modules Load Auto
 @import "../../../../app/modules/admin-order/view/client/add-order/_style.scss";
 @import "../../../../app/modules/admin-order/view/client/edit-order/_style.scss";
 @import "../../../../app/modules/admin-order/view/client/list-order/_style.scss";
+@import "../../../../app/modules/admin-promotion/view/client/add-promotion/_style.scss";
+@import "../../../../app/modules/admin-promotion/view/client/list-promotion/_style.scss";
 @import "../../../../app/modules/admin-product/view/client/add-product/_style.scss";
 @import "../../../../app/modules/admin-product/view/client/edit-product/_style.scss";
 @import "../../../../app/modules/admin-product/view/client/list-product/_style.scss";
-@import "../../../../app/modules/admin-promotion/view/client/add-promotion/_style.scss";
-@import "../../../../app/modules/admin-promotion/view/client/list-promotion/_style.scss";
 @import "../../../../app/modules/admin-shippingfee/view/client/list-shippingfee/_style.scss";
 @import "../../../../app/modules/admin-supplier/view/client/add-supplier/_style.scss";
 @import "../../../../app/modules/admin-supplier/view/client/list-supplier/_style.scss";

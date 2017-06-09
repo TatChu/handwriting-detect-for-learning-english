@@ -87,13 +87,6 @@ var UserSchema = new Schema({
         default: '',
         trim: true,
     },
-    favorite_product: [
-        {
-            _id: false,
-            type: Schema.ObjectId,
-            ref: 'Product'
-        }
-    ],
     dob: {
         type: Date,
         default: null
@@ -111,31 +104,6 @@ var UserSchema = new Schema({
         type: Date
     },
     deletedAt: Date,
-
-    customer: {
-        shipping_address: [{
-            _id: {
-                type: Schema.Types.ObjectId,
-                default: function () { return mongoose.Types.ObjectId() }
-            },
-            name: {
-                type: String
-            },
-            phone: {
-                type: String
-            },
-            address_detail: {
-                type: String
-            },
-            id_shipping_fee: {
-                type: Schema.ObjectId,
-                ref: 'ShippingFee'
-            },
-            vocative: {
-                type: String
-            }
-        }]
-    }
 }, {
         collection: prefixCollection + 'users',
         timestamps: true

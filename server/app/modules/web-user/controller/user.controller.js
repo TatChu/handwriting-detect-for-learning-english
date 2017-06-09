@@ -4,15 +4,13 @@ const util = require('util');
 const Joi = require('joi');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
-const Order = mongoose.model('Order');
 const _ = require('lodash');
 
 module.exports = {
     info,
-    favoriteProduct,
     recognitionMyData,
-    order,
-    changePass
+    changePass,
+    favoriteUnit
 };
 
 function info(request, reply) {
@@ -31,25 +29,23 @@ function info(request, reply) {
 }
 
 
-function favoriteProduct(request, reply) {
-    let uid = request.auth.credentials.uid;
+function favoriteUnit(request, reply) {
     const Meta = request.server.plugins['service-meta'];
-    var meta = JSON.parse(JSON.stringify(Meta.getMeta('user-note')));
+    var meta = JSON.parse(JSON.stringify(Meta.getMeta('user-info')));
+    let uid = request.auth.credentials.uid;
+
     if (!uid) {
         return reply.redirect('/');
     }
-    let promise = User.findOne({ _id: uid }).populate({
-        path: 'favorite_product',
-        populate: [
-            {
-                path: 'id_promotion'
-            }
-        ]
-    });
+    let promise = User.findOne({ _id: uid });
     promise.then(function (user) {
-        return reply.view('web-user/view/client/favorite-product/view', { data: user.favorite_product, meta: meta }, { layout: 'web/layout' });
+        return reply.view('web-user/view/client/info/view', { data: user, meta: meta }, { layout: 'web/layout' });
     });
+
 }
+
+
+
 
 
 function recognitionMyData(request, reply) {
@@ -66,23 +62,6 @@ function recognitionMyData(request, reply) {
     });
 }
 
-
-function order(request, reply) {
-    let uid = request.auth.credentials.uid;
-    const Meta = request.server.plugins['service-meta'];
-    var meta = JSON.parse(JSON.stringify(Meta.getMeta('user-order')));
-    if (!uid) {
-        return reply.redirect('/');
-    }
-    let promise = Order.find({
-        'payment_info.info.user_id': {
-            $in: [uid]
-        }
-    }).sort('-id_order').populate('order_detail.product');
-    promise.then(function (order) {
-        return reply.view('web-user/view/client/order/view', { data: order, meta: meta }, { layout: 'web/layout' });
-    });
-}
 
 
 function changePass(request, reply) {

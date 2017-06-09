@@ -10,17 +10,6 @@ exports.register = function (server, options, next) {
         handler: WebOrderController.listPostByTag
     });
 
-    server.route({
-        method: 'GET',
-        path: '/blogs',
-        handler: WebOrderController.getAllPost
-    });
-
-    server.route({
-        method: 'GET',
-        path: '/tags-blog',
-        handler: WebOrderController.getAllTagBlog
-    });
 
     server.route({
         method: 'GET',
@@ -28,22 +17,6 @@ exports.register = function (server, options, next) {
         handler: WebOrderController.getDetailPost
     });
 
-    /**
-     * get pages chinh sách, liên kết banner
-     * ex: chinh-sach-giao-hang/ gioi-thieu/ cau-hoi-thuong-gap ...
-     */
-
-    server.route({
-        method: 'GET',
-        path: '/{namePage}',
-        handler: WebOrderController.getPolicyPage
-    });
-
-    server.route({
-        method: 'GET',
-        path: '/chuong-trinh-khuyen-mai/{namePage}',
-        handler: WebOrderController.getDetailPageKhuyenMai
-    });
     next();
 };
 

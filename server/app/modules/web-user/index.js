@@ -12,12 +12,6 @@ exports.register = function (server, options, next) {
 
     server.route({
         method: 'GET',
-        path: '/khach-hang/so-tay-noi-tro',
-        handler: UserController.favoriteProduct
-    });
-
-    server.route({
-        method: 'GET',
         path: '/khach-hang/nhan-dang-chu-cua-toi',
         handler: UserController.recognitionMyData,
         config: {
@@ -29,7 +23,7 @@ exports.register = function (server, options, next) {
     server.route({
         method: 'GET',
         path: '/khach-hang/bai-hoc-yeu-thich',
-        handler: UserController.order
+        handler: UserController.favoriteUnit
     });
     server.route({
         method: 'GET',

@@ -209,14 +209,6 @@ Modules Load Auto
   text-align: center;
 }
 
-#mod-vocabulary-add .image-upload {
-  max-width: 150px;
-}
-
-#mod-vocabulary-list .img-word {
-  max-width: 100px;
-}
-
 #mod-user-edit .for-saleman label[role='switcher'] {
   vertical-align: middle;
   margin: 0 0 10px;
@@ -259,6 +251,14 @@ Modules Load Auto
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
+}
+
+#mod-vocabulary-add .image-upload {
+  max-width: 150px;
+}
+
+#mod-vocabulary-list .img-word {
+  max-width: 100px;
 }
 
 #mod-popup-log p {

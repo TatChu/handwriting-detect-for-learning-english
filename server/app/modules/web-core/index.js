@@ -5,7 +5,6 @@ const CoreController = require('./controller/core.controller.js');
 exports.register = function (server, options, next) {
     server.ext('onPostHandler', CoreController.createGuestToken);
     server.ext('onPostHandler', CoreController.getCredentials);
-    server.ext('onPostHandler', CoreController.getListCategories);
     server.ext('onPostHandler', CoreController.getMeta);
     server.ext('onPreResponse', CoreController.handleError);
     server.ext('onPreResponse', function (request, reply) {

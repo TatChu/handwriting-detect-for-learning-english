@@ -8,17 +8,11 @@ var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 var asyncCao = require('async');
 
-const productHelper = require('../../web-product/util/product');
-const Category = mongoose.model('Category');
-const Product = mongoose.model('Product');
-
 module.exports = {
     createGuestToken: createGuestToken,
     getCredentials: getCredentials,
     getMeta: getMeta,
     handleError: handleError,
-    // getPostCategories: getPostCategories,
-    getListCategories: getListCategories,
 };
 
 function getCredentials(request, reply) {
@@ -138,91 +132,3 @@ function handleError(request, reply) {
         return reply.continue();
     }
 };
-
-/*function getPostCategories(request, reply) {
-    let promise = Category.find({status: 1, type: 'post'});
-    promise.then(function(postCategories) {
-        let response = request.response;
-        // Check to see if the response is a view
-        if (response.variety === 'view') {
-            response.source.context.postCategories = postCategories;
-        }
-        reply.continue();
-    });
-}*/
-
-function getListCategories(request, reply) {
-    let response = request.response;
-    if (response.variety === 'view') {
-        if (!_.isEmpty(response.source.context)) {
-            let promise = Category.find({ parrent_id: null }).populate(productHelper.autoPopulateCate('sub_category')).lean();
-
-            promise.then(function (categories) {
-                var getData = async(function (categories) {
-                    try {
-                        // Count and get product category
-                        let categories_list = [];
-                        var opt_find = function (category) {
-                            return productHelper.createOptDueDate({
-                                category: {
-                                    $in: productHelper.getCategorySub(category, [])
-                                },
-                            })
-                        };
-
-                        categories.forEach(function (category) {
-                            let products = await(Product.find(opt_find(category)).count());
-
-                            let parent_category = {
-                                category,
-                                product_count: products.length,
-                                sub_category: []
-                            };
-
-                            // Start: Get sub category and count product
-                            category.sub_category.forEach(function (sub) {
-                                let sub_products_count = await(Product.find(opt_find(sub)).count());
-                                let sub_obj = {
-                                    category: sub,
-                                    product_count: sub_products_count,
-                                    sub_category: []
-                                };
-
-                                // Start: get child categoru and count product
-                                sub.sub_category.forEach(function (child) {
-                                    let child_products_count = await(Product.find(opt_find(child)).count());
-                                    sub_obj.sub_category.push({
-                                        category: child,
-                                        product_count: child_products_count,
-                                        sub_category: []
-                                    });
-                                });
-                                // End: get child categoru and count product
-                                parent_category.sub_category.push(sub_obj);
-                            })
-                            // End: Get sub category and count product
-
-                            categories_list.push(parent_category);
-
-                        });
-
-                        return {
-                            categories_list
-                        };
-                    } catch (error) {
-                        console.log(error);
-                        return error;
-                    }
-                });
-
-                getData(categories).then(function (data) {
-                    response.source.context.category_menu = data;
-                    reply.continue();
-                })
-            });
-        }
-    }
-    else {
-        reply.continue();
-    }
-}

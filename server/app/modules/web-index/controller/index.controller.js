@@ -1,7 +1,6 @@
 'use strict';
 const Boom = require('boom');
 const Joi = require('joi');
-const mongoose = require('mongoose');
 const _ = require('lodash');
 const ErrorHandler = require(BASE_PATH + '/app/utils/error.js');
 

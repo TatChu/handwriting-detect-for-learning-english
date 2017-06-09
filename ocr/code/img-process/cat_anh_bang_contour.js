@@ -8,6 +8,7 @@ const whitePixel = Jimp.rgbaToInt(255, 255, 255, 255);
 const blackPixel = Jimp.rgbaToInt(0, 0, 0, 255);
 const WHITE = [255, 255, 255];
 const GREEN = [0, 255, 0];
+const BLACK = [0, 0, 0];
 const thickness = 1;
 const Promise = require("bluebird");
 
@@ -39,11 +40,8 @@ function PreProcess(imgDir, imgName, option) {
                         }
                         let imgSave = img.copy();
 
-                        // Chuyen trang den
-                        // img = img.adaptiveThreshold(255, 0, 0, 15, 2);
-
                         // Chuyen ve anh xam
-                        // img.convertGrayscale();
+                        img.convertGrayscale();
 
                         // lam mo
                         // img.medianBlur(1);
@@ -69,35 +67,69 @@ function PreProcess(imgDir, imgName, option) {
 
 
                         let contours = img.findContours();
-                        for (var p in contours) {
-                            console.log(contours[p]);
-                        }
+                        // for (var p in contours) {
+                        //     console.log(contours[p]);
+                        // }
 
                         let largestContourImg;
                         let largestArea = 0;
                         let largestAreaIndex;
-
+                        let arrContours = [];
+                        let arrContoursCut = [];
                         for (let i = 0; i < contours.size(); i++) {
-                            if (contours.area(i) > largestArea) {
-                                largestArea = contours.area(i);
-                                largestAreaIndex = i;
+
+
+                            let bound = contours.boundingRect(i);
+
+                            if (bound.width > 20 && bound.height > 25) {
+                                arrContours.push({
+                                    x: bound.x,
+                                    y: bound.y,
+                                    width: bound.width,
+                                    height: bound.height
+                                })
+                                // console.log(contours.area(i))
+                                imgSave.rectangle([bound.x, bound.y], [bound.width, bound.height], BLACK, 1);
                             }
+
+                            // arrContoursCut.forEach(bound => {
+                            //     console.log(bound.x, bound.y, bound.width, bound.height)
+                            // })
+                            // let imgCrop = img.crop(bound.x, bound.y, bound.width, bound.height);
+
+
+
+                            // if (contours.area(i) > largestArea) {
+                            //     largestArea = contours.area(i);
+                            //     largestAreaIndex = i;
+                            // }
                         }
-                        contours.fitEllipse(largestAreaIndex)
-                        console.log(largestArea, largestAreaIndex)
-                        let bound = contours.boundingRect(largestAreaIndex);
-                        img.rectangle([bound.x, bound.y], [bound.width, bound.height], WHITE, 2);
-                        imgSave = imgSave.crop(bound.x, bound.y, bound.width, bound.height);
-                        imgSave.save(imgDir + 'croped_' + imgName);
+                        arrContours.forEach(bound => {
+                            arrContours.forEach(elm => {
+                                if (bound.x > elm.x && bound.y > elm.y
+                                    && (bound.x + bound.height) < (elm.x + elm.height)
+                                    && (bound.x + bound.width) < (elm.x + elm.width)) { }
+                                else
+                                    arrContoursCut.push(bound);
+                            })
+                        })
+                        console.log('Length: ', arrContoursCut.length)
+
+
+                        // contours.fitEllipse(largestAreaIndex)
+                        // imgSave = imgSave.crop(bound.x, bound.y, bound.width, bound.height);
+                        // imgSave.save(imgDir + 'croped_' + imgName);
                         // img.drawContour(contours, largestAreaIndex, GREEN);
                         // allContoursImg.save(imgDir + "1_" + imgName);
                         // console.log(1111, contours.size())
                         // img.drawAllContours(contours, WHITE);
-                        img.save(imgDir + 'contours_' + imgName);
+
+                        //imgSave.save(imgDir + 'contours_' + imgName);
+                        imgSave.save(imgDir + 'contours_' + imgName);
                     });
                 });
             })
         })
     })
 }
-PreProcess('tmp/test/', 'crop.jpg', {})
+PreProcess('tmp/test/', 'o.jpg', {})

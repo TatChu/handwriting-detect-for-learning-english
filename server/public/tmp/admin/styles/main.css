@@ -291,19 +291,6 @@ Modules Load Auto
   margin-right: 10px;
 }
 
-#mod-coupon-add .select2-container {
-  display: block;
-}
-
-#mod-coupon-add .many-coupon {
-  margin-top: 1%;
-  cursor: pointer;
-}
-
-#mod-coupon-edit .select2-container {
-  display: block;
-}
-
 #mod-list-log .pointer {
   cursor: pointer;
 }
@@ -410,30 +397,6 @@ Modules Load Auto
   margin-right: 10px;
 }
 
-#mod-supplier-add .input-w-icon {
-  display: table;
-}
-
-#mod-supplier-add .deputy-label {
-  font-style: italic;
-}
-
-#mod-supplier-list .detail-deputy {
-  text-align: center;
-}
-
-#mod-supplier-list .no-data {
-  text-align: center;
-}
-
-#mod-supplier-list .margin-left {
-  margin-left: 15px;
-}
-
-#mod-supplier-list .required {
-  color: red;
-}
-
 #mod-tag-product .select2-container {
   display: block;
 }
@@ -492,11 +455,6 @@ Modules Load Auto
 
 #mod-vocabulary-list .img-word {
   max-width: 100px;
-}
-
-#mod-popup-add-coupon .error-require, #mod-popup-add-coupon .ng-scope, #mod-popup-add-coupon .messages-error, #mod-popup-add-coupon .ng-scope, #mod-popup-add-coupon .ng-active {
-  color: red;
-  margin-top: 1%;
 }
 
 #mod-popup-log p {

@@ -9,8 +9,8 @@ const arraysChart = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'l', 'k',
     'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 var net = new brain.NeuralNetwork({
-    hiddenLayers: 90,
-    learningRate: 0.3
+    hiddenLayers: 80,
+    learningRate: 0.4
 });
 
 var trainingSet = require('./../tmp/data-training.json');
@@ -20,19 +20,26 @@ var testSet = require('./../tmp/data-testing.json');
 shuffle(trainingSet)
 shuffle(testSet)
 
+let errs = [];
+
 console.time('train: ')
 net.train(trainingSet, {
-    errorThresh: 0.0005,  // error threshold to reach
-    iterations: 10000,   // maximum training iterations
+    errorThresh: 0.0001,  // error threshold to reach
+    momentum: 0.3,
+    iterations: 1000,   // maximum training iterations
     log: true,           // console.log() progress periodically
-    logPeriod: 1,       // number of iterations between logging
-    learningRate: 0.2,   // learning rate
+    logPeriod: 20,       // number of iterations between logging
     callback: function (resp) {
-        console.log(resp);
+        // console.log(resp);
+        errs.push(resp.error);
     }
 });
-console.timeEnd('train: ')
 
+jsonfile.writeFile('errors.json', { values: errs }, function (err) {
+    if (err) throw err;
+})
+
+console.timeEnd('train: ')
 let totalSetTest = testSet.length;
 let OK = 0;
 
@@ -55,7 +62,7 @@ console.log('OK: ', OK);
 console.log('totalSetTest: ', totalSetTest);
 console.log('Percent recognition: ', (OK / totalSetTest) * 100, '%')
 for (var i = 0; i < 26; i++) {
-    console.log(arraysChart[i], ': ', detailTest.ok[i] + '/' + detailTest.count[i] + ' -> ' + (detailTest.ok[i] * 100 / detailTest.count[i]) + ' %')
+    // console.log(arraysChart[i], ': ', detailTest.ok[i] + '/' + detailTest.count[i] + ' -> ' + (detailTest.ok[i] * 100 / detailTest.count[i]) + ' %')
 }
 var obj = net.toJSON();
 jsonfile.writeFile(file, obj, function (err) {

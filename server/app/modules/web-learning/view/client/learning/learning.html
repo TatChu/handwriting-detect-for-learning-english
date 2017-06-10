@@ -16,14 +16,14 @@
                 <span class="phienam" ng-bind="vmLearn.word.transcribe"></span>
                 <div class="row more">
                     <div ng-click="vmLearn.speak()" class="col-md-6">
-                        <div class="">
+                        <div class="cursor">
                             <img src="{{linkAssets 'button/sound.png'}}" alt="" class="img-sound-word">
                             <!--<input onclick=';' type='button' value='🔊 Play' />-->
-                            <label class="control-label"> Cách đọc từ</label>
+                            <label class="cursor" class="control-label"> Cách đọc từ</label>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label class="control-label">Loại từ: [[vmLearn.index]]</label>
+                        <label class="control-label">Loại từ:</label>
                         <span class="" ng-bind="vmLearn.getClasses(vmLearn.word.classes)"></span>
                     </div>
                     <div class="btn-div">
@@ -106,5 +106,8 @@
 
     .btn-block+.btn-block {
         margin-top: 0;
+    }
+    .cursor{
+        cursor: pointer
     }
 </style>

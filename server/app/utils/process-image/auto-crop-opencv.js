@@ -13,10 +13,10 @@ const Promise = require("bluebird");
 
 
 module.exports = {
-    PreProcess,
+    cropByContour,
 }
 
-function PreProcess(imgDir, imgName, option) {
+function cropByContour(imgDir, imgName, option) {
     return new Promise(function (resolve, reject) {
         Jimp.read(imgDir + imgName, function (err, imgJimp) {
             if (err) {
@@ -49,21 +49,21 @@ function PreProcess(imgDir, imgName, option) {
                         // khu nhieu gaussian
                         // img.gaussianBlur([1, 5]);
                         img.gaussianBlur([3, 3]);
-                        img.save(imgDir + '__gr_' + imgName);
+                        // img.save(imgDir + '__gr_' + imgName);
 
 
                         // khu nhieu
                         const lowThresh = option.lowThresh || 0; // càng lớn càng mất nét
                         const highThresh = option.highThresh || 50; // cang lon loc cang manh
                         img.canny(lowThresh, highThresh);
-                        img.save(imgDir + '_loc_' + imgName);
+                        // img.save(imgDir + '_loc_' + imgName);
 
                         // lam beo chu
-                        const iterations = 2; // cang lon chu cang beo'
+                        const iterations = 1; // cang lon chu cang beo'
                         img.dilate(iterations);
                         img.erode(1); // xói mòn
-                        let imgSave  = img.copy();
-                        img.save(imgDir + '_lam_manh_lam_day' + imgName);
+                        let imgSave = img.copy();
+                        // img.save(imgDir + '_lam_manh_lam_day' + imgName);
 
 
                         let contours = img.findContours();
@@ -73,22 +73,27 @@ function PreProcess(imgDir, imgName, option) {
                         let largestAreaIndex;
 
                         for (let i = 0; i < contours.size(); i++) {
-                            console.log(i ,contours.area(i))
+                            // console.log(i, contours.area(i))
                             if (contours.area(i) > largestArea) {
                                 largestArea = contours.area(i);
                                 largestAreaIndex = i;
                             }
                         }
-                        img.save(imgDir + '_tim_bien_' + imgName);
+                        // img.save(imgDir + '_tim_bien_' + imgName);
 
                         let bound = contours.boundingRect(largestAreaIndex);
-                        img.rectangle([bound.x, bound.y], [bound.width, bound.height], WHITE, 1);
-                        img.save(imgDir + '_rectangle_' + imgName);
+                        // img.rectangle([bound.x, bound.y], [bound.width, bound.height], WHITE, 1);
+                        // img.save(imgDir + '_rectangle_' + imgName);
                         let imgSCrop = imgSave.crop(bound.x, bound.y, bound.width, bound.height);
                         // img.save(imgDir + bwImg);
-                        imgSCrop.save(imgDir + '_croped_' + imgName);
-                        console.log(11111, typeof imgSCrop.resize )
-                        let imgResize = imgSCrop.resize(10, 15);
+                        let imgCropName = '_croped_' + imgName;
+                        imgSCrop.save(imgDir + imgCropName);
+                        return resolve({
+                            dir: imgDir,
+                            name: imgCropName,
+                            contours: contours.size()
+                        })
+                        // let imgResize = imgSCrop.resize(10, 15);
                         // imgResize.save(imgDir + '_resize_' + imgName);
 
                         // imgSave.save(imgDir + '2_' + imgName);
@@ -96,11 +101,10 @@ function PreProcess(imgDir, imgName, option) {
                         // allContoursImg.save(imgDir + "1_" + imgName);
                         // console.log(1111, contours.size())
                         // img.drawAllContours(contours, WHITE);
-                        img.save(imgDir + 'contours_' + imgName);
+                        // img.save(imgDir + 'contours_' + imgName);
                     });
                 });
             })
         })
     })
 }
-PreProcess('test/', 'b.jpg', {})

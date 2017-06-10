@@ -10,7 +10,13 @@ var exercise_1_Ctrl = (function () {
 
         // VARS
         vmExercise_1.imgDir = settingJs.configs.uploadDirectory.tmp || '/files/images/tmp/';
+        vmExercise_1.configs = {
+            autoCropImage: true, // tự động crop ảnh
+            delayTime: true, // chụp ảnh sau 3 giây từ khi bấm nút chụp ảnh
+            timeDelay: 3
+        }
 
+        vmExercise_1.onChangeTimeDelay = onChangeTimeDelay;
 
         var _video = null,
             patData = null
@@ -20,7 +26,7 @@ var exercise_1_Ctrl = (function () {
         vmExercise_1.edgeDetection = false;
         vmExercise_1.mono = false;
         vmExercise_1.invert = false;
-        vmExercise_1.patOpts = { x: 0, y: 0, w: 200, h: 200 };
+        vmExercise_1.patOpts = { x: 0, y: 0, w: 260, h: 180 };
         vmExercise_1.channel = {};
         vmExercise_1.webcamError = false;
 
@@ -57,6 +63,10 @@ var exercise_1_Ctrl = (function () {
 
         // FUNCTION
 
+        function onChangeTimeDelay() {
+            vmExercise_1.configs.timeDelay = vmExercise_1.configs.delayTime ? 3 : 0;
+        }
+
         function resetImage() {
             vmExercise_1.hasImage = false;
             vmExercise_1.imgProcessed.isProcessed = false;
@@ -70,6 +80,18 @@ var exercise_1_Ctrl = (function () {
                 console.log('processImg', resp)
                 vmExercise_1.imgProcessed.isProcessed = true;
                 vmExercise_1.imgProcessed.image = resp.resp;
+            }).catch(function (err) {
+                console.log('err processImg', err)
+            })
+        }
+
+        function autoCropImage() {
+            LearnSvc.autoCropImage({
+                name: vmExercise_1.image.name
+            }).then(function (resp) {
+                vmExercise_1.imgProcessed.isProcessed = true;
+                vmExercise_1.imgProcessed.image = resp;
+                checkResult();
             }).catch(function (err) {
                 console.log('err processImg', err)
             })
@@ -92,6 +114,7 @@ var exercise_1_Ctrl = (function () {
 
         function randomCharecter() {
             // reset kêt quả trước nếu có
+            resetImage();
             vmExercise_1.textRecognition.identified = false;
 
             var arr_charecter = vmExercise_1.word.word.split('');
@@ -111,7 +134,6 @@ var exercise_1_Ctrl = (function () {
             if (vmExercise_1.indexWord + 1 < vmExercise_1.listVocabulary.length) {
                 vmExercise_1.indexWord++;
                 vmExercise_1.word = vmExercise_1.listVocabulary[vmExercise_1.indexWord];
-
                 randomCharecter();
             }
         }
@@ -177,8 +199,8 @@ var exercise_1_Ctrl = (function () {
                         image: vmExercise_1.imgDir + vmExercise_1.image.name,
                         event: 'crop:image',
                         ratio: 1,
-                        width: 500,
-                        height: 500,
+                        width: 300,
+                        height: 300,
                         // mimeType : 'image/jpeg'
                     };
                     $scope.$on('crop:image', function (event, res) {
@@ -198,37 +220,56 @@ var exercise_1_Ctrl = (function () {
                 }
             });
         }
+
         function makeSnapshot() {
-            if (_video) {
-                var patCanvas = document.querySelector('#snapshot');
-                if (!patCanvas) return;
+            setTimeout(function () {
+                if (_video) {
+                    var patCanvas = document.querySelector('#snapshot');
+                    if (!patCanvas) return;
 
-                patCanvas.width = _video.width;
-                patCanvas.height = _video.height;
-                var ctxPat = patCanvas.getContext('2d');
+                    patCanvas.width = _video.width;
+                    patCanvas.height = _video.height;
+                    var ctxPat = patCanvas.getContext('2d');
 
-                var idata = getVideoData(vmExercise_1.patOpts.x, vmExercise_1.patOpts.y, _video.width, _video.height);
-                ctxPat.putImageData(idata, 0, 0);
-                processImageSnaphost(patCanvas.toDataURL());
+                    var idata = getVideoData(vmExercise_1.patOpts.x, vmExercise_1.patOpts.y, _video.width, _video.height);
+                    ctxPat.putImageData(idata, 0, 0);
+                    processImageSnaphost(patCanvas.toDataURL());
 
-                bzUpload.uploadBase64({ directory: 'tmp', image: patCanvas.toDataURL() }).then(function (resp) {
-                    vmExercise_1.image = resp;
-                    cropImage();
-                }).catch(function (err) {
+                    bzUpload.uploadBase64({ directory: 'tmp', image: patCanvas.toDataURL() }).then(function (resp) {
+                        vmExercise_1.image = resp;
+
+                        if (vmExercise_1.configs.autoCropImage) {
+                            autoCropImage();
+                        }
+                        else {
+                            cropImage();
+                        }
+                    }).catch(function (err) {
+                        $bzPopup.toastr({
+                            type: 'error',
+                            data: {
+                                title: 'Lỗi',
+                                message: err.message
+                            }
+                        });
+                    })
+
+                    patData = idata;
+
+                    vmExercise_1.hasImage = true;
+
+                }
+                else {
                     $bzPopup.toastr({
                         type: 'error',
                         data: {
                             title: 'Lỗi',
-                            message: err.message
+                            message: 'Không thể truy cập camera'
                         }
                     });
-                })
+                }
+            })
 
-                patData = idata;
-
-                vmExercise_1.hasImage = true;
-
-            }
         };
 
     }

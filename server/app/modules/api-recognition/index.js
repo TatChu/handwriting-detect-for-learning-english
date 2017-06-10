@@ -20,6 +20,14 @@ exports.register = function (server, options, next) {
         },
     });
 
+     server.route({
+        method: 'POST',
+        path: '/auto-crop-img',
+        handler: RecognitionController.autoCropImg,
+        config: {
+        },
+    });
+
     next();
 };
 

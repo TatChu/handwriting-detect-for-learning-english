@@ -132,4 +132,4 @@ function PreProcess(imgDir, imgName, option) {
         })
     })
 }
-PreProcess('tmp/test/', 'o.jpg', {})
+PreProcess('tmp/', 'c.jpg', {})

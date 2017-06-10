@@ -14,7 +14,8 @@
     function LearnSvc($q, $window, bzResourceSvc, LearnFac) {
         return {
             recognition: recognition,
-            processImage: processImage
+            processImage: processImage,
+            autoCropImage: autoCropImage
         };
 
         function recognition(data) {
@@ -27,5 +28,9 @@
             return fac.$save({ method: 'process-img' });
         }
 
+        function autoCropImage(data) {
+            var fac = new LearnFac(data);
+            return fac.$save({ method: 'auto-crop-img' });
+        }
     }
 })();

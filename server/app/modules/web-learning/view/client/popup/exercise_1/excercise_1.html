@@ -48,7 +48,7 @@
                         <span class="purple">[[vmExercise_1.word.define]]</span></h4>
                 </div>
 
-                <div class="div-check-result text-center" ng-if="((vmExercise_1.textRecognition.char != vmExercise_1.missingCharecter) && (vmExercise_1.textRecognition.char.toUpperCase() != vmExercise_1.missingCharecter))">
+                <div class="div-check-result text-center" ng-if="vmExercise_1.textRecognition.identified && ((vmExercise_1.textRecognition.char != vmExercise_1.missingCharecter) && (vmExercise_1.textRecognition.char.toUpperCase() != vmExercise_1.missingCharecter))">
                     <h2 class="res-false">Chưa chính xác!</h2>
                 </div>
 
@@ -60,9 +60,29 @@
             </div>
         </div>
     </div>
+    <div class="modal-footer fix-modal-footer">
+        <div class="row">
+            <div class="col-md-4">
+                <label><input type="checkbox" ng-model=" vmExercise_1.configs.autoCropImage" name="autoCropImg" value="">  &nbsp Tự động xử lý ảnh và kiểm tra kết quả</label>
+            </div>
+            <div class="col-md-3">
+                <label><input type="checkbox" ng-change="vmExercise_1.onChangeTimeDelay()" ng-model=" vmExercise_1.configs.delayTime"  name="autoCapture" value="">
+                &nbsp Chụp sau 3 giây</label>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
 </div>
 
 <style>
+    .fix-modal-footer {
+        margin-top: 1%;
+        padding-left: 5%;
+        text-align: left;
+        height: 6px;
+    }
+
     .fix-width {
         max-width: 1036px;
     }
@@ -109,9 +129,10 @@
         color: purple;
     }
 
-    .fuchsia{
+    .fuchsia {
         color: fuchsia;
     }
+
     .btn-50 {
         width: 50%;
     }

@@ -19,8 +19,7 @@ function recognition(imgSrc) {
         let input = [];
         Jimp.read(imgSrc, function (err, image) {
             if (err) return reject(err);
-
-            this.scan(0, 0, image.bitmap.width, image.bitmap.height, function (x, y, idx) {
+            image.resize(10, 15).scan(0, 0, image.bitmap.width, image.bitmap.height, function (x, y, idx) {
 
                 var red = this.bitmap.data[idx + 0];
                 var green = this.bitmap.data[idx + 1];

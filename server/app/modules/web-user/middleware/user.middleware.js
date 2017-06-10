@@ -19,10 +19,10 @@ function folderDefaultUser(request, reply) {
     if (user_id == '') // user chua dang nhap
         reply.continue();
     else {
-        let rootDir = checkExitsDir(config.get('web.dirDataTraninng.root'))
+        let rootDir = checkExitsDir(config.get('web.dirDataNeuralNetwork.root'))
         let dir = {
             root: checkExitsDir(rootDir),
-            general: checkExitsDir(config.get('web.dirDataTraninng.general')),
+            general: checkExitsDir(config.get('web.dirDataNeuralNetwork.general')),
             user: {
                 root: checkExitsDir(rootDir + user_id + '/'),
                 scan: checkExitsDir(rootDir + user_id + '/scan/'),

@@ -131,38 +131,6 @@ Description: Bootstrap variables
 Modules Load Auto
 *******************************************************************/
 /*inject-module:scss*/
-#mod-blog-add .image-upload-section img {
-  width: 150px;
-  height: 150px;
-}
-
-#mod-blog-add .image-upload-section .image-item {
-  display: inline-block;
-  margin-right: 20px;
-  position: relative;
-  font-size: 25px;
-}
-
-#mod-blog-add .image-upload-section .image-item:hover .btn-remove-image {
-  display: block;
-}
-
-#mod-blog-add .image-upload-section .btn-remove-image {
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: none;
-}
-
-#mod-blog-list .no-data {
-  text-align: center;
-}
-
-#mod-blog-list .img-blog {
-  width: 100px;
-  height: 100px;
-}
-
 #mod-permission-add .space {
   display: inherit;
   margin: 5px 0 5px 5px;
@@ -199,6 +167,38 @@ Modules Load Auto
 
 #mod-permission-list .btn-edit {
   margin-left: 5px;
+}
+
+#mod-blog-add .image-upload-section img {
+  width: 150px;
+  height: 150px;
+}
+
+#mod-blog-add .image-upload-section .image-item {
+  display: inline-block;
+  margin-right: 20px;
+  position: relative;
+  font-size: 25px;
+}
+
+#mod-blog-add .image-upload-section .image-item:hover .btn-remove-image {
+  display: block;
+}
+
+#mod-blog-add .image-upload-section .btn-remove-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+
+#mod-blog-list .no-data {
+  text-align: center;
+}
+
+#mod-blog-list .img-blog {
+  width: 100px;
+  height: 100px;
 }
 
 #mod-list-log .pointer {

@@ -39,7 +39,6 @@ function PreProcess(imgDir, imgName, option) {
                             reject(new Error('Image has no size'));
                         }
                         let imgSave = img.copy();
-
                         // Chuyen ve anh xam
                         img.convertGrayscale();
 
@@ -49,13 +48,14 @@ function PreProcess(imgDir, imgName, option) {
                         // khu nhieu gaussian
                         // img.gaussianBlur([1, 5]);
                         img.gaussianBlur([3, 3]);
+                        img.save(imgDir + '_gray_' + imgName);
 
 
                         // khu nhieu
                         const lowThresh = option.lowThresh || 0; // càng lớn càng mất nét
                         const highThresh = option.highThresh || 120; // cang lon loc cang manh
                         img.canny(lowThresh, highThresh);
-                        // img.save(imgDir + '_1_' + imgName);
+                        img.save(imgDir + '_tim_bien_' + imgName);
 
                         // lam beo chu
                         const iterations = 2; // cang lon chu cang beo'
@@ -77,44 +77,20 @@ function PreProcess(imgDir, imgName, option) {
                         let arrContours = [];
                         let arrContoursCut = [];
                         for (let i = 0; i < contours.size(); i++) {
-
-
                             let bound = contours.boundingRect(i);
 
-                            if (bound.width > 20 && bound.height > 25) {
-                                arrContours.push({
-                                    x: bound.x,
-                                    y: bound.y,
-                                    width: bound.width,
-                                    height: bound.height
-                                })
-                                // console.log(contours.area(i))
+                            if (bound.width > 10 && bound.height > 15) {
                                 imgSave.rectangle([bound.x, bound.y], [bound.width, bound.height], BLACK, 1);
                             }
-
-                            // arrContoursCut.forEach(bound => {
-                            //     console.log(bound.x, bound.y, bound.width, bound.height)
-                            // })
-                            // let imgCrop = img.crop(bound.x, bound.y, bound.width, bound.height);
-
-
-
-                            // if (contours.area(i) > largestArea) {
-                            //     largestArea = contours.area(i);
-                            //     largestAreaIndex = i;
-                            // }
                         }
-                        arrContours.forEach(bound => {
-                            arrContours.forEach(elm => {
-                                if (bound.x > elm.x && bound.y > elm.y
-                                    && (bound.x + bound.height) < (elm.x + elm.height)
-                                    && (bound.x + bound.width) < (elm.x + elm.width)) { }
-                                else
-                                    arrContoursCut.push(bound);
-                            })
-                        })
-                        console.log('Length: ', arrContoursCut.length)
 
+                        for (var c = 0; c < contours.size(); ++c) {
+                            console.log("Contour " + c);
+                            for (var i = 0; i < contours.cornerCount(c); ++i) {
+                                var point = contours.point(c, i);
+                                console.log("(" + point.x + "," + point.y + ")");
+                            }
+                        }
 
                         // contours.fitEllipse(largestAreaIndex)
                         // imgSave = imgSave.crop(bound.x, bound.y, bound.width, bound.height);
@@ -132,4 +108,4 @@ function PreProcess(imgDir, imgName, option) {
         })
     })
 }
-PreProcess('tmp/', 'c.jpg', {})
+PreProcess('test/', 'j.jpg', {})

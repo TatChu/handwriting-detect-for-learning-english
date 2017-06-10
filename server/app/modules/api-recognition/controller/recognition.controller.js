@@ -43,6 +43,9 @@ function processImg(request, reply) {
 }
 
 
+
+
+
 function autoCropImg(request, reply) {
     let config = request.server.configManager;
     let tempImgPath = config.get('web.upload.tempImgPath');

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('bzSupplier')
+        .module('bzConfig')
         .service('configSvc', configSvc)
         .factory('configFac', configFac);
 

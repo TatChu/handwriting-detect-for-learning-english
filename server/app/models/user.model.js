@@ -18,10 +18,6 @@ var validateLocalStrategyPassword = function (password) {
 };
 
 var UserSchema = new Schema({
-    old_id: {
-        type: Number,
-        default: null,
-    },
     name: {
         type: String,
         trim: true,

@@ -24,7 +24,7 @@ function recognition(request, reply) {
         return reply(resp);
     }).catch(function (err) {
         console.log('err recognition', err);
-        return Boom.badRequest('Error', err)
+        return reply(Boom.badRequest(ErrorEventHandler.getErrorMessage(err)));
     });
 }
 

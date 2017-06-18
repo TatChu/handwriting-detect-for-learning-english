@@ -6,7 +6,7 @@ var unitsCtrl = (function () {
         .controller('unitAddCtrl', unitAddCtrl);
 
     function unitAddCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-        userRoles, authSvc, NgTableParams, ngTableEventsChannel, bzResourceSvc, unitSvc, listClasses) {
+        userRoles, authSvc, NgTableParams, ngTableEventsChannel, customResourceSrv, unitSvc, listClasses) {
         /* jshint validthis: true */
         var vmAddUnits = this;
 

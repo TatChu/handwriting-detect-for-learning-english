@@ -6,7 +6,7 @@ var configEditCtrl = (function () {
         .controller('configEditCtrl', configEditCtrl);
 
     function configEditCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-        userRoles, authSvc, NgTableParams, ngTableEventsChannel, bzResourceSvc, configSvc, bzUtilsSvc) {
+        userRoles, authSvc, NgTableParams, ngTableEventsChannel, customResourceSrv, configSvc, bzUtilsSvc) {
         /* jshint validthis: true */
         var vmEditConfig = this;
 

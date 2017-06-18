@@ -6,7 +6,7 @@ var testResizeCtrl = (function () {
 		.controller('testResizeCtrl', testResizeCtrl);
 
 	function testResizeCtrl($scope, $state, $stateParams, $bzPopup, $uibModal, $window, $filter,
-		NgTableParams, ngTableEventsChannel, authSvc, bzResourceSvc, Upload, testSvc) {
+		NgTableParams, ngTableEventsChannel, authSvc, customResourceSrv, Upload, testSvc) {
 		var vmTestResize = this;
 
 		/*XÉT QUYỀN TRUY CẬP ROUTER*/

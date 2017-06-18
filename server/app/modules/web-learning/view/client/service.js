@@ -6,12 +6,12 @@
         .service('LearnSvc', LearnSvc)
         .factory('LearnFac', LearnFac);
 
-    function LearnFac($window, bzResourceSvc) {
-        return bzResourceSvc.api($window.settings.services.apiUrl + '/:method/:param1/:param2',
+    function LearnFac($window, customResourceSrv) {
+        return customResourceSrv.api($window.settings.services.apiUrl + '/:method/:param1/:param2',
             { method: '@method', param1: '@param1', param2: '@param2' });
     }
 
-    function LearnSvc($q, $window, bzResourceSvc, LearnFac) {
+    function LearnSvc($q, $window, customResourceSrv, LearnFac) {
         return {
             recognition: recognition,
             processImage: processImage,

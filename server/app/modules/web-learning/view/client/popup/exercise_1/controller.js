@@ -5,7 +5,7 @@ var exercise_1_Ctrl = (function () {
         .module('bsLearning')
         .controller('exercise_1_Ctrl', exercise_1_Ctrl);
 
-    function exercise_1_Ctrl($scope, $rootScope, $window, $uibModalInstance, $uibModal, bzUpload, bzResourceSvc, LearnSvc, word, listVocabulary) {
+    function exercise_1_Ctrl($scope, $rootScope, $window, $uibModalInstance, $uibModal, bzUpload, customResourceSrv, LearnSvc, word, listVocabulary) {
         var vmExercise_1 = this;
 
         // VARS

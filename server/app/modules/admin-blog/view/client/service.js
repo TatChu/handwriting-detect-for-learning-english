@@ -6,11 +6,11 @@
         .service('blogSvc', blogSvc)
         .factory('blogFac', blogFac);
 
-    function blogFac($window, bzResourceSvc) {
-        return bzResourceSvc.api($window.settings.services.admin + '/:method/:id', { method: '@method', id: '@id' });
+    function blogFac($window, customResourceSrv) {
+        return customResourceSrv.api($window.settings.services.admin + '/:method/:id', { method: '@method', id: '@id' });
     }
 
-    function blogSvc($q, $window, bzResourceSvc, blogFac) {
+    function blogSvc($q, $window, customResourceSrv, blogFac) {
         return {
             create: create,
             update: update,

@@ -5,7 +5,7 @@ var permissionEditCtrl = (function () {
         .module('bzPermission')
         .controller('permissionEditCtrl', permissionEditCtrl);
 
-    function permissionEditCtrl($scope, $state, $stateParams, $bzPopup, $uibModal, $window, bzResourceSvc, authSvc, permissionSvc, listAction, listResource, bzUtilsSvc) {
+    function permissionEditCtrl($scope, $state, $stateParams, $bzPopup, $uibModal, $window, customResourceSrv, authSvc, permissionSvc, listAction, listResource, bzUtilsSvc) {
         var vmEditPermission = this;
 
         /*XÉT QUYỀN TRUY CẬP ROUTER*/

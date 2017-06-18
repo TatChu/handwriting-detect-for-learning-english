@@ -5,7 +5,7 @@
     .module('bzUser')
     .controller('popEditShippingAddressCtrl', popEditShippingAddressCtrl);
 
-    function popEditShippingAddressCtrl($scope, $rootScope, $state, $window, $bzPopup, $uibModalInstance, bzResourceSvc, authSvc, userSvc, data) {
+    function popEditShippingAddressCtrl($scope, $rootScope, $state, $window, $bzPopup, $uibModalInstance, customResourceSrv, authSvc, userSvc, data) {
         var vmEditShippingAddress = this;
         //Vars
         vmEditShippingAddress.formData = {};

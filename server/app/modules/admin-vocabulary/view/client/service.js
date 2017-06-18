@@ -6,11 +6,11 @@
         .service('vocabularySvc', vocabularySvc)
         .factory('vocabularyFac', vocabularyFac);
 
-    function vocabularyFac($window, bzResourceSvc) {
-        return bzResourceSvc.api($window.settings.services.admin + '/:method/:id', { method: '@method', id: '@id' });
+    function vocabularyFac($window, customResourceSrv) {
+        return customResourceSrv.api($window.settings.services.admin + '/:method/:id', { method: '@method', id: '@id' });
     }
 
-    function vocabularySvc($q, $window, bzResourceSvc, vocabularyFac) {
+    function vocabularySvc($q, $window, customResourceSrv, vocabularyFac) {
         return {
             create: create,
             update: update,

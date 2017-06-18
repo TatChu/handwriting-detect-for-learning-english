@@ -6,11 +6,11 @@
         .service('unitSvc', unitSvc)
         .factory('unitFac', unitFac);
 
-    function unitFac($window, bzResourceSvc) {
-        return bzResourceSvc.api($window.settings.services.admin + '/:method/:id', { method: '@method', id: '@id' });
+    function unitFac($window, customResourceSrv) {
+        return customResourceSrv.api($window.settings.services.admin + '/:method/:id', { method: '@method', id: '@id' });
     }
 
-    function unitSvc($q, $window, bzResourceSvc, unitFac) {
+    function unitSvc($q, $window, customResourceSrv, unitFac) {
         return {
             create: create,
             update: update,

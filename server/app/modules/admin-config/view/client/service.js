@@ -6,11 +6,11 @@
         .service('configSvc', configSvc)
         .factory('configFac', configFac);
 
-    function configFac($window, bzResourceSvc) {
-        return bzResourceSvc.api($window.settings.services.admin + '/:method/:id', { method: '@method', id: '@id' });
+    function configFac($window, customResourceSrv) {
+        return customResourceSrv.api($window.settings.services.admin + '/:method/:id', { method: '@method', id: '@id' });
     }
 
-    function configSvc($q, $window, bzResourceSvc, configFac) {
+    function configSvc($q, $window, customResourceSrv, configFac) {
         return {
             create: create,
             update: update,

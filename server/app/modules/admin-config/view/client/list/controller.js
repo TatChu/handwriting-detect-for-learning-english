@@ -6,7 +6,7 @@ var configListCtrl = (function () {
 		.controller('configListCtrl', configListCtrl);
 
 	function configListCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-		userRoles, authSvc, NgTableParams, ngTableEventsChannel, bzResourceSvc, configSvc) {
+		userRoles, authSvc, NgTableParams, ngTableEventsChannel, customResourceSrv, configSvc) {
 		/* jshint validthis: true */
 		var vmListConfig = this;
 
@@ -41,7 +41,7 @@ var configListCtrl = (function () {
 
 		function getData() {
 			//fix pagining
-			bzResourceSvc.api($window.settings.services.admin + '/config')
+			customResourceSrv.api($window.settings.services.admin + '/config')
 				.get(vmListConfig.queryParams, function (resp) {
 					vmListConfig.queryParams.pageCount = resp.totalPage;
 					vmListConfig.listSupplier = resp.items;
@@ -90,7 +90,7 @@ var configListCtrl = (function () {
 					$scope.popTitle = 'Xóa';
 					$scope.message = 'Bạn chắc chắn sẽ xóa dữ liệu này?';
 					$scope.ok = function () {
-						bzResourceSvc.api($window.settings.services.admin + '/config/:id', { id: '@id' })
+						customResourceSrv.api($window.settings.services.admin + '/config/:id', { id: '@id' })
 							.delete({ id: selected.ids }, function (resp) {
 								$bzPopup.toastr({
 									type: 'success',

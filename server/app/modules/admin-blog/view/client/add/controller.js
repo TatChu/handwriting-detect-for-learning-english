@@ -6,7 +6,7 @@ var blogAddCtrl = (function () {
         .controller('blogAddCtrl', blogAddCtrl);
 
     function blogAddCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal, userRoles, authSvc,
-        NgTableParams, ngTableEventsChannel, bzResourceSvc, blogSvc, Upload, bzUtilsSvc, CKEditorOptBlog, bzUpload) {
+        NgTableParams, ngTableEventsChannel, customResourceSrv, blogSvc, Upload, bzUtilsSvc, CKEditorOptBlog, bzUpload) {
         /* jshint validthis: true */
         var vmBlogAdd = this;
 
@@ -54,7 +54,7 @@ var blogAddCtrl = (function () {
         }
 
         function getListBlog() {
-            bzResourceSvc.api($window.settings.services.admin + '/blog')
+            customResourceSrv.api($window.settings.services.admin + '/blog')
                 .get({
                     limit: 100,
                     page: 1,

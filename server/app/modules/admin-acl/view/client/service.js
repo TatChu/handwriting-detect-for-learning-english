@@ -6,11 +6,11 @@
         .service('permissionSvc', permissionSvc)
         .service('permissionFac', permissionFac);
 
-    function permissionFac($window, bzResourceSvc) {
-        return bzResourceSvc.api($window.settings.services.admin + '/:method/:param1/:param2', { method: '@method', param1: '@param1', param2: '@param2' });
+    function permissionFac($window, customResourceSrv) {
+        return customResourceSrv.api($window.settings.services.admin + '/:method/:param1/:param2', { method: '@method', param1: '@param1', param2: '@param2' });
     }
 
-    function permissionSvc($q, $window, bzResourceSvc, permissionFac) {
+    function permissionSvc($q, $window, customResourceSrv, permissionFac) {
         return {
             create: create,
             get: get,

@@ -6,7 +6,7 @@ var unitsCtrl = (function () {
 		.controller('unitsCtrl', unitsCtrl);
 
 	function unitsCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-		userRoles, authSvc, NgTableParams, ngTableEventsChannel, bzResourceSvc, unitSvc, listClasses) {
+		userRoles, authSvc, NgTableParams, ngTableEventsChannel, customResourceSrv, unitSvc, listClasses) {
 		/* jshint validthis: true */
 		var vmUnits = this;
 
@@ -40,7 +40,7 @@ var unitsCtrl = (function () {
 		}, $scope, vmUnits.table);
 
 		function getData() {
-			bzResourceSvc.api($window.settings.services.admin + '/unit')
+			customResourceSrv.api($window.settings.services.admin + '/unit')
 				.get(vmUnits.queryParams, function (resp) {
 					vmUnits.queryParams.pageCount = resp.totalPage;
 					vmUnits.listUnit = resp.items;
@@ -111,7 +111,7 @@ var unitsCtrl = (function () {
 					$scope.popTitle = 'Xóa';
 					$scope.message = 'Bạn chắc chắn sẽ xóa dữ liệu này?';
 					$scope.ok = function () {
-						bzResourceSvc.api($window.settings.services.admin + '/unit/:id', { id: '@id' })
+						customResourceSrv.api($window.settings.services.admin + '/unit/:id', { id: '@id' })
 							.delete({ id: selected.ids }, function (resp) {
 								$bzPopup.toastr({
 									type: 'success',

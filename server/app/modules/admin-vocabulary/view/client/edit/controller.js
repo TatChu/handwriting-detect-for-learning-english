@@ -6,7 +6,7 @@ var vocabularyEditCtrl = (function () {
         .controller('vocabularyEditCtrl', vocabularyEditCtrl);
 
     function vocabularyEditCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-        userRoles, authSvc, NgTableParams, ngTableEventsChannel, Upload, bzResourceSvc, vocabularySvc, listClasses, listTypesWord, bzUpload) {
+        userRoles, authSvc, NgTableParams, ngTableEventsChannel, Upload, customResourceSrv, vocabularySvc, listClasses, listTypesWord, bzUpload) {
         /* jshint validthis: true */
         var vmEditVocabularys = this;
 

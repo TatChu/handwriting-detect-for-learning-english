@@ -5,7 +5,7 @@ var vocabularyWebCtrl = (function () {
         .module('bsLearning')
         .controller('vocabularyWebCtrl', vocabularyWebCtrl);
 
-    function vocabularyWebCtrl($scope, $rootScope, $window, $uibModal, bzResourceSvc, listTypesWord) {
+    function vocabularyWebCtrl($scope, $rootScope, $window, $uibModal, customResourceSrv, listTypesWord) {
         var vmLearn = this;
 
         // VARS

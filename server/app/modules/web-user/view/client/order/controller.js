@@ -5,7 +5,7 @@
 		.module('bzUser')
 		.controller('orderCtrl', orderCtrl);
 
-	function orderCtrl($scope, $rootScope, $state, $window, $bzPopup, $uibModal, bzResourceSvc, NgTableParams, userSvc, apiProductSvc) {
+	function orderCtrl($scope, $rootScope, $state, $window, $bzPopup, $uibModal, customResourceSrv, NgTableParams, userSvc, apiProductSvc) {
 		var vmOrder = this;
 
 		vmOrder.menuActive = "order";

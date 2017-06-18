@@ -5,7 +5,7 @@ var blogWebCtrl = (function () {
         .module('bzWebBlog')
         .controller('blogWebCtrl', blogWebCtrl);
 
-    function blogWebCtrl($scope, $window, blogWebSvc, bzResourceSvc) {
+    function blogWebCtrl($scope, $window, blogWebSvc, customResourceSrv) {
         var vmBlogWeb = this;
 
         // VARS

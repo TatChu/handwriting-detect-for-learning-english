@@ -5,7 +5,7 @@
 		.module('bzUser')
 		.controller('favoriteProductCtrl', favoriteProductCtrl);
 
-	function favoriteProductCtrl($scope, $rootScope, $state, $window, $bzPopup, $uibModal, bzResourceSvc, userSvc, orderApiSvc,apiProductSvc) {
+	function favoriteProductCtrl($scope, $rootScope, $state, $window, $bzPopup, $uibModal, customResourceSrv, userSvc, orderApiSvc,apiProductSvc) {
 		var vmFavoriteProduct = this;
 
 		vmFavoriteProduct.menuActive = "favorite-product";

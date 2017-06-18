@@ -6,7 +6,7 @@ var unitsCtrl = (function () {
         .controller('unitEditCtrl', unitAddCtrl);
 
     function unitAddCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-        userRoles, authSvc, NgTableParams, ngTableEventsChannel, bzResourceSvc, unitSvc, listClasses) {
+        userRoles, authSvc, NgTableParams, ngTableEventsChannel, customResourceSrv, unitSvc, listClasses) {
         var vmEditUnits = this;
 
         /*XÉT QUYỀN TRUY CẬP ROUTER*/

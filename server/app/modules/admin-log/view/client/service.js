@@ -6,11 +6,11 @@
         .service('auditLogSvc', auditLogSvc)
         .factory('auditLogFac', auditLogFac);
 
-    function auditLogFac($window, bzResourceSvc) {
-        return bzResourceSvc.api($window.settings.services.admin + '/:method/:id', { method: '@method', id: '@id' });
+    function auditLogFac($window, customResourceSrv) {
+        return customResourceSrv.api($window.settings.services.admin + '/:method/:id', { method: '@method', id: '@id' });
     }
 
-    function auditLogSvc($q, $window, bzResourceSvc, auditLogFac) {
+    function auditLogSvc($q, $window, customResourceSrv, auditLogFac) {
         return {
             getLog: getLog,
         };

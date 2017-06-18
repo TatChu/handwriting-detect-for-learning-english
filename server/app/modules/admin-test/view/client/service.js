@@ -8,15 +8,15 @@
         .factory('testApiFac', testApiFac);
 
 
-    function testFac($window, bzResourceSvc) {
-        return bzResourceSvc.api($window.settings.services.admin + '/:method/:id', { method: '@method', id: '@id' });
+    function testFac($window, customResourceSrv) {
+        return customResourceSrv.api($window.settings.services.admin + '/:method/:id', { method: '@method', id: '@id' });
     }
 
-    function testApiFac($window, bzResourceSvc) {
-        return bzResourceSvc.api($window.settings.services.apiUrl + '/:method/:id', { method: '@method', id: '@id' });
+    function testApiFac($window, customResourceSrv) {
+        return customResourceSrv.api($window.settings.services.apiUrl + '/:method/:id', { method: '@method', id: '@id' });
     }
 
-    function testSvc($q, $window, bzResourceSvc, testFac, testApiFac) {
+    function testSvc($q, $window, customResourceSrv, testFac, testApiFac) {
         return {
             resize: resize,
             uploadBase64: uploadBase64

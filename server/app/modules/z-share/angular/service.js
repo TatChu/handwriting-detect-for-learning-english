@@ -4,7 +4,7 @@
     angular
         .module('bzApp')
         .service('bzUtilsSvc', bzUtilsSvc)
-        .service('bzResourceSvc', bzResourceSvc)
+        .service('customResourceSrv', customResourceSrv)
         .factory('bzPreloadSvc', bzPreloadSvc)
         .service('authSvc', authSvc)
         .service('notiSvc', notiSvc)
@@ -12,17 +12,17 @@
         .service('bzUpload', bzUpload);
 
 
-    function userApiFac($window, bzResourceSvc) {
-        return bzResourceSvc.api(settingJs.configs.userApiUrl + '/user/:method/:id', { method: '@method', id: '@id' });
+    function userApiFac($window, customResourceSrv) {
+        return customResourceSrv.api(settingJs.configs.userApiUrl + '/user/:method/:id', { method: '@method', id: '@id' });
     }
 
-    function bzUpload($q, bzResourceSvc) {
+    function bzUpload($q, customResourceSrv) {
         return {
             uploadBase64: uploadBase64
         };
         function uploadBase64(data) {
             var defer = $q.defer();
-            bzResourceSvc.api(settingJs.configs.userApiUrl + '/upload/base64')
+            customResourceSrv.api(settingJs.configs.userApiUrl + '/upload/base64')
                 .save(data, function (resp) {
                     defer.resolve(resp);
                 }, function (err) {
@@ -33,14 +33,14 @@
         }
     }
 
-    function notiSvc($q, bzResourceSvc) {
+    function notiSvc($q, customResourceSrv) {
         return {
             getDupContact: getDupContact,
         };
 
         function getDupContact() {
             var defer = $q.defer();
-            bzResourceSvc.api(settingJs.configs.adminUrl + '/noti-dup-contact')
+            customResourceSrv.api(settingJs.configs.adminUrl + '/noti-dup-contact')
                 .get({}, {}, function (resp) {
                     defer.resolve(resp);
                 }, function (err) {
@@ -51,7 +51,7 @@
         }
     }
 
-    function authSvc($uibModal, $q, $window, userApiFac, bzResourceSvc) {
+    function authSvc($uibModal, $q, $window, userApiFac, customResourceSrv) {
         $window.user = $window.user || {};
 
         return {
@@ -176,7 +176,7 @@
         function siteLogin(data, successCb, errorCb) {
             var defer = $q.defer();
 
-            bzResourceSvc.api($window.settings.services.apiUrl + '/user/login')
+            customResourceSrv.api($window.settings.services.apiUrl + '/user/login')
                 .save({}, data, function (resp) {
                     setProfile(resp);
                     defer.resolve(resp);
@@ -195,7 +195,7 @@
 
         function siteLogout(callback) {
             var profile = getProfile();
-            bzResourceSvc.api($window.settings.services.apiUrl + '/user/logout')
+            customResourceSrv.api($window.settings.services.apiUrl + '/user/logout')
                 .save({}, {}, function (resp) {
                     setProfile(undefined);
                     if (angular.isFunction(callback)) {
@@ -321,7 +321,7 @@
                 profile_picture: fbAccount.profile_picture
             };
 
-            bzResourceSvc.api($window.settings.services.userApi + '/user/facebook-login')
+            customResourceSrv.api($window.settings.services.userApi + '/user/facebook-login')
                 .save({}, data, function (resp) {
                     setProfile(resp);
                     defer.resolve(resp);
@@ -480,7 +480,7 @@
         }
     }
 
-    function bzResourceSvc($resource) {
+    function customResourceSrv($resource) {
         return {
             api: api
         };

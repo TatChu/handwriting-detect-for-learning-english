@@ -5,7 +5,7 @@
 		.module('bzAuth')
 		.controller('authCtrl', authCtrl);
 
-	function authCtrl($scope, $state, $window, $bzPopup, bzResourceSvc, authSvc ,$uibModal) {
+	function authCtrl($scope, $state, $window, $bzPopup, customResourceSrv, authSvc ,$uibModal) {
 		var vmAuth = this;
 
 		//Vars
@@ -61,7 +61,7 @@
 		function getInfo() {
 			if($window.user.uid) {
 				var id = $window.user.uid;
-				bzResourceSvc.api($window.settings.services.apiUrl + '/user/profile/:id', { id: '@id' })
+				customResourceSrv.api($window.settings.services.apiUrl + '/user/profile/:id', { id: '@id' })
 					.get({ id: 'id' }, function (resp) {
 						vmAuth.user = resp;
 						var name  = vmAuth.user.name;

@@ -5,7 +5,7 @@
 		.module('bzUser')
 		.controller('userInfoCtrl', userInfoCtrl);
 
-	function userInfoCtrl($scope, $rootScope, $location, $state, $window, $filter, $bzPopup, $uibModal, bzResourceSvc, userSvc, authSvc, bzUpload) {
+	function userInfoCtrl($scope, $rootScope, $location, $state, $window, $filter, $bzPopup, $uibModal, customResourceSrv, userSvc, authSvc, bzUpload) {
 		var vmUserInfo = this;
 
 		vmUserInfo.menuActive = "info";

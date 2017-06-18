@@ -5,7 +5,7 @@ var userEditCtrl = (function () {
 		.module('bzUser')
 		.controller('userEditCtrl', userEditCtrl);
 
-	function userEditCtrl($scope, $window, $state, $stateParams, $bzPopup, userRoles, authSvc, userSvc, bzResourceSvc, listClasses) {
+	function userEditCtrl($scope, $window, $state, $stateParams, $bzPopup, userRoles, authSvc, userSvc, customResourceSrv, listClasses) {
 		var userEdit = this;
 
 		/*XÉT QUYỀN TRUY CẬP ROUTER*/
@@ -73,7 +73,7 @@ var userEditCtrl = (function () {
 
 		function getData() {
 			if (userEdit.isEditMode) {
-				bzResourceSvc.api($window.settings.services.apiUrl + '/user/:id', { id: '@id' })
+				customResourceSrv.api($window.settings.services.apiUrl + '/user/:id', { id: '@id' })
 					.get({ id: userEdit.queryParams.id }, function (resp) {
 						delete resp.__v;
 						delete resp.password_token;

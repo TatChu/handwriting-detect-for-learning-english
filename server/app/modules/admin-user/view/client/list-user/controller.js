@@ -5,7 +5,7 @@ var usersCtrl = (function () {
 		.module('bzUser')
 		.controller('usersCtrl', usersCtrl);
 
-	function usersCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal, userRoles, authSvc, NgTableParams, ngTableEventsChannel, bzResourceSvc) {
+	function usersCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal, userRoles, authSvc, NgTableParams, ngTableEventsChannel, customResourceSrv) {
 		/* jshint validthis: true */
 		var vmUsers = this;
 
@@ -42,7 +42,7 @@ var usersCtrl = (function () {
 		}, $scope, vmUsers.table);
 
 		function getData() {
-			bzResourceSvc.api($window.settings.services.apiUrl + '/user')
+			customResourceSrv.api($window.settings.services.apiUrl + '/user')
 				.get(vmUsers.queryParams, function (resp) {
 					vmUsers.queryParams.pageCount = resp.totalPage;
 					vmUsers.users = resp.items;
@@ -94,7 +94,7 @@ var usersCtrl = (function () {
 		}
 
 		function active(id, value) {
-			bzResourceSvc.api($window.settings.services.apiUrl + '/user/:id', { id: '@id' })
+			customResourceSrv.api($window.settings.services.apiUrl + '/user/:id', { id: '@id' })
 				.update({ _id: id }, { status: value }, function (resp) {
 					$bzPopup.toastr({
 						type: 'success',
@@ -128,7 +128,7 @@ var usersCtrl = (function () {
 					$scope.popTitle = 'Xóa';
 					$scope.message = 'Bạn chắc chắn sẽ xóa dữ liệu này?';
 					$scope.ok = function () {
-						bzResourceSvc.api($window.settings.services.apiUrl + '/user/:id', { id: '@id' })
+						customResourceSrv.api($window.settings.services.apiUrl + '/user/:id', { id: '@id' })
 							.delete({ id: selected.ids }, function (resp) {
 								$bzPopup.toastr({
 									type: 'success',

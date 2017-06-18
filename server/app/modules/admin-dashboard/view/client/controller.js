@@ -5,7 +5,7 @@ var dashboardCtrl = (function () {
 		.module('bzDashboard')
 		.controller('dashboardCtrl', dashboardCtrl);
 
-	function dashboardCtrl($scope, $window, $state, authSvc, bzResourceSvc) {
+	function dashboardCtrl($scope, $window, $state, authSvc, customResourceSrv) {
 		var vmDashboard = this;
 		// $state.go('dashboard');
 
@@ -14,7 +14,7 @@ var dashboardCtrl = (function () {
             $state.go('error403');
         }
 
-		bzResourceSvc.api($window.settings.services.admin + '/dashboard')
+		customResourceSrv.api($window.settings.services.admin + '/dashboard')
 			.get({}, function (resp) {
 				vmDashboard.info = resp;
 			});

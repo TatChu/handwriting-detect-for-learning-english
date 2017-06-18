@@ -6,7 +6,7 @@ var configAddCtrl = (function () {
         .controller('configAddCtrl', configAddCtrl);
 
     function configAddCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-        userRoles, authSvc, NgTableParams, ngTableEventsChannel, bzResourceSvc, configSvc, bzUtilsSvc) {
+        userRoles, authSvc, NgTableParams, ngTableEventsChannel, customResourceSrv, configSvc, bzUtilsSvc) {
         /* jshint validthis: true */
         var vmAddConfigs = this;
 

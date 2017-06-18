@@ -8,15 +8,15 @@
         .service('userFacApi', userFacApi)
         .service('userSvcApi', userSvcApi);
 
-    function userFac($window, bzResourceSvc) {
-        return bzResourceSvc.api($window.settings.services.admin + '/:method/:id', { method: '@method', id: '@id' });
+    function userFac($window, customResourceSrv) {
+        return customResourceSrv.api($window.settings.services.admin + '/:method/:id', { method: '@method', id: '@id' });
     }
 
-    function userFacApi($window, bzResourceSvc) {
-        return bzResourceSvc.api($window.settings.services.apiUrl + '/:method/:id', { method: '@method', id: '@id' });
+    function userFacApi($window, customResourceSrv) {
+        return customResourceSrv.api($window.settings.services.apiUrl + '/:method/:id', { method: '@method', id: '@id' });
     }
 
-    function userSvc($q, $window, bzResourceSvc, userFac) {
+    function userSvc($q, $window, customResourceSrv, userFac) {
         return {
             create: create,
             update: update,
@@ -35,7 +35,7 @@
         }
     }
 
-    function userSvcApi($q, $window, bzResourceSvc, userFacApi) {
+    function userSvcApi($q, $window, customResourceSrv, userFacApi) {
         return {
             updateFavoriteProduct: updateFavoriteProduct
         };

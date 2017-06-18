@@ -6,7 +6,7 @@ var userShippingCtrl = (function () {
         .controller('userShippingCtrl', userShippingCtrl);
 
     function userShippingCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-        userRoles, authSvc, NgTableParams, ngTableEventsChannel, bzResourceSvc, userSvc, editableOptions) {
+        userRoles, authSvc, NgTableParams, ngTableEventsChannel, customResourceSrv, userSvc, editableOptions) {
         /* jshint validthis: true */
         var vmUserShipping = this;
 
@@ -34,14 +34,14 @@ var userShippingCtrl = (function () {
         getUser();
 
         function getDistrict() {
-            bzResourceSvc.api($window.settings.services.admin + '/all-shippingfee')
+            customResourceSrv.api($window.settings.services.admin + '/all-shippingfee')
                 .get(function (resp) {
                     vmUserShipping.districts = resp.items;
                 });
         };
 
         function getUser() {
-            bzResourceSvc.api($window.settings.services.apiUrl + '/user/:id', { id: '@id' })
+            customResourceSrv.api($window.settings.services.apiUrl + '/user/:id', { id: '@id' })
                 .get({ id: vmUserShipping.userId }, function (resp) {
                     vmUserShipping.user = resp;
                 });
@@ -97,7 +97,7 @@ var userShippingCtrl = (function () {
                     id_shipping_fee: vmUserShipping.formData.district
                 };
 
-                bzResourceSvc.api($window.settings.services.apiUrl + '/user/:id', { id: '@id' })
+                customResourceSrv.api($window.settings.services.apiUrl + '/user/:id', { id: '@id' })
                     .get({ id: vmUserShipping.userId }, function (resp) {
                         delete resp.__v;
                         delete resp.password_token;

@@ -5,7 +5,7 @@ var userEditProfileCtrl = (function(){
 	.module('bzUser')
 	.controller('userEditProfileCtrl', userEditProfileCtrl);
 
-	function userEditProfileCtrl($scope, $window, $state, $stateParams, $bzPopup, userRoles, authSvc, userSvc, bzResourceSvc, salemanScopes){
+	function userEditProfileCtrl($scope, $window, $state, $stateParams, $bzPopup, userRoles, authSvc, userSvc, customResourceSrv, salemanScopes){
 		var mvUEP = this;
 
 		/*XÉT QUYỀN TRUY CẬP ROUTER*/
@@ -55,7 +55,7 @@ var userEditProfileCtrl = (function(){
 
 		function getData(){
 			if(mvUEP.isEditMode){
-				bzResourceSvc.api($window.settings.services.apiUrl + '/user/:id', {id: '@id'})
+				customResourceSrv.api($window.settings.services.apiUrl + '/user/:id', {id: '@id'})
 				.get({id: mvUEP.queryParams.id}, function(resp){
 					delete resp.__v;
 					delete resp.password_token;

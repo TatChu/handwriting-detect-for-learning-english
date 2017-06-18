@@ -6,7 +6,7 @@ var vocabularyAddCtrl = (function () {
         .controller('vocabularyAddCtrl', vocabularyAddCtrl);
 
     function vocabularyAddCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-        userRoles, authSvc, NgTableParams, ngTableEventsChannel, Upload, bzResourceSvc, vocabularySvc, listClasses, listTypesWord, bzUpload) {
+        userRoles, authSvc, NgTableParams, ngTableEventsChannel, Upload, customResourceSrv, vocabularySvc, listClasses, listTypesWord, bzUpload) {
         /* jshint validthis: true */
         var vmAddVocabularys = this;
 

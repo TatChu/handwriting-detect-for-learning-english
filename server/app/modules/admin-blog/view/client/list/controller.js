@@ -6,7 +6,7 @@ var blogListCtrl = (function () {
 		.controller('blogListCtrl', blogListCtrl);
 
 	function blogListCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-		userRoles, authSvc, NgTableParams, ngTableEventsChannel, bzResourceSvc, blogSvc) {
+		userRoles, authSvc, NgTableParams, ngTableEventsChannel, customResourceSrv, blogSvc) {
 		/* jshint validthis: true */
 		var vmListBlog = this;
 
@@ -43,7 +43,7 @@ var blogListCtrl = (function () {
 
 		function getData() {
 			//fix pagining
-			bzResourceSvc.api($window.settings.services.admin + '/blog')
+			customResourceSrv.api($window.settings.services.admin + '/blog')
 				.get(vmListBlog.queryParams, function (resp) {
 					vmListBlog.queryParams.pageCount = resp.totalPage;
 					vmListBlog.listBlog = resp.items;
@@ -100,7 +100,7 @@ var blogListCtrl = (function () {
 					$scope.popTitle = 'Xóa';
 					$scope.message = 'Bạn chắc chắn sẽ xóa dữ liệu này?';
 					$scope.ok = function () {
-						bzResourceSvc.api($window.settings.services.admin + '/blog/:id', { id: '@id' })
+						customResourceSrv.api($window.settings.services.admin + '/blog/:id', { id: '@id' })
 							.delete({ id: selected.ids }, function (resp) {
 								$bzPopup.toastr({
 									type: 'success',

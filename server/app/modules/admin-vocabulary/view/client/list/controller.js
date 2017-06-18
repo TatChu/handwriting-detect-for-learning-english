@@ -6,7 +6,7 @@ var vocabularysCtrl = (function () {
 		.controller('vocabularysCtrl', vocabularysCtrl);
 
 	function vocabularysCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-		userRoles, authSvc, NgTableParams, ngTableEventsChannel, bzResourceSvc, vocabularySvc, listClasses) {
+		userRoles, authSvc, NgTableParams, ngTableEventsChannel, customResourceSrv, vocabularySvc, listClasses) {
 		/* jshint validthis: true */
 		var vmVocabularys = this;
 
@@ -90,7 +90,7 @@ var vocabularysCtrl = (function () {
 					$scope.popTitle = 'Xóa';
 					$scope.message = 'Bạn chắc chắn sẽ xóa dữ liệu này?';
 					$scope.ok = function () {
-						bzResourceSvc.api($window.settings.services.admin + '/vocabulary/:id', { id: '@id' })
+						customResourceSrv.api($window.settings.services.admin + '/vocabulary/:id', { id: '@id' })
 							.delete({ id: selected.ids }, function (resp) {
 								$bzPopup.toastr({
 									type: 'success',

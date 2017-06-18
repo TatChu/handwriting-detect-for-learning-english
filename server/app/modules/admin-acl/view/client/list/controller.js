@@ -5,7 +5,7 @@ var permissionListCtrl = (function () {
         .module('bzPermission')
         .controller('permissionListCtrl', permissionListCtrl);
 
-    function permissionListCtrl($scope, $state, $stateParams, $bzPopup, $uibModal, $window, bzResourceSvc, authSvc, permissionSvc, listAction, listResource) {
+    function permissionListCtrl($scope, $state, $stateParams, $bzPopup, $uibModal, $window, customResourceSrv, authSvc, permissionSvc, listAction, listResource) {
         var vmPermission = this;
 
         /*XÉT QUYỀN TRUY CẬP ROUTER*/

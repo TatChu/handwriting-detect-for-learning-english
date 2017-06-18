@@ -5,7 +5,7 @@ var dictionaryWebCtrl = (function () {
         .module('bsDictionary')
         .controller('dictionaryWebCtrl', dictionaryWebCtrl);
 
-    function dictionaryWebCtrl($scope, $window, bzResourceSvc) {
+    function dictionaryWebCtrl($scope, $window, customResourceSrv) {
         var vmDictionary = this;
         // VARS
         vmDictionary.wordSelected = null;

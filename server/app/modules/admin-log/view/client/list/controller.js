@@ -6,7 +6,7 @@ var auditLogCtrl = (function () {
 		.controller('auditLogCtrl', auditLogCtrl);
 
 	function auditLogCtrl($scope, $state, $stateParams, $bzPopup, $uibModal, $window, $filter,
-		NgTableParams, ngTableEventsChannel, authSvc, bzResourceSvc, listResource, auditLogSvc) {
+		NgTableParams, ngTableEventsChannel, authSvc, customResourceSrv, listResource, auditLogSvc) {
 		var vmLog = this;
 
 		/*XÉT QUYỀN TRUY CẬP ROUTER*/

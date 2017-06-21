@@ -6,7 +6,7 @@ var vocabularyEditCtrl = (function () {
         .controller('vocabularyEditCtrl', vocabularyEditCtrl);
 
     function vocabularyEditCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-        userRoles, authSvc, NgTableParams, ngTableEventsChannel, Upload, customResourceSrv, vocabularySvc, listClasses, listTypesWord, bzUpload) {
+        userRoles, authSvc, NgTableParams, ngTableEventsChannel, Upload, customResourceSrv, vocabularySvc, listClasses, listTypesWord, bzUpload, CKEditorOptVoca) {
         /* jshint validthis: true */
         var vmEditVocabularys = this;
 
@@ -19,6 +19,7 @@ var vocabularyEditCtrl = (function () {
         // Vars
         vmEditVocabularys.classes = '4';
 
+        vmEditVocabularys.ckeOpt = CKEditorOptVoca;
         vmEditVocabularys.lockFOrm = false;
         vmEditVocabularys.save = create;
         vmEditVocabularys.submitted = false;
@@ -31,15 +32,20 @@ var vocabularyEditCtrl = (function () {
         vmEditVocabularys.uploadImage = uploadImage;
         vmEditVocabularys.removeImage = removeImage;
         vmEditVocabularys.cropImage = cropImage;
+        vmEditVocabularys.cropSentenseImg = cropSentenseImg;
 
 
         //Init
+        getUnits();
         getData();
 
 
         function getData() {
             vocabularySvc.get($stateParams.id).then(function (resp) {
                 vmEditVocabularys.formData = resp;
+                if (!vmEditVocabularys.formData.sentense_pattern) {
+                    vmEditVocabularys.formData.sentense_pattern = {};
+                }
             }).catch(function (err) {
                 $bzPopup.toastr({
                     type: 'error',
@@ -82,13 +88,13 @@ var vocabularyEditCtrl = (function () {
             vmEditVocabularys.formData.images.splice(index, 1);
         };
         // Upload image
-        function uploadImage(file) {
+        function uploadImage(file, feild) {
             if (vmEditVocabularys.formData.images.length >= 3) {
                 alert("Không thể thêm! Số ảnh tối đa là 5!");
                 return false;
             }
             else
-                if (file.length > 0 && vmEditVocabularys.formData.images.length < 3) {
+                if (file.length > 0 && (vmEditVocabularys.formData.images.length < 3 || (feild != undefined && feild == 'sentense_pattern'))) {
                     if (file[0].type == "image/png" || file[0].type == "image/jpeg" || file[0].type == "image/gif") {
                         Upload.upload({
                             url: $window.settings.services.uploadApi + '/upload/file',
@@ -98,9 +104,6 @@ var vocabularyEditCtrl = (function () {
                                 prefix: 'vocabulary_image',
                             }
                         }).then(function (resp) {
-                            vmEditVocabularys.formData.images.push({
-                                url: resp.data.filename
-                            });
                             $scope.progressPercentage = false;
                             $bzPopup.toastr({
                                 type: 'success',
@@ -109,7 +112,15 @@ var vocabularyEditCtrl = (function () {
                                     message: 'Upload file thành công!'
                                 }
                             });
-                            vmEditVocabularys.cropImage(vmEditVocabularys.formData.images.length - 1, vmBlogAdd.formData.images[vmBlogAdd.formData.images.length - 1].url);
+                            if (feild && feild == 'sentense_pattern') {
+                                vmEditVocabularys.formData.sentense_pattern.image = resp.data.filename;
+                            }
+                            else {
+                                vmEditVocabularys.cropImage(vmEditVocabularys.formData.images.length - 1, vmBlogAdd.formData.images[vmBlogAdd.formData.images.length - 1].url);
+                                vmEditVocabularys.formData.images.push({
+                                    url: resp.data.filename
+                                });
+                            }
 
                         }, function (resp) {
                             $bzPopup.toastr({
@@ -158,6 +169,45 @@ var vocabularyEditCtrl = (function () {
             }
         };
 
+        function cropSentenseImg(img_url) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'assets/global/cropper/view.html',
+                controller: function ($scope, $uibModalInstance) {
+                    var popupScope = this;
+                    $scope.popupScope = {
+                        image: vmEditVocabularys.imagesDirectory + img_url,
+                        event: 'crop:image',
+                        // ratio: 1 / 1,
+                        // width: 100,
+                        height: 100,
+                        // mimeType : 'image/jpeg'
+                    };
+                    $scope.$on('crop:image', function (event, image) {
+                        bzUpload.uploadBase64({ directory: 'vocabulary_image', image: image.image }).then(function (resp) {
+                            var old_image = img_url;
+                            vmEditVocabularys.listImgDelete.push({
+                                url: vmEditVocabularys.imagesDirectory,
+                                fileName: img_url
+                            });
+                            vmEditVocabularys.formData.sentense_pattern.image = resp.name;
+                            $bzPopup.toastr({
+                                type: 'success',
+                                data: {
+                                    title: 'Thành công!',
+                                    message: 'Crop ảnh thành công'
+                                }
+                            });
+
+                            $uibModalInstance.close();
+                        }).catch(function (err) {
+                            console.log('er', err);
+                        });
+                    });
+                }
+            });
+
+        }
 
         function cropImage(key, url) {
             var modalInstance = $uibModal.open({

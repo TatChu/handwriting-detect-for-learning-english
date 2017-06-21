@@ -69,7 +69,7 @@ var vocabularyWebCtrl = (function () {
         }
 
         function prev() {
-            if (vmLearn.index > 1) {
+            if (vmLearn.index >= 1) {
                 vmLearn.index--;;
                 vmLearn.word = vmLearn.listVocabulary[vmLearn.index];
             }

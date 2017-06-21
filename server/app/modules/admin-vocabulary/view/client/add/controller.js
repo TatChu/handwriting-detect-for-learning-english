@@ -6,7 +6,7 @@ var vocabularyAddCtrl = (function () {
         .controller('vocabularyAddCtrl', vocabularyAddCtrl);
 
     function vocabularyAddCtrl($scope, $window, $state, $stateParams, $bzPopup, $uibModal,
-        userRoles, authSvc, NgTableParams, ngTableEventsChannel, Upload, customResourceSrv, vocabularySvc, listClasses, listTypesWord, bzUpload) {
+        userRoles, authSvc, NgTableParams, ngTableEventsChannel, Upload, customResourceSrv, vocabularySvc, listClasses, listTypesWord, bzUpload, CKEditorOptVoca) {
         /* jshint validthis: true */
         var vmAddVocabularys = this;
 
@@ -18,10 +18,15 @@ var vocabularyAddCtrl = (function () {
 
         // Vars
         vmAddVocabularys.classes = '4';
+        vmAddVocabularys.ckeOpt = CKEditorOptVoca;
         vmAddVocabularys.formData = {
             status: true,
             lang: 'en',
             classes: 'noun',
+            sentense_pattern: {
+                sentense: '',
+                image: null
+            },
             images: []
         };
         vmAddVocabularys.lockFOrm = false;
@@ -36,7 +41,7 @@ var vocabularyAddCtrl = (function () {
         vmAddVocabularys.uploadImage = uploadImage;
         vmAddVocabularys.removeImage = removeImage;
         vmAddVocabularys.cropImage = cropImage;
-
+        vmAddVocabularys.cropSentenseImg = cropSentenseImg;
 
         //Init
         getUnits();
@@ -72,7 +77,7 @@ var vocabularyAddCtrl = (function () {
             vmAddVocabularys.formData.images.splice(index, 1);
         };
         // Upload image
-        function uploadImage(file) {
+        function uploadImage(file, feild) {
             if (vmAddVocabularys.formData.images.length >= 3) {
                 alert("Không thể thêm! Số ảnh tối đa là 5!");
                 return false;
@@ -88,10 +93,6 @@ var vocabularyAddCtrl = (function () {
                                 prefix: 'vocabulary_image',
                             }
                         }).then(function (resp) {
-                            vmAddVocabularys.formData.images.push({
-                                url: resp.data.filename
-                            });
-                            $scope.progressPercentage = false;
                             $bzPopup.toastr({
                                 type: 'success',
                                 data: {
@@ -99,7 +100,18 @@ var vocabularyAddCtrl = (function () {
                                     message: 'Upload file thành công!'
                                 }
                             });
-                            vmAddVocabularys.cropImage(vmAddVocabularys.formData.images.length - 1, vmBlogAdd.formData.images[vmBlogAdd.formData.images.length - 1].url);
+
+                            if (feild && feild == 'sentense_pattern') {
+                                vmAddVocabularys.formData.sentense_pattern.image = resp.data.filename;
+                            }
+                            else {
+                                vmAddVocabularys.formData.images.push({
+                                    url: resp.data.filename
+                                });
+                                $scope.progressPercentage = false;
+
+                                vmAddVocabularys.cropImage(vmAddVocabularys.formData.images.length - 1, vmBlogAdd.formData.images[vmBlogAdd.formData.images.length - 1].url);
+                            }
 
                         }, function (resp) {
                             $bzPopup.toastr({
@@ -149,6 +161,45 @@ var vocabularyAddCtrl = (function () {
             }
         };
 
+        function cropSentenseImg(img_url) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'assets/global/cropper/view.html',
+                controller: function ($scope, $uibModalInstance) {
+                    var popupScope = this;
+                    $scope.popupScope = {
+                        image: vmAddVocabularys.imagesDirectory + img_url,
+                        event: 'crop:image',
+                        ratio: 1 / 1,
+                        width: 100,
+                        height: 100,
+                        // mimeType : 'image/jpeg'
+                    };
+                    $scope.$on('crop:image', function (event, image) {
+                        bzUpload.uploadBase64({ directory: 'vocabulary_image', image: image.image }).then(function (resp) {
+                            var old_image = img_url;
+                            vmAddVocabularys.listImgDelete.push({
+                                url: vmAddVocabularys.imagesDirectory,
+                                fileName: img_url
+                            });
+                            vmAddVocabularys.formData.sentense_pattern.image = resp.name;
+                            $bzPopup.toastr({
+                                type: 'success',
+                                data: {
+                                    title: 'Thành công!',
+                                    message: 'Crop ảnh thành công'
+                                }
+                            });
+
+                            $uibModalInstance.close();
+                        }).catch(function (err) {
+                            console.log('er', err);
+                        });
+                    });
+                }
+            });
+
+        }
 
         function cropImage(key, url) {
             var modalInstance = $uibModal.open({

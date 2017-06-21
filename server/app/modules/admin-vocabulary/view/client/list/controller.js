@@ -23,7 +23,7 @@ var vocabularysCtrl = (function () {
 		vmVocabularys.listClasses = listClasses;
 
 		vmVocabularys.userRoles = userRoles;
-		
+
 		vmVocabularys.vocabularys = [];
 		vmVocabularys.imagesDirectory = settingJs.configs.uploadDirectory.vocabulary;
 		// Methods
@@ -40,23 +40,38 @@ var vocabularysCtrl = (function () {
 		}, $scope, vmVocabularys.table);
 
 		function getData() {
-			vocabularySvc.getAll().then(function (resp) {
-				console.log(111, resp)
-				vmVocabularys.queryParams.pageCount = resp.totalPage;
-				vmVocabularys.listVocabulary = resp.items;
-
-				vmVocabularys.table = new NgTableParams({ count: 20 }, {
-					counts: [],
-					getData: function (params) {
-						params.total(resp.totalItems);
-						return vmVocabularys.listVocabulary;
-					}
+			customResourceSrv.api($window.settings.services.admin + '/vocabulary')
+				.get(vmVocabularys.queryParams, function (resp) {
+					vmVocabularys.queryParams.pageCount = resp.totalPage;
+					vmVocabularys.listVocabulary = resp.items;
+					var limit = $stateParams.limit || 10;
+					vmVocabularys.table = new NgTableParams({ count: limit }, {
+						counts: [],
+						getData: function (params) {
+							params.total(resp.totalItems);
+							return vmVocabularys.listVocabulary;
+						}
+					});
+					vmVocabularys.table.page(vmVocabularys.queryParams.page);
+					vmVocabularys.loading = false;
 				});
-				vmVocabularys.table.page(vmVocabularys.queryParams.page);
-				vmVocabularys.loading = false;
-			}).catch(function (err) {
-				console.log('Can not get data: ', err);
-			});
+
+			// vocabularySvc.getAll(vmVocabularys.queryParams).then(function (resp) {
+			// 	vmVocabularys.queryParams.pageCount = resp.totalPage;
+			// 	vmVocabularys.listVocabulary = resp.items;
+			// 	var limit = $stateParams.limit || 10;
+			// 	vmVocabularys.table = new NgTableParams({ count: limit }, {
+			// 		counts: [],
+			// 		getData: function (params) {
+			// 			params.total(resp.totalItems);
+			// 			return vmVocabularys.listVocabulary;
+			// 		}
+			// 	});
+			// 	vmVocabularys.table.page(vmVocabularys.queryParams.page);
+			// 	vmVocabularys.loading = false;
+			// }).catch(function (err) {
+			// 	console.log('Can not get data: ', err);
+			// });
 		}
 
 		function filter(keyword) {

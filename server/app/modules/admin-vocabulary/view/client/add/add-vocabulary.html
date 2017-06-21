@@ -86,33 +86,68 @@
                                     </div>
                                 </div>
 
-                                <!-- Active -->
-                                <div class="form-group">
-                                    <label>Active</label>
-                                    <br/>
-                                    <input i-check id="chkPublish" type="checkbox" ng-model="vmAddVocabularys.formData.status" ng-true-value="true" ng-false-value="false">                                    Kích hoạt
-                                </div>
 
-                                <!--Start: Upload Image Section-->
-                                <div class="form-group">
-                                    <label>Hình ảnh:</label>
-                                    <!--<div class="col-xs-12">-->
-                                    <div class="image-upload-section">
-                                        <a class="form-control" href="" ngf-select ngf-multiple="false" ngf-change="vmAddVocabularys.uploadImage($files)">
-												Thêm ảnh ...
-											</a>
-                                        <strong class="img-count" ng-show="vmAddVocabularys.formData.images.length > 0">Đã tải lên [[vmAddVocabularys.formData.images.length]] ảnh</strong>
-                                        <div ng-repeat="(key, value) in vmAddVocabularys.formData.images">
-                                            <img ng-click="vmAddVocabularys.cropImage(key, value.url)" class="image-upload" ng-src="[[vmAddVocabularys.imagesDirectory + value.url]]"
-                                                alt="">
-                                            <a class="btn-remove-img" ng-click="vmAddVocabularys.removeImage(key);" href="">Hủy ảnh này</a>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- Active -->
+                                        <div class="form-group">
+                                            <label>Active</label>
+                                            <br/>
+                                            <input i-check id="chkPublish" type="checkbox" ng-model="vmAddVocabularys.formData.status" ng-true-value="true" ng-false-value="false">                                            Kích hoạt
                                         </div>
                                     </div>
-                                    <uib-progressbar ng-if="progressPercentage" style="max-width: 500px; height: 50px;" animate="true" value="progressPercentage"
-                                        type="success"><b>[[progressPercentage]]%</b></uib-progressbar>
-                                    <!--</div>-->
+                                    <div class="col-md-6">
+                                        <!--sentense_pattern -->
+                                        <div class="form-group">
+                                            <label>Mẫu câu với từ</label>
+                                            <input id="sentense_pattern" name="sentense_pattern" class="form-control" ng-model="vmAddVocabularys.formData.sentense_pattern.sentense"
+                                            />
+                                            <div class="img-desc">
+                                                <div class="form-group">
+                                                    <label>Hình ảnh minh hoạ:</label>
+                                                    <div class="image-upload-section">
+                                                        <a href="" ngf-select ngf-multiple="false" ngf-change="vmAddVocabularys.uploadImage($files, 'sentense_pattern')">
+												            Cập nhật
+											            </a>
+                                                        <div>
+                                                            <img style="margin-top: 15px;" ng-if="vmAddVocabularys.formData.sentense_pattern.image" ng-click="vmAddVocabularys.cropSentenseImg(vmAddVocabularys.formData.sentense_pattern.image)"
+                                                                class="image-upload" ng-src="[[vmAddVocabularys.imagesDirectory + vmAddVocabularys.formData.sentense_pattern.image]]"
+                                                                alt="">
+
+                                                        </div>
+                                                    </div>
+                                                    <!--</div>-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
-                                <!--End: Upload Image Section-->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!--Start: Upload Image Section-->
+                                        <div class="form-group">
+                                            <label>Hình ảnh:</label>
+                                            <!--<div class="col-xs-12">-->
+                                            <div class="image-upload-section">
+                                                <a class="form-control" href="" ngf-select ngf-multiple="false" ngf-change="vmAddVocabularys.uploadImage($files)">
+												Thêm ảnh ...
+											</a>
+                                                <strong class="img-count" ng-show="vmAddVocabularys.formData.images.length > 0">Đã tải lên [[vmAddVocabularys.formData.images.length]] ảnh</strong>
+                                                <div ng-repeat="(key, value) in vmAddVocabularys.formData.images">
+                                                    <img ng-click="vmAddVocabularys.cropImage(key, value.url)" class="image-upload" ng-src="[[vmAddVocabularys.imagesDirectory + value.url]]"
+                                                        alt="">
+                                                    <a class="btn-remove-img" ng-click="vmAddVocabularys.removeImage(key);" href="">Hủy ảnh này</a>
+                                                </div>
+                                            </div>
+                                            <!--<uib-progressbar ng-if="progressPercentage" style="max-width: 500px; height: 50px;" animate="true" value="progressPercentage"
+                                                type="success"><b>[[progressPercentage]]%</b></uib-progressbar>-->
+                                            <!--</div>-->
+                                        </div>
+                                        <!--End: Upload Image Section-->
+                                    </div>
+                                </div>
+
 
                             </div>
                         </div>

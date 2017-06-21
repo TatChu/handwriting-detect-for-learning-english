@@ -85,13 +85,42 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <!-- Active -->
+                                        <div class="form-group">
+                                            <label>Active</label>
+                                            <br/>
+                                            <input i-check id="chkPublish" type="checkbox" ng-model="vmEditVocabularys.formData.status" ng-true-value="true" ng-false-value="false">                                            Kích hoạt
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!--sentense_pattern -->
+                                        <div class="form-group">
+                                            <label>Mẫu câu hội thoại chứa từ</label>
+                                            <input id="sentense_pattern" name="sentense_pattern" class="form-control" ng-model="vmEditVocabularys.formData.sentense_pattern.sentense"
+                                            />
+                                            <div class="img-desc">
+                                                <div class="form-group">
+                                                    <label>Hình ảnh minh hoạ:</label>
+                                                    <div class="image-upload-section">
+                                                        <a href="" ngf-select ngf-multiple="false" ngf-change="vmEditVocabularys.uploadImage($files, 'sentense_pattern')">
+												            Cập nhật
+											            </a>
+                                                        <div>
+                                                            <img style="margin-top: 15px;" ng-if="vmEditVocabularys.formData.sentense_pattern.image" ng-click="vmEditVocabularys.cropSentenseImg(vmEditVocabularys.formData.sentense_pattern.image)"
+                                                                class="image-upload" ng-src="[[vmEditVocabularys.imagesDirectory + vmEditVocabularys.formData.sentense_pattern.image]]"
+                                                                alt="">
 
-                                <!-- Active -->
-                                <div class="form-group">
-                                    <label>Active</label>
-                                    <br/>
-                                    <input i-check id="chkPublish" type="checkbox" ng-model="vmEditVocabularys.formData.status" ng-true-value="true" ng-false-value="false">                                    Kích hoạt
+                                                        </div>
+                                                    </div>
+                                                    <!--</div>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
 
                                 <!--Start: Upload Image Section-->
                                 <div class="form-group">
@@ -113,6 +142,9 @@
                                     <!--</div>-->
                                 </div>
                                 <!--End: Upload Image Section-->
+
+
+
 
                             </div>
                         </div>

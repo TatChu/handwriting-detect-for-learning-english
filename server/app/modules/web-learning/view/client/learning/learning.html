@@ -11,8 +11,13 @@
 
         <div class="col-md-7">
             <div class="content text-center">
-                <span class="vocabulary" ng-bind="vmLearn.word.word"></span>
-                <span class="define" ng-bind="vmLearn.word.define"></span>
+                <div class="vocabulary"><span ng-bind="vmLearn.word.word"></span></div>
+                <div class="define"><span ng-bind="vmLearn.word.define"></span></div>
+                <div class="sentense">
+                    <span ng-if="vmLearn.word.sentense_pattern && vmLearn.word.sentense_pattern.sentense && vmLearn.word.sentense_pattern.sentense != ''"
+                        ng-bind="'Mẫu câu:  '+ vmLearn.word.sentense_pattern.sentense">
+                        </span>
+                </div>
                 <span class="phienam" ng-bind="vmLearn.word.transcribe"></span>
                 <div class="row more">
                     <div ng-click="vmLearn.speak()" class="col-md-6">
@@ -95,6 +100,11 @@
         font-size: x-large;
     }
 
+    .sentense {
+        margin-top: 3%;
+        font-size: 20px;
+    }
+
     button.btn-control {
         display: inline-block;
         width: 48%;
@@ -107,7 +117,8 @@
     .btn-block+.btn-block {
         margin-top: 0;
     }
-    .cursor{
+
+    .cursor {
         cursor: pointer
     }
 </style>

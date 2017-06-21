@@ -20,6 +20,17 @@ var VocabularySchema = new Schema({
         trim: true,
         require: true
     },
+    conversation: {
+        type: String,
+    },
+    sentense_pattern: {
+        sentense: {
+            type: String
+        },
+        image: {
+            type: String
+        }
+    },
     lang: {
         type: String,
         enum: ['en', 'vi'],

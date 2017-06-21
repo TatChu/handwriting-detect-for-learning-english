@@ -16,7 +16,7 @@
             update: update,
             getAll: getAll,
             get: get,
-            
+
             getUnits: getUnits
         };
 

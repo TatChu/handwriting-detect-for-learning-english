@@ -6,7 +6,7 @@ let config = {};
 config.web = {
 
     port: process.env.FRONT_PORT || 9020,
-    sessionKey: '6ketaq3cgrggdfgdfgdfgdfgo315rk9',
+    sessionKey: 'englishstudyapp',//6ketaq3cgrggdfgdfgdfgdfgo315rk9
     cookieOptions: {
         ttl: 365 * 24 * 60 * 60 * 1000, // expires a year from today
         encoding: 'none',    // we already used JWT to encode

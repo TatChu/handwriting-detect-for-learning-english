@@ -19,6 +19,8 @@ VocabularyValidate.prototype = (function () {
                 unit: Joi.string().required().description('ID Uinit'),
                 word: Joi.string().required().description('Từ'),
                 define: Joi.string().required().allow('').description('Nghĩa'),
+                conversation: Joi.string().allow('').description('conversation'),
+                sentense_pattern: Joi.object().description('sentense_pattern'),
                 lang: Joi.string().allow('').description('Languge'),
                 audio_url: Joi.string().allow('').description('audio file'),
                 transcribe: Joi.string().allow('').description('Phiên âm'),

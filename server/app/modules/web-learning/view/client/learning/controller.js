@@ -57,8 +57,8 @@ var vocabularyWebCtrl = (function () {
             });
         }
 
-        function speak() {
-            responsiveVoice.speak(vmLearn.word.word);
+        function speak(text) {
+            responsiveVoice.speak(text);
         }
 
         function next() {

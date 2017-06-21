@@ -10,9 +10,9 @@ Modules Load Auto
 *******************************************************************/
 /*inject-module:scss*/
 @import "../../../../app/modules/admin-dashboard/view/client/_style.scss";
-@import "../../../../app/modules/admin-auth/view/client/login/_style.scss";
 @import "../../../../app/modules/admin-acl/view/client/add/_style.scss";
 @import "../../../../app/modules/admin-acl/view/client/list/_style.scss";
+@import "../../../../app/modules/admin-auth/view/client/login/_style.scss";
 @import "../../../../app/modules/admin-blog/view/client/add/_style.scss";
 @import "../../../../app/modules/admin-blog/view/client/list/_style.scss";
 @import "../../../../app/modules/admin-log/view/client/list/_style.scss";

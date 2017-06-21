@@ -13,14 +13,13 @@
             <div class="content text-center">
                 <div class="vocabulary"><span ng-bind="vmLearn.word.word"></span></div>
                 <div class="define"><span ng-bind="vmLearn.word.define"></span></div>
-                <div class="sentense">
-                    <span ng-if="vmLearn.word.sentense_pattern && vmLearn.word.sentense_pattern.sentense && vmLearn.word.sentense_pattern.sentense != ''"
-                        ng-bind="'Mẫu câu:  '+ vmLearn.word.sentense_pattern.sentense">
-                        </span>
+                <div class="sentense" ng-if="vmLearn.word.sentense_pattern && vmLearn.word.sentense_pattern.sentense && vmLearn.word.sentense_pattern.sentense != ''" ng-click="vmLearn.speak(vmLearn.word.sentense_pattern.sentense)">
+                    <span ng-bind="'Mẫu câu:  '+ vmLearn.word.sentense_pattern.sentense" >
+                        </span> <i class="fa fa-play-circle-o" aria-hidden="true"></i>
                 </div>
                 <span class="phienam" ng-bind="vmLearn.word.transcribe"></span>
                 <div class="row more">
-                    <div ng-click="vmLearn.speak()" class="col-md-6">
+                    <div ng-click="vmLearn.speak(vmLearn.word.word)" class="col-md-6">
                         <div class="cursor">
                             <img src="{{linkAssets 'button/sound.png'}}" alt="" class="img-sound-word">
                             <!--<input onclick=';' type='button' value='🔊 Play' />-->
@@ -103,6 +102,7 @@
     .sentense {
         margin-top: 3%;
         font-size: 20px;
+        cursor: pointer;
     }
 
     button.btn-control {

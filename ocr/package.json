@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "async-arrays": "^1.0.1",
+    "brain": "^0.7.0",
+    "brain.js": "^1.0.0-rc.3",
     "dnn": "^0.1.0",
     "fs": "0.0.1-security",
     "i": "^0.3.5",
@@ -20,6 +22,7 @@
     "npm": "^5.0.3",
     "opencv": "^6.0.0",
     "png-js": "^0.1.1",
+    "shuffle-array": "^1.0.1",
     "synaptic": "^1.0.10"
   }
 }

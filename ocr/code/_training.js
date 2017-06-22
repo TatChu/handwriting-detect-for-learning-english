@@ -21,7 +21,7 @@ console.time('train: ')
 net.train(trainingSet, {
     errorThresh: 0.0001,    // ngưỡng lỗi chấp nhận
     momentum: 0.3,          // momentum
-    iterations: 200,       // số lần huấn luyện tối đa
+    iterations: 400,       // số lần huấn luyện tối đa
     log: false,
     logPeriod: 10,
     callback: function (data) {

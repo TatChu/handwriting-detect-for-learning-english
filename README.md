@@ -65,7 +65,7 @@ Project
 | 
 |--ocr # Chứa code xử lý nhận dạng chữ
 |--report # Chứa báo cáo đồ án
-|--server # Chứa code website 
+|--web-app # Chứa code website 
     |
     |--app # Chứa app chính
         |

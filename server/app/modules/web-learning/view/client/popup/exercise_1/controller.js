@@ -5,7 +5,7 @@ var exercise_1_Ctrl = (function () {
         .module('bsLearning')
         .controller('exercise_1_Ctrl', exercise_1_Ctrl);
 
-    function exercise_1_Ctrl($scope, $rootScope, $window, $uibModalInstance, $uibModal, bzUpload, customResourceSrv, LearnSvc, word, listVocabulary) {
+    function exercise_1_Ctrl($scope, $rootScope, $window, $uibModalInstance, $uibModal, bzUpload, customResourceSrv, LearnSvc, word, listVocabulary, $bzPopup) {
         var vmExercise_1 = this;
 
         // VARS
@@ -185,8 +185,8 @@ var exercise_1_Ctrl = (function () {
         };
 
         function exit() {
-            $rootScope.stream.getTracks()[0].stop();
             $uibModalInstance.close();
+            $rootScope.stream.getTracks()[0].stop();
         }
 
         function cropImage() {

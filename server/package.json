@@ -38,6 +38,7 @@
     "inert": "^4.0.1",
     "jimp": "^0.2.27",
     "joi": "^9.0.4",
+    "jsonfile": "^3.0.0",
     "jsonwebtoken": "^7.1.8",
     "kue": "^0.11.5",
     "kue-scheduler": "^0.6.5",

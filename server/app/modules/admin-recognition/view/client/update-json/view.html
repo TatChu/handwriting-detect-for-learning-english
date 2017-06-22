@@ -1,0 +1,41 @@
+<div id="mod-update-recognition" class="">
+    <section class="content-header">
+        <h1>
+            Cập nhật thông tin nhận dạng
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Nhận dạng</a></li>
+            <li class="active">Cập nhật thông tin</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="box box-default">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form id="formUpdateURD" name="formUpdateURD">
+                    <div class="box-body  text-center">
+                        <div class="form-group">
+                            <label for="txtData">Dữ liệu</label>
+                            <textarea id="txtData" name="txtData" placeholder="Dán dữ liệu vào đây" style="height: 300px;" class="form-control" type="text" ng-model="vmURD.formData.data" />
+                        </div>
+
+                    </div>
+                    <div class="box-footer">
+                        <button class="btn btn-primary btn-success" ng-click="vmURD.upload()" >
+							<i class="fa fa-cloud-upload" aria-hidden="true"></i>
+							<span>Cập nhật</span>
+						</button>
+                        <!--<button  type="button" class="btn btn-flat" 	<i class="fa fa-cloud-download" aria-hidden="true"></i>
+							<span>Tải xuống tập tin dữ hiện tại</span>
+						</button>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

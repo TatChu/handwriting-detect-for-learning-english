@@ -1,16 +1,19 @@
-# Introduction
-
-Mua Hàng Việt
-
+# Name
+English Study App
+Đồ án xây dựng ứng dụng hỗ trợ học tiếng Anh sử dụng giải thuật phân lớp dữ liệu
+# Info
+	- Name: Nguyễn Tất Chủ
+	- Class: 55CNTT1.NTU
 ## Requirements
 ### Dev
-- Nodejs 6.0 and above
+- Nodejs 7.0 and above
 - MongoDB
 - Redis
-- Elastic Search
 - Nodemon: `npm install -g nodemon`
+- Yarn: `npm install -g yarn`
+- OpenCV 		#version < 3
 
-Create file development.conf.js in /web/app/config with copy example_development.config.js
+Create file development.conf.js in /serer/app/config with copy example_development.config.js
 
 ### Production
 - Dev +
@@ -19,45 +22,32 @@ Create file development.conf.js in /web/app/config with copy example_development
 ## Install
 
 ```bash
-cd web          # Change directory to web
-npm install     # Install nodejs dependency
-cd web/public/assets/admin # Change directory to admin
-bower install   # Install bower dependency admin
-cd web/public/assets/site # Change directory to admin
-bower install   # Install bower dependency site
+cd web           # Change directory to web
+yarn install     # Install nodejs dependency
 
 ```
-- Import/Export MongoDB Database
-
-```bash
-cd misc/seeds  # Change directory to misc/seeds
-node import    # Run this command to import default cms data
-node export    # Run this command to export your cms data and share to team members
+- Add default database
+`node commander initRoleUsers`
 
 ```
 - Default CMS Account
 ```bash
-admin@gmail.com/iii3studi1
+tatchu.it@gmail.com/88888888
 
 ```
 
 ## How to run:
-
-- Using Nodemon
+- Using Gulp
 
 ```bash
-npm start          # In the service folder - example: cms, web, api-user
-nodemon app         # In the service folder
+npm start          	# In the server folder - example: cms, web, api-user
+nodemon app         # In the server folder
+gulp				# In the server folder
 ```
-or
-```bash
-gulp
-```
-
 ## List services:
-- API Server: [http://localhost:9001/](http://localhost:9001/documentation)
-- Admin CMS: [http://localhost:9002/](http://localhost:9002/documentation)
-- Web:  [http://localhost:9006/](http://localhost:9006/)
+- API Server: [http://localhost:9022/](http://localhost:9022/documentation)
+- Admin CMS: [http://localhost:9021/]
+- Web:  [http://localhost:9020/)
 
 ##Solutions/Resources Hapi
 - [Bcrypt](https://github.com/kelektiv/node.bcrypt.js) ~ Mã hóa
@@ -73,9 +63,9 @@ gulp
 ```bash
 Project
 | 
-|--misc # Chứa hướng dẫn config server và import, export DB
-|
-|--web # Chứa code site 
+|--ocr # Chứa code xử lý nhận dạng chữ
+|--report # Chứa báo cáo đồ án
+|--server # Chứa code website 
     |
     |--app # Chứa app chính
         |

@@ -35,14 +35,11 @@ function PreProcess(imgDir, imgName, data) {
                         const width = img.width();
                         const height = img.height();
 
-                        let imgSave = img.copy();
-
                         if (width < 1 || height < 1) {
                             reject(new Error('Image has no size'));
                         }
+                        let imgSave = img.copy();
                         // Chuyen ve anh xam
-                        img.convertGrayscale();
-                        
                         // img.save(imgDir + '1_' + imgName);
 
                         // lọc nhiễu
@@ -50,20 +47,21 @@ function PreProcess(imgDir, imgName, data) {
 
                         // img.gaussianBlur([1, 5]);
                         img.gaussianBlur([3, 3]);
-                        // img.save(imgDir + '2_' + imgName);
+                        img.save(imgDir + '2_' + imgName);
 
 
-                        //  Xac dinh duong net
+                        // chuyển trấng đen
                         const lowThresh = data.lowThresh || 0; // càng lớn càng mất nét
-                        const highThresh = data.highThresh || 120; // cang lon loc cang manh
+                        const highThresh = data.highThresh || 100; // cang lon loc cang manh
                         img.canny(lowThresh, highThresh);
-                        // img.save(imgDir + '3_' + imgName);
+                        img.save(imgDir + '3_' + imgName);
+                        let img_save_to_Crop = img.copy();
 
                         // lam beo chu
                         const iterations = 1; // cang lon chu cang beo'
                         img.dilate(iterations);
                         img.erode(1); // xói mòn
-                        // img.save(imgDir + '4_' + imgName);
+                        img.save(imgDir + '4_' + imgName);
 
                         let contours = img.findContours();
 
@@ -74,8 +72,9 @@ function PreProcess(imgDir, imgName, data) {
                         for (let i = 0; i < contours.size(); i++) {
                             let bound = contours.boundingRect(i);
 
-                            if (bound.width > 15 && bound.height > 25 && bound.width < 160 && bound.height < 160) {
+                            if (bound.width > 10 && bound.height > 10) {
                                 listAllBound.push(bound);
+                                imgSave.rectangle([bound.x, bound.y], [bound.width, bound.height], WHITE, 1);
                             }
                         }
 
@@ -117,22 +116,36 @@ function PreProcess(imgDir, imgName, data) {
                         })
 
                         // CROP IMAGE
-                        if (!fs.existsSync(data.dirDist)) {
-                            fs.mkdirSync(data.dirDist)
-                        }
                         listBoundAccept.forEach(function (item, index) {
                             if (item) {
+                                imgSave.rectangle([item.x, item.y], [item.width, item.height], BLACK, 1);
 
-                                var imgCrop = imgSave.crop(item.x, item.y, item.width, item.height);
-
+                                var imgCrop = img_save_to_Crop.crop(item.x, item.y, item.width, item.height);
+                                var path_save = imgDir + data.character + '/' + data.character + '_' + index + '_' + item.x + '_' + item.y + '.jpg';
                                 imgCrop.resize(width_crop, height_crop);
+                            
+                                // imgCrop.save(path_save)
+                                Jimp.read(imgCrop.toBuffer(), function (err, image) {
 
-                                var path_save = data.dirDist + data.character + '_' + index + '.jpg';
+                                    this.scan(0, 0, image.bitmap.width, image.bitmap.height, function (x, y, idx) {
 
-                                imgCrop.save(path_save);
+                                            var red = this.bitmap.data[idx + 0];
+                                            var green = this.bitmap.data[idx + 1];
+                                            var blue = this.bitmap.data[idx + 2];
+                                            var alpha = this.bitmap.data[idx + 3];
+                                            let tbc = (red + green + blue) / 3;
+                                            // chuyen trang den
+                                            if (tbc < nguong) {
+                                                image.setPixelColor(whitePixel, x, y);
+                                            }
+                                            else {
+                                                image.setPixelColor(blackPixel, x, y);
+                                            }
+                                        })
+                                        .write(path_save, function () {
 
-                                imgSave.rectangle([item.x, item.y], [item.width, item.height], GREEN, 1);
-
+                                        })
+                                })
                             }
                         })
                         imgSave.save(imgDir + '5_' + imgName);
@@ -142,7 +155,6 @@ function PreProcess(imgDir, imgName, data) {
         })
     })
 }
-PreProcess('test/bang chu cai/', 'a.jpg', {
-    character: 'a',
-    dirDist: 'test/a/'
+PreProcess('test/', 'interesting.jpg', {
+    character: 'interesting',
 })

@@ -14,14 +14,14 @@ shuffle(testSet)
 // Khởi tạo mạng
 let net = new brain.NeuralNetwork({
     hiddenLayers: 80,       // nố Neural lớp ẩn
-    learningRate: 0.4,       // bước học
+    learningRate: 0.5,       // bước học
 });
 // Tính thời gian huấn luyện
 console.time('train: ')
 net.train(trainingSet, {
-    errorThresh: 0.0001,    // ngưỡng lỗi chấp nhận
+    errorThresh: 0.0004,    // ngưỡng lỗi chấp nhận
     momentum: 0.3,          // momentum
-    iterations: 400,       // số lần huấn luyện tối đa
+    iterations: 1000,       // số lần huấn luyện tối đa
     log: false,
     logPeriod: 10,
     callback: function (data) {

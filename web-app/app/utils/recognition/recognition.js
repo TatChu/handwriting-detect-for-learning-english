@@ -59,7 +59,7 @@ function recognition(imgSrc) {
                     input: input,
                     output: output,
                     charPredict: charPredict,
-                    secondDetect: outputTmp[indexSecond]
+                    secondDetect: arraysChartTmp[indexSecond]
                 });
             })
         })

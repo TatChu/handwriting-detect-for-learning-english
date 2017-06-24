@@ -5,7 +5,7 @@ var exercise_2_Ctrl = (function () {
         .module('bsLearning')
         .controller('exercise_2_Ctrl', exercise_2_Ctrl);
 
-    function exercise_2_Ctrl($scope, $filter, $rootScope, $window, bzUpload, customResourceSrv, LearnSvc, $bzPopup) {
+    function exercise_2_Ctrl($scope, $filter, $rootScope, $window, bzUpload, customResourceSrv, LearnSvc, $uibModal, $bzPopup) {
         var vmExercise_2 = this;
 
         // VARS
@@ -44,7 +44,8 @@ var exercise_2_Ctrl = (function () {
         vmExercise_2.textRecognition = {
             identified: false,
             chars: [],
-            data: []
+            data: [],
+            resultExactly: false
         }
 
         // INIT
@@ -54,12 +55,12 @@ var exercise_2_Ctrl = (function () {
         vmExercise_2.resetImage = resetImage;
         vmExercise_2.checkResult = checkResult;
         vmExercise_2.makeSnapshot = makeSnapshot;
-        vmExercise_2.cropImage = cropImage;
+        vmExercise_2.uploadImage = uploadImage;
         vmExercise_2.exit = exit;
 
         vmExercise_2.init = init;
         vmExercise_2.processImg = processImg;
-
+        vmExercise_2.delImageRecog = delImageRecog;
         vmExercise_2.nextWord = nextWord;
         vmExercise_2.onChangeTimeDelay = onChangeTimeDelay;
 
@@ -108,6 +109,7 @@ var exercise_2_Ctrl = (function () {
                 if (index == vmExercise_2.imgProcessed.data.length) {
                     // Custom result recoginiton
                     vmExercise_2.textRecognition.data.forEach(function (item, i) {
+                        console.log(1111, i, item)
                         if (vmExercise_2.textRecognition.chars[i] != vmExercise_2.word.word[i]) {
                             if (item.secondDetect == vmExercise_2.word.word[i]) {
                                 vmExercise_2.textRecognition.chars[i] = item.secondDetect;
@@ -125,12 +127,20 @@ var exercise_2_Ctrl = (function () {
                             faild++;
                         }
                     });
+                    // Nếu tỷ lệ nhận dạng sai dưới 30% thì cho phép đúng
                     if (((faild / total) * 100) <= 30) {
                         vmExercise_2.textRecognition.chars = vmExercise_2.word.word;
                     }
-
+                    if (typeof vmExercise_2.textRecognition.chars == 'array' || typeof vmExercise_2.textRecognition.chars == 'object') {
+                        vmExercise_2.textRecognition.chars = vmExercise_2.textRecognition.chars.join('');
+                    }
+                    if (vmExercise_2.textRecognition.chars.toUpperCase() == vmExercise_2.word.word.toUpperCase()) {
+                        vmExercise_2.textRecognition.resultExactly = true;
+                    }
+                    else {
+                        vmExercise_2.textRecognition.resultExactly = false;
+                    }
                     vmExercise_2.textRecognition.identified = true;
-                    vmExercise_2.textRecognition.chars = vmExercise_2.textRecognition.chars.join('');
                     console.log('Result check: ', vmExercise_2.textRecognition)
                 }
                 else {
@@ -142,9 +152,30 @@ var exercise_2_Ctrl = (function () {
                     });
                 }
             }
-            checkItem(0);
+            if (vmExercise_2.imgProcessed.data.length == vmExercise_2.word.word.length) {
+                checkItem(0);
+            }
+            if (vmExercise_2.imgProcessed.data.length > vmExercise_2.word.word.length) {
+                $bzPopup.toastr({
+                    type: 'error',
+                    data: {
+                        title: 'Số lượng ký tự chưa đúng',
+                        message: 'Hãy bỏ các ký tự dư trên ảnh của bạn'
+                    }
+                });
+                return;
+            }
+            if (vmExercise_2.imgProcessed.data.length < vmExercise_2.word.word.length) {
+                $bzPopup.toastr({
+                    type: 'error',
+                    data: {
+                        title: 'Số lượng ký tự chưa đúng',
+                        message: 'Hãy thử lại với ảnh khác'
+                    }
+                });
+                return;
+            }
         }
-
         function recognition(data, callback) {
             LearnSvc.recognition({
                 directory: settingJs.configs.uploadDirectory.tmp,
@@ -155,6 +186,7 @@ var exercise_2_Ctrl = (function () {
             })
         }
         function init() {
+            vmExercise_2.textRecognition.resultExactly = false;
             if (vmExercise_2.indexWord < vmExercise_2.listVocabulary.length) {
                 vmExercise_2.word = vmExercise_2.listVocabulary[vmExercise_2.indexWord];
                 // reset kêt quả trước nếu có
@@ -180,7 +212,14 @@ var exercise_2_Ctrl = (function () {
             }
         }
 
+        function delImageRecog(index) {
+            if (vmExercise_2.imgProcessed.data.length > vmExercise_2.word.word.length) {
+                vmExercise_2.imgProcessed.data.splice(index, 1);
+            }
+        }
 
+
+        // WEBCAME PROCESS
         vmExercise_2.onError = function (err) {
             $scope.$apply(
                 function () {
@@ -231,14 +270,14 @@ var exercise_2_Ctrl = (function () {
             $rootScope.stream.getTracks()[0].stop();
         }
 
-        function cropImage() {
+        function uploadImage() {
             var cropModal = $uibModal.open({
                 animation: true,
                 templateUrl: '/assets/global/cropper/view.html',
                 controller: function ($scope, $uibModalInstance) {
                     var popupScope = this;
                     $scope.popupScope = {
-                        image: vmExercise_2.imgDir + vmExercise_2.image.name,
+                        // image: vmExercise_2.imgDir + vmExercise_2.image.name,
                         event: 'crop:image',
                         ratio: 1,
                         width: 300,
@@ -249,6 +288,8 @@ var exercise_2_Ctrl = (function () {
                         bzUpload.uploadBase64({ directory: 'tmp', image: res.image }).then(function (resp) {
                             vmExercise_2.image = resp;
                             cropModal.close();
+                            vmExercise_2.hasImage = true;
+                            analysisImage();
                         }).catch(function (err) {
                             $bzPopup.toastr({
                                 type: 'error',
@@ -279,13 +320,7 @@ var exercise_2_Ctrl = (function () {
 
                     bzUpload.uploadBase64({ directory: 'tmp', image: patCanvas.toDataURL() }).then(function (resp) {
                         vmExercise_2.image = resp;
-
-                        if (vmExercise_2.configs.analysisImage) {
-                            analysisImage();
-                        }
-                        else {
-                            cropImage();
-                        }
+                        analysisImage();
                     }).catch(function (err) {
                         $bzPopup.toastr({
                             type: 'error',
@@ -297,9 +332,7 @@ var exercise_2_Ctrl = (function () {
                     })
 
                     patData = idata;
-
                     vmExercise_2.hasImage = true;
-
                 }
                 else {
                     $bzPopup.toastr({

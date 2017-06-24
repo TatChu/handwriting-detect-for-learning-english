@@ -34,23 +34,32 @@ function recognition(imgSrc) {
                     input.push(1);
                 }
             }).autocrop(function () {
-                for (var u = width; u < height * width; u += width) {
-                    let row = '';
-                    for (var v = u - width; v < u; v++) {
-                        row += input[v];
-                    }
-                    console.log(row);
-                }
+                // for (var u = width; u < height * width; u += width) {
+                //     let row = '';
+                //     for (var v = u - width; v < u; v++) {
+                //         row += input[v];
+                //     }
+                //     console.log(row);
+                // }
 
                 var output = net.run(input);
+
+                let outputTmp = JSON.parse(JSON.stringify(output));
+                let arraysChartTmp = JSON.parse(JSON.stringify(arraysChart));
+
                 var indexOutput = output.indexOf(Math.max.apply(null, output));
-                console.log('DONE: ', indexOutput, arraysChart[indexOutput]);
+                var charPredict = arraysChart[indexOutput];
+
+                outputTmp.splice(indexOutput, 1);
+                arraysChartTmp.splice(indexOutput, 1);
+                let indexSecond = outputTmp.indexOf(Math.max.apply(null, outputTmp));
+                console.log('detected: ', arraysChart[indexOutput], ' : ', output[indexOutput] * 100, ' or ', arraysChartTmp[indexSecond], ' : ', outputTmp[indexSecond] * 100);
 
                 return resolve({
                     input: input,
                     output: output,
-                    arraysChart: arraysChart,
-                    charPredict: arraysChart[indexOutput]
+                    charPredict: charPredict,
+                    secondDetect: outputTmp[indexSecond]
                 });
             })
         })

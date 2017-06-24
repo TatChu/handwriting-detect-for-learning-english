@@ -12,6 +12,7 @@ module.exports = {
 	listUnit,
 	learning,
 	exercise_1,
+	exercise_2
 };
 
 
@@ -42,9 +43,10 @@ function listUnit(request, reply) {
 
 function learning(request, reply) {
 	let unit = request.params.unit || null;
-	Vocabulary.find({ unit: unit }).exec().then(function (vocabularys) {
+	Vocabulary.find({ unit: unit, status: true }).exec().then(function (vocabularys) {
 		return reply.view('web-learning/view/client/learning/learning', {
 			vocabularys,
+			unit: unit,
 			menu: { learning: true }
 		}, { layout: 'web/layout' });
 	}).catch(function (err) {
@@ -55,7 +57,7 @@ function learning(request, reply) {
 
 function exercise_1(request, reply) {
 	let unit = request.params.unit || null;
-	Vocabulary.find({ unit: unit }).exec().then(function (vocabularys) {
+	Vocabulary.find({ unit: unit, status: true }).exec().then(function (vocabularys) {
 		return reply.view('web-learning/view/client/exercise_1/exercise_1', {
 			vocabularys,
 			menu: { learning: true }
@@ -63,5 +65,16 @@ function exercise_1(request, reply) {
 	}).catch(function (err) {
 		return reply.redirect('/error404');
 	})
+}
 
+function exercise_2(request, reply) {
+	let unit = request.params.unit || null;
+	Vocabulary.find({ unit: unit, status: true }).exec().then(function (vocabularys) {
+		return reply.view('web-learning/view/client/learn_sentense_and_vocabulary/exercise_2', {
+			vocabularys,
+			menu: { learning: true }
+		}, { layout: 'web/layout' });
+	}).catch(function (err) {
+		return reply.redirect('/error404');
+	})
 }

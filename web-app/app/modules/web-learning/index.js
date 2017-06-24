@@ -28,6 +28,15 @@ exports.register = function (server, options, next) {
         },
     });
 
+
+server.route({
+        method: 'GET',
+        path: '/hoc-bai/luyen-tap-mau-cau/{unit}',
+        handler: LearningController.exercise_2,
+        config: {
+        },
+    });
+
     next();
 };
 

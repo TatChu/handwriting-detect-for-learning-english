@@ -20,7 +20,7 @@ exports.register = function (server, options, next) {
         },
     });
 
-     server.route({
+    server.route({
         method: 'POST',
         path: '/auto-crop-img',
         handler: RecognitionController.autoCropImg,
@@ -28,6 +28,13 @@ exports.register = function (server, options, next) {
         },
     });
 
+    server.route({
+        method: 'POST',
+        path: '/analysis-image',
+        handler: RecognitionController.analysisImage,
+        config: {
+        },
+    });
     next();
 };
 

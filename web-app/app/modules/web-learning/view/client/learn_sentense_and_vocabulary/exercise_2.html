@@ -1,0 +1,172 @@
+<div id="popup-exercise_2" class="bzPopup fix-width" data-ng-controller="exercise_2_Ctrl as vmExercise_2">
+    <div class="pop-head">
+        <h3 class="heading6 text-center">LUYỆN TẬP TỪ VỰNG THEO MẪU CÂU</h3>
+    </div>
+    <div class="pop-content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="has-snaphost" ng-show="vmExercise_2.hasImage">
+                    <div class="text-center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <canvas id="snapshot" ng-show="false" class="image-responsive"></canvas>
+                            </div>
+                            <div class="col-md-12" ng-if="vmExercise_2.imgProcessed.isProcessed">
+                                <img ng-click="vmExercise_2.cropImage()" ng-src="[[vmExercise_2.imgUploadLink + vmExercise_2.image.name]]" alt="" class="image-responsive img-snaphot">
+                            </div>
+                            <div class="col-md-12" ng-if="vmExercise_2.imgProcessed.isProcessed">
+                                <img ng-repeat="item in vmExercise_2.imgProcessed.data" ng-src="[[vmExercise_2.imgUploadLink + item.image]]" alt="" class="image-responsive img-snaphot image-detect">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button ng-if="!vmExercise_2.imgProcessed.isProcessed" ng-click="vmExercise_2.processImg()" class="btn btn-md btn-success btn-left btn-block">Xử lý ảnh</button>
+
+                    <button ng-if="vmExercise_2.imgProcessed.isProcessed" ng-click="vmExercise_2.checkResult()" class="btn btn-md btn-info btn-left btn-block">Kiểm tra kết quả</button>
+
+                    <button ng-click="vmExercise_2.resetImage()" class="btn btn-md btn-default btn-right  btn-block">Chụp lại</button>
+                </div>
+                <div class="live-video" ng-show="!vmExercise_2.hasImage">
+                    <div class="text-center">
+                        <webcam on-stream="vmExercise_2.onStream(stream)" on-access-denied="vmExercise_2.onError(err)" on-streaming="vmExercise_2.onSuccess()"
+                            channel="vmExercise_2.channel">
+                        </webcam>
+                    </div>
+
+                    <button type="button" class="btn btn-primary btn-left" ng-click="vmExercise_2.makeSnapshot()">Chụp ảnh</button>
+
+                    <button type="button" class="btn btn-default btn-right" ng-click="vmExercise_2.exit()">Quay lại</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h5 class="heading6 text-center">Theo dõi hình ảnh phía dưới và viết từ còn thiếu vào câu?</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="img-tip">
+                            <img ng-src="[[vmExercise_2.imgVocabularyLink + vmExercise_2.word.sentense_pattern.image]]" class="img img-responsive img-word"
+                                alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h4 class="heading6 text-center word-missing">[[vmExercise_2.textMissing]]</h4>
+                    </div>
+                </div>
+
+                <div class="div-text-recog text-center" ng-if="vmExercise_2.textRecognition.identified">
+                    <h2>Đáp án của bạn:</h2>
+                    <span class="heading6 text-center char-recognition" ng-bind="vmExercise_2.textRecognition.chars"></span>
+                </div>
+                <div class="div-check-result text-center" ng-if="vmExercise_2.textRecognition.chars.toUpperCase() == vmExercise_2.word.word.toUpperCase() && vmExercise_2.textRecognition.identified">
+                    <h2 class="fuchsia">Chính xác!</h2>
+                    <h4 class="heading6 text-center s2e">[[vmExercise_2.word.word]]:
+                        <span class="purple">[[vmExercise_2.word.define]]</span></h4>
+                </div>
+
+                <div class="div-check-result text-center" ng-if="vmExercise_2.textRecognition.chars.toUpperCase() != vmExercise_2.word.word.toUpperCase() && vmExercise_2.textRecognition.identified">
+                    <h2 class="res-false">Chưa chính xác!</h2>
+                </div>
+
+                <div class="button-recog" ng-if="vmExercise_2.textRecognition.identified">
+                    <button type="button" class="btn btn-default btn-50" ng-click="vmExercise_2.randomCharecter()">Làm lại</button>
+
+                    <button type="button" class="btn btn-warning btn-50" ng-click="vmExercise_2.nextWord()">Từ tiếp theo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer fix-modal-footer">
+        <div class="row">
+            <div class="col-md-4">
+                <label><input type="checkbox" ng-model=" vmExercise_2.configs.autoCropImage" name="autoCropImg" value="">  &nbsp Tự động xử lý ảnh và kiểm tra kết quả</label>
+            </div>
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var vocabularys = {{{json vocabularys}}};
+
+</script>
+<style>
+    .fix-modal-footer {
+        margin-top: 1%;
+        padding-left: 5%;
+        text-align: left;
+        height: 6px;
+    }
+
+    .fix-width {
+        max-width: 1036px;
+    }
+
+    .word-missing {
+        font-size: 2em;
+        margin-top: 20%;
+    }
+
+    .sem {
+        font-size: 2em
+    }
+
+    .btn-left {
+        width: 70%;
+        max-width: 300px !important;
+    }
+
+    .btn-right {
+        width: 30%;
+        max-width: 150px !important;
+    }
+
+    .img-snaphot {
+        max-width: 240px;
+    }
+
+    .img-processed {
+        width: 60px;
+        height: 90px;
+        margin-left: 15px;
+    }
+
+    .char-recognition {
+        font-size: 4em;
+    }
+
+    .div-text-recog {
+        margin-top: 15px;
+    }
+
+    .res-false {
+        color: red;
+        font-size: 3em;
+    }
+
+    .purple {
+        color: purple;
+    }
+
+    .fuchsia {
+        color: fuchsia;
+    }
+
+    .btn-50 {
+        width: 50%;
+    }
+
+    .img-word {
+        margin: 0 auto;
+        width: 150%;
+        margin-top: 30%;
+    }
+
+    .image-detect {
+        margin-right: 8px;
+        width: 30px;
+        margin-top: 10%;
+    }
+</style>

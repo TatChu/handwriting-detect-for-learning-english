@@ -15,7 +15,8 @@
         return {
             recognition: recognition,
             processImage: processImage,
-            autoCropImage: autoCropImage
+            autoCropImage: autoCropImage,
+            analysisImage: analysisImage
         };
 
         function recognition(data) {
@@ -31,6 +32,10 @@
         function autoCropImage(data) {
             var fac = new LearnFac(data);
             return fac.$save({ method: 'auto-crop-img' });
+        }
+        function analysisImage(data) {
+            var fac = new LearnFac(data);
+            return fac.$save({ method: 'analysis-image' });
         }
     }
 })();

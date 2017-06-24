@@ -16,10 +16,10 @@ require('async-arrays').proto();
 
 
 module.exports = {
-    PreProcess,
+    analysisImage,
 }
 
-function PreProcess(imgDir, imgName, data) {
+function analysisImage(imgDir, imgName, data) {
     return new Promise(function (resolve, reject) {
         Jimp.read(imgDir + imgName, function (err, imgJimp) {
             if (err) {
@@ -152,8 +152,8 @@ function PreProcess(imgDir, imgName, data) {
         })
     })
 }
-PreProcess('test/', 'vietnamese.jpg', {
-    dirDist: 'test/'
-}).then(res => {
-    console.log(res.listImage)
-})
+// analysisImage('test/', 'vietnamese.jpg', {
+//     dirDist: 'test/'
+// }).then(res => {
+//     console.log(res.listImage)
+// })

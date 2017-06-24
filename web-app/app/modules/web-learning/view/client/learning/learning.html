@@ -13,8 +13,9 @@
             <div class="content text-center">
                 <div class="vocabulary"><span ng-bind="vmLearn.word.word"></span></div>
                 <div class="define"><span ng-bind="vmLearn.word.define"></span></div>
-                <div class="sentense" ng-if="vmLearn.word.sentense_pattern && vmLearn.word.sentense_pattern.sentense && vmLearn.word.sentense_pattern.sentense != ''" ng-click="vmLearn.speak(vmLearn.word.sentense_pattern.sentense)">
-                    <span ng-bind="'Mẫu câu:  '+ vmLearn.word.sentense_pattern.sentense" >
+                <div class="sentense" ng-if="vmLearn.word.sentense_pattern && vmLearn.word.sentense_pattern.sentense && vmLearn.word.sentense_pattern.sentense != ''"
+                    ng-click="vmLearn.speak(vmLearn.word.sentense_pattern.sentense)">
+                    <span ng-bind="'Mẫu câu:  '+ vmLearn.word.sentense_pattern.sentense">
                         </span> <i class="fa fa-play-circle-o" aria-hidden="true"></i>
                 </div>
                 <span class="phienam" ng-bind="vmLearn.word.transcribe"></span>
@@ -31,13 +32,20 @@
                         <span class="" ng-bind="vmLearn.getClasses(vmLearn.word.classes)"></span>
                     </div>
                     <div class="btn-div">
-                        <button type="button" ng-click="vmLearn.prev()" ng-if="vmLearn.index >= 1" class="btn btn-lg  btn-block btn-success btn-control">Từ trước</button>
+                        <button type="button" ng-click="vmLearn.prev()" ng-if="vmLearn.index >= 1" class="btn btn-lg  btn-block btn-success btn-control"><i class="fa fa-caret-left" aria-hidden="true"></i> Từ trước</button>
 
-                        <button type="button" ng-click="vmLearn.next()" ng-if="vmLearn.index < vmLearn.listVocabulary.length - 2" class="btn btn-block btn-warning btn-lg  btn-control">Từ tiếp theo</button>
+                        <button type="button" ng-click="vmLearn.next()" ng-if="vmLearn.index < vmLearn.listVocabulary.length - 2" class="btn btn-block btn-warning btn-lg  btn-control">Từ tiếp theo <i class="fa fa-caret-right" aria-hidden="true"></i></button>
                     </div>
-                    <div class="btn-div">
-                        <button ng-click="vmLearn.openExersice_1()" class="btn btn-block btn-info btn-lg  btn-control">Luyện tập nhớ từ</button>
+                    <div class="row top-10">
+                        <div class="col-md-6">
+                                <button ng-click="vmLearn.openExersice_1()" class="btn btn-link red">Luyện tập nhớ từ</button>
+                        </div>
+
+                        <div class="col-md-6">
+                                <a href="/hoc-bai/luyen-tap-mau-cau/{{unit}}" class="btn btn-link blue">Luyện tập từ với mẫu câu</a>
+                        </div>
                     </div>
+
                 </div>
 
             </div>
@@ -51,8 +59,7 @@
 
 
 <script>
-    var vocabularys = {{{json vocabularys}}}
-
+    var vocabularys = {{{json vocabularys}}};
 </script>
 <style>
     .btn-arrow {
@@ -120,5 +127,14 @@
 
     .cursor {
         cursor: pointer
+    }
+    .red{
+        color: red;
+    }
+    .blue{
+        color: blue;
+    }
+    .top-10{
+        margin-top: 6%;
     }
 </style>

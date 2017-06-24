@@ -91,6 +91,7 @@ var exercise_1_Ctrl = (function () {
             }).then(function (resp) {
                 vmExercise_1.imgProcessed.isProcessed = true;
                 vmExercise_1.imgProcessed.image = resp;
+                vmExercise_1.image.name = resp.newImage;
                 checkResult();
             }).catch(function (err) {
                 console.log('err processImg', err)

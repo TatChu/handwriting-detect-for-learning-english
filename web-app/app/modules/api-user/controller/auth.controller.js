@@ -43,7 +43,7 @@ module.exports = {
     resetPassword,
     changePassword,
     profile,
-    updateFavoriteProduct
+    requestRecogniton
 };
 
 function find(request, reply) {
@@ -135,6 +135,11 @@ function find(request, reply) {
         filters.status = {
             $eq: request.query.status
         };
+    }
+
+    // Request recogniton
+    if (request.query.request_recognition) {
+        filters.request_recognition = request.query.request_recognition;
     }
 
     // Quyền
@@ -803,12 +808,37 @@ function profile(request, reply) {
     return reply(Boom.unauthorized('User is not found'));
 }
 
-function updateFavoriteProduct(request, reply) {
-    let user = request.pre.user;
-    user.favorite_product = request.payload.favorite_product;
-    let promise = user.save();
-    // Update favorite product user
-    promise.then(function (resp) {
-        return reply({ success: true })
-    })
+
+
+function requestRecogniton(request, reply) {
+    let userId = request.auth.credentials ? request.auth.credentials.uid : '';
+    if (userId.length == 0) {
+        return reply(Boom.badRequest('Bạn không có quyền gửi yêu cầu'));
+    }
+    else {
+        User.findOne({ _id: userId }).then(user => {
+            if (user) {
+                if (!user.request_recognition) {
+                    user.request_recognition != 'PENDING'
+                    user.save().then(user => {
+                        return reply({
+                            success: true,
+                            message: 'Hệ thống đã nhận được yêu cầu xử lý!'
+                        });
+                    });
+                }
+                else {
+                    return reply({
+                        success: true,
+                        message: 'Hệ thống đã nhận được yêu cầu xử lý. Vui lòng chờ quản trị xử lý!'
+                    });
+                }
+            }
+            else {
+                return reply(Boom.badRequest('Không tìm thấy thấy tài khoản'));
+            }
+        }).catch(err => {
+            return reply(Boom.badRequest('Không tìm thấy thấy tài khoản'));
+        })
+    }
 }

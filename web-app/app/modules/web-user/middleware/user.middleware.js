@@ -25,13 +25,15 @@ function folderDefaultUser(request, reply) {
             general: checkExitsDir(config.get('web.dirDataNeuralNetwork.general')),
             user: {
                 root: checkExitsDir(rootDir + user_id + '/'),
-                scan: checkExitsDir(rootDir + user_id + '/scan/'),
+                input: checkExitsDir(rootDir + user_id + '/input/'),
                 processed: checkExitsDir(rootDir + user_id + '/processed/'),
                 output: checkExitsDir(rootDir + user_id + '/output/'),
             }
         }
-
-        reply(dir);
+        fs.readdir(dir.user.input, (err, files) => {
+            dir.user.file_input = files;
+            reply(dir);
+        })
     }
 }
 
@@ -40,9 +42,8 @@ function folderDefaultUser(request, reply) {
  * Return đường đẫn
  */
 function checkExitsDir(dir) {
-    let realPath = process.cwd() + dir;
-    if (!fs.existsSync(realPath)) {
-        fs.mkdirSync(realPath);
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
     }
     return dir;
 }

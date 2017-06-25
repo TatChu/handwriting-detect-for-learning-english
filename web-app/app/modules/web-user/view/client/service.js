@@ -30,20 +30,18 @@
 
         function update(data, id) {
             var createData = new userFac(data);
-
             return createData.$update({ method: 'user', id: id });
         }
     }
 
     function userSvcApi($q, $window, customResourceSrv, userFacApi) {
         return {
-            updateFavoriteProduct: updateFavoriteProduct
+            requestRecogniton: requestRecogniton,
         };
 
-        function updateFavoriteProduct(data, id) {
-            var createData = new userFacApi(data);
-
-            return createData.$update({ method: 'user-favorite-product', id: id });
+        function requestRecogniton() {
+            var req = new userFacApi();
+            return req.$get({ method: 'user', id: 'request-recognition' });
         }
     }
 })();

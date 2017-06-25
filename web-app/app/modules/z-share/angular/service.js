@@ -18,11 +18,24 @@
 
     function bzUpload($q, customResourceSrv) {
         return {
-            uploadBase64: uploadBase64
+            uploadBase64: uploadBase64,
+            uploadDataTraning: uploadDataTraning,
         };
         function uploadBase64(data) {
             var defer = $q.defer();
             customResourceSrv.api(settingJs.configs.userApiUrl + '/upload/base64')
+                .save(data, function (resp) {
+                    defer.resolve(resp);
+                }, function (err) {
+                    defer.reject(err);
+                });
+
+            return defer.promise;
+        }
+
+        function uploadDataTraning(data) {
+            var defer = $q.defer();
+            customResourceSrv.api(settingJs.configs.userApiUrl + '/upload/data-training')
                 .save(data, function (resp) {
                     defer.resolve(resp);
                 }, function (err) {

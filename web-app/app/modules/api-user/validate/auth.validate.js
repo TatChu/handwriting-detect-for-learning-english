@@ -14,7 +14,8 @@ AuthValidate.prototype = (function () {
                 cfpassword: Joi.string(),
                 status: Joi.boolean(),
                 roles: Joi.any().description('Roles'),
-                classes: Joi.string().description('classes')
+                classes: Joi.string().description('classes'),
+                request_recognition: Joi.string().description('request_recognition'),
             }
 		},
 		update: {
@@ -41,7 +42,8 @@ AuthValidate.prototype = (function () {
                 resetPasswordExpires: Joi.allow('').description('resetPasswordExpires'),
                 resetPasswordToken: Joi.allow('').description('resetPasswordToken'),
                 deletedAt: Joi.allow('').description('DeletedAt'),
-                old_id: Joi.allow('').description('Used id olc'),
+                request_recognition: Joi.string().description('request_recognition'),
+                
             }
         },
         login: {

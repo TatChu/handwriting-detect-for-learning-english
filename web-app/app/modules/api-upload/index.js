@@ -48,7 +48,25 @@ exports.register = function (server, options, next) {
             },
         },
     });
-    
+
+
+    server.route({
+        method: 'POST',
+        path: '/upload/data-training',
+        handler: UploadController.uploadDataTraning,
+        config: {
+            auth: false,
+            description: 'Handle Upload Image base 64 to uploadDataTraning',
+            tags: ['api'],
+            plugins: {
+                'hapi-swagger': {
+                    responses: { '400': { 'description': 'Bad Request' } },
+                    payloadType: 'form'
+                }
+            },
+        },
+    });
+
     server.route({
         method: 'POST',
         path: '/upload/pdf',

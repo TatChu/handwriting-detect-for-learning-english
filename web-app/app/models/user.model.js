@@ -31,6 +31,11 @@ var UserSchema = new Schema({
     neural_network_json: {
         type: String,
     },
+    request_recognition: { // Yêu cầu nhận dạng chữ
+        type: String,
+        enum: ['NONE', 'PENDING', 'PROCCESSED'], // Không, || User đang gửi yêu cầu || Admin đã xử lý
+        default: 'NONE'
+    },
     phone: {
         type: String,
         unique: true,

@@ -183,16 +183,15 @@ exports.register = function (server, options, next) {
     });
 
     server.route({
-        method: 'PUT',
-        path: '/user-favorite-product/{id}',
-        handler: AuthController.updateFavoriteProduct,
+        method: 'GET',
+        path: '/user/request-recognition',
+        handler: AuthController.requestRecogniton,
         config: {
-            pre: [
-                { method: UserHelper.getById, assign: 'user' },
-            ]
+            auth: 'jwt',
+            tags: ['api'],
+            description: 'Process request recognition',
         }
     });
-
     // Extend
     // server.route({
     //     method: 'GET',

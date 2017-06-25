@@ -11,7 +11,7 @@
 			},
 			templateUrl: 'modules/admin-recognition/view/client/update-json/view.html',
 			controller: 'updateRecognitonDataCtrl',
-			controllerAs: 'vmURD',
+			controllerAs: 'vmPRR',
 			resolve: updateRecognitonDataCtrl.resolve
 		}
 	});

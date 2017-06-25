@@ -5,26 +5,30 @@
                 {{> web/partials/user/menu_left}}
             </div>
             <div class="col-right col-xs-8" ng-cloak>
-                <div class="panel-group" id="accordion" >
+                <div class="panel-group" id="accordion">
                     <div class="panel panel-default" ng-repeat="item in vmRecognition.arraysChart">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#data_char_[[item]]">
-                                    Dữ liệu ký tự "[[item]]"
+                                    Dữ liệu ký tự "[[item]]" <span ng-if="!vmRecognition.checkDataItem(item, $index)">(Chưa có ảnh)</span>
                                 </a>
                             </h4>
                         </div>
-                        <div id="data_char_[[item]]" class="panel-collapse collapse" ng-class="{in: item == 'a'">
+                        <div id="data_char_[[item]]" class="panel-collapse collapse" ng-class="{in: item == 'a'}">
                             <div class="panel-body">
                                 <div class="scan">
-                                    Ảnh scan:
-                                </div>
-                                <div class="processed">
-                                    Ảnh qua xử lý:
-                                </div>
+                                    Ảnh ký tự: <button type="button" ng-click="vmRecognition.uploadImage(item)" class="btn btn-link">Cập nhật</button>
+                                    <br>
 
+                                    <img ng-if="vmRecognition.checkDataItem(item, $index)" ng-src="[[vmRecognition.getLinkItem(item, $index)]]" alt="">
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="button-summit">
+                        <button type="button" ng-disabled="!vmRecognition.isAllowRequest" ng-click="vmRecognition.requestRecogniton()" class="btn btn-success">Gửi yêu cầu nhận dạng</button>
                     </div>
                 </div>
             </div>
@@ -34,3 +38,8 @@
     <script>
         var userFolder = {{{json userFolder}}}
     </script>
+    <style>
+        .button-submit {
+            text-align: center;
+        }
+    </style>

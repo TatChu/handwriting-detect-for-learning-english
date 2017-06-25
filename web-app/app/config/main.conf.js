@@ -60,12 +60,12 @@ config.web = {
             debug: false // include SMTP traffic in the logs
         },
         defaults: {
-            from: 'info <sender@gmail.com>'
+            from: 'English Study System <english.study.app@gmail.com>'
         }
     },
     email: {
         from: {
-            "name": "English Study App",
+            "name": "English Study System",
             "address": "english.study.app@gmail.com"
         },
         to: [],
@@ -109,8 +109,8 @@ config.web = {
         oldMediaContentPath: process.cwd() + '/public/files/media_old/',
     },
     dirDataNeuralNetwork: {
-        root: '/public/data-tranning/',
-        general: '/public/data-tranning/general/',
+        root: 'public/data-training/',
+        general: 'public/data-training/general/',
     },
     connections: [
         {

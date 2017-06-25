@@ -12,7 +12,8 @@ module.exports = {
     uploadFile: uploadFile,
     fileBrowserUploadCKE: fileBrowserUploadCKE,
     imageUploadCKE: imageUploadCKE,
-    uploadBase64
+    uploadBase64,
+    uploadDataTraning
 };
 
 function uploadFile(request, reply) {
@@ -88,6 +89,50 @@ function uploadBase64(request, reply) {
     }
 
     dist = dist + '/' + fileName;
+
+    // Save image to disk
+    fs.writeFile(dist, imageBuffer, function (err) {
+        if (err) {
+            return reply(Boom.badRequest('Error occur while save image'));;
+        }
+        else {
+            let dataReply = {
+                name: fileName,
+                directory: directory,
+                type: type
+            }
+            return reply(dataReply);
+        }
+    });
+}
+
+
+function uploadDataTraning(request, reply) {
+    let config = request.server.configManager;
+
+    let data = request.payload.image;
+    let rootDir = config.get('web.dirDataNeuralNetwork.root');
+
+    if (!data)
+        return reply(Boom.badRequest('Can not read image upload'));
+
+    let matches = data.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    if (matches.length !== 3) {
+        return reply(Boom.badRequest('Invalid image'));;
+    }
+
+    let type = matches[1];
+    let imageBuffer = new Buffer(matches[2], 'base64');
+
+    let directory = request.payload.directory || (rootDir + request.auth.credentials.uid + '/input/');
+    let character = request.payload.character || '';
+    let fileName = character + '.jpg';
+    // fix if dir config not exits
+    if (!fs.existsSync(directory)) {
+        fs.mkdirSync(directory);
+    }
+
+    let dist = directory + fileName;
 
     // Save image to disk
     fs.writeFile(dist, imageBuffer, function (err) {

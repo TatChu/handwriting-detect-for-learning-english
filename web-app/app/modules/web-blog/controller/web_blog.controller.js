@@ -15,6 +15,7 @@ var await = require('asyncawait/await');
 module.exports = {
     listPostByTag,
     getDetailPost,
+    openPageHuongDanGioiThieu,
 };
 
 
@@ -137,3 +138,40 @@ function getDetailPost(request, reply) {
     });
 }
 
+function openPageHuongDanGioiThieu(request, reply) {
+    const Meta = request.server.plugins['service-meta'];
+    var meta = JSON.parse(JSON.stringify(Meta.getMeta('detail-article-cs')));
+    let slug = request.params.slugPost;
+
+    Blog.findOne({ slug: slug, type: 'CS', status: true }).exec().then(function (post) {
+        if (!post) return reply.redirect('/error404');
+        else {
+            //Update count views
+            post.views += 1;
+            post.save();
+
+            Blog.find({ type: 'CS', status: true }).exec(function (err, posts) {
+                if (err)
+                    return reply.redirect('/error404');
+                let dataRes = {
+                    module: 'web-blog',
+                    meta,
+                    allPostPolicy: posts,
+                    post: null,
+                    class: { body_class: 'page-blog' },
+                    menu: { policy: true },
+                };
+
+                dataRes.post = post;
+
+                dataRes.meta.title = dataRes.post.name;
+                dataRes.meta.og_title = dataRes.post.meta_title != '' ? dataRes.post.meta_title : dataRes.post.name;
+                dataRes.meta.og_description = dataRes.post.meta_description != '' ? dataRes.post.meta_description : dataRes.post.short_description;
+
+                return reply.view('web-blog/view/client/policy-page/policy-view', dataRes, { layout: 'web/layout' });
+            });
+        }
+    }).catch(err => {
+        return reply.redirect('/error404');
+    })
+}

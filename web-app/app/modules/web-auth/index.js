@@ -18,7 +18,7 @@ exports.register = function (server, options, next) {
     // });
     server.route({
         method: 'GET',
-        path: '/khach-hang/dat-lai-mat-khau/{token}',
+        path: '/hoc-vien/dat-lai-mat-khau/{token}',
         handler: AuthController.resetPass,
         config: {
             pre: [

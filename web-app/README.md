@@ -1,7 +1,7 @@
 
 # Introduction
 
-Mua Hàng Việt Application
+English Study System Application
 
 ## Requirements
 ### Dev

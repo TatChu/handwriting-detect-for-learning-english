@@ -5,10 +5,13 @@ exports.sendRegisterEmail = function (request, to, context) {
     if (!to) {
         to = { name: request.payload.name, address: request.payload.email }
     }
+    let bcc = config.get('web.email.bcc')
+
     let emailData = {
         "from": config.get('web.email.from'),
         "to": to,
-        "subject": "Tài khoản của bạn đã được tạo tại Mua Hàng Việt",
+        "bcc": bcc,
+        "subject": "Tài khoản của bạn đã được tạo tại English Study System",
         "html": "Welcome",
         "template": {
             "name": "register",
@@ -31,7 +34,7 @@ exports.sendForgotPasswordEmail = function (request, to, context) {
     let emailData = {
         "from": config.get('web.email.from'),
         "to": to,
-        "subject": "Yêu cầu thay đổi mât khẩu trên hệ thống Mua Hàng Việt",
+        "subject": "Yêu cầu thay đổi mât khẩu trên hệ thống English Study System",
         "html": "Forgot password",
         "template": {
             "name": "forgotpass",

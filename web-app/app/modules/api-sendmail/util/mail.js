@@ -5,13 +5,13 @@ const _ = require('lodash');
 const Email = mongoose.model('Email');
 const nodemailer = require('nodemailer');
 
-let saveMail = function(emailData){
+let saveMail = function (emailData) {
     let email = new Email(emailData);
     let promise = email.save();
     return promise;
 };
 
-let mailer =  function(server, emailData, callback){
+let mailer = function (server, emailData, callback) {
     let config = server.configManager;
     // Create a SMTP transporter object
     let options = config.get('web.mailer.options');
@@ -19,21 +19,22 @@ let mailer =  function(server, emailData, callback){
     var transporter = nodemailer.createTransport(options, defaults);
 
     let message = emailData;
-    if(message.template && message.template.name){
-        let context = _.merge(emailData, message.template.context ? message.template.context : {} );
-        server.render(`api-sendmail/view/${emailData.template.name}`, context, {layout: 'email/layout'}, function(err, html){
+    if (message.template && message.template.name) {
+        let context = _.merge(emailData, message.template.context ? message.template.context : {});
+        server.render(`api-sendmail/view/${emailData.template.name}`, context, { layout: 'email/layout' }, function (err, html) {
             //_.unset(message, 'template');
             message.html = html;
+
             transporter.sendMail(message, callback);
         });
-    }else{
+    } else {
         transporter.sendMail(message, callback);
     }
 };
 
-module.exports = function(server, options){
+module.exports = function (server, options) {
     return {
-        sendMail: function(emailData, callback){
+        sendMail: function (emailData, callback) {
             let promise = saveMail(emailData);
             promise.then(function (emailInfo) {
                 //send email
@@ -45,14 +46,14 @@ module.exports = function(server, options){
                     }
                     server.log(['info'], 'Message sent successfully!');
                     server.log(['info'], 'Server responded with "%s"', info.response);
-                    if(typeof callback === 'function') {
+                    if (typeof callback === 'function') {
                         callback(error, info);
                     }
                 });
 
             }).catch(function (err) {
                 server.log(['mail', 'error'], err);
-                if(typeof callback === 'function') {
+                if (typeof callback === 'function') {
                     callback(err);
                 }
             });

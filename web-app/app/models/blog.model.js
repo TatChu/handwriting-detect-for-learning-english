@@ -23,7 +23,7 @@ var BlogSchema = new Schema({
     },
     type: {
         type: String,
-        enum: ['GB', 'CS', 'BN', 'MV'], // Góc bếp | Chính sách | Banner | Mẹo vặt
+        enum: ['GB', 'CS'],
         default: 'GB'
     },
     meta_title: {

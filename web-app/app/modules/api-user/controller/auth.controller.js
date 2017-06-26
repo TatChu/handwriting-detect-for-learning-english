@@ -388,12 +388,12 @@ function register(request, reply) {
             if (err)
                 return reply(Boom.badRequest(err));
 
-            //send email
-            // if (resp.email) {
-            //     let context = resp;
-            //     let to = { name: resp.name, address: resp.email }
-            //     UserEmail.sendRegisterEmail(request, to, context);
-            // }
+            // send email
+            if (resp.email) {
+                let context = resp;
+                let to = { name: resp.name, address: resp.email }
+                UserEmail.sendRegisterEmail(request, to, context);
+            }
 
             return reply({ phone: resp.phone });
         })
@@ -688,7 +688,7 @@ function googleLogin(request, reply) {
 
 function fogotPassword(request, reply) {
     const config = request.server.configManager;
-    const url = config.get('web.context.settings.services.webUrl') + '/khach-hang/dat-lai-mat-khau/';
+    const url = config.get('web.context.settings.services.webUrl') + '/hoc-vien/dat-lai-mat-khau/';
     const email = request.payload.email;
     const promise = User.findOne({
         email: email

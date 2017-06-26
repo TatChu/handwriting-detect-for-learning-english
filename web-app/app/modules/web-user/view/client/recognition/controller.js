@@ -66,9 +66,9 @@
 					var popupScope = this;
 					$scope.popupScope = {
 						event: 'crop:image',
-						ratio: 1,
-						width: 300,
-						height: 300,
+						// ratio: 1,
+						// width: 300,
+						// height: 300,
 					};
 					$scope.$on('crop:image', function (event, res) {
 						var data = {

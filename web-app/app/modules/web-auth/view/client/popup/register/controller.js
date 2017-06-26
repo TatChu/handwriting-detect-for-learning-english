@@ -1,11 +1,11 @@
-;(function(){
+; (function () {
 	'use strict';
 
 	angular
-	.module('bzAuth')
-	.controller('popRegisterCtrl', popRegisterCtrl);
+		.module('bzAuth')
+		.controller('popRegisterCtrl', popRegisterCtrl);
 
-	function popRegisterCtrl($scope, $rootScope, $state, $window, $bzPopup , $uibModal, authSvc, $uibModalInstance,bzUtilsSvc){
+	function popRegisterCtrl($scope, $rootScope, $state, $window, $bzPopup, $uibModal, authSvc, $uibModalInstance, bzUtilsSvc) {
 		var vmRegister = this
 		//Vars
 		vmRegister.formData = {};
@@ -35,28 +35,28 @@
 		function register(isValid) {
 			vmRegister.submitted = true;
 			vmRegister.lockForm = true;
-			if(isValid) {
+			if (isValid) {
 				vmRegister.formData.cfpassword = vmRegister.formData.password;
-				authSvc.register(vmRegister.formData).then(function(resp){
-					fbq('track', 'CompleteRegistration');
+				authSvc.register(vmRegister.formData).then(function (resp) {
+
 					bzUtilsSvc.removeInfoUser();
 					$bzPopup.toastr({
 						type: 'success',
-						data:{
+						data: {
 							title: 'Thành công',
 							message: "Đăng ký thành công"
 						}
 					});
 					$uibModalInstance.close();
-					//Đăng nhập thành công thì login
+					// login khi đăng nhập thành công
 					login(resp);
-				}).catch(function(err){
+				}).catch(function (err) {
 					vmRegister.err = err.data.message;
 					vmRegister.lockForm = false;
-					if(vmRegister.err != 'email' && vmRegister.err != 'phone'){
+					if (vmRegister.err != 'email' && vmRegister.err != 'phone') {
 						$bzPopup.toastr({
 							type: 'error',
-							data:{
+							data: {
 								title: 'Lỗi',
 								message: "Dữ liệu nhập vào bị lỗi !!"
 							}
@@ -74,46 +74,44 @@
 		}
 
 		function checkPhoneMatch(isValid) {
-			if(vmRegister.formData.cfphone != vmRegister.formData.phone){
+			if (vmRegister.formData.cfphone != vmRegister.formData.phone) {
 				isValid = false;
 				return true;
 			}
 			return false;
 		}
 		function login(user) {
-			console.log(user);
 			var data = {
-				phone : user.phone,
+				phone: user.phone,
 				password: "123",
 				isRegister: true
 			}
-			authSvc.siteLogin(data, function(resp){
-				
+			authSvc.siteLogin(data, function (resp) {
 				$window.location.href = "/";
 			});
 		}
-		function loginFacebook(){
-			authSvc.getFacebook().then(function(user){
+		function loginFacebook() {
+			authSvc.getFacebook().then(function (user) {
 				user.isRegister = true;
-				if(!user.error){
+				if (!user.error) {
 					social('facebook', user);
-					authSvc.facebookLogin(user, function(resp){
+					authSvc.facebookLogin(user, function (resp) {
 						fbq('track', 'CompleteRegistration');
 						bzUtilsSvc.removeInfoUser();
 						$window.location.href = '/';
-					}, function(err){
+					}, function (err) {
 						$bzPopup.toastr({
 							type: 'error',
-							data:{
+							data: {
 								title: 'Đăng ký facebook',
 								message: err.data.message
 							}
 						});
 					});
-				}else{
+				} else {
 					$bzPopup.toastr({
 						type: 'error',
-						data:{
+						data: {
 							title: 'Đăng ký facebook',
 							message: '' + user.error
 						}
@@ -122,28 +120,28 @@
 			});
 		}
 
-		function social(type, user){
-			
+		function social(type, user) {
+
 			vmRegister.social = {
 				type: type,
 				id: user.id,
 				name: user.name,
 				email: user.email,
-				profile_picture:user.picture+'?sz=200'
-				
+				profile_picture: user.picture + '?sz=200'
+
 			};
-			if(type == 'facebook'){
-				vmRegister.social.profile_picture = 'https://graph.facebook.com/v2.5/'+user.id+'/picture?width=200&height=200';
+			if (type == 'facebook') {
+				vmRegister.social.profile_picture = 'https://graph.facebook.com/v2.5/' + user.id + '/picture?width=200&height=200';
 			}
 			/*Thao tác tại đây*/
 		}
-		
+
 		function popLogin() {
 			$uibModalInstance.close();
 			authSvc.popLogin();
 		}
 
 
-	//End func
-}
+		//End func
+	}
 })();

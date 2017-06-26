@@ -1,0 +1,67 @@
+<div id="mod-popup-update-neural" class="popup-log">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Cập nhật mô hình nhận dạng cho học viên <b><em>[[User.name]]</em></b>
+		</h1>
+	</section>
+	<hr class="space">
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="txtData">Dữ liệu mô hình nhận dạng</label>
+					<textarea ng-disabled="data_valid" id="txtData" name="txtData" placeholder="Dán dữ liệu vào đây" style="height: 200px;" class="form-control" type="text"
+					 required ng-model="data" />
+				</div>
+				<div class="check-data" ng-if="data_valid">
+					<ul>
+						<li>
+							<h4>Kết quả huấn luyện: [[dataTest.test.percent_recognition |limitTo : 4]] %</h4>
+						</li>
+						<li>
+							<h4>Số mẫu nhận dạng đúng:  [[dataTest.test.pass]]/[[dataTest.test.test_case]]</h4>
+						</li>
+						<li>
+							<h4>Chi tiết:</h4> <br>
+							<table class="table table-bordered">
+								<tr>
+									<td ng-repeat="detail in dataTest.test.detail" ng-if="$index < 9">[[detail.charecter ]]</td>
+								</tr>
+								<tr>
+									<td ng-repeat="detail in dataTest.test.detail" ng-if="$index < 9"> [[detail.percent |limitTo : 4]]%</td>
+								</tr>
+
+								<tr>
+									<td ng-repeat="detail in dataTest.test.detail" ng-if="$index >= 9 && $index < 18">[[detail.charecter ]]</td>
+								</tr>
+								<tr>
+									<td ng-repeat="detail in dataTest.test.detail" ng-if="$index >= 9 && $index < 18"> [[detail.percent |limitTo : 4]]%</td>
+								</tr>
+
+								<tr>
+									<td ng-repeat="detail in dataTest.test.detail" ng-if="$index >= 18">[[detail.charecter ]]</td>
+								</tr>
+								<tr>
+									<td ng-repeat="detail in dataTest.test.detail" ng-if="$index >= 18"> [[detail.percent |limitTo : 4]]%</td>
+								</tr>
+							</table>
+						</li>
+					</ul>
+				</div>
+				<h3 ng-if="data_valid == false">Dữ liệu không hợp lệ</h3>
+			</div>
+		</div>
+	</section>
+	<div class="modal-footer">
+		<button ng-disabled="data ==''" class="btn btn-primary " ng-click="checkData()">
+			<span>Kiểm tra dữ liệu</span>
+		</button>
+		<button ng-disabled="!data_valid" class="btn btn-success" ng-click="updateData()">
+			<i class="fa fa-cloud-upload" aria-hidden="true"></i>
+			<span>Cập nhật</span>
+		</button>
+		<button class="btn btn-default" type="button" ng-click="$dismiss()">Huỷ</button>
+	</div>
+</div>

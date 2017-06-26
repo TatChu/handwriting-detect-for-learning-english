@@ -818,8 +818,8 @@ function requestRecogniton(request, reply) {
     else {
         User.findOne({ _id: userId }).then(user => {
             if (user) {
-                if (!user.request_recognition) {
-                    user.request_recognition != 'PENDING'
+                if (user.request_recognition && user.request_recognition != 'PENDING') {
+                    user.request_recognition = 'PENDING'
                     user.save().then(user => {
                         return reply({
                             success: true,

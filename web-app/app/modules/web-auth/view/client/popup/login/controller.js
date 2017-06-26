@@ -52,6 +52,7 @@
 
 		function loginFacebook(){
 			authSvc.getFacebook().then(function(user){
+				console.log(user)
 				if(!user.error){
 					social('facebook', user);
 					vmLogin.lockForm = true;

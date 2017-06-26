@@ -20,7 +20,8 @@
                                     Ảnh ký tự: <button type="button" ng-click="vmRecognition.uploadImage(item)" class="btn btn-link">Cập nhật</button>
                                     <br>
 
-                                    <img ng-if="vmRecognition.checkDataItem(item, $index)" ng-src="[[vmRecognition.getLinkItem(item, $index)]]" alt="">
+                                    <img ng-if="vmRecognition.checkDataItem(item, $index)" ng-src="[[vmRecognition.getLinkItem(item, $index)]]" class="img-upload"
+                                        alt="">
                                 </div>
                             </div>
                         </div>
@@ -41,5 +42,9 @@
     <style>
         .button-submit {
             text-align: center;
+        }
+
+        .img-upload {
+            max-width: 100%;
         }
     </style>

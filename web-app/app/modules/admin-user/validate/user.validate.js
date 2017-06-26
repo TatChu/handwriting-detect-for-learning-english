@@ -23,7 +23,9 @@ UserValidate.prototype = (function () {
                 })).description('List Favorite Product'),
                 dob: Joi.date().allow('').description('Date of birthday'),
                 roles: Joi.any().description('Roles'),
-                saleman: Joi.object()
+                saleman: Joi.object(),
+                request_recognition: Joi.string().description('request_recognition'),
+                neural_network_json: Joi.string().description('neural_network_json'),
             }
         },
         update: {
@@ -37,7 +39,8 @@ UserValidate.prototype = (function () {
                 cfpassword: Joi.string(),
                 status: Joi.boolean(),
                 roles: Joi.any().description('Roles'),
-                saleman: Joi.object(),
+                request_recognition: Joi.string().description('request_recognition'),
+                neural_network_json: Joi.string().description('neural_network_json'),
                 customer: Joi.allow(),
                 vocative: Joi.string().allow(''),
                 avatar: Joi.string().allow(''),

@@ -15,7 +15,13 @@ module.exports = {
 
 function folderDefaultUser(request, reply) {
     let config = request.server.configManager;
-    let user_id = request.auth.credentials.uid;
+    let user_id;
+    if (request.params.uid) {
+        user_id = request.params.uid;
+    }
+    else {
+        user_id = request.auth.credentials.uid;
+    }
     if (user_id == '') // user chua dang nhap
         reply.continue();
     else {

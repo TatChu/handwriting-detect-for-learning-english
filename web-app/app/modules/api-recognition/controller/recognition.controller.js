@@ -69,7 +69,6 @@ function analysisImage(request, reply) {
         dirDist: dir
     };
     ImgProcess.analysisImage(dir, name, options).then(res => {
-        console.log(12121121212, res);
         return reply(res);
     }).catch(err => {
         return reply(Boom.badRequest(ErrorHandler.getErrorMessage(err)));

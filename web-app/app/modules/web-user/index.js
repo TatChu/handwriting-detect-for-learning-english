@@ -2,17 +2,18 @@
 
 const UserController = require('./controller/user.controller.js');
 const UserMiddleware = require('./middleware/user.middleware.js');;
+const AclMiddleware = require(BASE_PATH + '/app/utils/middleware/Acl.mdw.js');
 
 exports.register = function (server, options, next) {
     server.route({
         method: 'GET',
-        path: '/khach-hang/thong-tin-tai-khoan',
+        path: '/hoc-vien/thong-tin-tai-khoan',
         handler: UserController.info
     });
 
     server.route({
         method: 'GET',
-        path: '/khach-hang/nhan-dang-chu-cua-toi',
+        path: '/hoc-vien/nhan-dang-chu-cua-toi',
         handler: UserController.recognitionMyData,
         config: {
             pre: [
@@ -22,13 +23,28 @@ exports.register = function (server, options, next) {
     });
     server.route({
         method: 'GET',
-        path: '/khach-hang/bai-hoc-yeu-thich',
+        path: '/hoc-vien/bai-hoc-yeu-thich',
         handler: UserController.favoriteUnit
     });
     server.route({
         method: 'GET',
-        path: '/khach-hang/doi-mat-khau',
+        path: '/hoc-vien/doi-mat-khau',
         handler: UserController.changePass
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/admin/view-data-recogniton/{uid}',
+        handler: UserController.adminDataRecognition,
+        config: {
+            pre: [
+                { method: UserMiddleware.folderDefaultUser, assign: 'userFolder' }
+            ],
+            auth: {
+                strategy: 'jwt',
+                scope: ['admin']
+            },
+        }
     });
 
     next();

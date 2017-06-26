@@ -1,0 +1,55 @@
+<div id="mod-user-recognition" class="module" ng-controller="recognitionDataCtrl as vmRecognition">
+    <div class="container">
+        <div class="row">
+            <div class="col-left col-xs-4">
+                <div class="profile" data-ng-controller="authCtrl as vmAuth">
+                    <h3 class="text-center text-muted">Xem dữ liệu yêu cầu nhận dạng</h3>
+                    <h4 class="text-center text-name">Học viên: <b>{{user.name}}</b></h4>
+                </div>
+            </div>
+            <div class="col-right col-xs-8" ng-cloak>
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default" ng-repeat="item in vmRecognition.arraysChart">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#data_char_[[item]]">
+                                    Ảnh ký tự "[[item]]" <span ng-if="!vmRecognition.checkDataItem(item, $index)">(Chưa có ảnh)</span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="data_char_[[item]]" class="panel-collapse collapse" ng-class="{in: item == 'a'}">
+                            <div class="panel-body">
+                                <div class="scan">
+                                    <!--Ảnh ký tự: <a ng-click="window.open('[[vmRecognition.getLinkItem(item, $index)]]')" class="btn btn-link">Tải xuống</a>-->
+                                    <img ng-if="vmRecognition.checkDataItem(item, $index)" ng-src="[[vmRecognition.getLinkItem(item, $index)]]" class="img-upload"
+                                        alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="button-summit">
+                        <button type="button" ng-disabled="!vmRecognition.isAllowRequest" ng-click="vmRecognition.requestRecogniton()" class="btn btn-success">Gửi yêu cầu nhận dạng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var userFolder = {{{json userFolder}}}
+    </script>
+    <style>
+        .button-submit {
+            text-align: center;
+        }
+
+        .img-upload {
+            max-width: 100%;
+        }
+
+        .text-name {
+            margin-top: 10%;
+        }
+    </style>

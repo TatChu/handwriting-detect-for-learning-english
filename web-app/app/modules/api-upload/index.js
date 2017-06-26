@@ -64,6 +64,7 @@ exports.register = function (server, options, next) {
                     payloadType: 'form'
                 }
             },
+            payload: { maxBytes: 50485760 }
         },
     });
 

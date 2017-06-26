@@ -10,7 +10,8 @@ module.exports = {
     info,
     recognitionMyData,
     changePass,
-    favoriteUnit
+    favoriteUnit,
+    adminDataRecognition
 };
 
 function info(request, reply) {
@@ -74,5 +75,21 @@ function changePass(request, reply) {
     let promise = User.findOne({ _id: uid });
     promise.then(function (user) {
         return reply.view('web-user/view/client/change-pass/view', { data: "", meta: meta }, { layout: 'web/layout' });
+    });
+}
+
+
+
+function adminDataRecognition(request, reply) {
+    let uid = request.params.uid;
+    const Meta = request.server.plugins['service-meta'];
+    var meta = JSON.parse(JSON.stringify(Meta.getMeta('user-recognition')));
+    if (!uid) {
+        return reply.redirect('/');
+    }
+    let userFolder = request.pre.userFolder;
+    let promise = User.findOne({ _id: uid });
+    promise.then(function (user) {
+        return reply.view('web-user/view/client/view-data-recogniton/view', { userFolder, meta: meta, user: user }, { layout: 'web/layout' });
     });
 }

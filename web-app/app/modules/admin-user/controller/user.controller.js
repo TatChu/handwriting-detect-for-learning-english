@@ -2,6 +2,7 @@
 const Boom = require('boom');
 const Joi = require('joi');
 const UserHelper = require(BASE_PATH + '/app/modules/api-user/util/user.js');
+const UserEmail = require(BASE_PATH + '/app/modules/api-user/util/user-email');
 const representUser = 'roles';
 module.exports = {
     create,
@@ -43,6 +44,7 @@ function update(request, reply) {
     // no update password
     delete request.payload.password;
     delete request.payload.cfpassword;
+    const old_status_req = request.pre.user.request_recognition;
     // Nếu user thay đổi email thì kiểm tra trùng email
     if (request.pre.user.email !== request.payload.email) {
         if (request.payload.email !== null && request.payload.email !== "") {
@@ -57,20 +59,25 @@ function update(request, reply) {
      * @param {} error 
      * @param {*} user 
      */
-
     let setRoleAndReply = function (error, user) {
         if (error || user === null) {
             return reply(Boom.badRequest(error));
         }
+        if (user.request_recognition != old_status_req) {
+            let to = { name: user.name, address: user.email }
+            let context = user;
+            console.log('Đang gửi email thông báo user');
+            UserEmail.sendEmailNotifyUpdatedDataNeural(request, to, context);
+        }
 
-        request.auditLog.logEvent(
-            request.auth.credentials.uid,
-            'mongoose',
-            'updateUser',
-            'user',
-            JSON.stringify({ new: user, old: request.pre.user, }),
-            'update user info'
-        );
+        // request.auditLog.logEvent(
+        //     request.auth.credentials.uid,
+        //     'mongoose',
+        //     'updateUser',
+        //     'user',
+        //     JSON.stringify({ new: user, old: request.pre.user, }),
+        //     'update user info'
+        // );
 
         let acl = request.acl;
         acl.removeUserRoles(user._id.toString(), request.pre.roles, function (err) {
@@ -90,13 +97,13 @@ function update(request, reply) {
         UserHelper.getUser('phone', request.payload.phone, function (err, resp) {
             if (resp) return reply(Boom.badRequest("Phone number has used by another account"));
             else
-                UserHelper.updateUser(request.payload, request.pre.user, function (err, resp) {
+                return UserHelper.updateUser(request.payload, request.pre.user, function (err, resp) {
                     setRoleAndReply(err, resp);
                 });
         });
     }
     else
-        UserHelper.updateUser(request.payload, request.pre.user, function (err, resp) {
+        return UserHelper.updateUser(request.payload, request.pre.user, function (err, resp) {
             setRoleAndReply(err, resp);
         });
 

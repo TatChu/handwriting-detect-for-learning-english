@@ -72,10 +72,6 @@ config.web = {
         cc: [],
         bcc: [
             {
-                "name": "Admintrator",
-                "address": "english.study.app@gmail.com"
-            },
-            {
                 "name": "Nguyễn Tất Chủ",
                 "address": "tatchu.it@gmail.com"
             }

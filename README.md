@@ -85,7 +85,7 @@ Project
  		|--utils # phần helper dùng chung cho cả app, chứa middleware, event, socket của app
  		|--views # Chứa layout, partial của (app, module) và chứa helper của hadlebar template 
  	|--node_modules # thư viện node
-    |--gulp # chứa các file phục vụ việc gulp
+    |--gulp # chứa các file phục vụ việc phát triển ứng dụng
  	|--public # phần công cộng
  		|--assets # Chứa (fonts, images, scripts, styles) của site
  		    |--(admin,site)
@@ -95,9 +95,6 @@ Project
                 |--script # Chứa js util và biến setting của (admin,site) (những phần dùng chung)
                 |--styles # Chứa css những phần dùng chung và file main.scss để import css
             |--global # Chứa 
-        |--build # Chứa js,css đã min rồi
-        |--dist # Chứa js,css min và fonts,image để move live
-        |--tmp # Chứa js,css chưa min
         |--libs # Chứa thư viện dùng ngoài không dùng bower
  		|--files # Chứa files upload
 ```

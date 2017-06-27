@@ -100,3 +100,4 @@ Project
         |--tmp # Chứa js,css chưa min
         |--libs # Chứa thư viện dùng ngoài không dùng bower
  		|--files # Chứa files upload
+```

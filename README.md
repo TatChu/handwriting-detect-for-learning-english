@@ -62,66 +62,41 @@ gulp				# In the server folder
 ##Cấu trúc:
 ```bash
 Project
-| 
 |--ocr # Chứa code xử lý nhận dạng chữ
-|--report # Chứa báo cáo đồ án
+    |--code # Chứa mã xử lý
+ 		|-- img-proccess # Chứa mã xử lý ảnh
+		|-- neural-network # Chứa mã xử lý mạng nơ-ron
+		|-- image	# Thư mục chứa ảnh xử lý
+	|--package.json  # Tập tin khai báo module sử dụng trong xử lý mạng nơn-ron
 |--web-app # Chứa code website 
-    |
+	|--package.json  # Tập tin khai báo module sử dụng trong ứng dụng web
     |--app # Chứa app chính
-        |
         |--bootstrap # boot đầu tiên khi vào app
- 		|
  		|--config # Chứa những config của site
- 		|
  		|--lib # Chứa config thư viện được sử dụng và các plugin
- 		|
  		|--model # Chứa tất model (colection) trong mongoses
- 		|
  		|--modules # Gồm những module admin, web, api 
- 			|
  			|--(admin,web,api)-*
- 				|
  				|--controller # Chứa controller server của module đó
- 				|
  				|--util # chứa helper những function sử dụng chung cho module đó phía server 
- 				|
  				|--view # Phần client
- 					|
  					|--client # Chứa code client của module đó 
                 index.js    # File chứa chính để load module đó vào hapi 
- 		|
  		|--utils # phần helper dùng chung cho cả app, chứa middleware, event, socket của app
- 		|
  		|--views # Chứa layout, partial của (app, module) và chứa helper của hadlebar template 
- 	|
  	|--node_modules # thư viện node
- 	|
     |--gulp # chứa các file phục vụ việc gulp
-    |
  	|--public # phần công cộng
- 		|
  		|--assets # Chứa (fonts, images, scripts, styles) của site
- 		    |
  		    |--(admin,site)
-                |
                 |--bower_components # Chứa thư viện dung bower.
-                |
                 |--fonts # Chứa fonts
-                |
                 |--images # Chứa Hình ảnh cắt html
-                |
                 |--script # Chứa js util và biến setting của (admin,site) (những phần dùng chung)
-                |
                 |--styles # Chứa css những phần dùng chung và file main.scss để import css
-            |
             |--global # Chứa 
-        |
         |--build # Chứa js,css đã min rồi
-        |
         |--dist # Chứa js,css min và fonts,image để move live
-        |
         |--tmp # Chứa js,css chưa min
-        |
         |--libs # Chứa thư viện dùng ngoài không dùng bower
- 		|
  		|--files # Chứa files upload

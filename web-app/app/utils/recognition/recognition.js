@@ -6,15 +6,21 @@ const nguong = 20;
 const arraysChart = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'l', 'k', 'm', 'n', 'o',
     'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-// TEST NHẬN DẠNG CHỮ FROM LOCAL KHÔNG CÓ TRONG BỘ TRAIN VÀ TEST
 var json = require('./network.json');
-let net = new brain.NeuralNetwork();
-net.fromJSON(json);
+
 
 module.exports = {
     recognition
 }
-function recognition(imgSrc) {
+function recognition(imgSrc, options) {
+    if (options && options.neuralJson) {
+        net.fromJSON(neuralJson);
+    }
+    else{
+        net.fromJSON(neuralJson);
+    }
+    let net = new brain.NeuralNetwork();
+
     return new Promise(function (resolve, reject) {
         let input = [];
         Jimp.read(imgSrc, function (err, image) {

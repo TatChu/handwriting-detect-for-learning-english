@@ -20,12 +20,24 @@ module.exports = {
 };
 
 function recognition(request, reply) {
+    let config = request.server.configManager;
+    let tempImgContentPath = config.get('web.upload.tempImgPath') || 'public/files/tmp/';
+
     let image = request.payload.name;
-    RecognitionUtil.recognition('public/files/tmp/' + image).then(function (resp) {
-        return reply(resp);
-    }).catch(function (err) {
-        console.log('err recognition', err);
-        return reply(Boom.badRequest(ErrorEventHandler.getErrorMessage(err)));
+    let user_id = request.auth.credentials.uid;
+    User.findOne({
+        _id: user_id
+    }, '_id neural_network_json ').lear().exec().then(user => {
+        let neural_network_json = JSON.parse(JSON.stringify(user.neural_network_json));
+        if (neural_network_json) {
+        }
+
+        RecognitionUtil.recognition(tempImgContentPath + imageuser, user.neural_network_json).then(function (resp) {
+            return reply(resp);
+        }).catch(function (err) {
+            console.log('err recognition', err);
+            return reply(Boom.badRequest(ErrorEventHandler.getErrorMessage(err)));
+        });
     });
 }
 

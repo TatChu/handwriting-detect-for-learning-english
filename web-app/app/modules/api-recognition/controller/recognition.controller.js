@@ -29,7 +29,7 @@ function recognition(request, reply) {
         _id: user_id
     }, '_id neural_network_json ').exec().then(user => {
         // console.log(user.neural_network_json)
-        let neural_network_json = JSON.parse(JSON.stringify(user.neural_network_json));
+        let neural_network_json = JSON.parse(user.neural_network_json);
         let options = {
             neuralJson: null
         }

@@ -15,7 +15,7 @@ module.exports = {
 }
 function recognition(imgSrc, options) {
     if (options && options.neuralJson) {
-        net.fromJSON(neuralJson);
+        net.fromJSON(options.neuralJson);
     }
     else {
         net.fromJSON(json);

@@ -215,6 +215,9 @@ var exercise_2_Ctrl = (function () {
         function delImageRecog(index) {
             if (vmExercise_2.imgProcessed.data.length > vmExercise_2.word.word.length) {
                 vmExercise_2.imgProcessed.data.splice(index, 1);
+                if (vmExercise_2.imgProcessed.data.length == vmExercise_2.word.word.length) {
+                    checkResult();
+                }
             }
         }
 

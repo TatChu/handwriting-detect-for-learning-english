@@ -32,7 +32,7 @@ var usersCtrl = (function () {
 		vmUsers.active = active;
 		vmUsers.sort = sort;
 		vmUsers.remove = remove;
-
+		vmUsers.exportExcel = exportExcel;
 		// Init
 		getData();
 
@@ -143,6 +143,74 @@ var usersCtrl = (function () {
 					};
 				}
 			});
+		}
+
+		// Export Excel
+		function exportExcel(detail) {
+			console.log(123123, ExcelJs);
+			vmUsers.processingExport = true;
+			var data = [[
+				'STT', 'Tên tài khoản', 'Điện thoại', 'Email', 'Ngày đăng ký', 'Trạng thái', 'Facebook', 'Ngày sinh'
+			]];
+
+			var options = {
+				type: 'xlsx',
+				sheetName: 'Users',
+				fileName: 'User_' + moment(new Date()).format('DD/MM/YYYY'),
+			};
+			var query = (JSON.parse(JSON.stringify(vmUsers.queryParams)));
+			query.limit = vmUsers.totalItems;
+			query.page = 1;
+
+			customResourceSrv.api($window.settings.services.apiUrl + '/user')
+				.get(query, function (resp) {
+					var checkPushData = function (data, value_default, array) {
+						if (data && data !== 'undefined') array.push('' + data)
+						else array.push(value_default);
+						return array;
+					}
+					resp.items.forEach(function (item, index) {
+						var row = [index + 1];
+						row = checkPushData(item.name, '', row);
+						row = checkPushData(item.phone, '', row);
+						row = checkPushData(item.email, '', row);
+
+						var createdAt = moment(item.createdAt).format('DD/MM/YYYY');
+						row.push(createdAt);
+
+
+						if (item.status) row.push('Acitve')
+						else row.push('Inactive');
+
+						if (item.provider_id) {
+							row.push(('https://www.fb.com/' + item.provider_id));
+						}
+						else row.push('');
+
+						if (item.dob) {
+							var dob = moment(item.dob).format('DD/MM/YYYY');
+							row.push(dob);
+						}
+						else row.push('');
+
+						data.push(row);
+
+					})
+
+					ExcelJs.exportExcel(data, options);
+					vmUsers.processingExport = false;
+
+				}, function (err) {
+					console.log(err);
+					vmUsers.btnExport = false;
+					$bzPopup.toastr({
+						type: 'error',
+						data: {
+							title: 'Thất bại',
+							message: 'Không thể xuất. Hãy thử lại'
+						}
+					});
+				});
 		}
 	}
 

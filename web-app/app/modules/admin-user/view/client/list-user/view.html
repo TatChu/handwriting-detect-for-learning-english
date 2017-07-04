@@ -23,11 +23,16 @@
 					<div class="box-body">
 						<div class="form-inline pull-right">
 							<div class="form-group form-group-item">
+								<button class="btn btn-warning btn-sm btn-flat" ng-disabled="vmUsers.processingExport" ng-click="vmUsers.exportExcel()">
+                                    <span>Xuất Excel</span>
+                                </button>
+
 								<a class="btn btn-primary btn-sm btn-flat" ui-sref="user-edit({module: 'user',id:null})">
 									<i class="glyphicon glyphicon-plus"></i>
 									<span>Thêm</span>
 								</a>
 							</div>
+							<div class="clearfix"></div>
 						</div>
 						<div class="clearfix"></div>
 						<div class="row">

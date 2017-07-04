@@ -7,6 +7,7 @@ const arraysChart = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'l', 'k',
     'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 var json = require('./network.json');
+let net = new brain.NeuralNetwork();
 
 
 module.exports = {
@@ -16,11 +17,9 @@ function recognition(imgSrc, options) {
     if (options && options.neuralJson) {
         net.fromJSON(neuralJson);
     }
-    else{
-        net.fromJSON(neuralJson);
+    else {
+        net.fromJSON(json);
     }
-    let net = new brain.NeuralNetwork();
-
     return new Promise(function (resolve, reject) {
         let input = [];
         Jimp.read(imgSrc, function (err, image) {

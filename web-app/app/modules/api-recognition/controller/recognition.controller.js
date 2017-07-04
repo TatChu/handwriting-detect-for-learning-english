@@ -27,12 +27,16 @@ function recognition(request, reply) {
     let user_id = request.auth.credentials.uid;
     User.findOne({
         _id: user_id
-    }, '_id neural_network_json ').lear().exec().then(user => {
+    }, '_id neural_network_json ').exec().then(user => {
+        // console.log(user.neural_network_json)
         let neural_network_json = JSON.parse(JSON.stringify(user.neural_network_json));
-        if (neural_network_json) {
+        let options = {
+            neuralJson: null
         }
-
-        RecognitionUtil.recognition(tempImgContentPath + imageuser, user.neural_network_json).then(function (resp) {
+        if (neural_network_json && neural_network_json.net && neural_network_json.test) {
+            options.neuralJson = neural_network_json.net;
+        }
+        RecognitionUtil.recognition(tempImgContentPath + image, options).then(function (resp) {
             return reply(resp);
         }).catch(function (err) {
             console.log('err recognition', err);

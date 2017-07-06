@@ -76,7 +76,7 @@ function PreProcess(imgDir, imgName, data) {
                     for (let i = 0; i < contours.size(); i++) {
                         let bound = contours.boundingRect(i);
 
-                        if (bound.width > 5 && bound.height > 5 && bound.width < 180 && bound.height < 180) {
+                        if (bound.width > 7 && bound.height > 7 && bound.width < 180 && bound.height < 180) {
                             listAllBound.push(bound);
                         }
                     }
@@ -194,13 +194,22 @@ function PreProcess(imgDir, imgName, data) {
 //     console.log(res.listImage)
 // })
 
-arrayChart.forEachEmission((character, index, done) => {
-    PreProcess('image/bang chu cai/', character + '.jpg', {
-        dirDist: 'image/output/' + character
-    }).then(function (res) {
-        console.log('Done: ' + character)
-        done();
-    })
-}, function () {
-    console.log('DONE');
+//Xử lý tất cả
+// arrayChart.forEachEmission((character, index, done) => {
+//     PreProcess('image/bang chu cai/', character + '.jpg', {
+//         dirDist: 'image/output/' + character
+//     }).then(function (res) {
+//         console.log('Done: ' + character)
+//         done();
+//     })
+// }, function () {
+//     console.log('DONE');
+// })
+
+// Xử lý 1 ảnh
+let character = 'j';
+PreProcess('image/bang chu cai/', character + '.jpg', {
+    dirDist: 'image/output/' + character
+}).then(function (res) {
+    console.log('Done: ' + character)
 })

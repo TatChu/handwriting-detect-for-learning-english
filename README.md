@@ -63,15 +63,15 @@ gulp				# In the server folder
 ```bash
 Project
 |--ocr # Chứa code xử lý nhận dạng chữ
-    |--code # Chứa mã xử lý
- 		|-- img-proccess # Chứa mã xử lý ảnh
-		|-- neural-network # Chứa mã xử lý mạng nơ-ron
-		|-- image	# Thư mục chứa ảnh xử lý
-	|--package.json  # Tập tin khai báo module sử dụng trong xử lý mạng nơn-ron
+    |--code # Chứa mã xử lý
+        |-- img-proccess # Chứa mã xử lý ảnh
+        |-- neural-network # Chứa mã xử lý mạng nơ-ron
+        |-- image	# Thư mục chứa ảnh xử lý
+    |--package.json  # Tập tin khai báo module sử dụng trong xử lý mạng nơn-ron
 |--web-app # Chứa code website 
-	|--package.json  # Tập tin khai báo module sử dụng trong ứng dụng web
-    |--app # Chứa app chính
-        |--bootstrap # boot đầu tiên khi vào app
+    |--package.json  # Tập tin khai báo module sử dụng trong ứng dụng web
+    |--app # Chứa app chính
+        |--bootstrap # boot đầu tiên khi vào app
  		|--config # Chứa những config của site
  		|--lib # Chứa config thư viện được sử dụng và các plugin
  		|--model # Chứa tất model (colection) trong mongoses
@@ -96,5 +96,5 @@ Project
                 |--styles # Chứa css những phần dùng chung và file main.scss để import css
             |--global # Chứa 
         |--libs # Chứa thư viện dùng ngoài không dùng bower
- 		|--files # Chứa files upload
+        |--files # Chứa files upload
 ```

@@ -36,7 +36,7 @@ node export    # Run this command to export your cms data and share to team memb
 ```
 - Default CMS Account
 ```bash
-admin@gmail.com/iii3studi1
+tatchu.it@gmail.com/8888888
 
 ```
 

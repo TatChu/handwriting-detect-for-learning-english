@@ -5,17 +5,17 @@ English Study App
 	- Name: Nguyễn Tất Chủ
 	- Class: 55CNTT1.NTU
 ## Requirements
-### Dev
-- Nodejs 7.0 and above
-- MongoDB
-- Redis
+### Enviroment required
+- Nodejs 6.0 and above 	(https://nodejs.org/en/)
+- MongoDB		(https://www.mongodb.com)
+- Redis			(https://github.com/uglide/RedisDesktopManager)
 - Nodemon: `npm install -g nodemon`
 - Yarn: `npm install -g yarn`
 - OpenCV 		#version < 3
 
 Create file development.conf.js in /web-app/app/config with copy example_development.config.js
 
-## Install
+## Develop and deploy
 
 ```bash
 cd web           # Change directory to web

@@ -13,11 +13,7 @@ English Study App
 - Yarn: `npm install -g yarn`
 - OpenCV 		#version < 3
 
-Create file development.conf.js in /serer/app/config with copy example_development.config.js
-
-### Production
-- Dev +
-- pm2
+Create file development.conf.js in /web-app/app/config with copy example_development.config.js
 
 ## Install
 
@@ -26,7 +22,7 @@ cd web           # Change directory to web
 yarn install     # Install nodejs dependency
 
 ```
-- Add default database
+- Init admin account
 `node commander initRoleUsers`
 
 ```
@@ -45,7 +41,7 @@ nodemon app         # In the server folder
 gulp				# In the server folder
 ```
 ## List services:
-- API Server: [http://localhost:9022/](http://localhost:9022/documentation)
+- API Server: [http://localhost:9022/]
 - Admin CMS: [http://localhost:9021/]
 - Web:  [http://localhost:9020/)
 

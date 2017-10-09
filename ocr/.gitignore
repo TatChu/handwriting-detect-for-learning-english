@@ -1,0 +1,9 @@
+/ocr/*.jpg
+/ocr/image/*/*
+
+/ocr/image/*/*.json
+/ocr/tmp/*/*
+/ocr/test/*.*
+*.vscode
+.ocr/data/*.*
+/node_modules/*

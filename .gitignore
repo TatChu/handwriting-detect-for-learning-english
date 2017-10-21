@@ -6,3 +6,4 @@
 /ocr/test/*.*
 *.vscode
 .ocr/data/*.*
+ocr/node_modules/

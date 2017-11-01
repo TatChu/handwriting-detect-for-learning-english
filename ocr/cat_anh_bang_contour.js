@@ -2,7 +2,7 @@ const cv = require('opencv');
 const fs = require('fs');
 const Jimp = require('jimp');
 
-const height_crop = 15, width_crop = 10;
+const height_crop = 40, width_crop = 40;
 const nguong = 210;
 const whitePixel = Jimp.rgbaToInt(255, 255, 255, 255);
 const blackPixel = Jimp.rgbaToInt(0, 0, 0, 255);
@@ -10,7 +10,6 @@ const WHITE = [255, 255, 255];
 const GREEN = [0, 255, 0];
 const BLACK = [0, 0, 0];
 const thickness = 1;
-const Promise = require("bluebird");
 
 require('async-arrays').proto();
 const arrayChart = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'l', 'k', 'm', 'n', 'o',
@@ -43,7 +42,7 @@ function PreProcess(imgDir, imgName, data) {
                         reject(new Error('Image has no size'));
                     }
                     // Chuyen ve anh xam
-                    // img.convertGrayscale();
+                    img.convertGrayscale();
 
                     // img.save(imgDir + '1_' + imgName);
 
@@ -59,7 +58,7 @@ function PreProcess(imgDir, imgName, data) {
                     const lowThresh = data.lowThresh || 0; // càng lớn càng mất nét
                     const highThresh = data.highThresh || 100; // cang lon loc cang manh
                     img.canny(lowThresh, highThresh);
-                    img.save(imgDir + '/_1' + imgName);
+                    // img.save(imgDir + '/3_' + imgName);
 
                     // lam beo chu
                     const iterations = 2; // cang lon chu cang beo'
@@ -123,18 +122,17 @@ function PreProcess(imgDir, imgName, data) {
                         fs.mkdirSync(data.dirDist)
                     }
                     let listImageCroped = [];
+                    var dx = 10; dy_top = 25; dy_bottom = 25;
+
                     listBoundAccept.forEach(function (item, index) {
-                        if (item) {
+                        if (item && item.width > 5 && item.height > 15 && (item.x + item.width + dx) < 3000 && (item.y - dy_top) > 0 && (item.y + item.height + dy_top + dy_bottom) < 2000) {
+                            var imgCrop = imgSave.crop(item.x, item.y - dy_top, item.width + dx, item.height + dy_top + dy_bottom);
+                            // imgSave.rectangle([item.x, item.y - dy_top], [item.width + dx, item.height + dy_top + dy_bottom], GREEN, 1);
 
-                            var imgCrop = imgSave.crop(item.x, item.y, item.width, item.height);
-                            imgSave.rectangle([item.x, item.y], [item.width, item.height], GREEN, 1);
-
-                            imgCrop.resize(width_crop, height_crop);
                             let newName = imgName + '_' + index + '.jpg';
                             var path_save = data.dirDist + '/' + newName;
 
                             Jimp.read(imgCrop.toBuffer(), function (err, image) {
-
                                 this.scan(0, 0, image.bitmap.width, image.bitmap.height, function (x, y, idx) {
 
                                     var red = this.bitmap.data[idx + 0];
@@ -149,29 +147,10 @@ function PreProcess(imgDir, imgName, data) {
                                     else {
                                         image.setPixelColor(whitePixel, x, y);
                                     }
-                                }).write(path_save, function () {
-                                    // console.log(i, j, name, input.length);
-
-                                    // dataTrain.input.push(input);
-                                    // dataTrain.output.push(output);
-                                    // for (var u = size; u < size * size; u += size) {
-                                    //     let row = '';
-                                    //     for (var v = u - size; v < u; v++) {
-                                    //         row += input[v];
-                                    //     }
-                                    //     console.log(row);
-                                    // }
-                                    listImageCroped.push({
-                                        image: newName,
-                                        detail: item
-                                    });
-                                    // imgCrop.save(path_save);
-
-                                    listImageCroped.push({
-                                        image: newName,
-                                        detail: item
-                                    });
                                 })
+                                .autocrop()
+                                .resize(width_crop, height_crop)
+                                .write(path_save)
                             })
                         }
                     })
@@ -207,8 +186,8 @@ function PreProcess(imgDir, imgName, data) {
 // })
 
 // Xử lý 1 ảnh
-let character = 'i';
-PreProcess('image/i/', character + '.jpg', {
+let character = 'ij';
+PreProcess('image/', character + '.jpg', {
     dirDist: 'image/output/' + character
 }).then(function (res) {
     console.log('Done: ' + character)

@@ -207,8 +207,8 @@ function PreProcess(imgDir, imgName, data) {
 // })
 
 // Xử lý 1 ảnh
-let character = 'j';
-PreProcess('image/bang chu cai/', character + '.jpg', {
+let character = 'i';
+PreProcess('image/i/', character + '.jpg', {
     dirDist: 'image/output/' + character
 }).then(function (res) {
     console.log('Done: ' + character)

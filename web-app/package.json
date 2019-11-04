@@ -44,7 +44,7 @@
     "kue-scheduler": "^0.6.5",
     "moment": "^2.15.1",
     "mongoosastic": "^4.0.2",
-    "mongoose": "^4.9.2",
+    "mongoose": "^5.7.5",
     "mongoose-pagination": "^1.0.0",
     "nodemailer": "^2.6.0",
     "numeral": "^2.0.6",

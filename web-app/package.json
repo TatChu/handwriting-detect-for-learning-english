@@ -17,7 +17,7 @@
     "asyncawait": "^1.0.6",
     "audit-log": "^0.9.1",
     "babel": "^6.5.2",
-    "bcrypt": "^0.8.7",
+    "bcrypt": "^5.0.0",
     "bluebird": "^3.5.0",
     "boom": "^3.2.2",
     "brain": "^0.7.0",

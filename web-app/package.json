@@ -25,7 +25,7 @@
     "elasticsearch": "^11.0.1",
     "glob": "^7.0.5",
     "gulp-rename": "^1.2.2",
-    "handlebars": "^4.0.5",
+    "handlebars": "^4.5.3",
     "handlebars-helpers": "^0.8.2",
     "hapi": "^14.1.0",
     "hapi-alive": "^1.4.0",

@@ -27,10 +27,7 @@ yarn install     # Install nodejs dependency
 
 ```
 - Default CMS Account
-```bash
-tatchu.it@gmail.com/88888888
-
-```
+`Please contact`
 
 ## How to run:
 - Using Gulp
